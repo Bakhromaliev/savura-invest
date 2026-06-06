@@ -699,7 +699,12 @@ function FundamentalTool(props){
     if(inSample){setData(Object.assign({},SAMPLE[tk],{ticker:tk,_sample:true}));setLoading(false);}
     doFetch(tk,function(res,err){
       if(res&&res.found===false){if(!inSample)setError(t.errNF);setLoading(false);return;}
-      if(res&&res.ticker){setData(Object.assign({},res,{_live:true}));setLoading(false);return;}
+      if(res&&res.ticker){
+        var base=inSample?SAMPLE[tk]:{};
+        var merged=Object.assign({},base,res,{_live:true,ticker:tk});
+        if(!merged.price&&base&&base.price)merged.price=base.price;
+        setData(merged);setLoading(false);return;
+      }
       if(!inSample){setError(t.errLive+(err?" - "+err:""));setLoading(false);}
     });
   }
