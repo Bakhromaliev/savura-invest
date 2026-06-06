@@ -21,22 +21,20 @@ export default async function handler(req, res) {
   const AV_URL = `https://www.alphavantage.co/query`;
   let ov={}, qt={}, bs={};
   try {
-    const [ovR, qtR, bsR] = await Promise.all([
-      fetch(`${AV_URL}?function=OVERVIEW&symbol=${sym}&apikey=${AV}`),
-      fetch(`${AV_URL}?function=GLOBAL_QUOTE&symbol=${sym}&apikey=${AV}`),
-      fetch(`${AV_URL}?function=BALANCE_SHEET&symbol=${sym}&apikey=${AV}`)
-    ]);
+    // Sequential calls to stay within 5 req/min rate limit
+    const ovR = await fetch(`${AV_URL}?function=OVERVIEW&symbol=${sym}&apikey=${AV}`);
     ov = await ovR.json();
+    if (!ov.Symbol) {
+      if (ov.Note||ov.Information) return res.status(429).json({ error: 'Rate limit' });
+      return res.json({ found: false });
+    }
+    const qtR = await fetch(`${AV_URL}?function=GLOBAL_QUOTE&symbol=${sym}&apikey=${AV}`);
     qt = await qtR.json();
+    const bsR = await fetch(`${AV_URL}?function=BALANCE_SHEET&symbol=${sym}&apikey=${AV}`);
     bs = await bsR.json();
   } catch(e) { return res.status(500).json({ error: 'Alpha Vantage error: '+e.message }); }
 
-  // Check if ticker exists
-  if (!ov.Symbol || ov.Symbol !== sym) {
-    // Rate limit check
-    if (ov.Note || ov.Information) return res.status(429).json({ error: 'Rate limit: '+( ov.Note||ov.Information).slice(0,80) });
-    return res.json({ found: false });
-  }
+  // Ticker check handled above in sequential block
 
   // ── 2. Parse Alpha Vantage data ──────────────────────────────
   const price       = n(qt['Global Quote']?.['05. price']);
@@ -70,22 +68,26 @@ export default async function handler(req, res) {
   // ── 3. Balance Sheet — Current Ratio, D/E ───────────────────
   let curR=null, qkR=null, d2e=null, d2a=null, cashR=null;
   try {
-    const qtr = bs.quarterlyReports?.[0] || bs.annualReports?.[0] || {};
-    const curA = n(qtr.totalCurrentAssets);
-    const curL = n(qtr.totalCurrentLiabilities);
-    const inv  = n(qtr.inventory);
-    const cash = n(qtr.cashAndShortTermInvestments)||n(qtr.cashAndCashEquivalentsAtCarryingValue);
-    const debt = n(qtr.shortLongTermDebtTotal)||n(qtr.longTermDebt)||0;
-    const eq   = n(qtr.totalShareholderEquity)||n(qtr.stockholdersEquity);
-    const totA = n(qtr.totalAssets);
-
-    if (curA && curL) {
+    // Try quarterly first, then annual
+    const rpts = bs.quarterlyReports || bs.annualReports || [];
+    const qtr = rpts[0] || {};
+    const g = (...keys) => { for(const k of keys){ const v=n(qtr[k]); if(v!=null) return v; } return null; };
+    const curA = g('totalCurrentAssets','currentAssets');
+    const curL = g('totalCurrentLiabilities','currentLiabilities');
+    const inv  = g('inventory','inventories');
+    const cash = g('cashAndShortTermInvestments','cashAndCashEquivalentsAtCarryingValue','cash');
+    const ltd  = g('longTermDebt','longTermDebtNoncurrent');
+    const std  = g('shortTermDebt','currentPortionOfLongTermDebt','shortLongTermDebt');
+    const debt = (ltd||0) + (std||0);
+    const eq   = g('totalShareholderEquity','stockholdersEquity','totalStockholdersEquity','shareHolderEquity');
+    const totA = g('totalAssets','assets');
+    if (curA && curL && curL > 0) {
       curR  = f2(curA/curL);
-      if (inv  != null) qkR = f2((curA-inv)/curL);
-      if (cash != null) cashR = f2(cash/curL);
+      qkR   = inv!=null ? f2((curA-Math.max(0,inv))/curL) : f2(curA/curL);
+      if (cash!=null) cashR = f2(cash/curL);
     }
-    if (debt != null && eq) d2e = f2(debt/eq);
-    if (debt != null && totA) d2a = f2(debt/totA);
+    if (debt > 0 && eq && eq > 0) d2e = f2(debt/eq);
+    if (debt > 0 && totA && totA > 0) d2a = f2(debt/totA);
   } catch {}
 
   // ── 4. Claude haiku — ROIC, interest coverage, risk booleans ─
