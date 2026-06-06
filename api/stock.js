@@ -40,12 +40,11 @@ export default async function handler(req, res) {
 
   // ── 2. ALPHA VANTAGE: OVERVIEW + INCOME_STATEMENT + BALANCE_SHEET ──
   const AV_BASE = 'https://www.alphavantage.co/query';
-  const [ovR, isR, bsR] = await Promise.all([
-    fetch(`${AV_BASE}?function=OVERVIEW&symbol=${sym}&apikey=${AV}`),
-    fetch(`${AV_BASE}?function=INCOME_STATEMENT&symbol=${sym}&apikey=${AV}`),
-    fetch(`${AV_BASE}?function=BALANCE_SHEET&symbol=${sym}&apikey=${AV}`)
-  ]);
-  const [ov, is, bs] = await Promise.all([ovR.json(), isR.json(), bsR.json()]);
+  // 1 call only to stay within 25/day free limit
+  const ovR = await fetch(`${AV_BASE}?function=OVERVIEW&symbol=${sym}&apikey=${AV}`);
+  const ov = await ovR.json();
+  const is = { annualReports: [] };
+  const bs = { quarterlyReports: [], annualReports: [] };
 
   if (!ov.Symbol) {
     if (ov.Note || ov.Information) return res.status(429).json({ error: 'AV rate limit' });
