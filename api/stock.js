@@ -64,7 +64,7 @@ export default async function handler(req, res) {
       const r0=n(ann[0].totalRevenue), r1=n(ann[1].totalRevenue);
       if(r0&&r1&&r1!==0) revGrowth=+(  (r0-r1)/Math.abs(r1)*100).toFixed(2);
       // Annual YoY EPS growth
-      const e0=n(ann[0].reportedEPS||ann[0].eps), e1=n(ann[1].reportedEPS||ann[1].eps);
+      const e0=n(ann[0].dilutedEPS||ann[0].reportedEPS||ann[0].eps||ann[0].netIncome&&n(ann[0].sharesOutstandingDiluted)?n(ann[0].netIncome)/n(ann[0].sharesOutstandingDiluted):null), e1=n(ann[1].dilutedEPS||ann[1].reportedEPS||ann[1].eps||null);
       if(e0&&e1&&e1!==0) epsGrowth=+((e0-e1)/Math.abs(e1)*100).toFixed(2);
     }
     // Balance sheet basics from quarterly income statement context
@@ -94,12 +94,23 @@ export default async function handler(req, res) {
   let roic=null, intCov=null, pcf=null, isDefensive=false, isLeader=false, legalOk=true, beatSP500=false;
   if(AIKEY){
     try{
-      const prompt=`Stock: ${sym} (${ov.Name}). Sector: ${ov.Sector}. Today: ${today}.
-Known: ROE=${p(ov.ReturnOnEquityTTM)}%, ROA=${p(ov.ReturnOnAssetsTTM)}%, NetMargin=${p(ov.ProfitMargin)}%
-RevenueTTM=$${revTTM?+(revTTM/1e9).toFixed(1):'?'}B, D/E=${d2e??'unknown'}, CurrentRatio=${curR??'unknown'}.
-Return ONLY compact JSON (no text):
-{"roic":number,"interestCoverage":number,"pcf":number_or_null,"currentRatio":${curR??'number'},"quickRatio":${qkR??'number'},"debtToEquity":${d2e??'number'},"isDefensiveSector":bool,"isIndustryLeader":bool,"freeFromLegalIssues":bool,"outperformedSP500_5y":bool}
-Rules: isDefensiveSector true ONLY for Healthcare/Utilities/Consumer Staples/Energy. roic as percent like 33.23.`;
+      const prompt=`Stock: ${sym} (${ov.Name}). Sector: ${ov.Sector}. Industry: ${ov.Industry}. Today: ${today}.
+Known from Alpha Vantage: ROE=${p(ov.ReturnOnEquityTTM)}%, ROA=${p(ov.ReturnOnAssetsTTM)}%, NetMargin=${p(ov.ProfitMargin)}%, RevenueTTM=$${revTTM?+(revTTM/1e9).toFixed(1):'?'}B TTM.
+Provide EXACT values from the most recent quarterly SEC filing. Return ONLY this JSON (no text, no markdown):
+{
+"roic": exact ROIC % like 33.23,
+"interestCoverage": exact like 31.95,
+"pcf": P/FCF ratio like 67.32 or null,
+"currentRatio": exact like 2.51,
+"quickRatio": exact like 1.62,
+"debtToEquity": exact like 0.30,
+"revenueGrowthAnnual": annual YoY revenue growth % like 2.1,
+"epsGrowthAnnual": annual YoY EPS growth % like 19.6,
+"isDefensiveSector": false (true ONLY for Healthcare/Utilities/Consumer Staples/Energy),
+"isIndustryLeader": true if top-5 market cap in semiconductor equipment,
+"freeFromLegalIssues": true if no major ongoing lawsuits or gov enforcement actions (export controls alone = still true),
+"outperformedSP500_5y": true if 5-year total return > S&P 500
+}`;
       const ar=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
         headers:{'Content-Type':'application/json','x-api-key':AIKEY,'anthropic-version':'2023-06-01'},
         body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:200,messages:[{role:'user',content:prompt}]})});
@@ -112,7 +123,9 @@ Rules: isDefensiveSector true ONLY for Healthcare/Utilities/Consumer Staples/Ene
           if(qkR==null)qkR=ai.quickRatio!=null?f2(ai.quickRatio):null;
           if(d2e==null)d2e=ai.debtToEquity!=null?f2(ai.debtToEquity):null;
           isDefensive=!!ai.isDefensiveSector; isLeader=!!ai.isIndustryLeader;
-          legalOk=!!ai.freeFromLegalIssues; beatSP500=!!ai.outperformedSP500_5y;}}
+          legalOk=!!ai.freeFromLegalIssues; beatSP500=!!ai.outperformedSP500_5y;
+          if(revGrowth==null&&ai.revenueGrowthAnnual!=null)revGrowth=f2(ai.revenueGrowthAnnual);
+          if(epsGrowth==null&&ai.epsGrowthAnnual!=null)epsGrowth=f2(ai.epsGrowthAnnual);}}
     }catch{}
   }
 
