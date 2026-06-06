@@ -1,69 +1,81 @@
 export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const { symbol } = req.query;
   if (!symbol) return res.status(400).json({ error: 'symbol required' });
-  
-  const key = process.env.FINNHUB_KEY;
-  if (!key) return res.status(500).json({ error: 'API key not configured' });
+
+  const sym = symbol.toUpperCase().trim();
 
   try {
-    const [quoteR, profileR, metricsR] = await Promise.all([
-      fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${key}`),
-      fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${key}`),
-      fetch(`https://finnhub.io/api/v1/stock/metric?symbol=${symbol}&metric=all&token=${key}`)
-    ]);
+    // Yahoo Finance quoteSummary - no API key needed
+    const modules = 'price,summaryDetail,defaultKeyStatistics,financialData,assetProfile';
+    const url = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${sym}?modules=${modules}`;
     
-    const [quote, profile, metricsData] = await Promise.all([
-      quoteR.json(), profileR.json(), metricsR.json()
-    ]);
-    
-    if (!profile || !profile.name) {
-      return res.json({ found: false });
-    }
-    
-    const m = metricsData.metric || {};
-    
+    const r = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json' }
+    });
+
+    if (!r.ok) return res.json({ found: false });
+
+    const body = await r.json();
+    const q = body?.quoteSummary;
+    if (!q || q.error || !q.result?.[0]) return res.json({ found: false });
+
+    const d        = q.result[0];
+    const price    = d.price            || {};
+    const summary  = d.summaryDetail    || {};
+    const stats    = d.defaultKeyStatistics || {};
+    const fin      = d.financialData    || {};
+    const profile  = d.assetProfile     || {};
+
+    const v  = x => x?.raw ?? null;
+    const pct = x => x?.raw != null ? +(x.raw * 100).toFixed(2) : null;
+
+    const currentPrice = v(price.regularMarketPrice);
+    if (!currentPrice) return res.json({ found: false });
+
     res.json({
       found: true,
-      ticker: symbol.toUpperCase(),
-      companyName: profile.name,
-      exchange: profile.exchange,
-      sector: profile.finnhubIndustry,
-      industry: profile.finnhubIndustry,
-      price: quote.c,
+      ticker: sym,
+      companyName: price.longName || price.shortName || sym,
+      exchange: price.exchangeName || '',
+      sector: profile.sector || '',
+      industry: profile.industry || '',
+      price: currentPrice,
       dataAsOf: new Date().toISOString().split('T')[0],
       fundamentals: {
-        revenueGrowth: m['revenueGrowthTTMYoy'] ?? null,
-        epsGrowth: m['epsGrowth'] ?? null,
-        pe: m['peTTM'] ?? null,
-        ps: m['psTTM'] ?? null,
-        pb: m['pbQuarterly'] ?? null,
-        pcf: m['pcfShareTTM'] ?? null,
-        peg: m['pegRatio'] ?? null,
-        grossMargin: m['grossMarginTTM'] ?? null,
-        operatingMargin: m['operatingMarginTTM'] ?? null,
-        netMargin: m['netProfitMarginTTM'] ?? null,
-        currentRatio: m['currentRatioQuarterly'] ?? null,
-        quickRatio: m['quickRatioQuarterly'] ?? null,
-        cashRatio: m['cashRatioQuarterly'] ?? null,
-        debtToEquity: m['totalDebt/totalEquityQuarterly'] ?? null,
-        debtToAssets: m['longTermDebt/equityQuarterly'] ?? null,
-        interestCoverage: m['ebitdaInterestExpense'] ?? null,
-        roa: m['roaTTM'] ?? null,
-        roe: m['roeTTM'] ?? null,
-        roic: m['roicTTM'] ?? null
+        revenueGrowth:     pct(fin.revenueGrowth),
+        epsGrowth:         pct(stats.earningsQuarterlyGrowth) ?? pct(fin.earningsGrowth),
+        pe:                v(summary.trailingPE) ?? v(stats.forwardPE),
+        ps:                v(stats.priceToSalesTrailing12Months),
+        pb:                v(stats.priceToBook),
+        pcf:               null,
+        peg:               v(stats.pegRatio),
+        grossMargin:       pct(fin.grossMargins),
+        operatingMargin:   pct(fin.operatingMargins),
+        netMargin:         pct(fin.profitMargins),
+        currentRatio:      v(fin.currentRatio),
+        quickRatio:        v(fin.quickRatio),
+        cashRatio:         null,
+        debtToEquity:      v(fin.debtToEquity) != null ? +(v(fin.debtToEquity) / 100).toFixed(2) : null,
+        debtToAssets:      null,
+        interestCoverage:  null,
+        roa:               pct(fin.returnOnAssets),
+        roe:               pct(fin.returnOnEquity),
+        roic:              null
       },
       risk: {
-        beta: m['beta'] ?? null,
-        marketCap: profile.marketCapitalization ?? null,
-        profitableTTM: (m['netProfitMarginTTM'] ?? 0) > 0,
-        operatingCashFlowPositive: true,
-        isDefensiveSector: ['Healthcare','Consumer Staples','Utilities'].some(s => (profile.finnhubIndustry||'').includes(s)),
-        isIndustryLeader: (profile.marketCapitalization ?? 0) > 50000,
-        freeFromLegalIssues: true,
-        outperformedSP500_5y: (m['52WeekPriceReturnDaily'] ?? 0) > 10
+        beta:                    v(stats.beta),
+        marketCap:               v(price.marketCap) ? +(v(price.marketCap) / 1e6).toFixed(0) : null,
+        profitableTTM:           (v(fin.profitMargins) ?? 0) > 0,
+        operatingCashFlowPositive: v(fin.operatingCashflow) ? v(fin.operatingCashflow) > 0 : true,
+        isDefensiveSector:       ['Healthcare','Consumer Defensive','Utilities','Energy'].includes(profile.sector||''),
+        isIndustryLeader:        (v(price.marketCap) ?? 0) > 5e10,
+        freeFromLegalIssues:     true,
+        outperformedSP500_5y:    (v(stats['52WeekChange']) ?? 0) > 0.1
       }
     });
-  } catch(e) {
+
+  } catch (e) {
     res.status(500).json({ error: e.message });
   }
 }
