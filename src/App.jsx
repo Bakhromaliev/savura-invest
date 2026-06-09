@@ -22,6 +22,22 @@ const LANG = {
     qa:"Ha", qn:"Yo'q",
     cats:{growth:"O'sis",valuation:"Baholanish",profitability:"Rentabellik",health:"Mol. sog'lomlik",efficiency:"Samaradorlik"},
     rq:["Moliyaviy sog'lomlik ko'rsatkichlari o'tacha yoki yuqori?","Rentabellik ko'rsatkichlari o'tacha yoki yuqori?","Samaradorlik ko'rsatkichlari o'tacha yoki yuqori?","O'sis ko'rsatkichlari o'tacha yoki yuqori?","P/E bozor o'tachasiga yaqin yoki kichik?","O'gan yil va chorakda foydali bo'lganmi?","Operatsion pul oqimi musbat bo'lganmi?","Beta 1.5 dan kichikmi?","Bozor kap. $2 mlrd yoki ko'pmi?","Himoya qiluvchi sektordami?","Sanoatida top-10 ichidami?","Geosiyosiy/huquqiy muammo yo'qmi?","So'nggi 5 yilda S&P 500 dan ustunmi?","Kutilmagan risklar (har doim yo'q)","Kutilmagan risklar (har doim yo'q)"],
+    tf:{
+      badge:"FUNDAMENTAL TAHLIL VOSITASI",h1:"Aksiyaning fundamental holati",h2:"qanday?",
+      sub2:"Aksiya belgisini kiriting, keyin stockanalysis.com dan ma'lumotlarni o'zingiz kiritasiz.",
+      nextBtn:"Keyingi",sampleNote:"Namuna tugmalarini bossangiz - ma'lumotlar avtomatik to'ldiriladi.",
+      backBtn:"Orqaga",manualBadge:"QO'LDA KIRITILADI",autoLabel:"Ma'lumotlar avtomatik",
+      instrText:"stockanalysis.com saytiga kiring - aksiyani qidiring - Statistics sahifasini oching.",
+      grp:["O'sish","Baholanish","Rentabellik","Moliyaviy Sog'lomlik","Samaradorlik","Bozor Ma'lumotlari"],
+      compInfo:"KOMPANIYA MA'LUMOTLARI",boolSec:"Qo'shimcha savollar",
+      boolSub:"Quyidagi savollarga javob bering - yoki AI yordamida aniqlang",
+      aiBtn:"AI Prompt",aiInstr:"Nusxa oling, Claude.ai yoki ChatGPT ga yuboring",
+      aiCopy:"Promptni nusxalash",aiCopied:"Nusxalandi!",
+      analyzeBtn:"Tahlil Qilish - 15 Savol",analyzeNote:"Kiritilgan ma'lumotlar asosida 15 savolga javob beriladi",
+      reEnter:"Qayta kiriting",
+      boolLbl:["O'tgan yilda foydali?","Operatsion pul oqimi musbat?","Himoya qiluvchi sektorda?","Sanoatda top-10 ichida?","Yirik yuridik muammo yo'q?","So'nggi 5 yilda S&P 500 dan ustun?"],
+      boolHint:["Net Margin > 0","Operating Cash Flow > 0","Healthcare/Utilities/Consumer Staples/Energy","Bozor kap. bo'yicha","Davlat jarimalari yo'q","Chart 5Y tabni ko'ring"]},
+    rq:["Moliyaviy sog'lomlik ko'rsatkichlari o'tacha yoki yuqori?","Rentabellik ko'rsatkichlari o'tacha yoki yuqori?","Samaradorlik ko'rsatkichlari o'tacha yoki yuqori?","O'sis ko'rsatkichlari o'tacha yoki yuqori?","P/E bozor o'tachasiga yaqin yoki kichik?","O'gan yil va chorakda foydali bo'lganmi?","Operatsion pul oqimi musbat bo'lganmi?","Beta 1.5 dan kichikmi?","Bozor kap. $2 mlrd yoki ko'pmi?","Himoya qiluvchi sektordami?","Sanoatida top-10 ichidami?","Geosiyosiy/huquqiy muammo yo'qmi?","So'nggi 5 yilda S&P 500 dan ustunmi?","Kutilmagan risklar (har doim yo'q)","Kutilmagan risklar (har doim yo'q)"],
   },
   en:{
     tagline:"FUNDAMENTAL ANALYSIS \u00b7 US MARKETS",
@@ -40,6 +56,21 @@ const LANG = {
     qa:"Yes", qn:"No",
     cats:{growth:"Growth",valuation:"Valuation",profitability:"Profitability",health:"Financial Health",efficiency:"Efficiency"},
     rq:["Financial health metrics avg or above?","Profitability metrics avg or above?","Efficiency metrics avg or above?","Growth metrics avg or above?","P/E near or below market average?","Profitable last quarter and year?","Operating cash flow positive?","Beta below 1.5?","Market cap $2B or more?","In a defensive sector?","Top-10 in its industry?","Free from geopolitical/legal issues?","Outperformed S&P 500 in 5 years?","Unexpected risks (always No)","Unexpected risks (always No)"],
+    tf:{badge:"FUNDAMENTAL ANALYSIS TOOL",h1:"What is the stock's",h2:"fundamental status?",
+      sub2:"Enter a ticker \u2014 then enter data from stockanalysis.com yourself.",
+      nextBtn:"Next \u2192",sampleNote:"Click sample buttons to auto-fill sample data for that stock.",
+      backBtn:"\u2190 Back",manualBadge:"MANUAL ENTRY",autoLabel:"Data auto-filled",
+      instrText:"Go to stockanalysis.com \u2192 search for the stock \u2192 open the Statistics page. Enter all metrics below from that page.",
+      grp:["Growth","Valuation","Profitability","Financial Health","Efficiency","Market Data"],
+      compInfo:"COMPANY INFO",boolSec:"Additional Questions",
+      boolSub:"Answer the questions below \u2014 or determine using AI",
+      aiBtn:"AI Prompt",aiInstr:"Copy \u2192 Send to Claude.ai or ChatGPT \u2192 check boxes based on AI response",
+      aiCopy:"Copy Prompt",aiCopied:"Copied!",
+      analyzeBtn:"Analyze \u2014 15 Questions \u2192",
+      analyzeNote:"The system will automatically answer 15 questions and determine risk level",
+      reEnter:"\u2190 Re-enter data",
+      boolLbl:["Profitable last year?","Operating CF positive?","In defensive sector?","Top-10 in industry?","No major legal issues?","Outperformed S&P 500 in 5yr?"],
+      boolHint:["Net Margin > 0","Operating Cash Flow > 0","Healthcare / Utilities / Consumer Staples / Energy","By market cap","No major fines or cases","Check the 5Y chart tab"]}
   },
   tr:{
     tagline:"TEMEL ANALİZ \u00b7 ABD PİYASALARI",
@@ -57,26 +88,88 @@ const LANG = {
     lL:"DÜŞDÜK", lM:"ORTA", lH:"YÜKSEK", lVH:"ÇOK YÜKSEK",
     qa:"Evet", qn:"Hayır",
     cats:{growth:"Büyüme",valuation:"Değleme",profitability:"Karlılık",health:"Finansal Sağlık",efficiency:"Verimlilik"},
-    rq:["Mali sağlık göstergeleri ortalama veya üstünde mi?","Karlılık göstergeleri ortalama veya üstünde mi?","Verimlilik göstergeleri ortalama veya üstünde mi?","Büyüme göstergeleri ortalama veya üstünde mi?","F/K piyasa ortalamasına yakın veya altında mı?","Şirket geçen çeyrek ve yılda karlı mıydı?","Operasyonel nakit akışı pozitif miydi?","Beta 1.5'ten küçük mü?","Piyasa değeri 2 milyar $ veya fazla mı?","Savunmacı sektörde mi?","Sektöründe ilk 10'da mı?","Jeopolitik/hukuki sorunlardan uzak mı?","Son 5 yılda S&P 500'ü geçti mi?","Beklenmedik riskler (her zaman Hayır)","Beklenmedik riskler (her zaman Hayır)"],
+    tf:{
+      badge:"TEMEL ANALIZ ARACI",h1:"Hissenin",h2:"temel durumu nedir?",
+      sub2:"Hisse sembolunu girin, sonra stockanalysis.com'dan verileri kendiniz girin.",
+      nextBtn:"Ileri",sampleNote:"Ornek dugmelerine tiklayin - veriler otomatik dolar.",
+      backBtn:"Geri",manualBadge:"MANUEL GIRIS",autoLabel:"Otomatik veri",
+      instrText:"stockanalysis.com'a gidin - hisseyi arayin - Statistics sayfasini acin.",
+      grp:["Buyume","Degerleme","Karlilik","Mali Saglik","Verimlilik","Piyasa"],
+      compInfo:"SIRKET BILGISI",boolSec:"Ek Sorular",
+      boolSub:"Asagidaki sorulari yanitlayin veya AI ile belirleyin",
+      aiBtn:"AI Prompt",aiInstr:"Kopyalayin, Claude.ai veya ChatGPT'ye gonderin",
+      aiCopy:"Promptu Kopyala",aiCopied:"Kopyalandi!",
+      analyzeBtn:"Analiz Et - 15 Soru",analyzeNote:"15 soruya otomatik cevap verilir",
+      reEnter:"Yeniden Gir",
+      boolLbl:["Gecen yil karli miydi?","Is.nakit akisi +?","Savunmaci sektorde mi?","Sektorde ilk 10?","Buyuk hukuki sorun yok?","5 yilda SP500 gecti mi?"],
+      boolHint:["Net Marj > 0","OCF > 0","Saglik/Kamu/Gida/Enerji","Piyasa degerine gore","Buyuk ceza yok","5Y grafik"]},
+    rq:["Mali sa\u011fl\u0131k g\u00f6stergeleri ortalama veya \u00fcst\u00fcnde mi?","Karl\u0131l\u0131k g\u00f6stergeleri ortalama veya \u00fcst\u00fcnde mi?","Verimlilik g\u00f6stergeleri ortalama veya \u00fcst\u00fcnde mi?","B\u00fcy\u00fcme g\u00f6stergeleri ortalama veya \u00fcst\u00fcnde mi?","F/K oran\u0131 piyasa ortalamas\u0131na yak\u0131n veya alt\u0131nda m\u0131?","Ge\u00e7en y\u0131l ve \u00e7eyrekte karl\u0131 m\u0131yd\u0131?","\u0130\u015fletme nakit ak\u0131\u015f\u0131 pozitif mi?","Beta 1.5'tan az m\u0131?","Piyasa kap. $2 milyar veya fazla m\u0131?","Savunmac\u0131 sekt\u00f6rde mi?","Sekt\u00f6r\u00fcnde top-10'da m\u0131?","Jeopolitik/hukuki sorun yok mu?","Son 5 y\u0131lda S&P 500'\u00fc ge\u00e7ti mi?","Beklenmedik riskler (her zaman Hay\u0131r)","Beklenmedik riskler (her zaman Hay\u0131r)"],
   },
   ru:{
-    tagline:"ФУНДАМЕНТАЛЬНЫЙ АНАЛИЗ \u00b7 РЫНОК США",
-    h1:"Какое фундаментальное", h2:"состояние акции?",
-    sub:"Введите тикер \u2014 полный фундаментальный анализ по методологии курса.",
-    ph:"напр. AAPL, TSLA, KO...", btn:"Анализ", btnL:"Анализ...",
-    loading:"Загрузка реальных данных с Finnhub\u2026",
-    errNF:"Акция не найдена.",
-    errLive:"Добавьте ключ Finnhub (справа вверху). Примеры: AAPL MSFT NVDA TSLA KO JPM.",
-    riskT:"УРОВЕНЬ РИСКА", riskTag:"модель 15 вопросов",
-    noQ:(n)=>`${n} ответов "нет"`, showQ:"Показать 15 вопросов \u25bc", hideQ:"Скрыть \u25b2",
-    fundT:"ФУНДАМЕНТАЛ \u2014 5 КАТЕГОРИЙ", sample:"пример",
-    note:"Данные: stockanalysis.com \u00b7 Методология Savura Invest \u00b7 Не является инвестиционным советом.",
-    rI:"Положит.", rO:"Среднее", rS:"Отрицат.",
-    lL:"НИЗКИЙ", lM:"СРЕДНИЙ", lH:"ВЫСОКИЙ", lVH:"ОЧЕНЬ ВЫСОКИЙ",
-    qa:"Да", qn:"Нет",
-    cats:{growth:"Рост",valuation:"Оценка",profitability:"Рентабельность",health:"Фин. здоровье",efficiency:"Эффективность"},
-    rq:["Показатели фин. здоровья ср. уровня или выше?","Показатели рентабельности ср. ур. или выше?","Показатели эффективности ср. ур. или выше?","Показатели роста ср. ур. или выше?","P/E близко к среднерыночному или ниже?","Компания была прибыльной в прошлом квартале/году?","Операционный ден.поток положительный?","Бета меньше 1.5?","Рын.кап. $2 млрд или больше?","В защитном секторе?","В топ-10 отрасли?","Свободна от геопол. проблем?","Опередила S&P 500 за 5 лет?","Неожиданные риски (всегда Нет)","Неожиданные риски (всегда Нет)"],
+    tagline:"\u0424\u0423\u041d\u0414\u0410\u041c\u0415\u041d\u0422\u0410\u041b\u042c\u041d\u042b\u0419 \u0410\u041d\u0410\u041b\u0418\u0417 \u00b7 \u0420\u042b\u041d\u041e\u041a \u0421\u0428\u0410",
+    h1:"\u041a\u0430\u043a\u043e\u0432\u043e \u0444\u0443\u043d\u0434\u0430\u043c\u0435\u043d\u0442\u0430\u043b\u044c\u043d\u043e\u0435", h2:"\u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0435 \u0430\u043a\u0446\u0438\u0438?",
+    sub:"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0442\u0438\u043a\u0435\u0440 \u2014 \u043f\u043e\u043b\u043d\u044b\u0439 \u0444\u0443\u043d\u0434\u0430\u043c\u0435\u043d\u0442\u0430\u043b\u044c\u043d\u044b\u0439 \u0430\u043d\u0430\u043b\u0438\u0437.",
+    ph:"\u043d\u0430\u043f\u0440. AAPL, TSLA, KO...", btn:"\u0410\u043d\u0430\u043b\u0438\u0437", btnL:"\u0410\u043d\u0430\u043b\u0438\u0437...",
+    loading:"\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430 \u0434\u0430\u043d\u043d\u044b\u0445\u2026",
+    errNF:"\u0410\u043a\u0446\u0438\u044f \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u0430.",
+    errLive:"\u0414\u043e\u0431\u0430\u0432\u044c\u0442\u0435 \u043a\u043b\u044e\u0447 Finnhub. \u041f\u0440\u0438\u043c\u0435\u0440\u044b: AAPL MSFT NVDA.",
+    riskT:"\u0423\u0420\u041e\u0412\u0415\u041d\u042c \u0420\u0418\u0421\u041a\u0410", riskTag:"\u043c\u043e\u0434\u0435\u043b\u044c 15 \u0432\u043e\u043f\u0440\u043e\u0441\u043e\u0432",
+    noQ:(n)=>`${n} \u043e\u0442\u0432\u0435\u0442\u043e\u0432 "\u043d\u0435\u0442"`, showQ:"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c 15 \u0432\u043e\u043f\u0440\u043e\u0441\u043e\u0432 \u25bc", hideQ:"\u0421\u043a\u0440\u044b\u0442\u044c \u25b2",
+    fundT:"\u0424\u0423\u041d\u0414\u0410\u041c\u0415\u041d\u0422\u0410\u041b \u2014 5 \u041a\u0410\u0422\u0415\u0413\u041e\u0420\u0418\u0418", sample:"\u043f\u0440\u0438\u043c\u0435\u0440",
+    note:"\u0414\u0430\u043d\u043d\u044b\u0435: stockanalysis.com \u00b7 \u041c\u0435\u0442\u043e\u0434\u043e\u043b\u043e\u0433\u0438\u044f Savura Invest",
+    rI:"\u041f\u043e\u043b\u043e\u0436\u0438\u0442.", rO:"\u0421\u0440\u0435\u0434\u043d\u0435\u0435", rS:"\u041e\u0442\u0440\u0438\u0446.",
+    lL:"\u041d\u0418\u0417\u041a\u0418\u0419", lM:"\u0421\u0420\u0415\u0414\u041d\u0418\u0419", lH:"\u0412\u042b\u0421\u041e\u041a\u0418\u0419", lVH:"\u041e\u0427\u0415\u041d\u042c \u0412\u042b\u0421\u041e\u041a\u0418\u0419",
+    qa:"\u0414\u0430", qn:"\u041d\u0435\u0442",
+    cats:{growth:"\u0420\u043e\u0441\u0442",valuation:"\u041e\u0446\u0435\u043d\u043a\u0430",profitability:"\u041f\u0440\u0438\u0431\u044b\u043b\u044c\u043d.",health:"\u0424\u0438\u043d. \u0437\u0434\u043e\u0440.",efficiency:"\u042d\u0444\u0444\u0435\u043a\u0442."},
+    tf:{badge:"\u0418\u041d\u0421\u0422\u0420\u0423\u041c\u0415\u041d\u0422 \u0424\u0410",h1:"\u0424\u0443\u043d\u0434. \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0435",h2:"\u0430\u043a\u0446\u0438\u0438?",
+      sub2:"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0442\u0438\u043a\u0435\u0440, \u0437\u0430\u0442\u0435\u043c \u0434\u0430\u043d\u043d\u044b\u0435 \u0441 stockanalysis.com.",
+      nextBtn:"\u0414\u0430\u043b\u0435\u0435",sampleNote:"\u041e\u0431\u0440\u0430\u0437\u0446\u044b: \u0434\u0430\u043d\u043d\u044b\u0435 \u0437\u0430\u043f\u043e\u043b\u043d\u044f\u0442\u0441\u044f.",
+      backBtn:"\u041d\u0430\u0437\u0430\u0434",manualBadge:"\u0420\u0423\u0427\u041d\u041e\u0419 \u0412\u0412\u041e\u0414",autoLabel:"\u0410\u0432\u0442\u043e",
+      instrText:"stockanalysis.com \u2192 Statistics",
+      grp:["\u0420\u043e\u0441\u0442","\u041e\u0446\u0435\u043d\u043a\u0430","\u041f\u0440\u0438\u0431\u044b\u043b\u044c\u043d\u043e\u0441\u0442\u044c","\u0424\u0438\u043d. \u0437\u0434\u043e\u0440\u043e\u0432\u044c\u0435","\u042d\u0444\u0444\u0435\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u044c","\u0420\u044b\u043d\u043e\u043a"],
+      compInfo:"\u041a\u041e\u041c\u041f\u0410\u041d\u0418\u042f",boolSec:"\u0414\u043e\u043f. \u0432\u043e\u043f\u0440\u043e\u0441\u044b",
+      boolSub:"\u041e\u0442\u0432\u0435\u0442\u044c\u0442\u0435 \u043d\u0430 \u0432\u043e\u043f\u0440\u043e\u0441\u044b",
+      aiBtn:"AI Prompt",aiInstr:"\u0421\u043a\u043e\u043f\u0438\u0440\u0443\u0439\u0442\u0435, \u043e\u0442\u043f\u0440\u0430\u0432\u044c\u0442\u0435 \u0432 Claude.ai",
+      aiCopy:"\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c",aiCopied:"\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e!",
+      analyzeBtn:"\u0410\u043d\u0430\u043b\u0438\u0437 - 15 \u0432\u043e\u043f\u0440\u043e\u0441\u043e\u0432",analyzeNote:"15 \u0432\u043e\u043f\u0440\u043e\u0441\u043e\u0432",
+      reEnter:"\u0417\u0430\u043d\u043e\u0432\u043e",
+      boolLbl:["\u041f\u0440\u0438\u0431\u044b\u043b\u044c\u043d\u0430?","\u041e\u0427\u041f +?","\u0417\u0430\u0449\u0438\u0442\u043d\u044b\u0439?","\u0422\u043e\u043f-10?","\u041d\u0435\u0442 \u043f\u0440\u043e\u0431\u043b\u0435\u043c?","\u041e\u043f\u0435\u0440\u0435\u0434\u0438\u043b\u0430?"],
+      boolHint:["NM>0","OCF>0","\u0417\u0434\u0440\u0430\u0432\u043e/\u041a\u043e\u043c/\u0422\u043e\u0432\u0430\u0440\u044b/\u042d\u043d\u0435\u0440\u0433.","\u041f\u043e \u043a\u0430\u043f.","\u041d\u0435\u0442 \u0448\u0442\u0440.","5Y"]},
+    rq:["\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u0435\u043b\u0438 \u0444\u0438\u043d. \u0437\u0434\u043e\u0440\u043e\u0432\u044c\u044f \u0441\u0440. \u0443\u0440\u043e\u0432\u043d\u044f \u0438\u043b\u0438 \u0432\u044b\u0448\u0435?","\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u0435\u043b\u0438 \u0440\u0435\u043d\u0442\u0430\u0431\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u0438 \u0441\u0440. \u0443\u0440. \u0438\u043b\u0438 \u0432\u044b\u0448\u0435?","\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u0435\u043b\u0438 \u044d\u0444\u0444\u0435\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u0438 \u0441\u0440. \u0443\u0440. \u0438\u043b\u0438 \u0432\u044b\u0448\u0435?","\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u0435\u043b\u0438 \u0440\u043e\u0441\u0442\u0430 \u0441\u0440. \u0443\u0440. \u0438\u043b\u0438 \u0432\u044b\u0448\u0435?","P/E \u0431\u043b\u0438\u0437\u043a\u043e \u043a \u0441\u0440\u0435\u0434\u043d\u0435\u0440\u044b\u043d\u043e\u0447\u043d\u043e\u043c\u0443 \u0438\u043b\u0438 \u043d\u0438\u0436\u0435?","\u0411\u044b\u043b\u0430 \u043f\u0440\u0438\u0431\u044b\u043b\u044c\u043d\u043e\u0439 \u0432 \u043f\u0440\u043e\u0448\u043b\u043e\u043c \u0433\u043e\u0434\u0443?","\u041e\u043f\u0435\u0440\u0430\u0446\u0438\u043e\u043d\u043d\u044b\u0439 \u0434\u0435\u043d. \u043f\u043e\u0442\u043e\u043a \u043f\u043e\u043b\u043e\u0436\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0439?","\u0411\u0435\u0442\u0430 \u043c\u0435\u043d\u044c\u0448\u0435 1.5?","\u0420\u044b\u043d. \u043a\u0430\u043f. $2 \u043c\u043b\u0440\u0434 \u0438\u043b\u0438 \u0431\u043e\u043b\u044c\u0448\u0435?","\u0412 \u0437\u0430\u0449\u0438\u0442\u043d\u043e\u043c \u0441\u0435\u043a\u0442\u043e\u0440\u0435?","\u0412 \u0442\u043e\u043f-10 \u043e\u0442\u0440\u0430\u0441\u043b\u0438?","\u041d\u0435\u0442 \u0433\u0435\u043e\u043f\u043e\u043b. \u043f\u0440\u043e\u0431\u043b\u0435\u043c?","\u041e\u043f\u0435\u0440\u0435\u0434\u0438\u043b\u0430 S&P 500 \u0437\u0430 5 \u043b\u0435\u0442?","\u041d\u0435\u043e\u0436\u0438\u0434\u0430\u043d\u043d\u044b\u0435 \u0440\u0438\u0441\u043a\u0438 (\u0432\u0441\u0435\u0433\u0434\u0430 \u043d\u0435\u0442)","\u041d\u0435\u043e\u0436\u0438\u0434\u0430\u043d\u043d\u044b\u0435 \u0440\u0438\u0441\u043a\u0438 (\u0432\u0441\u0435\u0433\u0434\u0430 \u043d\u0435\u0442)"],
   },
+  ar:{
+    tagline:"\u062a\u062d\u0644\u064a\u0644 \u0623\u0633\u0627\u0633\u064a \u00b7 \u0633\u0648\u0642 \u0623\u0645\u0631\u064a\u0643\u0627",
+    h1:"\u0645\u0627 \u0647\u0648 \u0627\u0644\u0648\u0636\u0639 \u0627\u0644\u0623\u0633\u0627\u0633\u064a", h2:"\u0644\u0644\u0633\u0647\u0645?",
+    sub:"\u0623\u062f\u062e\u0644 \u0631\u0645\u0632 \u0627\u0644\u0633\u0647\u0645 \u2014 \u062a\u062d\u0644\u064a\u0644 \u0634\u0627\u0645\u0644.",
+    ph:"\u0645\u062b\u0627\u0644: AAPL, TSLA...", btn:"\u062a\u062d\u0644\u064a\u0644", btnL:"\u062a\u062d\u0644\u064a\u0644...",
+    loading:"\u062c\u0627\u0631\u064a \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a\u2026",
+    errNF:"\u0644\u0645 \u064a\u062a\u0645 \u0627\u0644\u0639\u062b\u0648\u0631 \u0639\u0644\u0649 \u0627\u0644\u0633\u0647\u0645.",
+    errLive:"\u0623\u0636\u0641 \u0645\u0641\u062a\u0627\u062d Finnhub. \u0623\u0645\u062b\u0644\u0629: AAPL MSFT NVDA.",
+    riskT:"\u0645\u0633\u062a\u0648\u0649 \u0627\u0644\u0645\u062e\u0627\u0637\u0631\u0629", riskTag:"\u0646\u0645\u0648\u0630\u062c 15 \u0633\u0624\u0627\u0644",
+    noQ:(n)=>`${n} \u0625\u062c\u0627\u0628\u0629 "\u0644\u0627"`, showQ:"\u0639\u0631\u0636 15 \u0633\u0624\u0627\u0644\u0627 \u25bc", hideQ:"\u0625\u062e\u0641\u0627\u0621 \u25b2",
+    fundT:"\u0627\u0644\u062a\u062d\u0644\u064a\u0644 \u2014 5 \u0641\u0626\u0627\u062a", sample:"\u0645\u062b\u0627\u0644",
+    note:"\u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a: stockanalysis.com \u00b7 \u0645\u0646\u0647\u062c\u064a\u0629 Savura Invest",
+    rI:"\u0625\u064a\u062c\u0627\u0628\u064a", rO:"\u0645\u062a\u0648\u0633\u0637", rS:"\u0633\u0644\u0628\u064a",
+    lL:"\u0645\u0646\u062e\u0641\u0636", lM:"\u0645\u062a\u0648\u0633\u0637", lH:"\u0645\u0631\u062a\u0641\u0639", lVH:"\u0645\u0631\u062a\u0641\u0639 \u062c\u062f\u0627",
+    qa:"\u0646\u0639\u0645", qn:"\u0644\u0627",
+    cats:{growth:"\u0627\u0644\u0646\u0645\u0648",valuation:"\u0627\u0644\u062a\u0642\u064a\u064a\u0645",profitability:"\u0627\u0644\u0631\u0628\u062d\u064a\u0629",health:"\u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0645\u0627\u0644\u064a\u0629",efficiency:"\u0627\u0644\u0643\u0641\u0627\u0621\u0629"},
+    tf:{badge:"\u0623\u062f\u0627\u0629 \u062a\u062d\u0644\u064a\u0644",h1:"\u0648\u0636\u0639 \u0627\u0644\u0633\u0647\u0645",h2:"\u0627\u0644\u0623\u0633\u0627\u0633\u064a?",
+      sub2:"\u0623\u062f\u062e\u0644 \u0627\u0644\u0631\u0645\u0632, \u062b\u0645 \u0623\u062f\u062e\u0644 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a \u0645\u0646 stockanalysis.com",
+      nextBtn:"\u0627\u0644\u062a\u0627\u0644\u064a",sampleNote:"\u0627\u0636\u063a\u0637 \u0644\u0645\u0644\u0621 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a.",
+      backBtn:"\u0631\u062c\u0648\u0639",manualBadge:"\u064a\u062f\u0648\u064a",autoLabel:"\u062a\u0644\u0642\u0627\u0626\u064a",
+      instrText:"stockanalysis.com Statistics",
+      grp:["\u0627\u0644\u0646\u0645\u0648","\u0627\u0644\u062a\u0642\u064a\u064a\u0645","\u0627\u0644\u0631\u0628\u062d\u064a\u0629","\u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0645\u0627\u0644\u064a\u0629","\u0627\u0644\u0643\u0641\u0627\u0621\u0629","\u0627\u0644\u0633\u0648\u0642"],
+      compInfo:"\u0628\u064a\u0627\u0646\u0627\u062a \u0627\u0644\u0634\u0631\u0643\u0629",boolSec:"\u0623\u0633\u0626\u0644\u0629",
+      boolSub:"\u0623\u062c\u0628",
+      aiBtn:"AI Prompt",aiInstr:"Claude.ai",
+      aiCopy:"\u0646\u0633\u062e",aiCopied:"\u062a\u0645!",
+      analyzeBtn:"\u062a\u062d\u0644\u064a\u0644 15",analyzeNote:"15 \u0633\u0624\u0627\u0644",
+      reEnter:"\u0625\u0639\u0627\u062f\u0629",
+      boolLbl:["\u0631\u0628\u062d\u062a?","\u062a\u062f\u0641\u0642?","\u062f\u0641\u0627\u0639\u064a?","\u0623\u0641\u0636\u0644 10?","\u0644\u0627 \u0645\u0634\u0627\u0643\u0644?","\u062a\u0641\u0648\u0642\u062a?"],
+      boolHint:["NM>0","OCF>0","\u0635\u062d\u0629/\u0645\u0631\u0627\u0641\u0642/\u0633\u0644\u0639/\u0637\u0627\u0642\u0629","\u062d\u0633\u0628 \u0627\u0644\u0642.","\u0644\u0627 \u063a\u0631\u0627\u0645\u0627\u062a","5Y"]},
+    rq:["\u0645\u0624\u0634\u0631\u0627\u062a \u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0645\u0627\u0644\u064a\u0629 \u0645\u062a\u0648\u0633\u0637\u0629 \u0623\u0648 \u0623\u0639\u0644\u0649?","\u0645\u0624\u0634\u0631\u0627\u062a \u0627\u0644\u0631\u0628\u062d\u064a\u0629 \u0645\u062a\u0648\u0633\u0637\u0629 \u0623\u0648 \u0623\u0639\u0644\u0649?","\u0645\u0624\u0634\u0631\u0627\u062a \u0627\u0644\u0643\u0641\u0627\u0621\u0629 \u0645\u062a\u0648\u0633\u0637\u0629 \u0623\u0648 \u0623\u0639\u0644\u0649?","\u0645\u0624\u0634\u0631\u0627\u062a \u0627\u0644\u0646\u0645\u0648 \u0645\u062a\u0648\u0633\u0637\u0629 \u0623\u0648 \u0623\u0639\u0644\u0649?","P/E \u0642\u0631\u064a\u0628 \u0645\u0646 \u0645\u062a\u0648\u0633\u0637 \u0627\u0644\u0633\u0648\u0642?","\u0643\u0627\u0646\u062a \u0631\u0627\u0628\u062d\u0629 \u0627\u0644\u0639\u0627\u0645 \u0627\u0644\u0645\u0627\u0636\u064a?","\u062a\u062f\u0641\u0642 \u0646\u0642\u062f\u064a \u062a\u0634\u063a\u064a\u0644\u064a \u0625\u064a\u062c\u0627\u0628\u064a?","\u0628\u064a\u062a\u0627 \u0623\u0642\u0644 \u0645\u0646 1.5?","\u0642\u064a\u0645\u0629 \u0633\u0648\u0642\u064a\u0629 $2 \u0645\u0644\u064a\u0627\u0631 \u0623\u0648 \u0623\u0643\u062b\u0631?","\u0641\u064a \u0642\u0637\u0627\u0639 \u062f\u0641\u0627\u0639\u064a?","\u0636\u0645\u0646 \u0623\u0641\u0636\u0644 10?","\u0644\u0627 \u0645\u0634\u0627\u0643\u0644 \u0642\u0627\u0646\u0648\u0646\u064a\u0629?","\u062a\u0641\u0648\u0642\u062a \u0639\u0644\u0649 S&P 500?","\u0645\u062e\u0627\u0637\u0631 \u063a\u064a\u0631 \u0645\u062a\u0648\u0642\u0639\u0629 (\u062f\u0627\u0626\u0645\u0627 \u0644\u0627)","\u0645\u062e\u0627\u0637\u0631 \u063a\u064a\u0631 \u0645\u062a\u0648\u0642\u0639\u0629 (\u062f\u0627\u0626\u0645\u0627 \u0644\u0627)"],
+  },
+
 };
 
 const SITE_T={
@@ -670,72 +763,325 @@ function AboutPage({lang}){
   );
 }
 
-// ─── Fundamental Tool (React.createElement — no JSX parsing issues) ──────────
-var TOOL_LANGS=[{k:"uz",l:"O'Z"},{k:"en",l:"EN"},{k:"tr",l:"TR"},{k:"ru",l:"RU"},{k:"ar",l:"AR"}];
 
-function doFetch(sym,cb){
-  fetch("/api/stock?symbol="+sym)
-  .then(function(r){return r.json();})
-  .then(function(j){
-    if(j.found===false){cb({found:false},null);return;}
-    if(j.error){cb(null,j.error);return;}
-    cb(j,null);
-  })
-  .catch(function(e){cb(null,e.message);});
+// ─── BoolSection component ───────────────────────────────────────────────────
+function BoolSection({ticker, bools, setBools, t}){
+  const [copied, setCopied] = useState(false);
+  const [showP, setShowP] = useState(false);
+  const sampleEntry = SAMPLE[ticker] || {};
+  const cn = sampleEntry.companyName || ticker;
+  const today = new Date().toISOString().split("T")[0];
+
+  function buildPrompt(){
+    return (
+      "Siz moliyaviy tahlilchi sifatida " + cn + " (" + ticker + ") aksiyasi haqida " +
+      "HOZIRGI eng so'nggi real ma'lumotlar asosida quyidagi savollarga javob bering.\n" +
+      "Sana: " + today + "\n\n" +
+      "MUHIM: Faqat eng oxirgi kvartal/yillik hisobotlar asosida javob bering.\n\n" +
+      "Har bir savolga Ha yoki Yoq deb javob bering va 1-2 jumlada izoh qoshshing:\n\n" +
+      "1. " + cn + " (" + ticker + ") otgan 12 oyda (TTM) foydali boldimi? Net Margin noldan kattami?\n" +
+      "2. " + cn + " (" + ticker + ") operatsion pul oqimi hozir musbatmi? Operating Cash Flow musbatmi?\n" +
+      "3. " + cn + " (" + ticker + ") himoya qiluvchi sektordami? FAQAT: Healthcare, Utilities, Consumer Staples yoki Energy sektorida?\n" +
+      "4. " + cn + " (" + ticker + ") oz sanoatida hozir bozor kapitalizatsiyasi boyicha top-10 ichidami?\n" +
+      "5. " + cn + " (" + ticker + ") da hozir yirik yuridik muammo yoqmi? SEC ishi, katta jarima yoki faol sud jarayoni yoqmi?\n" +
+      "6. " + cn + " (" + ticker + ") songgi 5 yilda SP 500 dan ustun keldimi? 5-yillik umumiy daromad SP 500 dan yuqorimi?"
+    );
+  }
+
+  function copyPrompt(){
+    var txt = buildPrompt();
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(txt).then(function(){
+        setCopied(true);
+        setTimeout(function(){ setCopied(false); }, 2500);
+      });
+    }
+  }
+
+  return(
+    <div style={{background:C.card, border:"1px solid " + C.border, borderRadius:14, padding:"16px 18px", marginBottom:20}}>
+      <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:8, flexWrap:"wrap", gap:8}}>
+        <div>
+          <div style={{fontSize:12.5, fontWeight:700, color:C.text}}>{(t&&t.tf)?t.tf.boolSec:"Qo'shimcha savollar"}</div>
+          <div style={{fontSize:11, color:C.faint, marginTop:2}}>{(t&&t.tf)?t.tf.boolSub:"Savollarga javob bering"}</div>
+        </div>
+        <button onClick={function(){setShowP(function(v){return !v;});}}
+          style={{background:"rgba(74,163,255,0.1)", border:"1px solid rgba(74,163,255,0.3)", borderRadius:8, color:C.blueLt, fontSize:12, fontWeight:600, padding:"7px 12px", cursor:"pointer"}}>
+          AI Prompt {showP ? "^" : "v"}
+        </button>
+      </div>
+
+      {showP && (
+        <div style={{background:"rgba(0,0,0,0.3)", border:"1px solid rgba(74,163,255,0.2)", borderRadius:10, padding:"12px", marginBottom:14}}>
+          <div style={{fontSize:11, color:C.blueLt, fontWeight:600, marginBottom:6}}>
+            Nusxa oling, Claude.ai yoki ChatGPT ga yuboring, javobga qarab katakchalarni belgilang
+          </div>
+          <div style={{display:"flex", gap:8, marginBottom:10, flexWrap:"wrap"}}>
+            <a href="https://claude.ai" target="_blank" rel="noreferrer"
+              style={{fontSize:11, color:C.dim, border:"1px solid " + C.border, borderRadius:6, padding:"4px 10px", textDecoration:"none"}}>
+              claude.ai
+            </a>
+            <a href="https://chat.openai.com" target="_blank" rel="noreferrer"
+              style={{fontSize:11, color:C.dim, border:"1px solid " + C.border, borderRadius:6, padding:"4px 10px", textDecoration:"none"}}>
+              chatgpt.com
+            </a>
+          </div>
+          <div style={{background:"rgba(0,0,0,0.25)", borderRadius:8, padding:"10px", marginBottom:10}}>
+            <div style={{fontFamily:"'JetBrains Mono',monospace", fontSize:10, color:C.dim, lineHeight:1.7, whiteSpace:"pre-wrap", wordBreak:"break-word"}}>
+              {"Siz moliyaviy tahlilchi sifatida " + cn + " (" + ticker + ") aksiyasi haqida"}<br/>
+              {"HOZIRGI eng songi real malumotlar asosida javob bering. Sana: " + today}<br/>
+              <br/>
+              {"1. " + cn + " (" + ticker + ") otgan 12 oyda foydali boldimi?"}<br/>
+              {"2. " + cn + " (" + ticker + ") operatsion pul oqimi musbatmi?"}<br/>
+              {"3. " + cn + " (" + ticker + ") himoya qiluvchi sektordami? (Healthcare/Utilities/Consumer Staples/Energy)"}<br/>
+              {"4. " + cn + " (" + ticker + ") sanoatida top-10 ichidami? (bozor kap. boyicha)"}<br/>
+              {"5. " + cn + " (" + ticker + ") yirik yuridik muammo yoqmi?"}<br/>
+              {"6. " + cn + " (" + ticker + ") songgi 5 yilda SP500 dan ustun keldimi?"}
+            </div>
+          </div>
+          <button onClick={copyPrompt}
+            style={{background: copied ? "rgba(55,178,77,0.15)" : "rgba(47,125,246,0.1)",
+              border: "1px solid " + (copied ? "rgba(55,178,77,0.4)" : "rgba(47,125,246,0.3)"),
+              borderRadius:7, color: copied ? C.greenLt : C.blueLt,
+              fontSize:12, fontWeight:600, padding:"7px 16px", cursor:"pointer"}}>
+            {copied ? t.tf.aiCopied : t.tf.aiCopy}
+          </button>
+        </div>
+      )}
+
+      <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))", gap:10}}>
+        {BOOL_FIELDS.map(function(bf, bfi){
+          var k=bf.k;
+          var lbl = (t.tf && t.tf.boolLbl && t.tf.boolLbl[bfi]) ? t.tf.boolLbl[bfi] : bf.lbl;
+          var hint = (t.tf && t.tf.boolHint && t.tf.boolHint[bfi]) ? t.tf.boolHint[bfi] : bf.hint;
+          return(
+            <div key={k}
+              onClick={function(){setBools(function(b){var nb=Object.assign({},b); nb[k]=!nb[k]; return nb;});}}
+              style={{display:"flex", alignItems:"flex-start", gap:12, padding:"10px 12px",
+                background: bools[k] ? "rgba(55,178,77,0.04)" : "rgba(255,255,255,0.01)",
+                border: "1px solid " + (bools[k] ? "rgba(55,178,77,0.35)" : C.border),
+                borderRadius:10, cursor:"pointer"}}>
+              <div style={{flexShrink:0, width:22, height:22, borderRadius:6,
+                background: bools[k] ? C.green : "transparent",
+                border: "2px solid " + (bools[k] ? C.green : C.border),
+                display:"flex", alignItems:"center", justifyContent:"center", marginTop:1}}>
+                {bools[k] && <span style={{color:"#fff", fontSize:13, fontWeight:700}}>v</span>}
+              </div>
+              <div>
+                <div style={{fontSize:12.5, color: bools[k] ? C.text : C.dim, fontWeight: bools[k] ? 600 : 400, lineHeight:1.3}}>{lbl}</div>
+                <div style={{fontSize:10.5, color:C.faint, marginTop:2, lineHeight:1.4}}>{hint}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
-function FundamentalTool(props){
-  var lang=props.lang; var setLang=props.setLang;
-  var t=LANG[lang]||LANG.uz;
-  var ts=useState(""); var ticker=ts[0]; var setTicker=ts[1];
-  var ls=useState(false); var loading=ls[0]; var setLoading=ls[1];
-  var es=useState(""); var error=es[0]; var setError=es[1];
-  var ds=useState(null); var data=ds[0]; var setData=ds[1];
-  function run(sym){
-    var tk=(sym||ticker).trim().toUpperCase();
-    if(!tk)return;
-    setTicker(tk);setLoading(true);setError("");setData(null);
-    var inSample=!!SAMPLE[tk];
-    if(inSample){setData(Object.assign({},SAMPLE[tk],{ticker:tk,_sample:true}));setLoading(false);}
-    doFetch(tk,function(res,err){
-      if(res&&res.found===false){if(!inSample)setError(t.errNF);setLoading(false);return;}
-      if(res&&res.ticker){
-        var base=inSample?SAMPLE[tk]:{};
-        var merged=Object.assign({},base,res,{_live:true,ticker:tk});
-        if(!merged.price&&base&&base.price)merged.price=base.price;
-        setData(merged);setLoading(false);return;
-      }
-      if(!inSample){setError(t.errLive+(err?" - "+err:""));setLoading(false);}
-    });
+
+// ─── Fundamental Tool — Manual Input ────────────────────────────────────────
+const {useState:_us, useEffect:_ue} = React;
+
+const GROUPS = [
+  {title:"O'sish",        hint:"Statistics → Growth",              cols:2, fields:[
+    {k:"revenueGrowth",  lbl:"Revenue Growth",     suf:"%",  ph:"e.g. 8.3"},
+    {k:"epsGrowth",      lbl:"EPS Growth",          suf:"%",  ph:"e.g. 12.5"},
+  ]},
+  {title:"Baholanish",    hint:"Statistics → Valuation Ratios",    cols:4, fields:[
+    {k:"pe",   lbl:"P/E Ratio",   ph:"e.g. 25.4"},
+    {k:"ps",   lbl:"P/S Ratio",   ph:"e.g. 5.2"},
+    {k:"pb",   lbl:"P/B Ratio",   ph:"e.g. 8.1"},
+    {k:"peg",  lbl:"PEG Ratio",   ph:"e.g. 1.3"},
+  ]},
+  {title:"Rentabellik",   hint:"Statistics → Margins",             cols:3, fields:[
+    {k:"grossMargin",    lbl:"Gross Margin",     suf:"%", ph:"e.g. 48.9"},
+    {k:"operatingMargin",lbl:"Operating Margin", suf:"%", ph:"e.g. 30.2"},
+    {k:"netMargin",      lbl:"Profit Margin",    suf:"%", ph:"e.g. 29.3"},
+  ]},
+  {title:"Moliyaviy Sog'lomlik", hint:"Statistics → Financial Position", cols:4, fields:[
+    {k:"currentRatio",    lbl:"Current Ratio",    ph:"e.g. 2.51"},
+    {k:"quickRatio",      lbl:"Quick Ratio",       ph:"e.g. 1.62"},
+    {k:"debtToEquity",    lbl:"Debt/Equity",       ph:"e.g. 0.30"},
+    {k:"interestCoverage",lbl:"Interest Coverage", ph:"e.g. 31.9"},
+  ]},
+  {title:"Samaradorlik",  hint:"Statistics → Financial Efficiency", cols:3, fields:[
+    {k:"roa",  lbl:"ROA",   suf:"%", ph:"e.g. 14.8"},
+    {k:"roe",  lbl:"ROE",   suf:"%", ph:"e.g. 39.6"},
+    {k:"roic", lbl:"ROIC",  suf:"%", ph:"e.g. 33.2"},
+  ]},
+  {title:"Bozor Ma'lumotlari", hint:"Statistics → Total Valuation & Stock Price Stats", cols:2, fields:[
+    {k:"beta",       lbl:"Beta (5Y)",    ph:"e.g. 1.67"},
+    {k:"marketCapB", lbl:"Market Cap",   suf:"B$", ph:"e.g. 359.67"},
+  ]},
+];
+
+const BOOL_FIELDS = [
+  {k:"profitableTTM",              lbl:"O'tgan yilda foydali?",          hint:"Net Margin > 0"},
+  {k:"operatingCashFlowPositive",  lbl:"Operatsion pul oqimi musbat?",  hint:"Cash Flow → Operating CF > 0"},
+  {k:"isDefensiveSector",          lbl:"Himoya qiluvchi sektorda?",      hint:"Healthcare / Utilities / Consumer Staples / Energy"},
+  {k:"isIndustryLeader",           lbl:"Sanoatda top-10 ichida?",        hint:"Bozor kap. bo'yicha"},
+  {k:"freeFromLegalIssues",        lbl:"Yirik yuridik muammo yo'q?",    hint:"Davlat jarimalari/katta ish yo'q"},
+  {k:"outperformedSP500_5y",       lbl:"So'nggi 5 yilda S&P 500 dan ustun?", hint:"Chart → 5Y tabni stockanalysis.com da ko'ring"},
+];
+
+const EMPTY_VALS = {revenueGrowth:"",epsGrowth:"",pe:"",ps:"",pb:"",peg:"",grossMargin:"",operatingMargin:"",netMargin:"",currentRatio:"",quickRatio:"",debtToEquity:"",interestCoverage:"",roa:"",roe:"",roic:"",beta:"",marketCapB:""};
+const EMPTY_BOOLS = {profitableTTM:true,operatingCashFlowPositive:true,isDefensiveSector:false,isIndustryLeader:false,freeFromLegalIssues:true,outperformedSP500_5y:false};
+
+function FundamentalTool({lang, setLang}){
+  const t = LANG[lang]||LANG.uz;
+  const [step, setStep] = _us(0);
+  const [ticker, setTicker] = _us("");
+  const [vals, setVals] = _us({...EMPTY_VALS});
+  const [bools, setBools] = _us({...EMPTY_BOOLS});
+  const [result, setResult] = _us(null);
+
+  const nv = v => { const x=parseFloat(v); return isNaN(x)?null:x; };
+  const st = {background:"rgba(12,20,38,.85)",border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:"8px 10px",fontSize:13,fontFamily:"'JetBrains Mono',monospace",outline:"none",width:"100%",transition:"border .2s"};
+
+  function loadSample(sym){
+    const s=SAMPLE[sym]; if(!s)return;
+    setTicker(sym);
+    const f=s.fundamentals||{}, r=s.risk||{};
+    const mv=k=>f[k]!=null?String(f[k]):"";
+    setVals({revenueGrowth:mv("revenueGrowth"),epsGrowth:mv("epsGrowth"),pe:mv("pe"),ps:mv("ps"),pb:mv("pb"),peg:mv("peg"),grossMargin:mv("grossMargin"),operatingMargin:mv("operatingMargin"),netMargin:mv("netMargin"),currentRatio:mv("currentRatio"),quickRatio:mv("quickRatio"),debtToEquity:mv("debtToEquity"),interestCoverage:mv("interestCoverage"),roa:mv("roa"),roe:mv("roe"),roic:mv("roic"),beta:r.beta!=null?String(r.beta):"",marketCapB:r.marketCap!=null?String((r.marketCap/1000).toFixed(2)):""});
+    setBools({profitableTTM:!!r.profitableTTM,operatingCashFlowPositive:!!r.operatingCashFlowPositive,isDefensiveSector:!!r.isDefensiveSector,isIndustryLeader:!!r.isIndustryLeader,freeFromLegalIssues:!!r.freeFromLegalIssues,outperformedSP500_5y:!!r.outperformedSP500_5y});
+    setStep(1);
   }
-  var R=React.createElement;
-  var B=function(x,s,c){return R("button",{onClick:x,style:s},c);};
-  return R("div",{style:{padding:"85px 24px 60px",maxWidth:940,margin:"0 auto"}},
-    R("div",{style:{textAlign:"center",marginBottom:32}},
-      R("div",{style:{fontSize:10.5,letterSpacing:"2px",color:C.faint,fontFamily:"'JetBrains Mono',monospace",marginBottom:10}},"VOSITA"),
-      R("h1",{style:{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(22px,4vw,38px)",lineHeight:1.1,margin:"0 0 8px",color:C.text}},
-        t.h1,R("br",null),
-        R("span",{style:{background:"linear-gradient(90deg,"+C.blueLt+","+C.greenLt+")",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}},t.h2)
-      ),
-      R("p",{style:{color:C.dim,fontSize:14,maxWidth:460,margin:"12px auto 0"}},t.sub)
-    ),
-    R("div",{style:{display:"flex",gap:6,justifyContent:"center",marginBottom:16,flexWrap:"wrap"}},
-      TOOL_LANGS.map(function(l){return R("button",{key:l.k,onClick:function(){setLang(l.k);},style:{background:lang===l.k?"linear-gradient(135deg,"+C.blue+","+C.green+")":"transparent",border:"1px solid "+(lang===l.k?"transparent":C.border),color:lang===l.k?"#fff":C.dim,borderRadius:8,padding:"5px 12px",fontSize:12,fontWeight:700,cursor:"pointer",fontFamily:"'JetBrains Mono',monospace"}},l.l);})
-    ),
-    R("div",{style:{display:"flex",gap:10,maxWidth:540,margin:"0 auto 14px"}},
-      R("input",{value:ticker,onChange:function(e){setTicker(e.target.value.toUpperCase());},onKeyDown:function(e){if(e.key==="Enter")run();},placeholder:t.ph,style:{flex:1,background:"rgba(12,20,38,.85)",border:"1px solid "+C.border,borderRadius:12,color:C.text,padding:"14px 18px",fontSize:16,fontFamily:"'JetBrains Mono',monospace",letterSpacing:"1px",outline:"none"}}),
-      R("button",{onClick:function(){run();},disabled:loading,style:{background:"linear-gradient(135deg,"+C.blue+","+C.green+")",border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"0 22px",cursor:"pointer",fontFamily:"'Sora',sans-serif",whiteSpace:"nowrap"}},loading?t.btnL:t.btn)
-    ),
-    R("div",{style:{display:"flex",gap:7,justifyContent:"center",flexWrap:"wrap",marginBottom:14}},
-      EX.map(function(x){return R("button",{key:x,onClick:function(){run(x);},style:{background:"transparent",border:"1px solid "+C.border,color:C.dim,borderRadius:20,padding:"5px 12px",fontSize:12,cursor:"pointer",fontFamily:"'JetBrains Mono',monospace"}},x);})
-    ),
-    loading&&R("div",{style:{textAlign:"center",marginTop:32}},
-      R("div",{style:{width:30,height:30,border:"3px solid "+C.border,borderTopColor:C.blueLt,borderRadius:"50%",margin:"0 auto",animation:"spin .8s linear infinite"}}),
-      R("div",{style:{color:C.dim,fontSize:13,marginTop:10}},t.loading)
-    ),
-    error&&R("div",{style:{marginTop:20,textAlign:"center",color:C.amber,background:"rgba(240,169,43,.08)",border:"1px solid rgba(240,169,43,.25)",borderRadius:12,padding:"12px 16px",lineHeight:1.6,maxWidth:540,margin:"20px auto 0"}},error),
-    data&&R(ToolResult,{d:data,t:t}),
-    R("div",{style:{fontSize:11,color:C.faint,lineHeight:1.7,textAlign:"center",maxWidth:600,margin:"32px auto 0"}},t.note)
+
+  function handleAnalyze(){
+    const tk=ticker.trim().toUpperCase();
+    const nm=nv(vals.netMargin), om=nv(vals.operatingMargin);
+    const s=SAMPLE[tk]||{}; const d={ticker:tk,companyName:s.companyName||tk,exchange:s.exchange||"",sector:s.sector||"",industry:s.industry||"",price:null,dataAsOf:new Date().toISOString().split("T")[0],_manual:true,
+      fundamentals:{revenueGrowth:nv(vals.revenueGrowth),epsGrowth:nv(vals.epsGrowth),pe:nv(vals.pe),ps:nv(vals.ps),pb:nv(vals.pb),pcf:null,peg:nv(vals.peg),grossMargin:nv(vals.grossMargin),operatingMargin:om,netMargin:nm,currentRatio:nv(vals.currentRatio),quickRatio:nv(vals.quickRatio),cashRatio:null,debtToEquity:nv(vals.debtToEquity),debtToAssets:null,interestCoverage:nv(vals.interestCoverage),roa:nv(vals.roa),roe:nv(vals.roe),roic:nv(vals.roic)},
+      risk:{beta:nv(vals.beta),marketCap:nv(vals.marketCapB)?nv(vals.marketCapB)*1000:null,profitableTTM:nm!=null?nm>0:bools.profitableTTM,operatingCashFlowPositive:om!=null?om>0:bools.operatingCashFlowPositive,isDefensiveSector:bools.isDefensiveSector,isIndustryLeader:bools.isIndustryLeader,freeFromLegalIssues:bools.freeFromLegalIssues,outperformedSP500_5y:bools.outperformedSP500_5y}};
+    setResult(d); setStep(2);
+  }
+
+  // ── STEP 2: Results ─────────────────────────────────────────────
+  if(step===2&&result) return(
+    <div style={{padding:"85px 24px 60px",maxWidth:940,margin:"0 auto"}}>
+      <button onClick={()=>{setResult(null);setStep(1);}} style={{background:`rgba(47,125,246,0.1)`,border:`1px solid ${C.border}`,color:C.blueLt,borderRadius:9,padding:"8px 16px",fontSize:13,cursor:"pointer",marginBottom:20,display:"inline-flex",alignItems:"center",gap:7}}>
+        ← Qayta kiriting
+      </button>
+      <ToolResult d={result} t={t}/>
+    </div>
+  );
+
+  // ── STEP 0: Ticker entry ─────────────────────────────────────────
+  if(step===0) return(
+    <div style={{padding:"85px 24px 60px",maxWidth:940,margin:"0 auto"}}>
+      <div style={{textAlign:"center",marginBottom:36}}>
+        <div style={{fontSize:10.5,letterSpacing:"2px",color:C.faint,fontFamily:"'JetBrains Mono',monospace",marginBottom:10}}>FUNDAMENTAL TAHLIL VOSITASI</div>
+        <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(22px,4vw,38px)",lineHeight:1.15,margin:"0 0 10px",color:C.text}}>
+          Aksiyaning fundamental holati <br/>
+          <span style={{background:`linear-gradient(90deg,${C.blueLt},${C.greenLt})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>qanday?</span>
+        </h1>
+        <p style={{color:C.dim,fontSize:14,maxWidth:480,margin:"0 auto 8px",lineHeight:1.6}}>
+          Aksiya belgisini kiriting, keyin <strong style={{color:C.greenLt}}>stockanalysis.com</strong> dan ma'lumotlarni o'zingiz kiritasiz.
+        </p>
+        <a href="https://stockanalysis.com" target="_blank" rel="noreferrer" style={{fontSize:12,color:C.blueLt,border:`1px solid rgba(74,163,255,0.3)`,borderRadius:7,padding:"4px 10px",display:"inline-flex",alignItems:"center",gap:5}}>
+          stockanalysis.com →
+        </a>
+      </div>
+      {/* Language switcher */}
+      <div style={{display:"flex",gap:6,justifyContent:"center",marginBottom:20,flexWrap:"wrap"}}>
+        {[{k:"uz",l:"O'Z"},{k:"en",l:"EN"},{k:"tr",l:"TR"},{k:"ru",l:"RU"},{k:"ar",l:"AR"}].map(l=>(
+          <button key={l.k} onClick={()=>setLang(l.k)} style={{background:lang===l.k?`linear-gradient(135deg,${C.blue},${C.green})`:"transparent",border:`1px solid ${lang===l.k?"transparent":C.border}`,color:lang===l.k?"#fff":C.dim,borderRadius:8,padding:"5px 12px",fontSize:12,fontWeight:700,cursor:"pointer",fontFamily:"'JetBrains Mono',monospace"}}>{l.l}</button>
+        ))}
+      </div>
+      {/* Ticker input */}
+      <div style={{display:"flex",gap:10,maxWidth:540,margin:"0 auto 16px"}}>
+        <input value={ticker} onChange={e=>setTicker(e.target.value.toUpperCase())} onKeyDown={e=>{if(e.key==="Enter"&&ticker.trim()){setStep(1);setCName("");setExchange("");setSector("");setIndustry("");setVals({...EMPTY_VALS});setBools({...EMPTY_BOOLS});} }} placeholder="AAPL, MSFT, NVDA ..." style={{flex:1,background:"rgba(12,20,38,.85)",border:`1px solid ${C.border}`,borderRadius:12,color:C.text,padding:"14px 18px",fontSize:16,fontFamily:"'JetBrains Mono',monospace",letterSpacing:"1px",outline:"none"}}/>
+        <button onClick={()=>{if(ticker.trim()){setStep(1);setCName("");setExchange("");setSector("");setIndustry("");setVals({...EMPTY_VALS});setBools({...EMPTY_BOOLS});}}} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"0 22px",cursor:"pointer",fontFamily:"'Sora',sans-serif",whiteSpace:"nowrap"}}>Keyingi →</button>
+      </div>
+      {/* Quick samples */}
+      <div style={{display:"flex",gap:7,justifyContent:"center",flexWrap:"wrap",marginBottom:20}}>
+        {EX.map(x=><button key={x} onClick={()=>loadSample(x)} style={{background:"transparent",border:`1px solid ${C.border}`,color:C.dim,borderRadius:20,padding:"5px 12px",fontSize:12,cursor:"pointer",fontFamily:"'JetBrains Mono',monospace"}} title="Namuna ma'lumot">{x}</button>)}
+      </div>
+      <div style={{textAlign:"center",fontSize:11,color:C.faint,maxWidth:500,margin:"0 auto",lineHeight:1.7}}>
+        Namuna tugmalarini bossangiz — o'sha aksiyaning namuna ma'lumotlari avtomatik to'ldiriladi va tahrirlashingiz mumkin.
+      </div>
+    </div>
+  );
+
+  // ── STEP 1: Manual input form ────────────────────────────────────
+  return(
+    <div style={{padding:"85px 24px 60px",maxWidth:980,margin:"0 auto"}}>
+      {/* Header */}
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12,marginBottom:24}}>
+        <div style={{display:"flex",alignItems:"center",gap:14}}>
+          <button onClick={()=>setStep(0)} style={{background:"transparent",border:`1px solid ${C.border}`,color:C.dim,borderRadius:8,padding:"7px 13px",fontSize:12.5,cursor:"pointer"}}>← Orqaga</button>
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:22,color:C.blueLt}}>{ticker}</div>
+          <div style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(240,169,43,.4)",borderRadius:6,padding:"3px 8px",fontWeight:600}}>QO'LDA KIRITILADI</div>
+        </div>
+        <a href={`https://stockanalysis.com/stocks/${ticker.toLowerCase()}/statistics/`} target="_blank" rel="noreferrer" style={{fontSize:12,color:C.blueLt,border:`1px solid rgba(74,163,255,0.3)`,borderRadius:8,padding:"7px 12px",display:"inline-flex",alignItems:"center",gap:5}}>
+          stockanalysis.com/{ticker.toLowerCase()} →
+        </a>
+      </div>
+
+      {/* Instruction banner */}
+      <div style={{background:`rgba(47,125,246,0.07)`,border:`1px solid rgba(47,125,246,0.2)`,borderRadius:12,padding:"12px 16px",marginBottom:24,display:"flex",alignItems:"flex-start",gap:10}}>
+        <span style={{color:C.blueLt,fontSize:18,flexShrink:0}}>ℹ</span>
+        <div style={{fontSize:13,color:C.dim,lineHeight:1.6}}>
+          <strong style={{color:C.text}}>stockanalysis.com</strong> saytiga kiring → aksiya belgisini qidiring → <strong style={{color:C.greenLt}}>Statistics</strong> sahifasini oching. Quyidagi barcha ko'rsatkichlarni shu sahifadan ko'rib kiriting.
+        </div>
+      </div>
+
+      {/* READ-ONLY Company Info */}
+      {(()=>{const s=SAMPLE[ticker]||{}; const cn=s.companyName||ticker; const ex=s.exchange||""; const sc=s.sector||""; const ind=s.industry||""; return(
+        <div style={{background:`rgba(47,125,246,0.05)`,border:`1px solid rgba(47,125,246,0.2)`,borderRadius:12,padding:"12px 16px",marginBottom:14,display:"flex",flexWrap:"wrap",gap:16,alignItems:"center"}}>
+          <div style={{display:"flex",alignItems:"center",gap:8}}>
+            <span style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:18,color:C.blueLt}}>{ticker}</span>
+            {ex&&<span style={{fontSize:11,color:C.dim,border:`1px solid ${C.border}`,borderRadius:5,padding:"2px 7px"}}>{ex}</span>}
+          </div>
+          {cn!==ticker&&<span style={{fontSize:14,fontWeight:600,color:C.text}}>{cn}</span>}
+          {sc&&<span style={{fontSize:12,color:C.dim}}>{sc}{ind&&ind!==sc?" · "+ind:""}</span>}
+          <span style={{marginLeft:"auto",fontSize:10.5,color:C.faint,fontStyle:"italic"}}>Ma'lumotlar avtomatik</span>
+        </div>
+      );})()}
+
+      {/* Financial metric groups */}
+      {GROUPS.map(({title,hint,cols,fields},gi)=>{
+        const grpT=(t.tf&&t.tf.grp&&t.tf.grp[gi])?t.tf.grp[gi]:title;
+        return(
+        <div key={grpT} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:"16px 18px",marginBottom:14}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12,flexWrap:"wrap",gap:6}}>
+            <div style={{fontSize:12.5,fontWeight:700,color:C.text}}>{grpT}</div>
+            <div style={{fontSize:10.5,color:C.faint,fontFamily:"'JetBrains Mono',monospace",background:"rgba(255,255,255,.04)",border:`1px solid ${C.border}`,borderRadius:6,padding:"2px 8px"}}>{hint}</div>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:`repeat(auto-fit,minmax(${cols>=4?"145px":"200px"},1fr))`,gap:10}}>
+            {fields.map(({k,lbl,suf,ph})=>(
+              <div key={k}>
+                <div style={{display:"flex",gap:4,alignItems:"center",marginBottom:4}}>
+                  <span style={{fontSize:10.5,color:C.dim}}>{lbl}</span>
+                  {suf&&<span style={{fontSize:9.5,color:C.faint,background:"rgba(255,255,255,.05)",borderRadius:4,padding:"1px 5px"}}>{suf}</span>}
+                </div>
+                <input
+                  value={vals[k]}
+                  onChange={e=>setVals(v=>({...v,[k]:e.target.value}))}
+                  placeholder={ph}
+                  onFocus={e=>e.target.style.borderColor=C.blueLt}
+                  onBlur={e=>e.target.style.borderColor=C.border}
+                  style={{...st}}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+      })}
+
+      <BoolSection ticker={ticker} bools={bools} setBools={setBools} t={t}/>
+
+      {/* Analyze button */}
+      <div style={{textAlign:"center"}}>
+        <button onClick={handleAnalyze} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:14,color:"#fff",fontWeight:700,fontSize:17,padding:"16px 48px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:`0 8px 28px rgba(47,125,246,0.28)`,letterSpacing:".5px"}}>
+          Tahlil Qilish — 15 Savol →
+        </button>
+        <div style={{fontSize:11,color:C.faint,marginTop:10}}>Kiritilgan ma'lumotlar asosida 15 savolga avtomatik javob beriladi va risk darajasi aniqlanadi</div>
+      </div>
+    </div>
   );
 }
 
@@ -753,6 +1099,7 @@ function ToolResult({d,t}){
             <span style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:22,color:C.blueLt}}>{d.ticker}</span>
             {d.exchange&&<span style={{fontSize:11,color:C.dim,border:`1px solid ${C.border}`,borderRadius:6,padding:"2px 7px"}}>{d.exchange}</span>}
             {d._live&&<span style={{fontSize:10.5,color:C.greenLt,border:"1px solid rgba(82,216,105,.4)",borderRadius:6,padding:"2px 7px"}}>live</span>}
+            {d._manual&&<span style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(240,169,43,.4)",borderRadius:6,padding:"2px 7px"}}>qo'lda kiritilgan</span>}
             {d._sample&&!d._live&&<span style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(240,169,43,.4)",borderRadius:6,padding:"2px 7px"}}>{t.sample}</span>}
           </div>
           <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:16,marginTop:5,color:C.text}}>{d.companyName}</div>
