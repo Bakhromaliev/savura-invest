@@ -172,7 +172,7 @@ const LANG = {
 };
 
 const SITE_T={
-  uz:{nav:{home:"Bosh sahifa",tool:"Fundamental Tahlil",course:"Aksiyalar savdosi kursi",journal:"Kundalik",about:"Biz haqimizda",erp:"Savura ERP"},
+  uz:{nav:{home:"Bosh sahifa",tool:"Fundamental Tahlil",course:"Aksiyalar savdosi kursi",journal:"Kundalik",demo:"Demo",about:"Biz haqimizda",erp:"Savura ERP"},
     hero:{badge:"AQSh BIRJASI · FUNDAMENTAL TAHLIL",h1:"Aksiya bozorida",h2:"ongli investitsiya",
       desc:"AQSh aksiya bozorida fundamental tahlil va halol investitsiya bo’yicha O‘zbekistonning yetakchi platformasi.",
       btn1:"Tahlilni boshlash →",btn2:"Kursni ko‘rish",
@@ -193,7 +193,7 @@ const SITE_T={
       ft:"Bu kurs siz uchun, agar...",ol:"Kurs egasi",sl:"Kurs dasturi",
       ct:"Kursga qoʻshilishga tayormisiz?",cd:"Telegram orqali murojaat qiling.",cb:"Murojaat qilish",
       mt:["Investitsiya asoslari","Aksiyalarni tanlash","Halol investitsiya","Fundamental tahlil","Risk boshqaruvi","Real amaliyot"]}},
-  en:{nav:{home:"Home",tool:"Fundamental Analysis",course:"Stock Trading Course",journal:"My Space",about:"About Us",erp:"Savura ERP"},
+  en:{nav:{home:"Home",tool:"Fundamental Analysis",course:"Stock Trading Course",journal:"My Space",demo:"Demo",about:"About Us",erp:"Savura ERP"},
     hero:{badge:"US MARKETS · FUNDAMENTAL ANALYSIS",h1:"Smart investing",h2:"in the stock market",
       desc:"Uzbekistan's leading platform for fundamental analysis and halal investing in US stock markets.",
       btn1:"Start Analysis →",btn2:"View Course",
@@ -562,6 +562,9 @@ function HeroSection({setPage,lang}){
         <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
           <button onClick={()=>setPage("tool")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 28px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 28px rgba(47,125,246,0.28)"}}>{sh.btn1}</button>
           <button onClick={()=>setPage("course")} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:12,color:C.dim,fontWeight:600,fontSize:15,padding:"13px 28px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{sh.btn2}</button>
+          <button onClick={()=>setPage("demo")} style={{background:"transparent",border:"1px solid rgba(82,216,105,0.4)",borderRadius:12,color:C.greenLt,fontWeight:600,fontSize:15,padding:"13px 28px",cursor:"pointer",fontFamily:"'Sora',sans-serif",display:"flex",alignItems:"center",gap:8}}>
+            <span style={{fontSize:18}}>📈</span> Demo Treyding
+          </button>
         </div>
         <div style={{display:"flex",justifyContent:"center",gap:32,marginTop:48,flexWrap:"wrap"}}>
           {sh.stats.map(function(it){return(
@@ -1153,7 +1156,7 @@ function Footer({setPage,lang}){
         </button>
         <p style={{fontSize:12.5,color:C.faint,maxWidth:380,lineHeight:1.7,margin:0}}>{fd.desc}</p>
         <div style={{display:"flex",gap:16,flexWrap:"wrap",justifyContent:"center"}}>
-          {[[fn.home,"home"],[fn.tool,"tool"],[fn.course,"course"],[fn.journal||"Kundalik","journal"],[fn.about,"about"]].map(function(it){return(
+          {[[fn.home,"home"],[fn.tool,"tool"],[fn.course,"course"],[fn.journal||"Kundalik","journal"],[fn.demo||"Demo","demo"],[fn.about,"about"]].map(function(it){return(
             <button key={it[1]} onClick={()=>setPage(it[1])} style={{background:"none",border:"none",cursor:"pointer",color:C.faint,fontSize:12.5,fontFamily:"'Manrope',sans-serif"}}>{it[0]}</button>
           );})}
         </div>
@@ -1362,6 +1365,108 @@ function ChatWidget({lang}){
 
 
 
+
+// ─── Journal & Demo translations ─────────────────────────────────────────────
+const JNL_T = {
+  uz:{title:"Savdo Kundaligi", tabs:["Kundalik","Tekshiruv","Kuzatuv"],
+    new:"+ Yangi yozuv", close:"Yopish", save:"Saqlash", del:"CSV",
+    stAll:"Barchasi",stOpen:"Ochiq",stProfit:"Foydali",stLoss:"Zararli",
+    noEntry:"Yozuv yo'q. Yangi yozuv qo'shing.",noCheck:"Saqlangan tekshiruv yo'q.",noWatch:"Ro'yxat bo'sh.",
+    newCheck:"+ Yangi tekshiruv", checkHist:"Tarix", addWatch:"+ Aksiya qo'shish",
+    watchStatuses:{watching:"Kuzatilmoqda",bought:"Sotib olindi",passed:"O'tkazib yuborildi"},
+    trDate:"Sana",trTicker:"Ticker",trAction:"Harakat",trPrice:"Narx",trShares:"Miqdor",trPnl:"P&L",trResult:"Natija",trReason:"Sabab",trNotes:"Eslatma"},
+  en:{title:"Trading Journal", tabs:["Journal","Checklist","Watchlist"],
+    new:"+ New Entry", close:"Close", save:"Save", del:"CSV",
+    stAll:"All",stOpen:"Open",stProfit:"Profit",stLoss:"Loss",
+    noEntry:"No entries yet.",noCheck:"No saved checklists.",noWatch:"Watchlist empty.",
+    newCheck:"+ New Check", checkHist:"History", addWatch:"+ Add Stock",
+    watchStatuses:{watching:"Watching",bought:"Bought",passed:"Passed"},
+    trDate:"Date",trTicker:"Ticker",trAction:"Action",trPrice:"Price",trShares:"Qty",trPnl:"P&L",trResult:"Result",trReason:"Reason",trNotes:"Notes"},
+  tr:{title:"İşlem Günlüğü", tabs:["Günlük","Kontrol","İzleme"],
+    new:"+ Yeni Kayıt", close:"Kapat", save:"Kaydet", del:"CSV",
+    stAll:"Tümü",stOpen:"Açık",stProfit:"Kârlı",stLoss:"Zararlı",
+    noEntry:"Kayıt yok.",noCheck:"Kayıtlı kontrol yok.",noWatch:"Liste boş.",
+    newCheck:"+ Yeni Kontrol", checkHist:"Geçmiş", addWatch:"+ Hisse Ekle",
+    watchStatuses:{watching:"İzleniyor",bought:"Alındı",passed:"Geçildi"},
+    trDate:"Tarih",trTicker:"Ticker",trAction:"İşlem",trPrice:"Fiyat",trShares:"Adet",trPnl:"K/Z",trResult:"Sonuç",trReason:"Neden",trNotes:"Not"},
+  ru:{title:"Торговый Журнал", tabs:["Журнал","Чеклист","Наблюдение"],
+    new:"+ Запись", close:"Закрыть", save:"Сохранить", del:"CSV",
+    stAll:"Все",stOpen:"Открыт.",stProfit:"Прибыль",stLoss:"Убыток",
+    noEntry:"Записей нет.",noCheck:"Чеклистов нет.",noWatch:"Список пуст.",
+    newCheck:"+ Новый чеклист", checkHist:"История", addWatch:"+ Добавить",
+    watchStatuses:{watching:"Наблюдение",bought:"Куплено",passed:"Пропущено"},
+    trDate:"Дата",trTicker:"Тикер",trAction:"Действие",trPrice:"Цена",trShares:"Кол.",trPnl:"П/У",trResult:"Итог",trReason:"Причина",trNotes:"Заметки"},
+  ar:{title:"مفكرة التداول", tabs:["اليومية","القائمة","المراقبة"],
+    new:"+ إضافة", close:"إغلاق", save:"حفظ", del:"CSV",
+    stAll:"الكل",stOpen:"مفتوح",stProfit:"ربح",stLoss:"خسارة",
+    noEntry:"لا توجد إدخالات.",noCheck:"لا توجد قوائم.",noWatch:"القائمة فارغة.",
+    newCheck:"+ قائمة جديدة", checkHist:"السجل", addWatch:"+ إضافة سهم",
+    watchStatuses:{watching:"مراقبة",bought:"تم الشراء",passed:"تم التجاوز"},
+    trDate:"التاريخ",trTicker:"الرمز",trAction:"الإجراء",trPrice:"السعر",trShares:"الكمية",trPnl:"ر/خ",trResult:"النتيجة",trReason:"السبب",trNotes:"ملاحظة"},
+};
+
+const DMO_T = {
+  uz:{title:"Demo Treyding",setup:"Hisob oching",
+    bal:"Portfel",cash:"Naqd",invest:"Investitsiya",opnl:"Ochiq P&L",start:"Start",
+    refresh:"Yangilash",reset:"Qayta boshlash",resetQ:"Demo hisobni o'chirib, yangi boshlaysizmi?",
+    buyTitle:"Sotib Olish",sell:"Sotish",confirm:"Tasdiqlash",cancel:"Bekor",
+    ticker:"Ticker",qty:"Miqdor",sl:"Stop Loss",tp:"Take Profit",
+    fetchBtn:"Narx",total:"Jami",rr:"Risk/Reward",maxLoss:"Max zarar",
+    buyBtn:"Sotib Olish",disclaimer:"Demo — haqiqiy pul ishtirok etmaydi",
+    assets:"Aktivlar",tradeTab:"Savdo",histTab:"Tarix",
+    noPos:"Hozircha aktiv yo'q.",noHist:"Yopilgan savdo yo'q.",
+    colTicker:"Ticker",colQty:"Dona",colEntry:"Kirish",colCur:"Hozir",colPnl:"P&L",colPct:"P&L%",colSl:"SL",colTp:"TP",
+    histEntry:"Kirish",histExit:"Chiqish",histQty:"Dona",histPnl:"P&L",histReason:"Sabab",histDate:"Sana",
+    startLabel:["Start","O'rtacha","Standart","Professional"]},
+  en:{title:"Demo Trading",setup:"Open Account",
+    bal:"Portfolio",cash:"Cash",invest:"Invested",opnl:"Open P&L",start:"Starting",
+    refresh:"Refresh",reset:"Reset",resetQ:"Reset demo account?",
+    buyTitle:"Buy Stock",sell:"Sell",confirm:"Confirm",cancel:"Cancel",
+    ticker:"Ticker",qty:"Shares",sl:"Stop Loss",tp:"Take Profit",
+    fetchBtn:"Price",total:"Total",rr:"Risk/Reward",maxLoss:"Max loss",
+    buyBtn:"Buy",disclaimer:"Demo — no real money involved",
+    assets:"Assets",tradeTab:"Trade",histTab:"History",
+    noPos:"No open positions.",noHist:"No closed trades.",
+    colTicker:"Ticker",colQty:"Qty",colEntry:"Entry",colCur:"Current",colPnl:"P&L",colPct:"P&L%",colSl:"SL",colTp:"TP",
+    histEntry:"Entry",histExit:"Exit",histQty:"Qty",histPnl:"P&L",histReason:"Reason",histDate:"Date",
+    startLabel:["Starter","Moderate","Standard","Professional"]},
+  tr:{title:"Demo Ticaret",setup:"Hesap Aç",
+    bal:"Portföy",cash:"Nakit",invest:"Yatırım",opnl:"Açık K/Z",start:"Başlangıç",
+    refresh:"Yenile",reset:"Sıfırla",resetQ:"Demo hesabı sıfırlayın mı?",
+    buyTitle:"Hisse Al",sell:"Sat",confirm:"Onayla",cancel:"İptal",
+    ticker:"Ticker",qty:"Adet",sl:"Stop Loss",tp:"Take Profit",
+    fetchBtn:"Fiyat",total:"Toplam",rr:"Risk/Ödül",maxLoss:"Max kayıp",
+    buyBtn:"Al",disclaimer:"Demo — gerçek para yok",
+    assets:"Varlıklar",tradeTab:"İşlem",histTab:"Geçmiş",
+    noPos:"Açık pozisyon yok.",noHist:"Kapalı işlem yok.",
+    colTicker:"Ticker",colQty:"Adet",colEntry:"Giriş",colCur:"Güncel",colPnl:"K/Z",colPct:"K/Z%",colSl:"SL",colTp:"TP",
+    histEntry:"Giriş",histExit:"Çıkış",histQty:"Adet",histPnl:"K/Z",histReason:"Sebep",histDate:"Tarih",
+    startLabel:["Başlangıç","Orta","Standart","Profesyonel"]},
+  ru:{title:"Демо Торговля",setup:"Открыть счёт",
+    bal:"Портфель",cash:"Наличные",invest:"Инвестиции",opnl:"Незакр. П/У",start:"Начальный",
+    refresh:"Обновить",reset:"Сбросить",resetQ:"Сбросить демо-счёт?",
+    buyTitle:"Купить акцию",sell:"Продать",confirm:"Подтвердить",cancel:"Отмена",
+    ticker:"Тикер",qty:"Кол-во",sl:"Стоп-лосс",tp:"Тейк-профит",
+    fetchBtn:"Цена",total:"Итого",rr:"Риск/Доход",maxLoss:"Макс. убыток",
+    buyBtn:"Купить",disclaimer:"Демо — реальных денег нет",
+    assets:"Активы",tradeTab:"Сделка",histTab:"История",
+    noPos:"Нет открытых позиций.",noHist:"Нет закрытых сделок.",
+    colTicker:"Тикер",colQty:"Кол.",colEntry:"Вход",colCur:"Текущая",colPnl:"П/У",colPct:"П/У%",colSl:"СЛ",colTp:"ТП",
+    histEntry:"Вход",histExit:"Выход",histQty:"Кол.",histPnl:"П/У",histReason:"Причина",histDate:"Дата",
+    startLabel:["Начальный","Средний","Стандарт","Профессионал"]},
+  ar:{title:"التداول التجريبي",setup:"فتح الحساب",
+    bal:"المحفظة",cash:"نقداً",invest:"مستثمر",opnl:"ر/خ مفتوح",start:"البداية",
+    refresh:"تحديث",reset:"إعادة",resetQ:"إعادة تعيين الحساب التجريبي؟",
+    buyTitle:"شراء سهم",sell:"بيع",confirm:"تأكيد",cancel:"إلغاء",
+    ticker:"الرمز",qty:"الكمية",sl:"وقف الخسارة",tp:"جني الأرباح",
+    fetchBtn:"السعر",total:"المجموع",rr:"المخاطرة",maxLoss:"أقصى خسارة",
+    buyBtn:"شراء",disclaimer:"تجريبي — لا أموال حقيقية",
+    assets:"الأصول",tradeTab:"تداول",histTab:"السجل",
+    noPos:"لا توجد مراكز مفتوحة.",noHist:"لا توجد صفقات مغلقة.",
+    colTicker:"الرمز",colQty:"الكمية",colEntry:"الدخول",colCur:"الحالي",colPnl:"ر/خ",colPct:"ر/خ%",colSl:"SL",colTp:"TP",
+    histEntry:"الدخول",histExit:"الخروج",histQty:"الكمية",histPnl:"ر/خ",histReason:"السبب",histDate:"التاريخ",
+    startLabel:["مبتدئ","متوسط","قياسي","محترف"]},
+};
 // ─── localStorage helpers ────────────────────────────────────────────────────
 function lsGet(key){ try{return JSON.parse(localStorage.getItem(key))||[];}catch{return[];} }
 function lsSave(key,data){ localStorage.setItem(key,JSON.stringify(data)); }
@@ -1425,7 +1530,7 @@ function JournalTab(){
       <div style={{display:'flex',gap:10,marginBottom:16,flexWrap:'wrap'}}>
         <button onClick={()=>setShowForm(v=>!v)}
           style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:13,padding:'9px 18px',cursor:'pointer'}}>
-          {showForm?'Yopish':'+ Yangi yozuv'}
+          {showForm?J.close:J.new}
         </button>
         {['ALL','OPEN','PROFIT','LOSS'].map(f=>(
           <button key={f} onClick={()=>setFilter(f)}
@@ -1503,7 +1608,7 @@ function JournalTab(){
                 {e.price&&<span style={{fontSize:12,color:C.dim}}>${e.price}</span>}
                 {e.shares&&<span style={{fontSize:12,color:C.dim}}>×{e.shares}</span>}
                 {e.pnl&&<span style={{fontWeight:700,fontSize:13,color:pnlN>=0?C.green:C.red}}>{pnlN>=0?'+':''}{e.pnl}$</span>}
-                <span style={{background:`rgba(0,0,0,0.3)`,border:`1px solid ${col}`,borderRadius:6,padding:'2px 8px',fontSize:10.5,color:col}}>{e.result==='PROFIT'?'Foydali ✓':e.result==='LOSS'?'Zararli ✗':'Ochiq ○'}</span>
+                <span style={{background:`rgba(0,0,0,0.3)`,border:`1px solid ${col}`,borderRadius:6,padding:'2px 8px',fontSize:10.5,color:col}}>{e.result==='PROFIT'?J.stProfit+' ✓':e.result==='LOSS'?J.stLoss+' ✗':J.stOpen+' ○'}</span>
               </div>
               {e.reason&&<div style={{flex:1,fontSize:12,color:C.dim,minWidth:200}}>{e.reason}</div>}
               <button onClick={()=>del(e.id)} style={{background:'transparent',border:'none',color:C.faint,cursor:'pointer',fontSize:16,marginLeft:'auto'}}>🗑</button>
@@ -1568,7 +1673,7 @@ function ChecklistTab(){
   return(
     <div>
       <div style={{display:'flex',gap:8,marginBottom:20}}>
-        {[['form','✅ Yangi tekshiruv'],['history','📋 Tarix']].map(([k,l])=>(
+        {[["form",J.newCheck],["history",J.checkHist+(history.length?" ("+history.length+")":"")]].map(([k,l])=>(
           <button key={k} onClick={()=>setView(k)}
             style={{background:view===k?`linear-gradient(135deg,${C.blue},${C.green})`:'transparent',border:`1px solid ${view===k?'transparent':C.border}`,borderRadius:8,color:view===k?'#fff':C.dim,fontSize:13,fontWeight:view===k?700:400,padding:'8px 16px',cursor:'pointer'}}>
             {l} {k==='history'&&history.length?`(${history.length})`:''}
@@ -1705,7 +1810,7 @@ function WatchlistTab(){
       <div style={{display:'flex',gap:10,marginBottom:16,flexWrap:'wrap'}}>
         <button onClick={()=>setShowForm(v=>!v)}
           style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:13,padding:'9px 18px',cursor:'pointer'}}>
-          {showForm?'Yopish':'+ Aksiya qo\'shish'}
+          {showForm?J.close:J.addWatch}
         </button>
         <div style={{display:'flex',gap:8,marginLeft:'auto',flexWrap:'wrap'}}>
           {Object.entries(STATUS_LBL).map(([k,l])=>(
@@ -1799,7 +1904,8 @@ function WatchlistTab(){
 }
 
 // ─── Journal Page (main) ──────────────────────────────────────────────────────
-function JournalPage(){
+function JournalPage({lang="uz"}){
+  const J = JNL_T[lang]||JNL_T.uz;
   const U_KEY = 'savura_user_v1';
   const [user, setUser] = useState(()=>localStorage.getItem(U_KEY)||'');
   const [nameInput, setNameInput] = useState('');
@@ -1808,9 +1914,9 @@ function JournalPage(){
   if(!user){
     return(
       <div style={{padding:'100px 24px 60px',maxWidth:480,margin:'0 auto',textAlign:'center'}}>
-        <div style={{fontSize:36,marginBottom:16}}>📓</div>
+        <div style={{fontSize:10,letterSpacing:'2px',color:C.faint,marginBottom:4}}>SAVURA INVEST</div>
         <div style={{fontSize:10.5,letterSpacing:'2px',color:C.faint,marginBottom:8}}>SHAXSIY DASHBOARD</div>
-        <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:'0 0 10px'}}>Kundaligingizga xush kelibsiz</h2>
+        <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:'0 0 10px'}}>{J.title}</h2>
         <p style={{color:C.dim,fontSize:13,marginBottom:28,lineHeight:1.7}}>Ma'lumotlaringiz faqat shu qurilmada saqlanadi. Boshqa foydalanuvchilar ko'rmaydi.</p>
         <div style={{display:'flex',gap:10}}>
           <input value={nameInput} onChange={e=>setNameInput(e.target.value)}
@@ -1842,7 +1948,7 @@ function JournalPage(){
       </div>
 
       <div style={{display:'flex',gap:6,marginBottom:28,background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:6,width:'fit-content',flexWrap:'wrap'}}>
-        {[['journal','📓 Savdo kundaligi'],['checklist','✅ Savdo tekshiruvi'],['watchlist','👁 Kuzatuv ro\'yxati']].map(([k,l])=>(
+        {[["journal",J.tabs[0]],["checklist",J.tabs[1]],["watchlist",J.tabs[2]]].map(([k,l])=>(
           <button key={k} onClick={()=>setTab(k)}
             style={{background:tab===k?`linear-gradient(135deg,${C.blue},${C.green})`:'transparent',border:'none',borderRadius:10,color:tab===k?'#fff':C.dim,fontWeight:tab===k?700:400,padding:'9px 18px',cursor:'pointer',fontSize:13,fontFamily:"'Sora',sans-serif",transition:'all .2s'}}>
             {l}
@@ -1856,6 +1962,439 @@ function JournalPage(){
     </div>
   );
 }
+
+
+// ─── DEMO TRADING ────────────────────────────────────────────────────────────
+const DK = 'savura_demo_v1';
+function dLoad(){ try{return JSON.parse(localStorage.getItem(DK));}catch{return null;} }
+function dSave(d){ localStorage.setItem(DK, JSON.stringify(d)); }
+
+function EquityChart({history, startBal}){
+  if(!history||history.length<1) return null;
+  const W=600,H=170,PX=8,PY=22;
+  const vals=history.map(h=>h.v);
+  const minV=Math.min(startBal*0.88,...vals);
+  const maxV=Math.max(startBal*1.12,...vals);
+  const rng=maxV-minV||1;
+  const xs=i=>PX+(i/Math.max(history.length-1,1))*(W-PX*2);
+  const ys=v=>H-PY-((v-minV)/rng)*(H-PY*2);
+  const lastV=history[history.length-1].v;
+  const isUp=lastV>=startBal;
+  const col=isUp?'#52d869':'#e5484d';
+  const sy=ys(startBal);
+  const pts=history.map((h,i)=>xs(i)+','+ys(h.v)).join(' ');
+  const area=xs(0)+','+ys(history[0].v)+' '+pts+' '+xs(history.length-1)+','+(H-PY)+' '+xs(0)+','+(H-PY);
+  // x axis labels (first, middle, last)
+  const xLabels=[];
+  if(history.length>0) xLabels.push({i:0,label:history[0].d});
+  if(history.length>2) xLabels.push({i:Math.floor(history.length/2),label:history[Math.floor(history.length/2)].d});
+  xLabels.push({i:history.length-1,label:history[history.length-1].d});
+  return(
+    <svg viewBox={'0 0 '+W+' '+H} style={{width:'100%',height:170,display:'block'}}>
+      <line x1={PX} y1={sy} x2={W-PX} y2={sy} stroke="rgba(255,255,255,0.12)" strokeDasharray="5,4"/>
+      <text x={PX+3} y={sy-5} fontSize="9" fill="rgba(255,255,255,0.25)">Start</text>
+      {history.length>1&&<polygon points={area} fill={col+'15'}/>}
+      {history.length>1&&<polyline points={pts} fill="none" stroke={col} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>}
+      <circle cx={xs(history.length-1)} cy={ys(lastV)} r="4.5" fill={col}/>
+      <circle cx={xs(history.length-1)} cy={ys(lastV)} r="9" fill={col} fillOpacity="0.18"/>
+      {xLabels.map(({i,label})=>(
+        <text key={i} x={xs(i)} y={H-4} fontSize="9" fill="rgba(255,255,255,0.3)" textAnchor="middle">{label}</text>
+      ))}
+      <text x={W-PX} y={PY-8} fontSize="9" fill="rgba(255,255,255,0.3)" textAnchor="end">${Math.round(maxV).toLocaleString()}</text>
+      <text x={W-PX} y={H-PY+12} fontSize="9" fill="rgba(255,255,255,0.3)" textAnchor="end">${Math.round(minV).toLocaleString()}</text>
+    </svg>
+  );
+}
+
+function DemoPage({lang="uz"}){
+  const D = DMO_T[lang]||DMO_T.uz;
+  const ACCS_KEY = 'savura_demo_accs_v2';
+  const ACTIVE_KEY = 'savura_demo_active_v2';
+  function loadAccs(){ try{return JSON.parse(localStorage.getItem(ACCS_KEY))||[];}catch{return[];} }
+  function saveAccs(a){ localStorage.setItem(ACCS_KEY,JSON.stringify(a)); }
+  function loadActive(){ try{return parseInt(localStorage.getItem(ACTIVE_KEY))||0;}catch{return 0;} }
+  function saveActive(i){ localStorage.setItem(ACTIVE_KEY,String(i)); }
+
+  const [accs,setAccs] = useState(()=>loadAccs());
+  const [activeIdx,setActiveIdx] = useState(()=>{ const i=loadActive(); const a=loadAccs(); return i<a.length?i:0; });
+  const [showNew,setShowNew] = useState(false);
+  const [newName,setNewName] = useState('');
+  const [prices,setPrices] = useState({});
+  const [refreshing,setRefreshing] = useState(false);
+  const [tab,setTab] = useState('positions');
+  const [buyForm,setBuyForm] = useState({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''});
+  const [sellId,setSellId] = useState(null);
+
+  const demo = accs[activeIdx]||null;
+
+  function switchAcc(i){ setActiveIdx(i); saveActive(i); setSellId(null); setBuyForm({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''}); setPrices({}); }
+
+  function createAcc(bal){
+    if(accs.length>=3) return;
+    const name = newName.trim()||(D.startLabel[[1000,3000,5000,10000].indexOf(bal)]||('Hisob '+(accs.length+1)));
+    const today = new Date().toISOString().split('T')[0];
+    const acc = {id:Date.now(),name,startBal:bal,cash:bal,positions:[],history_trades:[],history:[{d:today,v:bal}]};
+    const next = [...accs,acc];
+    setAccs(next); saveAccs(next);
+    const ni=next.length-1; setActiveIdx(ni); saveActive(ni);
+    setShowNew(false); setNewName('');
+  }
+
+  function deleteAcc(i){
+    if(!window.confirm('"'+(accs[i]?.name||'Hisob')+'" hisobini o\'chirasizmi?')) return;
+    const next=accs.filter((_,idx)=>idx!==i); setAccs(next); saveAccs(next);
+    const ni=Math.max(0,Math.min(activeIdx,next.length-1)); setActiveIdx(ni); saveActive(ni);
+  }
+
+  function updateDemo(updated){ const next=accs.map((a,i)=>i===activeIdx?updated:a); setAccs(next); saveAccs(next); }
+
+  function snapshotEquity(d,px){
+    const unr=(d.positions||[]).reduce((s,p)=>{ const cp=px[p.ticker]||p.buyPrice; return s+(cp-p.buyPrice)*p.shares; },0);
+    const tot=d.cash+unr+(d.positions||[]).reduce((s,p)=>s+p.buyPrice*p.shares,0);
+    const today=new Date().toISOString().split('T')[0];
+    const h=[...(d.history||[])];
+    if(h.length>0&&h[h.length-1].d===today) h[h.length-1].v=Math.round(tot*100)/100;
+    else h.push({d:today,v:Math.round(tot*100)/100});
+    if(h.length>90) h.shift();
+    return {...d,history:h};
+  }
+
+  async function refreshPrices(){
+    if(!demo?.positions?.length) return;
+    setRefreshing(true);
+    const tickers=[...new Set(demo.positions.map(p=>p.ticker))];
+    const px={};
+    for(const sym of tickers){ try{ const r=await fetch('/api/lookup?sym='+sym); const d=await r.json(); if(d.price) px[sym]=d.price; }catch{} }
+    setPrices(px);
+    let updated={...demo};
+    const closed=[];
+    updated.positions=(demo.positions||[]).filter(pos=>{
+      const cp=px[pos.ticker]; if(!cp) return true;
+      if(pos.sl&&cp<=pos.sl){ closed.push({...pos,closePrice:cp,closeDate:new Date().toISOString().split('T')[0],reason:'Stop Loss',pnl:(cp-pos.buyPrice)*pos.shares}); return false; }
+      if(pos.tp&&cp>=pos.tp){ closed.push({...pos,closePrice:cp,closeDate:new Date().toISOString().split('T')[0],reason:'Take Profit',pnl:(cp-pos.buyPrice)*pos.shares}); return false; }
+      return true;
+    });
+    if(closed.length>0){
+      updated.cash=(updated.cash||0)+closed.reduce((s,t)=>s+t.closePrice*t.shares,0);
+      updated.history_trades=[...(demo.history_trades||[]),...closed];
+      alert(closed.map(t=>t.ticker+' '+t.reason+' — '+(t.pnl>=0?'+':'')+t.pnl.toFixed(2)+'$').join('\n'));
+    }
+    updated=snapshotEquity(updated,px); updateDemo(updated); setRefreshing(false);
+  }
+
+  React.useEffect(()=>{ if(!demo?.positions?.length) return; const t=setInterval(()=>refreshPrices(),30000); return ()=>clearInterval(t); },[demo,activeIdx]);
+
+  async function fetchBuyPrice(){
+    const sym=buyForm.ticker.trim().toUpperCase(); if(!sym) return;
+    setBuyForm(f=>({...f,fetching:true,err:''}));
+    try{
+      const r=await fetch('/api/lookup?sym='+sym); const d=await r.json();
+      if(d.price) setBuyForm(f=>({...f,price:d.price,fetching:false,ticker:sym}));
+      else setBuyForm(f=>({...f,err:d.error||'Topilmadi',fetching:false}));
+    }catch{ setBuyForm(f=>({...f,err:'Server xatosi',fetching:false})); }
+  }
+
+  function executeBuy(){
+    if(!demo||!buyForm.price||!buyForm.shares) return;
+    const cost=buyForm.price*parseFloat(buyForm.shares);
+    if(cost>demo.cash){ alert("Mablag' yetarli emas!"); return; }
+    const pos={id:Date.now(),ticker:buyForm.ticker,shares:parseFloat(buyForm.shares),buyPrice:buyForm.price,buyDate:new Date().toISOString().split('T')[0],sl:buyForm.sl?parseFloat(buyForm.sl):null,tp:buyForm.tp?parseFloat(buyForm.tp):null};
+    const upd=snapshotEquity({...demo,cash:demo.cash-cost,positions:[...(demo.positions||[]),pos]},{...prices,[buyForm.ticker]:buyForm.price});
+    updateDemo(upd); setBuyForm({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''});
+  }
+
+  function closePosition(pos){
+    if(!demo) return;
+    const cp=prices[pos.ticker]||pos.buyPrice;
+    const pnl=(cp-pos.buyPrice)*pos.shares;
+    const trade={...pos,closePrice:cp,closeDate:new Date().toISOString().split('T')[0],reason:'Manual',pnl};
+    const upd=snapshotEquity({...demo,cash:demo.cash+cp*pos.shares,positions:demo.positions.filter(p=>p.id!==pos.id),history_trades:[...(demo.history_trades||[]),trade]},{...prices});
+    updateDemo(upd); setSellId(null);
+  }
+
+  const unrPnl=(demo?.positions||[]).reduce((s,p)=>{ const cp=prices[p.ticker]||p.buyPrice; return s+(cp-p.buyPrice)*p.shares; },0);
+  const invVal=(demo?.positions||[]).reduce((s,p)=>s+p.buyPrice*p.shares,0);
+  const portVal=(demo?.cash||0)+invVal+unrPnl;
+  const totPnl=portVal-(demo?.startBal||0);
+  const totPct=demo?.startBal?(totPnl/demo.startBal*100):0;
+  const isUp=totPnl>=0;
+
+  // Setup screen
+  if(accs.length===0){
+    return(
+      <div style={{padding:'100px 24px',maxWidth:520,margin:'0 auto',textAlign:'center'}}>
+        <div style={{fontSize:10,letterSpacing:'2px',color:C.faint,marginBottom:8}}>SAVURA INVEST</div>
+        <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:'0 0 8px'}}>{D.setup}</h2>
+        <p style={{color:C.dim,fontSize:13,marginBottom:8,lineHeight:1.6}}>Haqiqiy pul yo'q — real narxlarda mashq qiling.</p>
+        <p style={{color:C.faint,fontSize:11,marginBottom:24}}>Brauzerda saqlanadi. 3 tagacha hisob ocha olasiz.</p>
+        <input value={newName} onChange={e=>setNewName(e.target.value)} placeholder="Hisob nomi (ixtiyoriy: Agressiv, Konservativ...)"
+          style={{width:'100%',background:'rgba(12,20,38,.85)',border:`1px solid ${C.border}`,borderRadius:10,color:C.text,padding:'11px 14px',fontSize:13,outline:'none',marginBottom:14,boxSizing:'border-box',fontFamily:"'Sora',sans-serif"}}/>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+          {[1000,3000,5000,10000].map((amt,idx)=>(
+            <button key={amt} onClick={()=>createAcc(amt)}
+              style={{background:C.card,border:`2px solid ${C.border}`,borderRadius:14,padding:'16px 12px',cursor:'pointer',transition:'all .2s'}}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor=C.blue;e.currentTarget.style.background='rgba(47,125,246,0.1)';}}
+              onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.background=C.card;}}>
+              <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:800,fontSize:22,color:C.blueLt}}>${amt.toLocaleString()}</div>
+              <div style={{fontSize:11.5,color:C.dim,marginTop:3}}>{D.startLabel[idx]}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return(
+    <div style={{padding:'80px 16px 60px',maxWidth:1060,margin:'0 auto'}}>
+
+      {/* Account tabs */}
+      <div style={{display:'flex',gap:8,marginBottom:16,flexWrap:'wrap',alignItems:'center'}}>
+        {accs.map(function(acc,i){
+          const av=acc.cash+(acc.positions||[]).reduce(function(s,p){return s+p.buyPrice*p.shares;},0);
+          const pct=(av-acc.startBal)/acc.startBal*100;
+          const active=i===activeIdx;
+          return(
+            <div key={acc.id} onClick={()=>switchAcc(i)}
+              style={{display:'flex',alignItems:'center',gap:8,padding:'8px 12px',borderRadius:12,cursor:'pointer',
+                background:active?'rgba(47,125,246,0.12)':'rgba(255,255,255,0.03)',
+                border:`1.5px solid ${active?C.blue:C.border}`,transition:'all .2s'}}>
+              <div>
+                <div style={{fontSize:12.5,fontWeight:active?700:400,color:active?C.text:C.dim}}>{acc.name}</div>
+                <div style={{fontSize:11,fontFamily:"'JetBrains Mono',monospace"}}>
+                  <span style={{color:C.faint}}>${av.toFixed(0)}</span>
+                  <span style={{marginLeft:6,color:pct>=0?C.green:C.red,fontWeight:600}}>{pct>=0?'+':''}{pct.toFixed(1)}%</span>
+                </div>
+              </div>
+              <button onClick={function(e){e.stopPropagation();deleteAcc(i);}}
+                style={{background:'transparent',border:'none',color:C.faint,cursor:'pointer',fontSize:16,padding:'0 2px',lineHeight:1,marginLeft:2}}>×</button>
+            </div>
+          );
+        })}
+
+        {accs.length<3&&!showNew&&(
+          <button onClick={()=>setShowNew(true)}
+            style={{padding:'8px 14px',borderRadius:12,background:'transparent',border:`1.5px dashed ${C.border}`,color:C.faint,cursor:'pointer',fontSize:12.5,fontWeight:600,transition:'all .2s'}}
+            onMouseEnter={e=>{e.currentTarget.style.borderColor=C.green;e.currentTarget.style.color=C.greenLt;}}
+            onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.color=C.faint;}}>
+            + Yangi hisob
+          </button>
+        )}
+
+        {showNew&&(
+          <div style={{display:'flex',gap:7,alignItems:'center',flexWrap:'wrap',padding:'8px 12px',background:C.card,border:`1px solid ${C.border}`,borderRadius:12}}>
+            <input value={newName} onChange={e=>setNewName(e.target.value)} placeholder="Hisob nomi"
+              style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'6px 10px',fontSize:12,outline:'none',width:130,fontFamily:"'Sora',sans-serif"}}/>
+            {[1000,3000,5000,10000].map(function(amt){
+              return(
+                <button key={amt} onClick={()=>createAcc(amt)}
+                  style={{background:'rgba(47,125,246,0.1)',border:`1px solid rgba(47,125,246,0.3)`,borderRadius:8,color:C.blueLt,fontSize:11.5,fontWeight:600,padding:'5px 10px',cursor:'pointer'}}>
+                  ${amt.toLocaleString()}
+                </button>
+              );
+            })}
+            <button onClick={()=>setShowNew(false)}
+              style={{background:'transparent',border:`1px solid ${C.border}`,borderRadius:8,color:C.faint,fontSize:12,padding:'5px 10px',cursor:'pointer'}}>×</button>
+          </div>
+        )}
+      </div>
+
+      {/* Portfolio header + chart */}
+      <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:18,padding:'18px 20px',marginBottom:14}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:12,marginBottom:14}}>
+          <div>
+            <div style={{fontSize:10,letterSpacing:'2px',color:C.faint,marginBottom:4}}>{demo.name.toUpperCase()}</div>
+            <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:800,fontSize:'clamp(24px,4vw,38px)',color:C.text,lineHeight:1}}>
+              ${portVal.toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}
+            </div>
+            <div style={{display:'flex',alignItems:'center',gap:10,marginTop:6,flexWrap:'wrap'}}>
+              <span style={{fontSize:16,fontWeight:700,color:isUp?C.green:C.red}}>{isUp?'▲':'▼'} {isUp?'+':''}{totPct.toFixed(2)}%</span>
+              <span style={{fontSize:14,color:isUp?C.green:C.red}}>{isUp?'+':''}{totPnl.toFixed(2)}$</span>
+              <span style={{fontSize:11,color:C.faint}}>{D.start}: ${demo.startBal.toLocaleString()}</span>
+            </div>
+          </div>
+          <div style={{display:'flex',gap:14,flexWrap:'wrap',alignItems:'flex-start'}}>
+            {[[D.cash,demo.cash.toFixed(2)+'$',C.blueLt],[D.invest,invVal.toFixed(2)+'$',C.amber],[D.opnl,(unrPnl>=0?'+':'')+unrPnl.toFixed(2)+'$',unrPnl>=0?C.green:C.red]].map(function(item){
+              return(
+                <div key={item[0]} style={{textAlign:'right'}}>
+                  <div style={{fontSize:10,color:C.faint}}>{item[0]}</div>
+                  <div style={{fontSize:13,fontWeight:700,color:item[2],fontFamily:"'JetBrains Mono',monospace"}}>{item[1]}</div>
+                </div>
+              );
+            })}
+            <button onClick={()=>refreshPrices()} disabled={refreshing}
+              style={{background:'rgba(47,125,246,0.1)',border:`1px solid ${C.border}`,borderRadius:8,color:C.blueLt,fontSize:11.5,padding:'6px 12px',cursor:'pointer'}}>
+              {refreshing?'...':D.refresh}
+            </button>
+          </div>
+        </div>
+        <div style={{background:'rgba(0,0,0,0.2)',borderRadius:12,padding:'10px 8px 4px'}}>
+          <EquityChart history={demo.history} startBal={demo.startBal}/>
+        </div>
+      </div>
+
+      {/* Two columns */}
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))',gap:14,alignItems:'start'}}>
+
+        {/* Buy form */}
+        <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:'18px'}}>
+          <div style={{fontSize:13.5,fontWeight:700,color:C.text,marginBottom:14,display:'flex',alignItems:'center',gap:8}}>
+            <span style={{color:C.green}}>▲</span>{D.buyTitle}
+          </div>
+          <div style={{marginBottom:10}}>
+            <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>{D.ticker}</div>
+            <div style={{display:'flex',gap:6}}>
+              <input value={buyForm.ticker}
+                onChange={e=>setBuyForm(f=>({...f,ticker:e.target.value.toUpperCase(),price:null,err:''}))}
+                onKeyDown={e=>e.key==='Enter'&&fetchBuyPrice()}
+                placeholder="AAPL"
+                style={{flex:1,background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:15,fontFamily:"'JetBrains Mono',monospace",fontWeight:700,outline:'none'}}/>
+              <button onClick={fetchBuyPrice} disabled={buyForm.fetching||!buyForm.ticker}
+                style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:8,color:'#fff',fontSize:12,fontWeight:700,padding:'0 14px',cursor:'pointer'}}>
+                {buyForm.fetching?'...':(D.fetchBtn||'Narx')}
+              </button>
+            </div>
+            {buyForm.err&&<div style={{fontSize:11,color:C.red,marginTop:4}}>{buyForm.err}</div>}
+          </div>
+          {buyForm.price&&(
+            <div style={{background:'rgba(47,125,246,0.08)',border:`1px solid rgba(47,125,246,0.2)`,borderRadius:10,padding:'9px 12px',marginBottom:12}}>
+              <div style={{fontSize:10,color:C.faint}}>Joriy narx</div>
+              <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:800,fontSize:22,color:C.blueLt}}>${buyForm.price.toFixed(2)}</div>
+            </div>
+          )}
+          <div style={{marginBottom:10}}>
+            <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>{D.qty}</div>
+            <input type="number" value={buyForm.shares} onChange={e=>setBuyForm(f=>({...f,shares:e.target.value}))} placeholder="10" min="1"
+              style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+            {buyForm.price&&buyForm.shares&&(
+              <div style={{fontSize:11,color:C.dim,marginTop:3}}>
+                {D.total}: <b style={{color:C.text}}>${(buyForm.price*parseFloat(buyForm.shares||0)).toFixed(2)}</b>
+                {'  '}({D.cash}: <span style={{color:demo.cash<buyForm.price*parseFloat(buyForm.shares||0)?C.red:C.green}}>${demo.cash.toFixed(0)}</span>)
+              </div>
+            )}
+          </div>
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:12}}>
+            <div>
+              <div style={{fontSize:10.5,color:C.red,marginBottom:4}}>● {D.sl}</div>
+              <input type="number" value={buyForm.sl} onChange={e=>setBuyForm(f=>({...f,sl:e.target.value}))}
+                placeholder={buyForm.price?(buyForm.price*0.95).toFixed(2):'—'}
+                style={{width:'100%',background:'rgba(229,72,77,0.06)',border:`1px solid rgba(229,72,77,0.25)`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none'}}/>
+            </div>
+            <div>
+              <div style={{fontSize:10.5,color:C.green,marginBottom:4}}>● {D.tp}</div>
+              <input type="number" value={buyForm.tp} onChange={e=>setBuyForm(f=>({...f,tp:e.target.value}))}
+                placeholder={buyForm.price?(buyForm.price*1.10).toFixed(2):'—'}
+                style={{width:'100%',background:'rgba(55,178,77,0.06)',border:`1px solid rgba(55,178,77,0.25)`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none'}}/>
+            </div>
+          </div>
+          {buyForm.price&&buyForm.sl&&buyForm.tp&&(
+            <div style={{background:'rgba(0,0,0,0.2)',borderRadius:8,padding:'8px 10px',marginBottom:12,fontSize:11.5,color:C.dim}}>
+              {D.rr}: <b style={{color:C.text}}>{(((parseFloat(buyForm.tp)-buyForm.price)/(buyForm.price-parseFloat(buyForm.sl)))||0).toFixed(1)}x</b>
+              {'  '}
+              <span style={{color:C.red}}>{D.maxLoss}: -{((buyForm.price-parseFloat(buyForm.sl))*parseFloat(buyForm.shares||0)).toFixed(2)}$</span>
+            </div>
+          )}
+          <button onClick={executeBuy} disabled={!buyForm.price||!buyForm.shares||parseFloat(buyForm.shares)<=0}
+            style={{width:'100%',background:buyForm.price&&buyForm.shares?`linear-gradient(135deg,${C.blue},${C.green})`:'rgba(255,255,255,0.05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'12px',cursor:buyForm.price&&buyForm.shares?'pointer':'default',boxSizing:'border-box'}}>
+            {D.buyBtn}
+          </button>
+          <div style={{fontSize:10.5,color:C.faint,textAlign:'center',marginTop:8}}>{D.disclaimer}</div>
+        </div>
+
+        {/* Assets */}
+        <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:'18px'}}>
+          <div style={{display:'flex',gap:6,marginBottom:14,background:'rgba(0,0,0,0.2)',borderRadius:10,padding:4,width:'fit-content'}}>
+            {[['positions',D.assets+' ('+(demo.positions||[]).length+')'],['history',D.histTab+' ('+(demo.history_trades||[]).length+')']].map(function(item){
+              const k=item[0]; const l=item[1];
+              return(
+                <button key={k} onClick={()=>setTab(k)}
+                  style={{background:tab===k?`linear-gradient(135deg,${C.blue},${C.green})`:'transparent',border:'none',borderRadius:8,color:tab===k?'#fff':C.dim,fontWeight:tab===k?700:400,padding:'7px 13px',cursor:'pointer',fontSize:12}}>
+                  {l}
+                </button>
+              );
+            })}
+          </div>
+
+          {tab==='positions'&&(
+            (demo.positions||[]).length===0
+              ?<div style={{padding:'32px',textAlign:'center',color:C.faint,fontSize:13}}>{D.noPos}</div>
+              :<div style={{overflowX:'auto'}}>
+                <table style={{width:'100%',borderCollapse:'collapse',fontSize:12}}>
+                  <thead>
+                    <tr style={{borderBottom:`1px solid ${C.border}`}}>
+                      {[D.colTicker,D.colQty,D.colEntry,D.colCur,D.colPnl,D.colPct,D.colSl,D.colTp,''].map(function(h){
+                        return <th key={h} style={{padding:'7px 6px',color:C.faint,fontWeight:600,textAlign:'left',fontSize:10.5,whiteSpace:'nowrap'}}>{h}</th>;
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(demo.positions||[]).map(function(pos){
+                      const cp=prices[pos.ticker]||pos.buyPrice;
+                      const pnl=(cp-pos.buyPrice)*pos.shares;
+                      const pct=(cp-pos.buyPrice)/pos.buyPrice*100;
+                      const col=pnl>=0?C.green:C.red;
+                      return(
+                        <tr key={pos.id} style={{borderBottom:`1px solid rgba(255,255,255,0.04)`}}>
+                          <td style={{padding:'8px 6px',fontFamily:"'JetBrains Mono',monospace",fontWeight:700,color:C.blueLt}}>{pos.ticker}</td>
+                          <td style={{padding:'8px 6px',color:C.text}}>{pos.shares}</td>
+                          <td style={{padding:'8px 6px',color:C.dim,fontSize:11}}>${pos.buyPrice.toFixed(2)}</td>
+                          <td style={{padding:'8px 6px',color:col,fontSize:11}}>${cp.toFixed(2)}</td>
+                          <td style={{padding:'8px 6px',fontWeight:700,color:col,fontSize:11}}>{pnl>=0?'+':''}{pnl.toFixed(2)}$</td>
+                          <td style={{padding:'8px 6px',fontWeight:700,color:col,fontSize:11}}>{pct>=0?'+':''}{pct.toFixed(1)}%</td>
+                          <td style={{padding:'8px 6px',color:C.red,fontSize:10.5}}>{pos.sl?'$'+pos.sl:'—'}</td>
+                          <td style={{padding:'8px 6px',color:C.green,fontSize:10.5}}>{pos.tp?'$'+pos.tp:'—'}</td>
+                          <td style={{padding:'8px 6px'}}>
+                            {sellId===pos.id
+                              ?<div style={{display:'flex',gap:4}}>
+                                <button onClick={()=>closePosition(pos)} style={{background:'rgba(229,72,77,0.15)',border:`1px solid ${C.red}`,borderRadius:6,color:C.red,fontSize:10.5,padding:'3px 7px',cursor:'pointer'}}>{D.confirm}</button>
+                                <button onClick={()=>setSellId(null)} style={{background:'transparent',border:`1px solid ${C.border}`,borderRadius:6,color:C.faint,fontSize:10.5,padding:'3px 7px',cursor:'pointer'}}>{D.cancel}</button>
+                              </div>
+                              :<button onClick={()=>setSellId(pos.id)} style={{background:'rgba(229,72,77,0.1)',border:`1px solid rgba(229,72,77,0.3)`,borderRadius:7,color:C.red,fontSize:11,padding:'4px 8px',cursor:'pointer'}}>{D.sell}</button>
+                            }
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+          )}
+
+          {tab==='history'&&(
+            (demo.history_trades||[]).length===0
+              ?<div style={{padding:'32px',textAlign:'center',color:C.faint,fontSize:13}}>{D.noHist}</div>
+              :<div style={{overflowX:'auto'}}>
+                <table style={{width:'100%',borderCollapse:'collapse',fontSize:11.5}}>
+                  <thead>
+                    <tr style={{borderBottom:`1px solid ${C.border}`}}>
+                      {[D.colTicker,D.histDate,D.histEntry,D.histExit,D.histQty,D.histPnl,D.histReason].map(function(h){
+                        return <th key={h} style={{padding:'7px 6px',color:C.faint,fontWeight:600,textAlign:'left',fontSize:10.5}}>{h}</th>;
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[...(demo.history_trades||[])].reverse().map(function(t){
+                      return(
+                        <tr key={t.id} style={{borderBottom:`1px solid rgba(255,255,255,0.04)`}}>
+                          <td style={{padding:'7px 6px',fontFamily:"'JetBrains Mono',monospace",fontWeight:700,color:C.blueLt}}>{t.ticker}</td>
+                          <td style={{padding:'7px 6px',color:C.faint,fontSize:10.5}}>{t.closeDate}</td>
+                          <td style={{padding:'7px 6px',color:C.dim,fontSize:10.5}}>${t.buyPrice.toFixed(2)}</td>
+                          <td style={{padding:'7px 6px',color:C.dim,fontSize:10.5}}>${(t.closePrice||t.buyPrice).toFixed(2)}</td>
+                          <td style={{padding:'7px 6px',color:C.text}}>{t.shares}</td>
+                          <td style={{padding:'7px 6px',fontWeight:700,color:t.pnl>=0?C.green:C.red}}>{t.pnl>=0?'+':''}{t.pnl.toFixed(2)}$</td>
+                          <td style={{padding:'7px 6px',fontSize:10.5}}>{t.reason}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 export default function App(){
   const [page,setPage]=useState("home");
@@ -1873,7 +2412,8 @@ export default function App(){
       {page==="tool"&&<FundamentalTool lang={lang} setLang={setLang}/>}
       {page==="course"&&<CoursePage lang={lang}/>}
       {page==="about"&&<AboutPage lang={lang}/>}
-      {page==="journal"&&<JournalPage/>}
+      {page==="journal"&&<JournalPage lang={lang}/>}
+      {page==="demo"&&<DemoPage lang={lang}/>}
       <ChatWidget lang={lang}/>
       <Footer setPage={setPage} lang={lang}/>
     </div>
