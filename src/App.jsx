@@ -1667,6 +1667,21 @@ function WatchlistTab(){
   const [showForm, setShowForm] = useState(false);
   const EMPTY = {ticker:'',company:'',targetPrice:'',notes:'',status:'watching'};
   const [form, setForm] = useState(EMPTY);
+  const [lookupState, setLookupState] = useState('idle');
+
+  async function lookupTicker(sym){
+    const s = sym.trim().toUpperCase();
+    if(!s) return;
+    setLookupState('loading');
+    try {
+      const r = await fetch('/api/lookup?sym='+s);
+      const data = await r.json();
+      if(data && data.companyName){
+        setForm(function(f){ return {...f, ticker:s, company:data.companyName||f.company, targetPrice:f.targetPrice||(data.price?String(data.price.toFixed(2)):'')}; });
+        setLookupState('done');
+      } else { setLookupState('error'); }
+    } catch(e){ setLookupState('error'); }
+  }
 
   function save(){
     if(!form.ticker.trim()) return;
