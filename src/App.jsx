@@ -1169,6 +1169,199 @@ function Footer({setPage,lang}){
 }
 
 // ─── App ─────────────────────────────────────────────────────────────────────
+
+// ─── AI Chat Widget ────────────────────────────────────────────────────────
+const AiIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="1.5" strokeOpacity="0.8"/>
+    <path d="M8 10h8M8 14h5" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+    <circle cx="17.5" cy="6.5" r="2.5" fill="#52d869"/>
+    <path d="M16.5 6.5L18.5 6.5M17.5 5.5L17.5 7.5" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
+  </svg>
+);
+
+const SavuraAiIcon = ({size=26}) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+    <defs>
+      <linearGradient id="aiGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#2f7df6"/>
+        <stop offset="1" stopColor="#1db584"/>
+      </linearGradient>
+    </defs>
+    <rect width="32" height="32" rx="10" fill="url(#aiGrad)"/>
+    <circle cx="10" cy="13" r="2" fill="white" fillOpacity="0.9"/>
+    <circle cx="16" cy="11" r="2" fill="white"/>
+    <circle cx="22" cy="13" r="2" fill="white" fillOpacity="0.9"/>
+    <path d="M7 20 Q16 25 25 20" stroke="white" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+    <circle cx="26" cy="7" r="3" fill="#52d869"/>
+    <path d="M24.8 7h2.4M26 5.8v2.4" stroke="white" strokeWidth="1.3" strokeLinecap="round"/>
+  </svg>
+);
+
+function ChatWidget({lang}){
+  const [open, setOpen] = useState(false);
+  const [msgs, setMsgs] = useState([
+    {role:"assistant", content:"Salom! Men Savura Invest AI yordamchisiman 👋\n\nFundamental tahlil, halol investitsiya, kurs va Savura Invest haqida savollaringizga javob beraman."}
+  ]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [pulse, setPulse] = useState(true);
+  const bottomRef = React.useRef(null);
+
+  React.useEffect(()=>{
+    if(open && bottomRef.current) bottomRef.current.scrollIntoView({behavior:"smooth"});
+  },[msgs, open]);
+
+  React.useEffect(()=>{
+    const t = setTimeout(()=>setPulse(false), 5000);
+    return ()=>clearTimeout(t);
+  },[]);
+
+  async function send(){
+    const text = input.trim();
+    if(!text || loading) return;
+    const newMsgs = [...msgs, {role:"user", content:text}];
+    setMsgs(newMsgs);
+    setInput("");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/gemini", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({messages: newMsgs.slice(-10)})
+      });
+      if(!res.ok){ const e=await res.json(); throw new Error(e.error||"Server xatosi"); }
+      const data = await res.json();
+      setMsgs(m=>[...m, {role:"assistant", content: data.reply||"Javob topilmadi."}]);
+    } catch(e) {
+      setMsgs(m=>[...m, {role:"assistant", content:"⚠️ "+e.message+". GEMINI_KEY Vercel Environment Variables da o'rnatilganligini tekshiring."}]);
+    }
+    setLoading(false);
+  }
+
+  const SUGGESTIONS = [
+    "P/E nisbati nima degani?",
+    "Kurs haqida ma'lumot bering",
+    "Halol aksiya qanday tanlanadi?",
+    "Muhammadyusuf haqida ayt",
+  ];
+
+  const BG = "rgba(8,14,30,0.97)";
+  const BORDER = "rgba(74,163,255,0.18)";
+
+  return(
+    <div style={{position:"fixed", bottom:20, right:20, zIndex:9999, display:"flex", flexDirection:"column", alignItems:"flex-end"}}>
+
+      {/* Notification bubble */}
+      {!open && pulse && (
+        <div style={{background:"linear-gradient(135deg,#1a3a6e,#0d2137)", border:"1px solid rgba(74,163,255,0.3)", borderRadius:12, padding:"8px 14px", marginBottom:10, fontSize:12, color:"#a0c4ff", maxWidth:200, boxShadow:"0 4px 20px rgba(0,0,0,0.4)", animation:"fadeIn .5s ease"}}>
+          Savol bering, javob beraman! 💬
+        </div>
+      )}
+
+      {/* Chat panel */}
+      {open && (
+        <div style={{width:340, height:490, background:BG, border:"1px solid "+BORDER, borderRadius:20, boxShadow:"0 24px 64px rgba(0,0,0,0.6)", display:"flex", flexDirection:"column", marginBottom:12, overflow:"hidden", backdropFilter:"blur(12px)"}}>
+
+          {/* Header */}
+          <div style={{background:"linear-gradient(135deg,#1a3a6e 0%,#0d3d2a 100%)", padding:"14px 16px", display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:"1px solid "+BORDER}}>
+            <div style={{display:"flex", alignItems:"center", gap:10}}>
+              <SavuraAiIcon size={38}/>
+              <div>
+                <div style={{fontSize:14, fontWeight:700, color:"#e8f4ff", fontFamily:"'Sora',sans-serif"}}>Savura AI</div>
+                <div style={{display:"flex", alignItems:"center", gap:5}}>
+                  <div style={{width:6, height:6, borderRadius:"50%", background:"#52d869"}}/>
+                  <span style={{fontSize:10, color:"#52d869"}}>Online</span>
+                </div>
+              </div>
+            </div>
+            <div style={{display:"flex", gap:8}}>
+              <button onClick={()=>setMsgs(msgs.slice(0,1))} style={{background:"rgba(255,255,255,0.07)", border:"none", borderRadius:8, color:"#8099c0", fontSize:11, padding:"4px 9px", cursor:"pointer"}}>Tozala</button>
+              <button onClick={()=>setOpen(false)} style={{background:"rgba(255,255,255,0.07)", border:"none", borderRadius:8, color:"#8099c0", fontSize:14, padding:"2px 8px", cursor:"pointer"}}>✕</button>
+            </div>
+          </div>
+
+          {/* Messages */}
+          <div style={{flex:1, overflowY:"auto", padding:"14px", display:"flex", flexDirection:"column", gap:10}}>
+            {msgs.map(function(m,i){
+              return(
+                <div key={i} style={{display:"flex", justifyContent: m.role==="user"?"flex-end":"flex-start", gap:8, alignItems:"flex-end"}}>
+                  {m.role==="assistant" && <SavuraAiIcon size={24}/>}
+                  <div style={{maxWidth:"80%", padding:"10px 13px",
+                    borderRadius: m.role==="user"?"16px 16px 4px 16px":"16px 16px 16px 4px",
+                    background: m.role==="user"
+                      ? "linear-gradient(135deg,#2f7df6,#1a6de0)"
+                      : "rgba(255,255,255,0.05)",
+                    border: m.role==="assistant" ? "1px solid rgba(74,163,255,0.12)" : "none",
+                    color: m.role==="user" ? "#fff" : "#c8d8f0",
+                    fontSize:12.5, lineHeight:1.65, whiteSpace:"pre-wrap"}}>
+                    {m.content}
+                  </div>
+                </div>
+              );
+            })}
+            {loading && (
+              <div style={{display:"flex", gap:8, alignItems:"center"}}>
+                <SavuraAiIcon size={24}/>
+                <div style={{background:"rgba(255,255,255,0.05)", border:"1px solid rgba(74,163,255,0.12)", borderRadius:"16px 16px 16px 4px", padding:"12px 16px", display:"flex", gap:5}}>
+                  {[0,1,2].map(function(i){ return(
+                    <div key={i} style={{width:6, height:6, borderRadius:"50%", background:"#4aa3ff", opacity: 0.6+i*0.2, animation:"bounce 1s "+i*0.15+"s infinite"}}/>
+                  ); })
+                  }
+                </div>
+              </div>
+            )}
+            <div ref={bottomRef}/>
+          </div>
+
+          {/* Suggestions */}
+          {msgs.length === 1 && (
+            <div style={{padding:"0 12px 10px", display:"flex", flexWrap:"wrap", gap:6}}>
+              {SUGGESTIONS.map(function(s){ return(
+                <button key={s} onClick={function(){setInput(s);}}
+                  style={{background:"rgba(47,125,246,0.1)", border:"1px solid rgba(47,125,246,0.25)", borderRadius:20, color:"#7ab8ff", fontSize:10.5, padding:"5px 11px", cursor:"pointer", fontFamily:"'Sora',sans-serif"}}>
+                  {s}
+                </button>
+              ); })}
+            </div>
+          )}
+
+          {/* Input */}
+          <div style={{padding:"10px 12px", borderTop:"1px solid "+BORDER, display:"flex", gap:8, background:"rgba(0,0,0,0.2)"}}>
+            <input value={input}
+              onChange={function(e){setInput(e.target.value);}}
+              onKeyDown={function(e){if(e.key==="Enter")send();}}
+              placeholder="Savol yozing..."
+              style={{flex:1, background:"rgba(255,255,255,0.05)", border:"1px solid "+BORDER, borderRadius:12, color:"#e0ecff", padding:"9px 13px", fontSize:12.5, outline:"none", fontFamily:"'Sora',sans-serif"}}
+            />
+            <button onClick={send} disabled={loading||!input.trim()}
+              style={{width:40, height:40, borderRadius:12, flexShrink:0,
+                background: input.trim()&&!loading ? "linear-gradient(135deg,#2f7df6,#1db584)" : "rgba(255,255,255,0.06)",
+                border:"none", color:"#fff", fontSize:16, cursor: input.trim()&&!loading?"pointer":"default",
+                display:"flex", alignItems:"center", justifyContent:"center"}}>
+              {loading ? "⏳" : "➤"}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Toggle button */}
+      <button onClick={function(){setOpen(function(v){return !v;}); setPulse(false);}}
+        style={{width:54, height:54, borderRadius:16,
+          background: open ? "rgba(20,40,80,0.9)" : "linear-gradient(135deg,#2f7df6,#1db584)",
+          border: open ? "1.5px solid rgba(74,163,255,0.4)" : "none",
+          cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center",
+          boxShadow:"0 8px 28px rgba(47,125,246,0.45)", transition:"all .3s"}}>
+        {open
+          ? <span style={{color:"#7ab8ff", fontSize:20}}>✕</span>
+          : <SavuraAiIcon size={28}/>
+        }
+      </button>
+    </div>
+  );
+}
+
+
 export default function App(){
   const [page,setPage]=useState("home");
   const [lang,setLang]=useState("uz");
@@ -1185,6 +1378,7 @@ export default function App(){
       {page==="tool"&&<FundamentalTool lang={lang} setLang={setLang}/>}
       {page==="course"&&<CoursePage lang={lang}/>}
       {page==="about"&&<AboutPage lang={lang}/>}
+      <ChatWidget lang={lang}/>
       <Footer setPage={setPage} lang={lang}/>
     </div>
   );
