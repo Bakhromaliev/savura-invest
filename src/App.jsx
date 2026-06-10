@@ -1705,9 +1705,32 @@ function WatchlistTab(){
         <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:'18px',marginBottom:20}}>
           <div style={{fontSize:12,fontWeight:700,color:C.text,marginBottom:14}}>Kuzatuv ro'yxatiga qo'shish</div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))',gap:10,marginBottom:12}}>
-            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Ticker *</div>{inp('ticker','AAPL')}</div>
-            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Kompaniya nomi</div>{inp('company','Apple Inc.')}</div>
-            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Maqsad narx ($)</div>{inp('targetPrice','195.00')}</div>
+            <div>
+              <div style={{fontSize:10.5,color:C.faint,marginBottom:4,display:'flex',gap:8,alignItems:'center'}}>
+                Ticker *
+                {lookupState==='loading'&&<span style={{fontSize:10,color:C.amber}}>⏳ qidirilmoqda...</span>}
+                {lookupState==='done'&&<span style={{fontSize:10,color:C.green}}>✓ topildi</span>}
+                {lookupState==='error'&&<span style={{fontSize:10,color:C.red}}>topilmadi</span>}
+              </div>
+              <input value={form.ticker}
+                onChange={function(e){setForm(function(f){return{...f,ticker:e.target.value.toUpperCase()};});setLookupState('idle');}}
+                onBlur={function(e){if(e.target.value.trim()) lookupTicker(e.target.value);}}
+                onKeyDown={function(e){if(e.key==='Enter'&&form.ticker.trim()) lookupTicker(form.ticker);}}
+                placeholder="AAPL"
+                style={{background:'rgba(255,255,255,0.05)',border:'1px solid '+C.border,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
+            </div>
+            <div>
+              <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Kompaniya nomi</div>
+              <input value={form.company} onChange={function(e){setForm(function(f){return{...f,company:e.target.value};});}}
+                placeholder="Avtomatik to'ldiriladi"
+                style={{background:'rgba(255,255,255,0.05)',border:'1px solid '+C.border,borderRadius:8,color:lookupState==='done'?C.greenLt:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
+            </div>
+            <div>
+              <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Narx / Maqsad narx ($)</div>
+              <input value={form.targetPrice} onChange={function(e){setForm(function(f){return{...f,targetPrice:e.target.value};});}}
+                placeholder="Avtomatik yoki o'zing yoz"
+                style={{background:'rgba(255,255,255,0.05)',border:'1px solid '+C.border,borderRadius:8,color:lookupState==='done'?C.greenLt:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
+            </div>
           </div>
           <div style={{marginBottom:12}}>
             <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Eslatma</div>
