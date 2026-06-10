@@ -15,78 +15,59 @@ export default async function handler(req, res) {
 
 === SAVURA INVEST KURSI HAQIDA ===
 Kurs davomiyligi: 3 oy (onlayn shaklda)
-Kurs tarkibi:
-- Video darslar: har bir mavzu bo'yicha professional video darslar
-- Jonli efirlar: haftada 1 marta muallif bilan to'g'ridan-to'g'ri suhbat
-- Amaliy mashqlar (praktika): real aksiyalar tahlili
-- Qo'shimcha fayllar va materiallar: har bir dars uchun alohida
-- Signallar: kurs davomida savdo signallari beriladi
-Kursni tugatgandan keyin: maxsus yopiq guruhga qo'shilasiz. U guruhda tajribali treyderlar har kun o'z hisoblarini boshqarish, yangi imkoniyatlar va strategiyalar haqida maslahat berishadi.
+Kurs tarkibi: Video darslar, Jonli efirlar (haftada 1), Amaliy mashqlar, Qo'shimcha fayllar, Savdo signallari
+Kursni tugatgandan keyin: maxsus yopiq guruhga qo'shilasiz — tajribali treyderlar har kun maslahat berishadi.
 
-=== KURS EGASI ===
-Bahromaliyev Muhammadyusuf:
-- 2020-yildan buyon AQSh aksiya bozorida treyding va investitsiya sohasida
-- Istanbul shahrida Iqtisodiyot yo'nalishida tahsil olmoqda
+=== KURS EGASI — BAHROMALIYEV MUHAMMADYUSUF ===
+- 2020-yildan AQSh aksiya bozorida treyding va investitsiya
+- Istanbul, Iqtisodiyot yo'nalishida tahsil
 - Kompaniyalar huquqi va buxgalteriya mutaxassisi
-- Savura Invest platformasi asoschisi (2020-yildan)
-- 100+ aksiya tahlili tajribasi
-- Savura Invest fundamental tahlil metodologiyasi muallifi
+- Savura Invest platformasi asoschisi (2020)
+- 100+ aksiya tahlil tajribasi, fundamental tahlil metodologiyasi muallifi
 - Savuraerp.com — ERP sistemasi asoschisi
 
-=== FUNDAMENTAL TAHLIL METODOLOGIYASI ===
-15 savol asosida risk baholanadi. 5 toifa: O'sish, Baholanish, Rentabellik, Moliyaviy Sog'lomlik, Samaradorlik.
-Risk darajalari: PAST (0-3 yoq), O'RTA (4-5), YUQORI (6-9), JUDA YUQORI (10+).
+=== METODOLOGIYA ===
+15 savol, 5 toifa: O'sish, Baholanish, Rentabellik, Moliyaviy Sog'lomlik, Samaradorlik
+Risk: PAST (0-3), O'RTA (4-5), YUQORI (6-9), JUDA YUQORI (10+)
 
 === QOIDALAR ===
-- O'zbek tilida javob bering
-- Qisqa va aniq (3-5 jumla)
-- Aniq "sotib oling/soting" maslahat bermang`;
+O'zbek tilida, qisqa (3-5 jumla), aniq "sotib oling/soting" maslahat berma`;
 
   const contents = [
     { role: "user", parts: [{ text: SYSTEM }] },
-    { role: "model", parts: [{ text: "Savura Invest AI yordamchisi tayyor. Savol bering!" }] },
+    { role: "model", parts: [{ text: "Savura Invest AI yordamchisi tayyor!" }] },
     ...messages.slice(-10).map(m => ({
       role: m.role === "assistant" ? "model" : "user",
       parts: [{ text: m.content }]
     }))
   ];
 
-  // Try models in order until one works
+  const cfg = { contents, generationConfig: { temperature: 0.7, maxOutputTokens: 400 } };
+
+  // 2026 free tier models (best to cheapest)
   const MODELS = [
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
-    "gemini-1.5-flash",
-    "gemini-1.5-flash-latest",
-    "gemini-pro"
+    "gemini-2.5-flash-lite",
+    "gemini-2.5-flash",
+    "gemini-2.5-pro",
+    "gemini-3-flash-preview",
   ];
 
   for (const model of MODELS) {
     try {
       const r = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents,
-            generationConfig: { temperature: 0.7, maxOutputTokens: 400 }
-          })
-        }
+        { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cfg) }
       );
       const data = await r.json();
-
-      // Skip if model not found
       if (!r.ok) {
-        const errMsg = data?.error?.message || "";
-        if (errMsg.includes("not found") || errMsg.includes("not supported")) continue;
-        return res.status(500).json({ error: errMsg });
+        const msg = data?.error?.message || "";
+        if (msg.includes("not found") || msg.includes("not supported") || msg.includes("no longer available")) continue;
+        return res.status(500).json({ error: msg });
       }
-
       const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (text) return res.status(200).json({ reply: text, model });
-
-    } catch (e) { continue; }
+      if (text) return res.status(200).json({ reply: text });
+    } catch { continue; }
   }
 
-  return res.status(500).json({ error: "Hech bir Gemini modeli javob bermadi. API keyni tekshiring." });
+  return res.status(500).json({ error: "Gemini API javob bermadi. Keyinroq qaytadan urinib ko'ring." });
 }
