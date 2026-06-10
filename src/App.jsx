@@ -173,7 +173,7 @@ const LANG = {
 };
 
 const SITE_T={
-  uz:{nav:{home:"Bosh sahifa",tool:"Fundamental Tahlil",course:"Aksiyalar savdosi kursi",about:"Biz haqimizda",erp:"Savura ERP"},
+  uz:{nav:{home:"Bosh sahifa",tool:"Fundamental Tahlil",course:"Aksiyalar savdosi kursi",journal:"Kundalik",about:"Biz haqimizda",erp:"Savura ERP"},
     hero:{badge:"AQSh BIRJASI · FUNDAMENTAL TAHLIL",h1:"Aksiya bozorida",h2:"ongli investitsiya",
       desc:"AQSh aksiya bozorida fundamental tahlil va halol investitsiya bo’yicha O‘zbekistonning yetakchi platformasi.",
       btn1:"Tahlilni boshlash →",btn2:"Kursni ko‘rish",
@@ -194,7 +194,7 @@ const SITE_T={
       ft:"Bu kurs siz uchun, agar...",ol:"Kurs egasi",sl:"Kurs dasturi",
       ct:"Kursga qoʻshilishga tayormisiz?",cd:"Telegram orqali murojaat qiling.",cb:"Murojaat qilish",
       mt:["Investitsiya asoslari","Aksiyalarni tanlash","Halol investitsiya","Fundamental tahlil","Risk boshqaruvi","Real amaliyot"]}},
-  en:{nav:{home:"Home",tool:"Fundamental Analysis",course:"Stock Trading Course",about:"About Us",erp:"Savura ERP"},
+  en:{nav:{home:"Home",tool:"Fundamental Analysis",course:"Stock Trading Course",journal:"My Space",about:"About Us",erp:"Savura ERP"},
     hero:{badge:"US MARKETS · FUNDAMENTAL ANALYSIS",h1:"Smart investing",h2:"in the stock market",
       desc:"Uzbekistan's leading platform for fundamental analysis and halal investing in US stock markets.",
       btn1:"Start Analysis →",btn2:"View Course",
@@ -215,7 +215,7 @@ const SITE_T={
       ft:"This course is for you if...",ol:"Instructor",sl:"Curriculum",
       ct:"Ready to join?",cd:"Contact us via Telegram.",cb:"Contact Us",
       mt:["Investment Basics","Selecting Stocks","Halal Investing","Fundamental Analysis","Risk Management","Real Practice"]}},
-  tr:{nav:{home:"Ana Sayfa",tool:"Temel Analiz",course:"Hisse Senedi Kursu",about:"Hakkımızda",erp:"Savura ERP"},
+  tr:{nav:{home:"Ana Sayfa",tool:"Temel Analiz",course:"Hisse Senedi Kursu",journal:"Günlüğüm",about:"Hakkımızda",erp:"Savura ERP"},
     hero:{badge:"ABD PİYASALARI · TEMEL ANALİZ",h1:"Borsada",h2:"biliçli yatırım",
       desc:"ABD hisse senedi piyasasında temel analiz ve helal yatırım için Özbekistan’in lider platformu.",
       btn1:"Analize Başla →",btn2:"Kursu Gör",
@@ -415,7 +415,7 @@ function NavBar({page,setPage,lang,setLang}){
   const [scrolled,setScrolled]=useState(false);
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>30);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   const sn=getST(lang).nav;
-  const links=[{id:"home",label:sn.home},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
+  const links=[{id:"home",label:sn.home},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
   const go=(id)=>{setPage(id);setOpen(false);setFlagOpen(false);window.scrollTo({top:0,behavior:"smooth"});};
   const LANGS=[{k:"uz",f:"🇺🇿",l:"O'Z"},{k:"en",f:"🇺🇸",l:"EN"},{k:"tr",f:"🇹🇷",l:"TR"},{k:"ru",f:"🇷🇺",l:"RU"},{k:"ar",f:"🇸🇦",l:"AR"}];
   const cur=LANGS.find(function(x){return x.k===lang;})||LANGS[0];
@@ -1154,7 +1154,7 @@ function Footer({setPage,lang}){
         </button>
         <p style={{fontSize:12.5,color:C.faint,maxWidth:380,lineHeight:1.7,margin:0}}>{fd.desc}</p>
         <div style={{display:"flex",gap:16,flexWrap:"wrap",justifyContent:"center"}}>
-          {[[fn.home,"home"],[fn.tool,"tool"],[fn.course,"course"],[fn.about,"about"]].map(function(it){return(
+          {[[fn.home,"home"],[fn.tool,"tool"],[fn.course,"course"],[fn.journal||"Kundalik","journal"],[fn.about,"about"]].map(function(it){return(
             <button key={it[1]} onClick={()=>setPage(it[1])} style={{background:"none",border:"none",cursor:"pointer",color:C.faint,fontSize:12.5,fontFamily:"'Manrope',sans-serif"}}>{it[0]}</button>
           );})}
         </div>
@@ -1362,6 +1362,464 @@ function ChatWidget({lang}){
 }
 
 
+
+// ─── localStorage helpers ────────────────────────────────────────────────────
+function lsGet(key){ try{return JSON.parse(localStorage.getItem(key))||[];}catch{return[];} }
+function lsSave(key,data){ localStorage.setItem(key,JSON.stringify(data)); }
+function lsGetObj(key,def={}){ try{return JSON.parse(localStorage.getItem(key))||def;}catch{return def;} }
+
+function csvExport(rows, filename){
+  if(!rows.length) return;
+  const keys = Object.keys(rows[0]);
+  const csv = [keys.join(','), ...rows.map(r=>keys.map(k=>'"'+(r[k]||'')+'"').join(','))].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download = filename; a.click();
+}
+
+// ─── Journal Tab ─────────────────────────────────────────────────────────────
+function JournalTab(){
+  const KEY = 'savura_journal_v1';
+  const [entries, setEntries] = useState(()=>lsGet(KEY));
+  const [showForm, setShowForm] = useState(false);
+  const EMPTY = {date:new Date().toISOString().split('T')[0],ticker:'',action:'BUY',price:'',shares:'',pnl:'',result:'OPEN',reason:'',notes:''};
+  const [form, setForm] = useState(EMPTY);
+  const [filter, setFilter] = useState('ALL');
+
+  function save(){
+    if(!form.ticker.trim()) return;
+    const entry = {...form, id:Date.now(), ticker:form.ticker.toUpperCase()};
+    const next = [entry, ...entries];
+    setEntries(next); lsSave(KEY, next);
+    setForm(EMPTY); setShowForm(false);
+  }
+  function del(id){ const next=entries.filter(e=>e.id!==id); setEntries(next); lsSave(KEY,next); }
+
+  const inp = (field,type='text',ph='')=>(
+    <input type={type} value={form[field]} placeholder={ph}
+      onChange={e=>setForm(f=>({...f,[field]:e.target.value}))}
+      style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
+  );
+
+  const filtered = filter==='ALL'?entries:entries.filter(e=>e.result===filter);
+  const totalPnl = entries.filter(e=>e.pnl).reduce((s,e)=>s+(parseFloat(e.pnl)||0),0);
+
+  return(
+    <div>
+      {/* Stats row */}
+      <div style={{display:'flex',gap:12,marginBottom:20,flexWrap:'wrap'}}>
+        {[
+          ['Jami savdo',entries.length,''],
+          ['Ochiq pozitsiya',entries.filter(e=>e.result==='OPEN').length,''],
+          ['Foyda',entries.filter(e=>e.result==='PROFIT').length,C.green],
+          ['Zarar',entries.filter(e=>e.result==='LOSS').length,C.red],
+          ['Umumiy P&L',(totalPnl>=0?'+':'')+totalPnl.toFixed(0)+' $', totalPnl>=0?C.green:C.red],
+        ].map(([l,v,col])=>(
+          <div key={l} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:'12px 18px',flex:1,minWidth:120}}>
+            <div style={{fontSize:11,color:C.faint,marginBottom:4}}>{l}</div>
+            <div style={{fontSize:20,fontWeight:700,color:col||C.text,fontFamily:"'JetBrains Mono',monospace"}}>{v}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Actions */}
+      <div style={{display:'flex',gap:10,marginBottom:16,flexWrap:'wrap'}}>
+        <button onClick={()=>setShowForm(v=>!v)}
+          style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:13,padding:'9px 18px',cursor:'pointer'}}>
+          {showForm?'Yopish':'+ Yangi yozuv'}
+        </button>
+        {['ALL','OPEN','PROFIT','LOSS'].map(f=>(
+          <button key={f} onClick={()=>setFilter(f)}
+            style={{background:filter===f?'rgba(47,125,246,0.2)':'transparent',border:`1px solid ${filter===f?C.blue:C.border}`,borderRadius:8,color:filter===f?C.blueLt:C.dim,fontSize:12,padding:'7px 14px',cursor:'pointer'}}>
+            {f==='ALL'?'Barchasi':f==='OPEN'?"Ochiq":f==='PROFIT'?'Foydali':'Zararli'}
+          </button>
+        ))}
+        <button onClick={()=>csvExport(entries,'savura_journal.csv')}
+          style={{background:'transparent',border:`1px solid ${C.border}`,borderRadius:8,color:C.dim,fontSize:12,padding:'7px 14px',cursor:'pointer',marginLeft:'auto'}}>
+          ⬇ CSV
+        </button>
+      </div>
+
+      {/* Add form */}
+      {showForm&&(
+        <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:'18px',marginBottom:20}}>
+          <div style={{fontSize:12,fontWeight:700,color:C.text,marginBottom:14}}>Yangi savdo yozuvi</div>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(150px,1fr))',gap:10,marginBottom:12}}>
+            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Sana</div>{inp('date','date')}</div>
+            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Ticker</div>{inp('ticker','text','AAPL')}</div>
+            <div>
+              <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Harakat</div>
+              <select value={form.action} onChange={e=>setForm(f=>({...f,action:e.target.value}))}
+                style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%'}}>
+                <option value="BUY">BUY — Sotib olish</option>
+                <option value="SELL">SELL — Sotish</option>
+              </select>
+            </div>
+            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Narx ($)</div>{inp('price','number','195.50')}</div>
+            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Miqdor (dona)</div>{inp('shares','number','10')}</div>
+            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>P&L ($)</div>{inp('pnl','number','+150')}</div>
+            <div>
+              <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Natija</div>
+              <select value={form.result} onChange={e=>setForm(f=>({...f,result:e.target.value}))}
+                style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%'}}>
+                <option value="OPEN">Ochiq (hali davom etmoqda)</option>
+                <option value="PROFIT">Foydali ✓</option>
+                <option value="LOSS">Zararli ✗</option>
+              </select>
+            </div>
+          </div>
+          <div style={{marginBottom:10}}>
+            <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Sabab (nima uchun bu savdo?)</div>
+            <textarea value={form.reason} onChange={e=>setForm(f=>({...f,reason:e.target.value}))} rows={2}
+              placeholder="Masalan: ROIC 33%, P/E bozor o'rtachasiga yaqin, sektor yetakchisi..."
+              style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
+          </div>
+          <div style={{marginBottom:14}}>
+            <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Qo'shimcha eslatma</div>
+            <textarea value={form.notes} onChange={e=>setForm(f=>({...f,notes:e.target.value}))} rows={2}
+              placeholder="Qo'shimcha fikrlar..."
+              style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
+          </div>
+          <button onClick={save}
+            style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'10px 28px',cursor:'pointer'}}>
+            Saqlash
+          </button>
+        </div>
+      )}
+
+      {/* Entries */}
+      {filtered.length===0
+        ?<div style={{textAlign:'center',padding:'48px 24px',color:C.faint,fontSize:13}}>Hali yozuv yo'q. "+ Yangi yozuv" bosing.</div>
+        :filtered.map(e=>{
+          const col = e.result==='PROFIT'?C.green:e.result==='LOSS'?C.red:C.amber;
+          const pnlN = parseFloat(e.pnl)||0;
+          return(
+            <div key={e.id} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:'14px 16px',marginBottom:10,display:'flex',gap:14,alignItems:'flex-start',flexWrap:'wrap'}}>
+              <div style={{minWidth:90}}>
+                <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:18,color:C.blueLt}}>{e.ticker}</div>
+                <div style={{fontSize:10.5,color:C.faint}}>{e.date}</div>
+              </div>
+              <div style={{display:'flex',gap:8,alignItems:'center',flexWrap:'wrap'}}>
+                <span style={{background:e.action==='BUY'?'rgba(55,178,77,0.15)':'rgba(229,72,77,0.15)',border:`1px solid ${e.action==='BUY'?C.green:C.red}`,borderRadius:6,padding:'2px 8px',fontSize:11,fontWeight:700,color:e.action==='BUY'?C.green:C.red}}>{e.action}</span>
+                {e.price&&<span style={{fontSize:12,color:C.dim}}>${e.price}</span>}
+                {e.shares&&<span style={{fontSize:12,color:C.dim}}>×{e.shares}</span>}
+                {e.pnl&&<span style={{fontWeight:700,fontSize:13,color:pnlN>=0?C.green:C.red}}>{pnlN>=0?'+':''}{e.pnl}$</span>}
+                <span style={{background:`rgba(0,0,0,0.3)`,border:`1px solid ${col}`,borderRadius:6,padding:'2px 8px',fontSize:10.5,color:col}}>{e.result==='PROFIT'?'Foydali ✓':e.result==='LOSS'?'Zararli ✗':'Ochiq ○'}</span>
+              </div>
+              {e.reason&&<div style={{flex:1,fontSize:12,color:C.dim,minWidth:200}}>{e.reason}</div>}
+              <button onClick={()=>del(e.id)} style={{background:'transparent',border:'none',color:C.faint,cursor:'pointer',fontSize:16,marginLeft:'auto'}}>🗑</button>
+            </div>
+          );
+        })
+      }
+    </div>
+  );
+}
+
+// ─── Checklist Tab ────────────────────────────────────────────────────────────
+const CL_QUESTIONS = [
+  "Moliyaviy sog'lomlik ko'rsatkichlari o'tacha yoki yuqori? (Current Ratio, D/E, Interest Coverage)",
+  "Rentabellik ko'rsatkichlari o'tacha yoki yuqori? (Gross Margin, Oper. Margin, Net Margin)",
+  "Samaradorlik ko'rsatkichlari o'tacha yoki yuqori? (ROA, ROE, ROIC)",
+  "O'sish ko'rsatkichlari o'tacha yoki yuqori? (Revenue Growth, EPS Growth)",
+  "P/E bozor o'rtachasiga yaqin yoki kichik? (P/E ≤ 28)",
+  "O'tgan yil va chorakda foydali bo'lganmi? (Net Margin > 0)",
+  "Operatsion pul oqimi musbat bo'lganmi? (OCF > 0)",
+  "Beta 1.5 dan kichikmi? (Beta < 1.5)",
+  "Bozor kapitalizatsiyasi $2 mlrd yoki ko'pmi? (Market Cap ≥ $2B)",
+  "Himoya qiluvchi sektordami? (Healthcare/Utilities/Consumer Staples/Energy)",
+  "Sanoatida top-10 ichidami? (bozor kap. bo'yicha)",
+  "Geosiyosiy/huquqiy muammo yo'qmi? (katta SEC ishi, jarima yo'q)",
+  "So'nggi 5 yilda S&P 500 dan ustun keldimi?",
+  "Kutilmagan risklar baholab ko'rildi? (har doim No)",
+  "Qo'shimcha shaxsiy tekshiruv o'tkazildi? (har doim No)",
+];
+
+function ChecklistTab(){
+  const KEY = 'savura_checks_v1';
+  const [history, setHistory] = useState(()=>lsGet(KEY));
+  const [ticker, setTicker] = useState('');
+  const [answers, setAnswers] = useState(Array(15).fill(false));
+  const [notes, setNotes] = useState('');
+  const [view, setView] = useState('form'); // form | history
+
+  function toggle(i){ setAnswers(a=>{const n=[...a];n[i]=!n[i];return n;}); }
+
+  function calcRisk(ans){
+    const no = ans.filter(a=>!a).length;
+    if(no<=3) return {level:'PAST',color:C.green};
+    if(no<=5) return {level:"O'RTA",color:C.amber};
+    if(no<=9) return {level:'YUQORI',color:C.orange};
+    return {level:'JUDA YUQORI',color:C.red};
+  }
+
+  const noCount = answers.filter(a=>!a).length;
+  const risk = calcRisk(answers);
+
+  function saveCheck(){
+    if(!ticker.trim()) return;
+    const entry = {id:Date.now(), date:new Date().toISOString().split('T')[0], ticker:ticker.toUpperCase(), answers:[...answers], noCount, riskLevel:risk.level, notes};
+    const next = [entry,...history];
+    setHistory(next); lsSave(KEY,next);
+    setTicker(''); setAnswers(Array(15).fill(false)); setNotes('');
+    setView('history');
+  }
+  function del(id){ const next=history.filter(e=>e.id!==id); setHistory(next); lsSave(KEY,next); }
+
+  return(
+    <div>
+      <div style={{display:'flex',gap:8,marginBottom:20}}>
+        {[['form','✅ Yangi tekshiruv'],['history','📋 Tarix']].map(([k,l])=>(
+          <button key={k} onClick={()=>setView(k)}
+            style={{background:view===k?`linear-gradient(135deg,${C.blue},${C.green})`:'transparent',border:`1px solid ${view===k?'transparent':C.border}`,borderRadius:8,color:view===k?'#fff':C.dim,fontSize:13,fontWeight:view===k?700:400,padding:'8px 16px',cursor:'pointer'}}>
+            {l} {k==='history'&&history.length?`(${history.length})`:''}
+          </button>
+        ))}
+      </div>
+
+      {view==='form'&&(
+        <div>
+          {/* Ticker + risk badge */}
+          <div style={{display:'flex',gap:12,alignItems:'center',marginBottom:20,flexWrap:'wrap'}}>
+            <input value={ticker} onChange={e=>setTicker(e.target.value.toUpperCase())} placeholder="Ticker: AAPL"
+              style={{background:'rgba(12,20,38,.85)',border:`1px solid ${C.border}`,borderRadius:10,color:C.text,padding:'10px 16px',fontSize:18,fontFamily:"'JetBrains Mono',monospace",fontWeight:700,width:140,outline:'none'}}/>
+            <div style={{background:`rgba(0,0,0,0.3)`,border:`2px solid ${risk.color}`,borderRadius:12,padding:'8px 16px',textAlign:'center'}}>
+              <div style={{fontSize:10,color:C.faint,marginBottom:2}}>RISK DARAJASI</div>
+              <div style={{fontWeight:800,fontSize:18,color:risk.color,fontFamily:"'JetBrains Mono',monospace"}}>{risk.level}</div>
+              <div style={{fontSize:11,color:C.faint}}>{noCount}/15 Yo'q</div>
+            </div>
+          </div>
+
+          {/* 15 questions */}
+          <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:16}}>
+            {CL_QUESTIONS.map((q,i)=>{
+              const last2 = i>=13;
+              return(
+                <div key={i}
+                  onClick={()=>!last2&&toggle(i)}
+                  style={{display:'flex',gap:12,padding:'11px 14px',background:C.card,border:`1px solid ${answers[i]?'rgba(55,178,77,0.3)':last2?'rgba(229,72,77,0.2)':C.border}`,borderRadius:10,cursor:last2?'default':'pointer',alignItems:'flex-start',opacity:last2?0.7:1}}>
+                  <div style={{flexShrink:0,width:22,height:22,borderRadius:6,marginTop:1,
+                    background: last2?C.red:answers[i]?C.green:'transparent',
+                    border:`2px solid ${last2?C.red:answers[i]?C.green:C.border}`,
+                    display:'flex',alignItems:'center',justifyContent:'center'}}>
+                    <span style={{color:'#fff',fontSize:12,fontWeight:700}}>{last2?'✗':answers[i]?'✓':''}</span>
+                  </div>
+                  <div style={{flex:1}}>
+                    <span style={{fontSize:10,color:C.faint,fontFamily:"'JetBrains Mono',monospace",marginRight:6}}>{i+1}.</span>
+                    <span style={{fontSize:12.5,color:answers[i]||last2?C.dim:C.text,lineHeight:1.5}}>{q}</span>
+                  </div>
+                  <span style={{fontSize:12,fontWeight:700,color:last2?C.red:answers[i]?C.green:C.faint,flexShrink:0}}>
+                    {last2?"Yo'q":answers[i]?"Ha":"Yo'q"}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
+          <div style={{marginBottom:14}}>
+            <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Qo'shimcha eslatmalar</div>
+            <textarea value={notes} onChange={e=>setNotes(e.target.value)} rows={2} placeholder="Nima uchun bu aksiyani tekshirdim..."
+              style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'9px 12px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
+          </div>
+          <button onClick={saveCheck} disabled={!ticker.trim()}
+            style={{background:ticker.trim()?`linear-gradient(135deg,${C.blue},${C.green})`:'rgba(255,255,255,0.05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'11px 28px',cursor:ticker.trim()?'pointer':'default'}}>
+            Saqlash — {risk.level}
+          </button>
+        </div>
+      )}
+
+      {view==='history'&&(
+        <div>
+          {history.length===0
+            ?<div style={{textAlign:'center',padding:'40px',color:C.faint,fontSize:13}}>Hali saqlangan tekshiruv yo'q.</div>
+            :history.map(e=>{
+              const col = e.riskLevel==='PAST'?C.green:e.riskLevel==="O'RTA"?C.amber:e.riskLevel==='YUQORI'?C.orange:C.red;
+              const yes = e.answers.filter(Boolean).length;
+              return(
+                <div key={e.id} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:'14px 16px',marginBottom:10,display:'flex',gap:16,alignItems:'center',flexWrap:'wrap'}}>
+                  <div>
+                    <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:20,color:C.blueLt}}>{e.ticker}</div>
+                    <div style={{fontSize:10.5,color:C.faint}}>{e.date}</div>
+                  </div>
+                  <div style={{flex:1}}>
+                    <span style={{border:`1.5px solid ${col}`,borderRadius:8,padding:'3px 10px',fontSize:12,fontWeight:700,color:col}}>{e.riskLevel}</span>
+                    <span style={{fontSize:12,color:C.dim,marginLeft:10}}>{yes} Ha / {e.noCount} Yo'q</span>
+                    {e.notes&&<div style={{fontSize:12,color:C.faint,marginTop:4}}>{e.notes}</div>}
+                  </div>
+                  <button onClick={()=>del(e.id)} style={{background:'transparent',border:'none',color:C.faint,cursor:'pointer',fontSize:16}}>🗑</button>
+                </div>
+              );
+            })
+          }
+          <button onClick={()=>csvExport(history.map(e=>({...e,answers:e.answers.map((a,i)=>a?'Ha':"Yo'q").join(' | ')})),'savura_checklists.csv')}
+            style={{background:'transparent',border:`1px solid ${C.border}`,borderRadius:8,color:C.dim,fontSize:12,padding:'7px 14px',cursor:'pointer',marginTop:8}}>
+            ⬇ CSV eksport
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Watchlist Tab ────────────────────────────────────────────────────────────
+function WatchlistTab(){
+  const KEY = 'savura_watch_v1';
+  const [items, setItems] = useState(()=>lsGet(KEY));
+  const [showForm, setShowForm] = useState(false);
+  const EMPTY = {ticker:'',company:'',targetPrice:'',notes:'',status:'watching'};
+  const [form, setForm] = useState(EMPTY);
+
+  function save(){
+    if(!form.ticker.trim()) return;
+    const item = {...form,id:Date.now(),addedDate:new Date().toISOString().split('T')[0],ticker:form.ticker.toUpperCase()};
+    const next = [item,...items];
+    setItems(next); lsSave(KEY,next);
+    setForm(EMPTY); setShowForm(false);
+  }
+  function del(id){ const next=items.filter(e=>e.id!==id); setItems(next); lsSave(KEY,next); }
+  function updateStatus(id,status){ const next=items.map(e=>e.id===id?{...e,status}:e); setItems(next); lsSave(KEY,next); }
+
+  const STATUS_COL = {watching:C.amber, bought:C.green, passed:C.faint};
+  const STATUS_LBL = {watching:'Kuzatilmoqda 👁', bought:"Sotib olindi ✓", passed:'O\'tkazib yuborildi ✗'};
+  const inp = (f,ph='')=>(
+    <input value={form[f]} onChange={e=>setForm(x=>({...x,[f]:e.target.value}))} placeholder={ph}
+      style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
+  );
+
+  return(
+    <div>
+      <div style={{display:'flex',gap:10,marginBottom:16,flexWrap:'wrap'}}>
+        <button onClick={()=>setShowForm(v=>!v)}
+          style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:13,padding:'9px 18px',cursor:'pointer'}}>
+          {showForm?'Yopish':'+ Aksiya qo\'shish'}
+        </button>
+        <div style={{display:'flex',gap:8,marginLeft:'auto',flexWrap:'wrap'}}>
+          {Object.entries(STATUS_LBL).map(([k,l])=>(
+            <span key={k} style={{fontSize:11,color:STATUS_COL[k],border:`1px solid ${STATUS_COL[k]}`,borderRadius:6,padding:'4px 10px'}}>
+              {items.filter(i=>i.status===k).length} {l.split(' ')[0]}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {showForm&&(
+        <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:'18px',marginBottom:20}}>
+          <div style={{fontSize:12,fontWeight:700,color:C.text,marginBottom:14}}>Kuzatuv ro'yxatiga qo'shish</div>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))',gap:10,marginBottom:12}}>
+            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Ticker *</div>{inp('ticker','AAPL')}</div>
+            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Kompaniya nomi</div>{inp('company','Apple Inc.')}</div>
+            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Maqsad narx ($)</div>{inp('targetPrice','195.00')}</div>
+          </div>
+          <div style={{marginBottom:12}}>
+            <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Eslatma</div>
+            <textarea value={form.notes} onChange={e=>setForm(f=>({...f,notes:e.target.value}))} rows={2}
+              placeholder="Nima uchun kuzatyapman, qachon kiraman..."
+              style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
+          </div>
+          <button onClick={save}
+            style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'10px 28px',cursor:'pointer'}}>
+            Qo'shish
+          </button>
+        </div>
+      )}
+
+      {items.length===0
+        ?<div style={{textAlign:'center',padding:'48px 24px',color:C.faint,fontSize:13}}>Ro'yxat bo'sh. Aksiya qo'shing.</div>
+        :<div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:12}}>
+          {items.map(item=>(
+            <div key={item.id} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:'16px',position:'relative'}}>
+              <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:10}}>
+                <div>
+                  <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:22,color:C.blueLt}}>{item.ticker}</div>
+                  {item.company&&<div style={{fontSize:12,color:C.dim,marginTop:2}}>{item.company}</div>}
+                </div>
+                <button onClick={()=>del(item.id)} style={{background:'transparent',border:'none',color:C.faint,cursor:'pointer',fontSize:14}}>✕</button>
+              </div>
+              {item.targetPrice&&(
+                <div style={{marginBottom:8}}>
+                  <span style={{fontSize:10.5,color:C.faint}}>Maqsad: </span>
+                  <span style={{fontSize:14,fontWeight:700,color:C.green,fontFamily:"'JetBrains Mono',monospace"}}>${item.targetPrice}</span>
+                </div>
+              )}
+              {item.notes&&<div style={{fontSize:12,color:C.dim,marginBottom:10,lineHeight:1.5}}>{item.notes}</div>}
+              <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
+                {Object.entries(STATUS_LBL).map(([k,l])=>(
+                  <button key={k} onClick={()=>updateStatus(item.id,k)}
+                    style={{background:item.status===k?`rgba(${k==='bought'?'55,178,77':k==='watching'?'240,169,43':'90,106,126'},0.15)`:'transparent',
+                      border:`1px solid ${item.status===k?STATUS_COL[k]:C.border}`,
+                      borderRadius:6,color:item.status===k?STATUS_COL[k]:C.faint,fontSize:10.5,padding:'4px 9px',cursor:'pointer'}}>
+                    {l}
+                  </button>
+                ))}
+              </div>
+              <div style={{fontSize:10,color:C.faint,marginTop:8}}>Qo'shilgan: {item.addedDate}</div>
+            </div>
+          ))}
+        </div>
+      }
+    </div>
+  );
+}
+
+// ─── Journal Page (main) ──────────────────────────────────────────────────────
+function JournalPage(){
+  const U_KEY = 'savura_user_v1';
+  const [user, setUser] = useState(()=>localStorage.getItem(U_KEY)||'');
+  const [nameInput, setNameInput] = useState('');
+  const [tab, setTab] = useState('journal');
+
+  if(!user){
+    return(
+      <div style={{padding:'100px 24px 60px',maxWidth:480,margin:'0 auto',textAlign:'center'}}>
+        <div style={{fontSize:36,marginBottom:16}}>📓</div>
+        <div style={{fontSize:10.5,letterSpacing:'2px',color:C.faint,marginBottom:8}}>SHAXSIY DASHBOARD</div>
+        <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:'0 0 10px'}}>Kundaligingizga xush kelibsiz</h2>
+        <p style={{color:C.dim,fontSize:13,marginBottom:28,lineHeight:1.7}}>Ma'lumotlaringiz faqat shu qurilmada saqlanadi. Boshqa foydalanuvchilar ko'rmaydi.</p>
+        <div style={{display:'flex',gap:10}}>
+          <input value={nameInput} onChange={e=>setNameInput(e.target.value)}
+            onKeyDown={e=>{if(e.key==='Enter'&&nameInput.trim()){localStorage.setItem(U_KEY,nameInput.trim());setUser(nameInput.trim());}}}
+            placeholder="Ismingiz (masalan: Muhammadyusuf)"
+            style={{flex:1,background:'rgba(12,20,38,.85)',border:`1px solid ${C.border}`,borderRadius:12,color:C.text,padding:'13px 16px',fontSize:14,outline:'none',fontFamily:"'Sora',sans-serif"}}/>
+          <button onClick={()=>{if(nameInput.trim()){localStorage.setItem(U_KEY,nameInput.trim());setUser(nameInput.trim());}}}
+            style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:12,color:'#fff',fontWeight:700,padding:'0 22px',cursor:'pointer',fontSize:14,whiteSpace:'nowrap'}}>
+            Kirish →
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return(
+    <div style={{padding:'85px 24px 60px',maxWidth:1020,margin:'0 auto'}}>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:24,flexWrap:'wrap',gap:12}}>
+        <div>
+          <div style={{fontSize:10,letterSpacing:'2px',color:C.faint,marginBottom:4}}>SHAXSIY DASHBOARD</div>
+          <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:'clamp(20px,3.5vw,28px)',color:C.text,margin:0}}>
+            Salom, <span style={{color:C.greenLt}}>{user}</span> 👋
+          </h1>
+        </div>
+        <button onClick={()=>{localStorage.removeItem(U_KEY);setUser('');}}
+          style={{background:'transparent',border:`1px solid ${C.border}`,borderRadius:8,color:C.faint,fontSize:12,padding:'7px 14px',cursor:'pointer'}}>
+          Chiqish
+        </button>
+      </div>
+
+      <div style={{display:'flex',gap:6,marginBottom:28,background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:6,width:'fit-content',flexWrap:'wrap'}}>
+        {[['journal','📓 Savdo kundaligi'],['checklist','✅ Savdo tekshiruvi'],['watchlist','👁 Kuzatuv ro\'yxati']].map(([k,l])=>(
+          <button key={k} onClick={()=>setTab(k)}
+            style={{background:tab===k?`linear-gradient(135deg,${C.blue},${C.green})`:'transparent',border:'none',borderRadius:10,color:tab===k?'#fff':C.dim,fontWeight:tab===k?700:400,padding:'9px 18px',cursor:'pointer',fontSize:13,fontFamily:"'Sora',sans-serif",transition:'all .2s'}}>
+            {l}
+          </button>
+        ))}
+      </div>
+
+      {tab==='journal'&&<JournalTab/>}
+      {tab==='checklist'&&<ChecklistTab/>}
+      {tab==='watchlist'&&<WatchlistTab/>}
+    </div>
+  );
+}
+
 export default function App(){
   const [page,setPage]=useState("home");
   const [lang,setLang]=useState("uz");
@@ -1378,6 +1836,7 @@ export default function App(){
       {page==="tool"&&<FundamentalTool lang={lang} setLang={setLang}/>}
       {page==="course"&&<CoursePage lang={lang}/>}
       {page==="about"&&<AboutPage lang={lang}/>}
+      {page==="journal"&&<JournalPage/>}
       <ChatWidget lang={lang}/>
       <Footer setPage={setPage} lang={lang}/>
     </div>
