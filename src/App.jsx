@@ -37,7 +37,6 @@ const LANG = {
       reEnter:"Qayta kiriting",
       boolLbl:["O'tgan yilda foydali?","Operatsion pul oqimi musbat?","Himoya qiluvchi sektorda?","Sanoatda top-10 ichida?","Yirik yuridik muammo yo'q?","So'nggi 5 yilda S&P 500 dan ustun?"],
       boolHint:["Net Margin > 0","Operating Cash Flow > 0","Healthcare/Utilities/Consumer Staples/Energy","Bozor kap. bo'yicha","Davlat jarimalari yo'q","Chart 5Y tabni ko'ring"]},
-    rq:["Moliyaviy sog'lomlik ko'rsatkichlari o'tacha yoki yuqori?","Rentabellik ko'rsatkichlari o'tacha yoki yuqori?","Samaradorlik ko'rsatkichlari o'tacha yoki yuqori?","O'sis ko'rsatkichlari o'tacha yoki yuqori?","P/E bozor o'tachasiga yaqin yoki kichik?","O'gan yil va chorakda foydali bo'lganmi?","Operatsion pul oqimi musbat bo'lganmi?","Beta 1.5 dan kichikmi?","Bozor kap. $2 mlrd yoki ko'pmi?","Himoya qiluvchi sektordami?","Sanoatida top-10 ichidami?","Geosiyosiy/huquqiy muammo yo'qmi?","So'nggi 5 yilda S&P 500 dan ustunmi?","Kutilmagan risklar (har doim yo'q)","Kutilmagan risklar (har doim yo'q)"],
   },
   en:{
     tagline:"FUNDAMENTAL ANALYSIS \u00b7 US MARKETS",
