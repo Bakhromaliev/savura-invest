@@ -767,7 +767,7 @@ function AboutPage({lang, setPage}){
 
 
 // ─── BoolSection component ───────────────────────────────────────────────────
-function BoolSection({ticker, bools, setBools, t}){
+function BoolSection({ticker, bools, setBools, t, lang}){
   const [copied, setCopied] = useState(false);
   const [showP, setShowP] = useState(false);
   const sampleEntry = SAMPLE[ticker] || {};
@@ -775,19 +775,14 @@ function BoolSection({ticker, bools, setBools, t}){
   const today = new Date().toISOString().split("T")[0];
 
   function buildPrompt(){
-    return (
-      "Siz moliyaviy tahlilchi sifatida " + cn + " (" + ticker + ") aksiyasi haqida " +
-      "HOZIRGI eng so'nggi real ma'lumotlar asosida quyidagi savollarga javob bering.\n" +
-      "Sana: " + today + "\n\n" +
-      "MUHIM: Faqat eng oxirgi kvartal/yillik hisobotlar asosida javob bering.\n\n" +
-      "Har bir savolga Ha yoki Yoq deb javob bering va 1-2 jumlada izoh qoshshing:\n\n" +
-      "1. " + cn + " (" + ticker + ") otgan 12 oyda (TTM) foydali boldimi? Net Margin noldan kattami?\n" +
-      "2. " + cn + " (" + ticker + ") operatsion pul oqimi hozir musbatmi? Operating Cash Flow musbatmi?\n" +
-      "3. " + cn + " (" + ticker + ") himoya qiluvchi sektordami? FAQAT: Healthcare, Utilities, Consumer Staples yoki Energy sektorida?\n" +
-      "4. " + cn + " (" + ticker + ") oz sanoatida hozir bozor kapitalizatsiyasi boyicha top-10 ichidami?\n" +
-      "5. " + cn + " (" + ticker + ") da hozir yirik yuridik muammo yoqmi? SEC ishi, katta jarima yoki faol sud jarayoni yoqmi?\n" +
-      "6. " + cn + " (" + ticker + ") songgi 5 yilda SP 500 dan ustun keldimi? 5-yillik umumiy daromad SP 500 dan yuqorimi?"
-    );
+    const prompts = {
+      uz: "Siz moliyaviy tahlilchi sifatida " + cn + " (" + ticker + ") aksiyasi haqida HOZIRGI eng so'nggi ma'lumotlarga asoslanib quyidagi savollarga javob bering (har bir savolga Ha/Yo'q deb javob bering):\n\n1. O'tgan yilda foydali bo'lganmi? (Net Margin > 0)\n2. Operatsion pul oqimi musbat? (OCF > 0)\n3. Himoya qiluvchi sektorda? (Healthcare/Utilities/Consumer Staples/Energy)\n4. Sanoatda top-10 ichida?\n5. Yirik yuridik muammo yo'qmi?\n6. So'nggi 5 yilda S&P 500 dan ustunmi?\n\nFaqat 1-6 raqamli javoblar bering.",
+      en: "As a financial analyst, answer the following questions about " + cn + " (" + ticker + ") based on CURRENT latest data (answer each with Yes/No):\n\n1. Was it profitable last year? (Net Margin > 0)\n2. Is operating cash flow positive? (OCF > 0)\n3. Is it in a defensive sector? (Healthcare/Utilities/Consumer Staples/Energy)\n4. Is it top-10 in its industry?\n5. No major legal issues?\n6. Outperformed S&P 500 in last 5 years?\n\nProvide only numbered answers 1-6.",
+      tr: cn + " (" + ticker + ") hakkında GÜNCEL verilere dayanarak şu soruları yanıtlayın (Her biri Evet/Hayır):\n\n1. Geçen yıl kârlı mıydı? (Net Marj > 0)\n2. İşletme nakit akışı pozitif mi?\n3. Savunmacı sektörde mi?\n4. Sektöründe ilk 10'da mı?\n5. Büyük hukuki sorun yok mu?\n6. Son 5 yılda S&P 500'ü geçti mi?\n\nSadece 1-6 numaralı cevaplar verin.",
+      ru: "Как финансовый аналитик, ответьте на вопросы о " + cn + " (" + ticker + ") на основе ТЕКУЩИХ данных (Да/Нет):\n\n1. Была ли прибыльной в прошлом году?\n2. Положительный операционный денежный поток?\n3. В защитном секторе?\n4. Топ-10 в отрасли?\n5. Нет крупных юридических проблем?\n6. Опередила S&P 500 за 5 лет?\n\nТолько пронумерованные ответы 1-6.",
+      ar: "كمحلل مالي، أجب على الأسئلة التالية عن " + cn + " (" + ticker + ") بناءً على البيانات الحالية (نعم/لا):\n\n1. هل كانت مربحة العام الماضي؟\n2. هل التدفق النقدي التشغيلي إيجابي؟\n3. هل هي في قطاع دفاعي؟\n4. هل هي ضمن أفضل 10 في الصناعة؟\n5. لا توجد مشاكل قانونية كبرى؟\n6. تفوقت على S&P 500 في 5 سنوات؟\n\nأجب بأرقام 1-6 فقط.",
+    };
+    return prompts[lang||"uz"]||prompts.uz;
   }
 
   function copyPrompt(){
@@ -1076,7 +1071,7 @@ function FundamentalTool({lang, setLang, setPage}){
       );
       })}
 
-      <BoolSection ticker={ticker} bools={bools} setBools={setBools} t={t}/>
+      <BoolSection ticker={ticker} bools={bools} setBools={setBools} t={t} lang={lang}/>
 
       {/* Analyze button */}
       <div style={{textAlign:"center"}}>
@@ -1238,7 +1233,7 @@ function ChatWidget({lang}){
       const res = await fetch("/api/gemini", {
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({messages: newMsgs.slice(-10)})
+        body: JSON.stringify({messages: newMsgs.slice(-10), lang: lang})
       });
       if(!res.ok){ const e=await res.json(); throw new Error(e.error||"Server xatosi"); }
       const data = await res.json();
@@ -1507,7 +1502,8 @@ function csvExport(rows, filename){
 }
 
 // ─── Journal Tab ─────────────────────────────────────────────────────────────
-function JournalTab(){
+function JournalTab({lang="uz"}){
+  const J=(JNL_T&&JNL_T[lang])||JNL_T.uz;
   const KEY = 'savura_journal_v1';
   const [entries, setEntries] = useState(()=>lsGet(KEY));
   const [showForm, setShowForm] = useState(false);
@@ -1664,7 +1660,8 @@ const CL_QUESTIONS = [
   "Qo'shimcha shaxsiy tekshiruv o'tkazildi? (har doim No)",
 ];
 
-function ChecklistTab(){
+function ChecklistTab({lang="uz"}){
+  const J=(JNL_T&&JNL_T[lang])||JNL_T.uz;
   const KEY = 'savura_checks_v1';
   const [history, setHistory] = useState(()=>lsGet(KEY));
   const [ticker, setTicker] = useState('');
@@ -1791,7 +1788,8 @@ function ChecklistTab(){
 }
 
 // ─── Watchlist Tab ────────────────────────────────────────────────────────────
-function WatchlistTab(){
+function WatchlistTab({lang="uz"}){
+  const J=(JNL_T&&JNL_T[lang])||JNL_T.uz;
   const KEY = 'savura_watch_v1';
   const [items, setItems] = useState(()=>lsGet(KEY));
   const [showForm, setShowForm] = useState(false);
@@ -1983,9 +1981,9 @@ function JournalPage({lang="uz", setPage}){
         ))}
       </div>
 
-      {tab==='journal'&&<JournalTab/>}
-      {tab==='checklist'&&<ChecklistTab/>}
-      {tab==='watchlist'&&<WatchlistTab/>}
+      {tab==='journal'&&<JournalTab lang={lang}/>}
+      {tab==='checklist'&&<ChecklistTab lang={lang}/>}
+      {tab==='watchlist'&&<WatchlistTab lang={lang}/>}
     </div>
   );
 }
@@ -2053,6 +2051,8 @@ function DemoPage({lang="uz", setPage}){
   const [sellId,setSellId] = useState(null);
 
   const demo = accs[activeIdx]||null;
+  const demoRef = React.useRef(demo);
+  React.useEffect(()=>{ demoRef.current = demo; },[demo]);
 
   function switchAcc(i){ setActiveIdx(i); saveActive(i); setSellId(null); setBuyForm({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''}); setPrices({}); }
 
@@ -2087,15 +2087,16 @@ function DemoPage({lang="uz", setPage}){
   }
 
   async function refreshPrices(){
-    if(!demo?.positions?.length) return;
+    const cur = demoRef.current;
+    if(!cur?.positions?.length) return;
     setRefreshing(true);
-    const tickers=[...new Set(demo.positions.map(p=>p.ticker))];
+    const tickers=[...new Set(cur.positions.map(p=>p.ticker))];
     const px={};
     for(const sym of tickers){ try{ const r=await fetch('/api/lookup?sym='+sym); const d=await r.json(); if(d.price) px[sym]=d.price; }catch{} }
     setPrices(px);
-    let updated={...demo};
+    let updated={...cur};
     const closed=[];
-    updated.positions=(demo.positions||[]).filter(pos=>{
+    updated.positions=(cur.positions||[]).filter(pos=>{
       const cp=px[pos.ticker]; if(!cp) return true;
       if(pos.sl&&cp<=pos.sl){ closed.push({...pos,closePrice:cp,closeDate:new Date().toISOString().split('T')[0],reason:'Stop Loss',pnl:(cp-pos.buyPrice)*pos.shares}); return false; }
       if(pos.tp&&cp>=pos.tp){ closed.push({...pos,closePrice:cp,closeDate:new Date().toISOString().split('T')[0],reason:'Take Profit',pnl:(cp-pos.buyPrice)*pos.shares}); return false; }
@@ -2103,13 +2104,19 @@ function DemoPage({lang="uz", setPage}){
     });
     if(closed.length>0){
       updated.cash=(updated.cash||0)+closed.reduce((s,t)=>s+t.closePrice*t.shares,0);
-      updated.history_trades=[...(demo.history_trades||[]),...closed];
+      updated.history_trades=[...(cur.history_trades||[]),...closed];
+      closed.forEach(t=>syncToJournal(t));
       alert(closed.map(t=>t.ticker+' '+t.reason+' — '+(t.pnl>=0?'+':'')+t.pnl.toFixed(2)+'$').join('\n'));
     }
     updated=snapshotEquity(updated,px); updateDemo(updated); setRefreshing(false);
   }
 
-  React.useEffect(()=>{ if(!demo?.positions?.length) return; refreshPrices(); const t=setInterval(()=>refreshPrices(),30000); return ()=>clearInterval(t); },[activeIdx]);
+  React.useEffect(()=>{
+    const doRefresh = async () => { await refreshPrices(); };
+    if(demoRef.current?.positions?.length) doRefresh();
+    const t=setInterval(doRefresh,30000);
+    return ()=>clearInterval(t);
+  },[activeIdx]);
 
   async function fetchBuyPrice(){
     const sym=buyForm.ticker.trim().toUpperCase(); if(!sym) return;
@@ -2130,11 +2137,32 @@ function DemoPage({lang="uz", setPage}){
     updateDemo(upd); setBuyForm({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''});
   }
 
+
+  function syncToJournal(trade){
+    try {
+      const jKey = 'savura_journal_v1';
+      const existing = JSON.parse(localStorage.getItem(jKey)||'[]');
+      const entry = {
+        id: Date.now(),
+        date: trade.closeDate||new Date().toISOString().split('T')[0],
+        ticker: trade.ticker,
+        action: 'SELL',
+        price: trade.closePrice||trade.buyPrice,
+        shares: trade.shares,
+        pnl: trade.pnl ? trade.pnl.toFixed(2) : '0',
+        result: trade.pnl >= 0 ? 'PROFIT' : 'LOSS',
+        reason: '[Demo] Kirish: $'+trade.buyPrice+' | '+( trade.reason||'Manual'),
+        notes: 'Demo treydingdan avtomatik yuklandi'
+      };
+      localStorage.setItem(jKey, JSON.stringify([entry, ...existing]));
+    } catch(e) {}
+  }
   function closePosition(pos){
     if(!demo) return;
     const cp=prices[pos.ticker]||pos.buyPrice;
     const pnl=(cp-pos.buyPrice)*pos.shares;
     const trade={...pos,closePrice:cp,closeDate:new Date().toISOString().split('T')[0],reason:'Manual',pnl};
+    syncToJournal(trade);
     const upd=snapshotEquity({...demo,cash:demo.cash+cp*pos.shares,positions:demo.positions.filter(p=>p.id!==pos.id),history_trades:[...(demo.history_trades||[]),trade]},{...prices});
     updateDemo(upd); setSellId(null);
   }
