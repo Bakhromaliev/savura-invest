@@ -615,7 +615,7 @@ function FeaturesSection({setPage,lang}){
 }
 
 // ─── CoursePage ─────────────────────────────────────────────────────────────
-function CoursePage({lang}){
+function CoursePage({lang, setPage}){
   const sc=getST(lang).course;
   const sa=getST(lang).about;
   const modules=[
@@ -716,7 +716,7 @@ function CoursePage({lang}){
 }
 
 // ─── AboutPage ───────────────────────────────────────────────────────────────
-function AboutPage({lang}){
+function AboutPage({lang, setPage}){
   const sa=getST(lang).about;
   return(
     <div style={{padding:"90px 24px 80px",maxWidth:900,margin:"0 auto"}}>
@@ -930,7 +930,7 @@ const BOOL_FIELDS = [
 const EMPTY_VALS = {revenueGrowth:"",epsGrowth:"",pe:"",ps:"",pb:"",peg:"",grossMargin:"",operatingMargin:"",netMargin:"",currentRatio:"",quickRatio:"",debtToEquity:"",interestCoverage:"",roa:"",roe:"",roic:"",beta:"",marketCapB:""};
 const EMPTY_BOOLS = {profitableTTM:true,operatingCashFlowPositive:true,isDefensiveSector:false,isIndustryLeader:false,freeFromLegalIssues:true,outperformedSP500_5y:false};
 
-function FundamentalTool({lang, setLang}){
+function FundamentalTool({lang, setLang, setPage}){
   const t = LANG[lang]||LANG.uz;
   const [step, setStep] = _us(0);
   const [ticker, setTicker] = _us("");
@@ -973,6 +973,7 @@ function FundamentalTool({lang, setLang}){
   // ── STEP 0: Ticker entry ─────────────────────────────────────────
   if(step===0) return(
     <div style={{padding:"85px 24px 60px",maxWidth:940,margin:"0 auto"}}>
+      {setPage&&<BackBtn setPage={setPage} lang={lang}/>}
       <div style={{textAlign:"center",marginBottom:36}}>
         <div style={{fontSize:10.5,letterSpacing:"2px",color:C.faint,fontFamily:"'JetBrains Mono',monospace",marginBottom:10}}>FUNDAMENTAL TAHLIL VOSITASI</div>
         <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(22px,4vw,38px)",lineHeight:1.15,margin:"0 0 10px",color:C.text}}>
@@ -1010,6 +1011,7 @@ function FundamentalTool({lang, setLang}){
   // ── STEP 1: Manual input form ────────────────────────────────────
   return(
     <div style={{padding:"85px 24px 60px",maxWidth:980,margin:"0 auto"}}>
+      {setPage&&<BackBtn setPage={setPage} lang={lang}/>}
       {/* Header */}
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12,marginBottom:24}}>
         <div style={{display:"flex",alignItems:"center",gap:14}}>
@@ -1203,7 +1205,13 @@ const SavuraAiIcon = ({size=26}) => (
 function ChatWidget({lang}){
   const [open, setOpen] = useState(false);
   const [msgs, setMsgs] = useState([
-    {role:"assistant", content:"Salom! Men Savura Invest AI yordamchisiman 👋\n\nFundamental tahlil, halol investitsiya, kurs va Savura Invest haqida savollaringizga javob beraman."}
+    {role:"assistant", content:{
+    uz:"Salom! Men Savura Invest AI yordamchisiman.\nFundamental tahlil, kurs va halol investitsiya haqida savol bering.",
+    en:"Hello! I'm the Savura Invest AI assistant.\nAsk me about fundamental analysis, the course, or halal investing.",
+    tr:"Merhaba! Ben Savura Invest AI asistanıyım.\nTemel analiz, kurs veya helal yatırım hakkında sorular sorabilirsiniz.",
+    ru:"Привет! Я AI-помощник Savura Invest.\nЗадайте вопрос о фундаментальном анализе, курсе или халяльных инвестициях.",
+    ar:"مرحباً! أنا مساعد Savura Invest الذكي.\nاسألني عن التحليل الأساسي أو الدورة أو الاستثمار الحلال.",
+  }[lang]||"Salom! Savura Invest AI yordamchisi."}
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -1241,12 +1249,14 @@ function ChatWidget({lang}){
     setLoading(false);
   }
 
-  const SUGGESTIONS = [
-    "P/E nisbati nima degani?",
-    "Kurs haqida ma'lumot bering",
-    "Halol aksiya qanday tanlanadi?",
-    "Muhammadyusuf haqida ayt",
-  ];
+  const SUGGESTIONS = {
+    uz:["P/E nisbati nima?","Kurs haqida ayt","Halol aksiya qanday?","Muhammadyusuf kim?"],
+    en:["What is P/E ratio?","Tell me about the course","How to find halal stocks?","Who is Muhammadyusuf?"],
+    tr:["P/E oranı nedir?","Kurs hakkında bilgi","Helal hisse nasıl bulunur?","Muhammadyusuf kimdir?"],
+    ru:["Что такое P/E?","Расскажи о курсе","Как найти халяльные акции?","Кто такой Мухаммадюсуф?"],
+    ar:["ما هو مؤشر P/E؟","أخبرني عن الدورة","كيف أجد أسهماً حلالاً؟","من هو محمدیوسف؟"],
+  };
+  const sugg = SUGGESTIONS[lang]||SUGGESTIONS.uz;
 
   const BG = "rgba(8,14,30,0.97)";
   const BORDER = "rgba(74,163,255,0.18)";
@@ -1319,7 +1329,7 @@ function ChatWidget({lang}){
           {/* Suggestions */}
           {msgs.length === 1 && (
             <div style={{padding:"0 12px 10px", display:"flex", flexWrap:"wrap", gap:6}}>
-              {SUGGESTIONS.map(function(s){ return(
+              {sugg.map(function(s){ return(
                 <button key={s} onClick={function(){setInput(s);}}
                   style={{background:"rgba(47,125,246,0.1)", border:"1px solid rgba(47,125,246,0.25)", borderRadius:20, color:"#7ab8ff", fontSize:10.5, padding:"5px 11px", cursor:"pointer", fontFamily:"'Sora',sans-serif"}}>
                   {s}
@@ -1365,6 +1375,21 @@ function ChatWidget({lang}){
 
 
 
+
+
+// ─── BackButton ───────────────────────────────────────────────────────────────
+function BackBtn({setPage, lang}){
+  const labels={uz:"← Bosh sahifa",en:"← Home",tr:"← Ana Sayfa",ru:"← Главная",ar:"← الرئيسية"};
+  return(
+    <button onClick={()=>setPage('home')}
+      style={{position:'fixed',top:70,left:16,zIndex:900,background:'rgba(8,14,30,0.85)',
+        border:'1px solid rgba(74,163,255,0.2)',borderRadius:10,color:'#8ea0c4',
+        fontSize:12.5,padding:'7px 13px',cursor:'pointer',backdropFilter:'blur(8px)',
+        display:'flex',alignItems:'center',gap:6,fontFamily:"'Sora',sans-serif"}}>
+      {labels[lang]||labels.uz}
+    </button>
+  );
+}
 
 // ─── Journal & Demo translations ─────────────────────────────────────────────
 const JNL_T = {
@@ -1904,8 +1929,8 @@ function WatchlistTab(){
 }
 
 // ─── Journal Page (main) ──────────────────────────────────────────────────────
-function JournalPage({lang="uz"}){
-  const J = JNL_T[lang]||JNL_T.uz;
+function JournalPage({lang="uz", setPage}){
+  const J = (JNL_T&&JNL_T[lang])||JNL_T.uz;
   const U_KEY = 'savura_user_v1';
   const [user, setUser] = useState(()=>localStorage.getItem(U_KEY)||'');
   const [nameInput, setNameInput] = useState('');
@@ -1914,6 +1939,7 @@ function JournalPage({lang="uz"}){
   if(!user){
     return(
       <div style={{padding:'100px 24px 60px',maxWidth:480,margin:'0 auto',textAlign:'center'}}>
+        {setPage&&<BackBtn setPage={setPage} lang={lang}/>}
         <div style={{fontSize:10,letterSpacing:'2px',color:C.faint,marginBottom:4}}>SAVURA INVEST</div>
         <div style={{fontSize:10.5,letterSpacing:'2px',color:C.faint,marginBottom:8}}>SHAXSIY DASHBOARD</div>
         <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:'0 0 10px'}}>{J.title}</h2>
@@ -1934,6 +1960,7 @@ function JournalPage({lang="uz"}){
 
   return(
     <div style={{padding:'85px 24px 60px',maxWidth:1020,margin:'0 auto'}}>
+      {setPage&&<BackBtn setPage={setPage} lang={lang}/>}
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:24,flexWrap:'wrap',gap:12}}>
         <div>
           <div style={{fontSize:10,letterSpacing:'2px',color:C.faint,marginBottom:4}}>SHAXSIY DASHBOARD</div>
@@ -2006,7 +2033,7 @@ function EquityChart({history, startBal}){
   );
 }
 
-function DemoPage({lang="uz"}){
+function DemoPage({lang="uz", setPage}){
   const D = DMO_T[lang]||DMO_T.uz;
   const ACCS_KEY = 'savura_demo_accs_v2';
   const ACTIVE_KEY = 'savura_demo_active_v2';
@@ -2082,7 +2109,7 @@ function DemoPage({lang="uz"}){
     updated=snapshotEquity(updated,px); updateDemo(updated); setRefreshing(false);
   }
 
-  React.useEffect(()=>{ if(!demo?.positions?.length) return; const t=setInterval(()=>refreshPrices(),30000); return ()=>clearInterval(t); },[demo,activeIdx]);
+  React.useEffect(()=>{ if(!demo?.positions?.length) return; refreshPrices(); const t=setInterval(()=>refreshPrices(),30000); return ()=>clearInterval(t); },[activeIdx]);
 
   async function fetchBuyPrice(){
     const sym=buyForm.ticker.trim().toUpperCase(); if(!sym) return;
@@ -2123,7 +2150,8 @@ function DemoPage({lang="uz"}){
   if(accs.length===0){
     return(
       <div style={{padding:'100px 24px',maxWidth:520,margin:'0 auto',textAlign:'center'}}>
-        <div style={{fontSize:10,letterSpacing:'2px',color:C.faint,marginBottom:8}}>SAVURA INVEST</div>
+        {setPage&&<BackBtn setPage={setPage} lang={lang}/>}
+      <div style={{fontSize:10,letterSpacing:'2px',color:C.faint,marginBottom:8}}>SAVURA INVEST</div>
         <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:'0 0 8px'}}>{D.setup}</h2>
         <p style={{color:C.dim,fontSize:13,marginBottom:8,lineHeight:1.6}}>Haqiqiy pul yo'q — real narxlarda mashq qiling.</p>
         <p style={{color:C.faint,fontSize:11,marginBottom:24}}>Brauzerda saqlanadi. 3 tagacha hisob ocha olasiz.</p>
@@ -2147,6 +2175,7 @@ function DemoPage({lang="uz"}){
   return(
     <div style={{padding:'80px 16px 60px',maxWidth:1060,margin:'0 auto'}}>
 
+      {setPage&&<BackBtn setPage={setPage} lang={lang}/>}
       {/* Account tabs */}
       <div style={{display:'flex',gap:8,marginBottom:16,flexWrap:'wrap',alignItems:'center'}}>
         {accs.map(function(acc,i){
@@ -2397,7 +2426,8 @@ function DemoPage({lang="uz"}){
 
 
 export default function App(){
-  const [page,setPage]=useState("home");
+  const [page,setPage]=useState(()=>localStorage.getItem("savura_pg")||"home");
+  React.useEffect(()=>{localStorage.setItem("savura_pg",page);},[page]);
   const [lang,setLang]=useState("uz");
   return(
     <div style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'Manrope',system-ui,sans-serif"}}>
@@ -2409,11 +2439,11 @@ export default function App(){
       `}</style>
       <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang}/>
       {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/></>}
-      {page==="tool"&&<FundamentalTool lang={lang} setLang={setLang}/>}
-      {page==="course"&&<CoursePage lang={lang}/>}
-      {page==="about"&&<AboutPage lang={lang}/>}
-      {page==="journal"&&<JournalPage lang={lang}/>}
-      {page==="demo"&&<DemoPage lang={lang}/>}
+      {page==="tool"&&<FundamentalTool lang={lang} setLang={setLang} setPage={setPage}/>}
+      {page==="course"&&<CoursePage lang={lang} setPage={setPage}/>}
+      {page==="about"&&<AboutPage lang={lang} setPage={setPage}/>}
+      {page==="journal"&&<JournalPage lang={lang} setPage={setPage}/>}
+      {page==="demo"&&<DemoPage lang={lang} setPage={setPage}/>}
       <ChatWidget lang={lang}/>
       <Footer setPage={setPage} lang={lang}/>
     </div>
