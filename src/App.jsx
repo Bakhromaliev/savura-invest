@@ -2055,6 +2055,7 @@ function DemoPage({lang="uz", setPage}){
   const [buyMode,setBuyMode] = useState('qty');
   const [buyAmt,setBuyAmt] = useState('');
   const [sellId,setSellId] = useState(null);
+  const [sellModal,setSellModal] = useState(null); // {pos, mode:'full'|'qty'|'amt', qty:'', amt:''}
 
   const demo = accs[activeIdx]||null;
   const demoRef = React.useRef(demo);
@@ -2228,6 +2229,33 @@ function DemoPage({lang="uz", setPage}){
     updateDemo(upd); setSellId(null);
   }
 
+  function sellEff(){
+    const m=sellModal; if(!m||!m.pos) return 0;
+    const cp=prices[m.pos.ticker]||m.pos.buyPrice;
+    if(m.mode==='full') return m.pos.shares;
+    if(m.mode==='qty'){ const q=parseFloat(m.qty); return q>0?Math.min(Math.round(q*10000)/10000,m.pos.shares):0; }
+    const a=parseFloat(m.amt); return a>0?Math.min(Math.round(a/cp*10000)/10000,m.pos.shares):0;
+  }
+
+  function doSell(){
+    const m=sellModal; if(!m) return;
+    const shr=sellEff(); if(shr<=0) return;
+    const cur=demoRef.current;
+    const pos=(cur.positions||[]).find(p=>p.id===m.pos.id);
+    if(!pos){ setSellModal(null); return; }
+    const cp=prices[pos.ticker]||pos.buyPrice;
+    const isFull=shr>=pos.shares-0.00005;
+    const soldShr=isFull?pos.shares:shr;
+    const pnl=(cp-pos.buyPrice)*soldShr;
+    const trade={...pos,shares:soldShr,closePrice:cp,closeDate:new Date().toISOString().split('T')[0],reason:isFull?'Manual':'Qisman sotish',pnl};
+    syncToJournal(trade);
+    const newPositions=isFull
+      ?cur.positions.filter(p=>p.id!==pos.id)
+      :cur.positions.map(p=>p.id===pos.id?{...p,shares:Math.round((p.shares-soldShr)*10000)/10000}:p);
+    const upd=snapshotEquity({...cur,cash:cur.cash+cp*soldShr,positions:newPositions,history_trades:[...(cur.history_trades||[]),trade]},{...prices});
+    updateDemo(upd); setSellModal(null);
+  }
+
   const unrPnl=(demo?.positions||[]).reduce((s,p)=>{ const cp=prices[p.ticker]||p.buyPrice; return s+(cp-p.buyPrice)*p.shares; },0);
   const invVal=(demo?.positions||[]).reduce((s,p)=>s+p.buyPrice*p.shares,0);
   const portVal=(demo?.cash||0)+invVal+unrPnl;
@@ -2265,6 +2293,79 @@ function DemoPage({lang="uz", setPage}){
     <div style={{padding:'80px 16px 60px',maxWidth:1060,margin:'0 auto'}}>
 
       {setPage&&<BackBtn setPage={setPage} lang={lang}/>}
+
+      {/* Sell modal */}
+      {sellModal&&(function(){
+        const m=sellModal;
+        const cp=prices[m.pos.ticker]||m.pos.buyPrice;
+        const shr=sellEff();
+        const proceeds=cp*shr;
+        const pnl=(cp-m.pos.buyPrice)*shr;
+        const L={
+          uz:{title:'Sotish',full:"To'liq",qty:'Dona',amt:'Summa $',own:'Sizda',cur:'Joriy narx',sellQ:'Sotiladi',get:'Olinadi',pnl:'P&L'},
+          en:{title:'Sell',full:'Full',qty:'Shares',amt:'Amount $',own:'You own',cur:'Current price',sellQ:'Selling',get:'Proceeds',pnl:'P&L'},
+          tr:{title:'Sat',full:'Tümü',qty:'Adet',amt:'Tutar $',own:'Sahip',cur:'Güncel fiyat',sellQ:'Satılacak',get:'Alınacak',pnl:'K/Z'},
+          ru:{title:'Продать',full:'Всё',qty:'Шт',amt:'Сумма $',own:'У вас',cur:'Тек. цена',sellQ:'Продаётся',get:'Получите',pnl:'P&L'},
+          ar:{title:'بيع',full:'الكل',qty:'عدد',amt:'مبلغ $',own:'لديك',cur:'السعر الحالي',sellQ:'سيتم بيع',get:'ستحصل على',pnl:'ربح/خسارة'},
+        }[lang]||{title:'Sotish',full:"To'liq",qty:'Dona',amt:'Summa $',own:'Sizda',cur:'Joriy narx',sellQ:'Sotiladi',get:'Olinadi',pnl:'P&L'};
+        return(
+          <div onClick={()=>setSellModal(null)} style={{position:'fixed',inset:0,zIndex:1000,background:'rgba(0,0,0,0.6)',backdropFilter:'blur(4px)',display:'flex',alignItems:'center',justifyContent:'center',padding:16}}>
+            <div onClick={e=>e.stopPropagation()} style={{background:'#0b1628',border:`1px solid ${C.border}`,borderRadius:18,padding:'22px 20px',width:'100%',maxWidth:380,boxShadow:'0 20px 60px rgba(0,0,0,0.7)'}}>
+              <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:14}}>
+                <div style={{fontSize:15,fontWeight:800,color:C.text,fontFamily:"'Sora',sans-serif"}}>
+                  <span style={{color:C.red}}>▼</span> {L.title}: <span style={{color:C.blueLt,fontFamily:"'JetBrains Mono',monospace"}}>{m.pos.ticker}</span>
+                </div>
+                <button onClick={()=>setSellModal(null)} style={{background:'transparent',border:'none',color:C.faint,fontSize:20,cursor:'pointer',lineHeight:1}}>×</button>
+              </div>
+
+              <div style={{display:'flex',gap:14,marginBottom:14,fontSize:11.5,color:C.dim}}>
+                <span>{L.own}: <b style={{color:C.text}}>{m.pos.shares}</b></span>
+                <span>{L.cur}: <b style={{color:C.blueLt,fontFamily:"'JetBrains Mono',monospace"}}>${cp.toFixed(2)}</b></span>
+              </div>
+
+              <div style={{display:'flex',gap:4,marginBottom:12,background:'rgba(0,0,0,0.3)',borderRadius:9,padding:3}}>
+                {[['full',L.full],['qty',L.qty],['amt',L.amt]].map(function(t){
+                  return(
+                    <button key={t[0]} onClick={()=>setSellModal({...m,mode:t[0]})}
+                      style={{flex:1,background:m.mode===t[0]?`linear-gradient(135deg,${C.red},#f0762b)`:'transparent',border:'none',borderRadius:7,color:m.mode===t[0]?'#fff':C.dim,fontWeight:m.mode===t[0]?700:400,padding:'7px 4px',cursor:'pointer',fontSize:11.5,fontFamily:"'Sora',sans-serif"}}>
+                      {t[1]}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {m.mode==='qty'&&(
+                <input type="number" autoFocus value={m.qty} onChange={e=>setSellModal({...m,qty:e.target.value})} placeholder={String(m.pos.shares)} min="0.0001" max={m.pos.shares} step="any"
+                  style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'9px 11px',fontSize:14,outline:'none',boxSizing:'border-box',marginBottom:12,fontFamily:"'JetBrains Mono',monospace"}}/>
+              )}
+              {m.mode==='amt'&&(
+                <input type="number" autoFocus value={m.amt} onChange={e=>setSellModal({...m,amt:e.target.value})} placeholder={(cp*m.pos.shares).toFixed(0)} min="1" max={cp*m.pos.shares} step="any"
+                  style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'9px 11px',fontSize:14,outline:'none',boxSizing:'border-box',marginBottom:12,fontFamily:"'JetBrains Mono',monospace"}}/>
+              )}
+
+              {shr>0&&(
+                <div style={{background:'rgba(0,0,0,0.25)',borderRadius:10,padding:'10px 12px',marginBottom:14,fontSize:12,color:C.dim,lineHeight:1.8}}>
+                  {L.sellQ}: <b style={{color:C.text}}>{shr}</b> / {m.pos.shares}
+                  <br/>{L.get}: <b style={{color:C.blueLt,fontFamily:"'JetBrains Mono',monospace"}}>${proceeds.toFixed(2)}</b>
+                  {'   '}{L.pnl}: <b style={{color:pnl>=0?C.green:C.red,fontFamily:"'JetBrains Mono',monospace"}}>{pnl>=0?'+':''}{pnl.toFixed(2)}$</b>
+                </div>
+              )}
+
+              <div style={{display:'flex',gap:8}}>
+                <button onClick={doSell} disabled={shr<=0}
+                  style={{flex:1,background:shr>0?`linear-gradient(135deg,${C.red},#f0762b)`:'rgba(255,255,255,0.05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:13.5,padding:'11px',cursor:shr>0?'pointer':'default',fontFamily:"'Sora',sans-serif"}}>
+                  {D.confirm}
+                </button>
+                <button onClick={()=>setSellModal(null)}
+                  style={{flex:1,background:'transparent',border:`1px solid ${C.border}`,borderRadius:10,color:C.dim,fontWeight:600,fontSize:13.5,padding:'11px',cursor:'pointer',fontFamily:"'Sora',sans-serif"}}>
+                  {D.cancel}
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
       {/* Account tabs */}
       <div style={{display:'flex',gap:8,marginBottom:16,flexWrap:'wrap',alignItems:'center'}}>
         {accs.map(function(acc,i){
@@ -2489,13 +2590,7 @@ function DemoPage({lang="uz", setPage}){
                             }
                           </td>
                           <td style={{padding:'8px 6px'}}>
-                            {sellId===pos.id
-                              ?<div style={{display:'flex',gap:4}}>
-                                <button onClick={()=>closePosition(pos)} style={{background:'rgba(229,72,77,0.15)',border:`1px solid ${C.red}`,borderRadius:6,color:C.red,fontSize:10.5,padding:'3px 7px',cursor:'pointer'}}>{D.confirm}</button>
-                                <button onClick={()=>setSellId(null)} style={{background:'transparent',border:`1px solid ${C.border}`,borderRadius:6,color:C.faint,fontSize:10.5,padding:'3px 7px',cursor:'pointer'}}>{D.cancel}</button>
-                              </div>
-                              :<button onClick={()=>setSellId(pos.id)} style={{background:'rgba(229,72,77,0.1)',border:`1px solid rgba(229,72,77,0.3)`,borderRadius:7,color:C.red,fontSize:11,padding:'4px 8px',cursor:'pointer'}}>{D.sell}</button>
-                            }
+                            <button onClick={()=>setSellModal({pos:pos,mode:'full',qty:'',amt:''})} style={{background:'rgba(229,72,77,0.1)',border:`1px solid rgba(229,72,77,0.3)`,borderRadius:7,color:C.red,fontSize:11,padding:'4px 8px',cursor:'pointer'}}>{D.sell}</button>
                           </td>
                         </tr>
                       );
