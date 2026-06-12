@@ -2151,6 +2151,23 @@ function DemoPage({lang="uz", setPage}){
     const cost=buyForm.price*parseFloat(buyForm.shares);
     if(cost>demo.cash){ alert("Mablag' yetarli emas!"); return; }
     const pos={id:Date.now(),ticker:buyForm.ticker,shares:parseFloat(buyForm.shares),buyPrice:buyForm.price,buyDate:new Date().toISOString().split('T')[0],sl:buyForm.sl?parseFloat(buyForm.sl):null,tp:buyForm.tp?parseFloat(buyForm.tp):null};
+    try {
+      const jKey='savura_journal_v1';
+      const existing=JSON.parse(localStorage.getItem(jKey)||'[]');
+      const entry={
+        id:Date.now()+1,
+        date:pos.buyDate,
+        ticker:pos.ticker,
+        action:'BUY',
+        price:pos.buyPrice,
+        shares:pos.shares,
+        pnl:'',
+        result:'OPEN',
+        reason:'[Demo] Xarid'+(pos.sl?' | SL: $'+pos.sl:'')+(pos.tp?' | TP: $'+pos.tp:''),
+        notes:'Demo treydingdan avtomatik yuklandi'
+      };
+      localStorage.setItem(jKey,JSON.stringify([entry,...existing]));
+    } catch(e){}
     const upd=snapshotEquity({...demo,cash:demo.cash-cost,positions:[...(demo.positions||[]),pos]},{...prices,[buyForm.ticker]:buyForm.price});
     updateDemo(upd); setBuyForm({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''});
   }
