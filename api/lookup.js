@@ -1,4 +1,11 @@
 // api/lookup.js — real-time price via Finnhub + Yahoo fallback
+// Server-side cache: bir xil aksiyani ko'p foydalanuvchi so'rasa,
+// Finnhub ga 5 soniyada faqat 1 marta so'rov yuboriladi.
+const PRICE_CACHE = {};   // { SYM: { data, ts } }  — 5s TTL
+const NAME_CACHE = {};    // { SYM: { name, exchange, currency, ts } } — 24h TTL
+const PRICE_TTL = 5000;
+const NAME_TTL = 24 * 60 * 60 * 1000;
+
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
@@ -14,17 +21,28 @@ export default async function handler(req, res) {
   const debug = req.query.debug === "1";
   const diag = { finnhub_key_set: !!FINNHUB_KEY, av_key_set: !!AV_KEY, steps: [] };
 
+  // ── Server cache: 5s ichida bir xil so'rov takrorlanmasin ──────
+  const cached = PRICE_CACHE[sym];
+  if (cached && Date.now() - cached.ts < PRICE_TTL) {
+    return res.status(200).json({ ...cached.data, cached: true, ...(debug ? { diag: { ...diag, steps: ["cache hit"] } } : {}) });
+  }
+
   // ── 1. Finnhub: real-time price (no delay) ──────────────────────
   if (!FINNHUB_KEY) diag.steps.push("finnhub: KEY YO'Q (env da o'rnatilmagan)");
   if (FINNHUB_KEY) {
     try {
-      const [quoteRes, profileRes] = await Promise.all([
-        fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${FINNHUB_KEY}`),
-        fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${sym}&token=${FINNHUB_KEY}`)
-      ]);
+      const nameCached = NAME_CACHE[sym] && Date.now() - NAME_CACHE[sym].ts < NAME_TTL ? NAME_CACHE[sym] : null;
+      const fetches = [fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${FINNHUB_KEY}`)];
+      if (!nameCached) fetches.push(fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${sym}&token=${FINNHUB_KEY}`));
+      const results = await Promise.all(fetches);
 
-      const quote = await quoteRes.json();
-      const profile = await profileRes.json();
+      const quote = await results[0].json();
+      const quoteRes = results[0];
+      let profile = nameCached ? { name: nameCached.name, exchange: nameCached.exchange, currency: nameCached.currency } : {};
+      if (!nameCached && results[1]) {
+        try { profile = await results[1].json(); } catch {}
+        if (profile?.name) NAME_CACHE[sym] = { name: profile.name, exchange: profile.exchange, currency: profile.currency, ts: Date.now() };
+      }
 
       if (!quote?.c || quote.c <= 0) {
         diag.steps.push("finnhub: status=" + quoteRes.status + " javob=" + JSON.stringify(quote).slice(0, 120));
@@ -33,7 +51,7 @@ export default async function handler(req, res) {
 
       // quote.c = current price (real-time)
       if (quote?.c && quote.c > 0) {
-        return res.status(200).json({
+        const data = {
           ticker: sym,
           companyName: profile?.name || sym,
           price: Math.round(quote.c * 100) / 100,
@@ -45,8 +63,9 @@ export default async function handler(req, res) {
           exchange: profile?.exchange || "",
           currency: profile?.currency || "USD",
           source: "finnhub_realtime",
-          ...(debug ? { diag } : {}),
-        });
+        };
+        PRICE_CACHE[sym] = { data, ts: Date.now() };
+        return res.status(200).json({ ...data, ...(debug ? { diag } : {}) });
       }
     } catch (e) { diag.steps.push("finnhub: exception " + e.message); console.error("FINNHUB EXC", e.message); }
   }
