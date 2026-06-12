@@ -422,10 +422,10 @@ function NavBar({page,setPage,lang,setLang}){
     <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,background:scrolled||open||flagOpen?"rgba(6,10,20,0.97)":"rgba(6,10,20,0.7)",backdropFilter:"blur(16px)",borderBottom:`1px solid ${scrolled?C.border:"transparent"}`,transition:"background .3s"}}>
       <div style={{maxWidth:1100,margin:"0 auto",padding:"0 20px",display:"flex",alignItems:"center",justifyContent:"space-between",height:60}}>
         <button onClick={()=>go("home")} style={{background:"none",border:"none",cursor:"pointer",display:"flex",alignItems:"center",gap:10}}>
-          <Logo size={34}/>
+          <Logo size={42}/>
           <div style={{textAlign:"left"}}>
-            <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:16,color:C.text,lineHeight:1}}>SAVURA <span style={{color:C.greenLt}}>INVEST</span></div>
-            <div style={{fontSize:9,color:C.faint,letterSpacing:".5px",marginTop:2}}>AKSIYA TAHLILI</div>
+            <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:19,color:C.text,lineHeight:1}}>SAVURA <span style={{color:C.greenLt}}>INVEST</span></div>
+            <div style={{fontSize:10,color:C.faint,letterSpacing:".5px",marginTop:2}}>AKSIYA TAHLILI</div>
           </div>
         </button>
         <div style={{display:"flex",alignItems:"center",gap:6}}>
@@ -1376,13 +1376,15 @@ function ChatWidget({lang}){
 function BackBtn({setPage, lang}){
   const labels={uz:"← Bosh sahifa",en:"← Home",tr:"← Ana Sayfa",ru:"← Главная",ar:"← الرئيسية"};
   return(
-    <button onClick={()=>setPage('home')}
-      style={{position:'fixed',top:70,left:16,zIndex:900,background:'rgba(8,14,30,0.85)',
-        border:'1px solid rgba(74,163,255,0.2)',borderRadius:10,color:'#8ea0c4',
-        fontSize:12.5,padding:'7px 13px',cursor:'pointer',backdropFilter:'blur(8px)',
-        display:'flex',alignItems:'center',gap:6,fontFamily:"'Sora',sans-serif"}}>
-      {labels[lang]||labels.uz}
-    </button>
+    <div style={{marginBottom:14}}>
+      <button onClick={()=>setPage('home')}
+        style={{background:'rgba(8,14,30,0.85)',
+          border:'1px solid rgba(74,163,255,0.2)',borderRadius:10,color:'#8ea0c4',
+          fontSize:12.5,padding:'7px 13px',cursor:'pointer',
+          display:'inline-flex',alignItems:'center',gap:6,fontFamily:"'Sora',sans-serif"}}>
+        {labels[lang]||labels.uz}
+      </button>
+    </div>
   );
 }
 
@@ -2497,8 +2499,15 @@ function DemoPage({lang="uz", setPage}){
 
 
 export default function App(){
-  const [page,setPage]=useState(()=>localStorage.getItem("savura_pg")||"home");
+  const [page,setPageRaw]=useState(()=>localStorage.getItem("savura_pg")||"home");
+  const setPage=React.useCallback((p)=>{ try{window.history.pushState({pg:p},"");}catch(e){} setPageRaw(p); },[]);
   React.useEffect(()=>{localStorage.setItem("savura_pg",page);},[page]);
+  React.useEffect(()=>{
+    try{window.history.replaceState({pg:page},"");}catch(e){}
+    const onPop=(e)=>{ setPageRaw((e.state&&e.state.pg)||"home"); window.scrollTo({top:0}); };
+    window.addEventListener("popstate",onPop);
+    return ()=>window.removeEventListener("popstate",onPop);
+  },[]);
   const [lang,setLang]=useState("uz");
   return(
     <div style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'Manrope',system-ui,sans-serif"}}>
