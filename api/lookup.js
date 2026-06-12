@@ -11,8 +11,11 @@ export default async function handler(req, res) {
 
   const FINNHUB_KEY = process.env.FINNHUB_KEY;
   const AV_KEY = process.env.ALPHAVANTAGE_KEY;
+  const debug = req.query.debug === "1";
+  const diag = { finnhub_key_set: !!FINNHUB_KEY, av_key_set: !!AV_KEY, steps: [] };
 
   // ── 1. Finnhub: real-time price (no delay) ──────────────────────
+  if (!FINNHUB_KEY) diag.steps.push("finnhub: KEY YO'Q (env da o'rnatilmagan)");
   if (FINNHUB_KEY) {
     try {
       const [quoteRes, profileRes] = await Promise.all([
@@ -22,6 +25,11 @@ export default async function handler(req, res) {
 
       const quote = await quoteRes.json();
       const profile = await profileRes.json();
+
+      if (!quote?.c || quote.c <= 0) {
+        diag.steps.push("finnhub: status=" + quoteRes.status + " javob=" + JSON.stringify(quote).slice(0, 120));
+        console.error("FINNHUB FAIL", quoteRes.status, JSON.stringify(quote).slice(0, 200));
+      }
 
       // quote.c = current price (real-time)
       if (quote?.c && quote.c > 0) {
@@ -37,9 +45,10 @@ export default async function handler(req, res) {
           exchange: profile?.exchange || "",
           currency: profile?.currency || "USD",
           source: "finnhub_realtime",
+          ...(debug ? { diag } : {}),
         });
       }
-    } catch {}
+    } catch (e) { diag.steps.push("finnhub: exception " + e.message); console.error("FINNHUB EXC", e.message); }
   }
 
   // ── 2. Yahoo Finance v8 chart (15-20 min delayed) ───────────────
@@ -62,10 +71,11 @@ export default async function handler(req, res) {
           exchange: meta.exchangeName || "",
           currency: meta.currency || "USD",
           source: "yahoo_delayed",
+          ...(debug ? { diag } : {}),
         });
       }
-    }
-  } catch {}
+    } else { diag.steps.push("yahoo_v8: status=" + r.status); }
+  } catch (e) { diag.steps.push("yahoo_v8: exception " + e.message); }
 
   // ── 3. Yahoo Finance v7 quote ────────────────────────────────────
   try {
@@ -100,6 +110,7 @@ export default async function handler(req, res) {
             companyName: sym,
             price: Math.round(price * 100) / 100,
             source: "alphavantage",
+            ...(debug ? { diag } : {}),
           });
         }
       }

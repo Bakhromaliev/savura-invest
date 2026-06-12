@@ -214,7 +214,7 @@ const SITE_T={
       ft:"This course is for you if...",ol:"Instructor",sl:"Curriculum",
       ct:"Ready to join?",cd:"Contact us via Telegram.",cb:"Contact Us",
       mt:["Investment Basics","Selecting Stocks","Halal Investing","Fundamental Analysis","Risk Management","Real Practice"]}},
-  tr:{nav:{home:"Ana Sayfa",tool:"Temel Analiz",course:"Hisse Senedi Kursu",journal:"Günlüğüm",about:"Hakkımızda",erp:"Savura ERP"},
+  tr:{nav:{home:"Ana Sayfa",tool:"Temel Analiz",course:"Hisse Senedi Kursu",journal:"Günlüğüm",demo:"Demo",about:"Hakkımızda",erp:"Savura ERP"},
     hero:{badge:"ABD PİYASALARI · TEMEL ANALİZ",h1:"Borsada",h2:"biliçli yatırım",
       desc:"ABD hisse senedi piyasasında temel analiz ve helal yatırım için Özbekistan’in lider platformu.",
       btn1:"Analize Başla →",btn2:"Kursu Gör",
@@ -235,7 +235,7 @@ const SITE_T={
       ft:"Bu kurs şunlar için...",ol:"Eğitmen",sl:"Program",
       ct:"Hazır mısınız?",cd:"Telegram üzerinden iletişime geçin.",cb:"İletişime Geç",
       mt:["Yatırım Temelleri","Hisse Seçimi","Helal Yatırım","Temel Analiz","Risk Yönetimi","Gerçek Uygulama"]}},
-  ru:{nav:{home:"Главная",tool:"Фунд. анализ",course:"Курс торговли",about:"О нас",erp:"Savura ERP"},
+  ru:{nav:{home:"Главная",tool:"Фунд. анализ",course:"Курс торговли",journal:"Журнал",demo:"Демо",about:"О нас",erp:"Savura ERP"},
     hero:{badge:"РЫНОК США · ФУНД. АНАЛИЗ",h1:"Осознанное инвестирование",h2:"на фондовом рынке",
       desc:"Ведущая платформа Узбекистана для фундаментального анализа и халяльного инвестирования.",
       btn1:"Начать анализ →",btn2:"Смотреть курс",
@@ -256,7 +256,7 @@ const SITE_T={
       ft:"Этот курс для вас, если...",ol:"Ведущий",sl:"Программа",
       ct:"Готовы?",cd:"Свяжитесь через Telegram.",cb:"Связаться",
       mt:["Основы","Выбор акций","Халяльное","Фунд. анализ","Управление риском","Практика"]}},
-  ar:{nav:{home:"الرئيسية",tool:"التحليل الأساسي",course:"دورة تداول",about:"من نحن",erp:"Savura ERP"},
+  ar:{nav:{home:"الرئيسية",tool:"التحليل الأساسي",course:"دورة تداول",journal:"مفكرتي",demo:"تجريبي",about:"من نحن",erp:"Savura ERP"},
     hero:{badge:"أسواق أمريكا",h1:"استثمار واع",h2:"في سوق الأسهم",
       desc:"منصة أوزبكستان للتحليل الحلال.",
       btn1:"ابدأ التحليل",btn2:"عرض الدورة",
@@ -414,7 +414,7 @@ function NavBar({page,setPage,lang,setLang}){
   const [scrolled,setScrolled]=useState(false);
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>30);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   const sn=getST(lang).nav;
-  const links=[{id:"home",label:sn.home},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
+  const links=[{id:"home",label:sn.home},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"demo",label:sn.demo||"Demo"},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
   const go=(id)=>{setPage(id);setOpen(false);setFlagOpen(false);window.scrollTo({top:0,behavior:"smooth"});};
   const LANGS=[{k:"uz",f:"🇺🇿",l:"O'Z"},{k:"en",f:"🇺🇸",l:"EN"},{k:"tr",f:"🇹🇷",l:"TR"},{k:"ru",f:"🇷🇺",l:"RU"},{k:"ar",f:"🇸🇦",l:"AR"}];
   const cur=LANGS.find(function(x){return x.k===lang;})||LANGS[0];
@@ -2045,6 +2045,8 @@ function DemoPage({lang="uz", setPage}){
   const [showNew,setShowNew] = useState(false);
   const [newName,setNewName] = useState('');
   const [prices,setPrices] = useState({});
+  const [flash,setFlash] = useState({});
+  const [lastUpd,setLastUpd] = useState(null);
   const [refreshing,setRefreshing] = useState(false);
   const [tab,setTab] = useState('positions');
   const [buyForm,setBuyForm] = useState({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''});
@@ -2053,6 +2055,10 @@ function DemoPage({lang="uz", setPage}){
   const demo = accs[activeIdx]||null;
   const demoRef = React.useRef(demo);
   React.useEffect(()=>{ demoRef.current = demo; },[demo]);
+  const pricesRef = React.useRef(prices);
+  React.useEffect(()=>{ pricesRef.current = prices; },[prices]);
+  const buyFormRef = React.useRef(buyForm);
+  React.useEffect(()=>{ buyFormRef.current = buyForm; },[buyForm]);
 
   function switchAcc(i){ setActiveIdx(i); saveActive(i); setSellId(null); setBuyForm({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''}); setPrices({}); }
 
@@ -2088,12 +2094,24 @@ function DemoPage({lang="uz", setPage}){
 
   async function refreshPrices(){
     const cur = demoRef.current;
-    if(!cur?.positions?.length) return;
+    const bf = buyFormRef.current;
+    const tickers=[...new Set([...(cur?.positions||[]).map(p=>p.ticker), ...(bf.price&&bf.ticker?[bf.ticker]:[])])];
+    if(!tickers.length) return;
     setRefreshing(true);
-    const tickers=[...new Set(cur.positions.map(p=>p.ticker))];
     const px={};
     for(const sym of tickers){ try{ const r=await fetch('/api/lookup?sym='+sym); const d=await r.json(); if(d.price) px[sym]=d.price; }catch{} }
+    // Flash: compare to previous prices
+    const prev = pricesRef.current;
+    const fl = {};
+    for(const sym of Object.keys(px)){
+      if(prev[sym]!=null && px[sym]!==prev[sym]) fl[sym] = px[sym]>prev[sym] ? 'up' : 'down';
+    }
+    if(Object.keys(fl).length){ setFlash(fl); setTimeout(()=>setFlash({}),900); }
     setPrices(px);
+    setLastUpd(new Date());
+    // Live-update buy form price
+    if(bf.price && bf.ticker && px[bf.ticker]) setBuyForm(f=>f.ticker===bf.ticker?{...f,price:px[bf.ticker]}:f);
+    if(!cur?.positions?.length){ setRefreshing(false); return; }
     let updated={...cur};
     const closed=[];
     updated.positions=(cur.positions||[]).filter(pos=>{
@@ -2113,8 +2131,8 @@ function DemoPage({lang="uz", setPage}){
 
   React.useEffect(()=>{
     const doRefresh = async () => { await refreshPrices(); };
-    if(demoRef.current?.positions?.length) doRefresh();
-    const t=setInterval(doRefresh,30000);
+    doRefresh();
+    const t=setInterval(doRefresh,10000);
     return ()=>clearInterval(t);
   },[activeIdx]);
 
@@ -2278,10 +2296,16 @@ function DemoPage({lang="uz", setPage}){
                 </div>
               );
             })}
-            <button onClick={()=>refreshPrices()} disabled={refreshing}
-              style={{background:'rgba(47,125,246,0.1)',border:`1px solid ${C.border}`,borderRadius:8,color:C.blueLt,fontSize:11.5,padding:'6px 12px',cursor:'pointer'}}>
-              {refreshing?'...':D.refresh}
-            </button>
+            <div style={{textAlign:'right'}}>
+              <button onClick={()=>refreshPrices()} disabled={refreshing}
+                style={{background:'rgba(47,125,246,0.1)',border:`1px solid ${C.border}`,borderRadius:8,color:C.blueLt,fontSize:11.5,padding:'6px 12px',cursor:'pointer'}}>
+                {refreshing?'...':D.refresh}
+              </button>
+              <div style={{fontSize:9.5,color:C.faint,marginTop:4,display:'flex',alignItems:'center',gap:4,justifyContent:'flex-end'}}>
+                <span style={{width:6,height:6,borderRadius:'50%',background:refreshing?C.amber:C.green,display:'inline-block',animation:refreshing?'none':'pulse 2s infinite'}}/>
+                LIVE{lastUpd?' · '+lastUpd.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'}):''}
+              </div>
+            </div>
           </div>
         </div>
         <div style={{background:'rgba(0,0,0,0.2)',borderRadius:12,padding:'10px 8px 4px'}}>
@@ -2389,12 +2413,14 @@ function DemoPage({lang="uz", setPage}){
                       const pnl=(cp-pos.buyPrice)*pos.shares;
                       const pct=(cp-pos.buyPrice)/pos.buyPrice*100;
                       const col=pnl>=0?C.green:C.red;
+                      const fl=flash[pos.ticker];
+                      const flBg=fl==='up'?'rgba(55,178,77,0.12)':fl==='down'?'rgba(229,72,77,0.12)':'transparent';
                       return(
-                        <tr key={pos.id} style={{borderBottom:`1px solid rgba(255,255,255,0.04)`}}>
+                        <tr key={pos.id} style={{borderBottom:`1px solid rgba(255,255,255,0.04)`,background:flBg,transition:'background .5s ease'}}>
                           <td style={{padding:'8px 6px',fontFamily:"'JetBrains Mono',monospace",fontWeight:700,color:C.blueLt}}>{pos.ticker}</td>
                           <td style={{padding:'8px 6px',color:C.text}}>{pos.shares}</td>
                           <td style={{padding:'8px 6px',color:C.dim,fontSize:11}}>${pos.buyPrice.toFixed(2)}</td>
-                          <td style={{padding:'8px 6px',color:col,fontSize:11}}>${cp.toFixed(2)}</td>
+                          <td style={{padding:'8px 6px',color:fl==='up'?C.greenLt:fl==='down'?C.red:col,fontSize:11,fontWeight:fl?700:400,fontFamily:"'JetBrains Mono',monospace",transition:'color .3s'}}>{fl==='up'?'▲':fl==='down'?'▼':''}${cp.toFixed(2)}</td>
                           <td style={{padding:'8px 6px',fontWeight:700,color:col,fontSize:11}}>{pnl>=0?'+':''}{pnl.toFixed(2)}$</td>
                           <td style={{padding:'8px 6px',fontWeight:700,color:col,fontSize:11}}>{pct>=0?'+':''}{pct.toFixed(1)}%</td>
                           <td style={{padding:'8px 6px',color:C.red,fontSize:10.5}}>{pos.sl?'$'+pos.sl:'—'}</td>
@@ -2462,7 +2488,7 @@ export default function App(){
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
         *{box-sizing:border-box;margin:0;padding:0;} ::selection{background:#2f7df6;color:#fff;} a{text-decoration:none;} button{font-family:inherit;}
-        @keyframes spin{to{transform:rotate(360deg);}}
+        @keyframes spin{to{transform:rotate(360deg);}}\n        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
         ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:#060a14;} ::-webkit-scrollbar-thumb{background:#2f7df6;border-radius:2px;}
       `}</style>
       <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang}/>
