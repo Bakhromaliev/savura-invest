@@ -2343,6 +2343,14 @@ function DemoPage({lang="uz", setPage}){
                   style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'9px 11px',fontSize:14,outline:'none',boxSizing:'border-box',marginBottom:12,fontFamily:"'JetBrains Mono',monospace"}}/>
               )}
 
+              {(m.mode==='qty'||m.mode==='amt')&&(
+                <button onClick={()=>setSellModal(m.mode==='qty'
+                    ?{...m,qty:String(m.pos.shares)}
+                    :{...m,amt:String(Math.floor(cp*m.pos.shares*100)/100)})}
+                  style={{marginBottom:12,background:'rgba(229,72,77,0.07)',border:`1px dashed rgba(229,72,77,0.35)`,borderRadius:7,color:C.red,fontSize:10.5,fontWeight:600,padding:'4px 10px',cursor:'pointer',fontFamily:"'Sora',sans-serif"}}>
+                  Max: {m.mode==='qty'?m.pos.shares+' dona':'$'+(cp*m.pos.shares).toFixed(2)}
+                </button>
+              )}
               {shr>0&&(
                 <div style={{background:'rgba(0,0,0,0.25)',borderRadius:10,padding:'10px 12px',marginBottom:14,fontSize:12,color:C.dim,lineHeight:1.8}}>
                   {L.sellQ}: <b style={{color:C.text}}>{shr}</b> / {m.pos.shares}
@@ -2503,6 +2511,17 @@ function DemoPage({lang="uz", setPage}){
               :<input type="number" value={buyAmt} onChange={e=>setBuyAmt(e.target.value)} placeholder="100" min="1" step="any"
                 style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
             }
+            {buyForm.price&&(
+              <button onClick={()=>{
+                  if(buyMode==='amt') setBuyAmt(String(Math.floor(demo.cash*100)/100));
+                  else setBuyForm(f=>({...f,shares:String(Math.floor(demo.cash/buyForm.price*10000)/10000)}));
+                }}
+                style={{marginTop:5,background:'rgba(47,125,246,0.08)',border:`1px dashed rgba(74,163,255,0.3)`,borderRadius:7,color:C.blueLt,fontSize:10.5,fontWeight:600,padding:'4px 10px',cursor:'pointer',fontFamily:"'Sora',sans-serif"}}>
+                Max: {buyMode==='amt'
+                  ? '$'+demo.cash.toFixed(2)
+                  : (Math.floor(demo.cash/buyForm.price*10000)/10000)+' dona'}
+              </button>
+            )}
             {buyForm.price&&effShares()>0&&(
               <div style={{fontSize:11,color:C.dim,marginTop:3}}>
                 {buyMode==='amt'&&<span>≈ <b style={{color:C.blueLt}}>{effShares()}</b> dona{'  ·  '}</span>}
