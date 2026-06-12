@@ -2150,6 +2150,21 @@ function DemoPage({lang="uz", setPage}){
     }catch{ setBuyForm(f=>({...f,err:'Server xatosi',fetching:false})); }
   }
 
+  function settleDate(buyDate){
+    const d=new Date(buyDate+'T00:00:00');
+    let added=0;
+    while(added<2){ d.setDate(d.getDate()+1); const w=d.getDay(); if(w!==0&&w!==6) added++; }
+    return d;
+  }
+  function isSettled(buyDate){
+    const today=new Date(); today.setHours(0,0,0,0);
+    return today>=settleDate(buyDate);
+  }
+  function settleLabel(buyDate){
+    const d=settleDate(buyDate);
+    return String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0');
+  }
+
   function effShares(){
     if(!buyForm.price) return 0;
     if(buyMode==='amt'){ const a=parseFloat(buyAmt); return a>0?Math.round(a/buyForm.price*10000)/10000:0; }
@@ -2444,7 +2459,7 @@ function DemoPage({lang="uz", setPage}){
                 <table style={{width:'100%',borderCollapse:'collapse',fontSize:12}}>
                   <thead>
                     <tr style={{borderBottom:`1px solid ${C.border}`}}>
-                      {[D.colTicker,D.colQty,D.colEntry,D.colCur,D.colPnl,D.colPct,D.colSl,D.colTp,''].map(function(h){
+                      {[D.colTicker,D.colQty,D.colEntry,D.colCur,D.colPnl,D.colPct,D.colSl,D.colTp,'T+2',''].map(function(h){
                         return <th key={h} style={{padding:'7px 6px',color:C.faint,fontWeight:600,textAlign:'left',fontSize:10.5,whiteSpace:'nowrap'}}>{h}</th>;
                       })}
                     </tr>
@@ -2467,6 +2482,12 @@ function DemoPage({lang="uz", setPage}){
                           <td style={{padding:'8px 6px',fontWeight:700,color:col,fontSize:11}}>{pct>=0?'+':''}{pct.toFixed(1)}%</td>
                           <td style={{padding:'8px 6px',color:C.red,fontSize:10.5}}>{pos.sl?'$'+pos.sl:'—'}</td>
                           <td style={{padding:'8px 6px',color:C.green,fontSize:10.5}}>{pos.tp?'$'+pos.tp:'—'}</td>
+                          <td style={{padding:'8px 6px',whiteSpace:'nowrap'}}>
+                            {isSettled(pos.buyDate)
+                              ?<span title="T+2 bajarildi — aksiya to'liq mulkingizda" style={{display:'inline-flex',alignItems:'center',gap:3,background:'rgba(55,178,77,0.12)',border:'1px solid rgba(55,178,77,0.35)',borderRadius:6,color:C.greenLt,fontSize:10,fontWeight:700,padding:'3px 7px'}}>✓ T+2</span>
+                              :<span title={"T+2 hali bajarilmadi — hisob-kitob sanasi: "+settleLabel(pos.buyDate)} style={{display:'inline-flex',alignItems:'center',gap:3,background:'rgba(240,169,43,0.1)',border:'1px solid rgba(240,169,43,0.35)',borderRadius:6,color:C.amber,fontSize:10,fontWeight:700,padding:'3px 7px'}}>⏳ {settleLabel(pos.buyDate)}</span>
+                            }
+                          </td>
                           <td style={{padding:'8px 6px'}}>
                             {sellId===pos.id
                               ?<div style={{display:'flex',gap:4}}>
