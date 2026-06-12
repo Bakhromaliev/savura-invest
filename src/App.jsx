@@ -2052,6 +2052,8 @@ function DemoPage({lang="uz", setPage}){
   const [refreshing,setRefreshing] = useState(false);
   const [tab,setTab] = useState('positions');
   const [buyForm,setBuyForm] = useState({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''});
+  const [buyMode,setBuyMode] = useState('qty');
+  const [buyAmt,setBuyAmt] = useState('');
   const [sellId,setSellId] = useState(null);
 
   const demo = accs[activeIdx]||null;
@@ -2148,11 +2150,18 @@ function DemoPage({lang="uz", setPage}){
     }catch{ setBuyForm(f=>({...f,err:'Server xatosi',fetching:false})); }
   }
 
+  function effShares(){
+    if(!buyForm.price) return 0;
+    if(buyMode==='amt'){ const a=parseFloat(buyAmt); return a>0?Math.round(a/buyForm.price*10000)/10000:0; }
+    const s=parseFloat(buyForm.shares); return s>0?s:0;
+  }
+
   function executeBuy(){
-    if(!demo||!buyForm.price||!buyForm.shares) return;
-    const cost=buyForm.price*parseFloat(buyForm.shares);
+    const shr=effShares();
+    if(!demo||!buyForm.price||!shr) return;
+    const cost=buyForm.price*shr;
     if(cost>demo.cash){ alert("Mablag' yetarli emas!"); return; }
-    const pos={id:Date.now(),ticker:buyForm.ticker,shares:parseFloat(buyForm.shares),buyPrice:buyForm.price,buyDate:new Date().toISOString().split('T')[0],sl:buyForm.sl?parseFloat(buyForm.sl):null,tp:buyForm.tp?parseFloat(buyForm.tp):null};
+    const pos={id:Date.now(),ticker:buyForm.ticker,shares:shr,buyPrice:buyForm.price,buyDate:new Date().toISOString().split('T')[0],sl:buyForm.sl?parseFloat(buyForm.sl):null,tp:buyForm.tp?parseFloat(buyForm.tp):null};
     try {
       const jKey='savura_journal_v1';
       const existing=JSON.parse(localStorage.getItem(jKey)||'[]');
@@ -2171,7 +2180,7 @@ function DemoPage({lang="uz", setPage}){
       localStorage.setItem(jKey,JSON.stringify([entry,...existing]));
     } catch(e){}
     const upd=snapshotEquity({...demo,cash:demo.cash-cost,positions:[...(demo.positions||[]),pos]},{...prices,[buyForm.ticker]:buyForm.price});
-    updateDemo(upd); setBuyForm({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''});
+    updateDemo(upd); setBuyForm({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''}); setBuyAmt('');
   }
 
 
@@ -2362,13 +2371,27 @@ function DemoPage({lang="uz", setPage}){
             </div>
           )}
           <div style={{marginBottom:10}}>
-            <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>{D.qty}</div>
-            <input type="number" value={buyForm.shares} onChange={e=>setBuyForm(f=>({...f,shares:e.target.value}))} placeholder="10" min="1"
-              style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
-            {buyForm.price&&buyForm.shares&&(
+            <div style={{display:'flex',gap:4,marginBottom:6,background:'rgba(0,0,0,0.25)',borderRadius:8,padding:3,width:'fit-content'}}>
+              {[['qty',{uz:'Dona',en:'Shares',tr:'Adet',ru:'Шт',ar:'عدد'}[lang]||'Dona'],['amt',{uz:'Summa $',en:'Amount $',tr:'Tutar $',ru:'Сумма $',ar:'مبلغ $'}[lang]||'Summa $']].map(function(m){
+                return(
+                  <button key={m[0]} onClick={()=>setBuyMode(m[0])}
+                    style={{background:buyMode===m[0]?`linear-gradient(135deg,${C.blue},${C.green})`:'transparent',border:'none',borderRadius:6,color:buyMode===m[0]?'#fff':C.dim,fontWeight:buyMode===m[0]?700:400,padding:'5px 12px',cursor:'pointer',fontSize:11.5,fontFamily:"'Sora',sans-serif"}}>
+                    {m[1]}
+                  </button>
+                );
+              })}
+            </div>
+            {buyMode==='qty'
+              ?<input type="number" value={buyForm.shares} onChange={e=>setBuyForm(f=>({...f,shares:e.target.value}))} placeholder="10" min="0.0001" step="any"
+                style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+              :<input type="number" value={buyAmt} onChange={e=>setBuyAmt(e.target.value)} placeholder="100" min="1" step="any"
+                style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+            }
+            {buyForm.price&&effShares()>0&&(
               <div style={{fontSize:11,color:C.dim,marginTop:3}}>
-                {D.total}: <b style={{color:C.text}}>${(buyForm.price*parseFloat(buyForm.shares||0)).toFixed(2)}</b>
-                {'  '}({D.cash}: <span style={{color:demo.cash<buyForm.price*parseFloat(buyForm.shares||0)?C.red:C.green}}>${demo.cash.toFixed(0)}</span>)
+                {buyMode==='amt'&&<span>≈ <b style={{color:C.blueLt}}>{effShares()}</b> dona{'  ·  '}</span>}
+                {D.total}: <b style={{color:C.text}}>${(buyForm.price*effShares()).toFixed(2)}</b>
+                {'  '}({D.cash}: <span style={{color:demo.cash<buyForm.price*effShares()?C.red:C.green}}>${demo.cash.toFixed(0)}</span>)
               </div>
             )}
           </div>
@@ -2390,11 +2413,11 @@ function DemoPage({lang="uz", setPage}){
             <div style={{background:'rgba(0,0,0,0.2)',borderRadius:8,padding:'8px 10px',marginBottom:12,fontSize:11.5,color:C.dim}}>
               {D.rr}: <b style={{color:C.text}}>{(((parseFloat(buyForm.tp)-buyForm.price)/(buyForm.price-parseFloat(buyForm.sl)))||0).toFixed(1)}x</b>
               {'  '}
-              <span style={{color:C.red}}>{D.maxLoss}: -{((buyForm.price-parseFloat(buyForm.sl))*parseFloat(buyForm.shares||0)).toFixed(2)}$</span>
+              <span style={{color:C.red}}>{D.maxLoss}: -{((buyForm.price-parseFloat(buyForm.sl))*effShares()).toFixed(2)}$</span>
             </div>
           )}
-          <button onClick={executeBuy} disabled={!buyForm.price||!buyForm.shares||parseFloat(buyForm.shares)<=0}
-            style={{width:'100%',background:buyForm.price&&buyForm.shares?`linear-gradient(135deg,${C.blue},${C.green})`:'rgba(255,255,255,0.05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'12px',cursor:buyForm.price&&buyForm.shares?'pointer':'default',boxSizing:'border-box'}}>
+          <button onClick={executeBuy} disabled={!buyForm.price||effShares()<=0}
+            style={{width:'100%',background:buyForm.price&&effShares()>0?`linear-gradient(135deg,${C.blue},${C.green})`:'rgba(255,255,255,0.05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'12px',cursor:buyForm.price&&effShares()>0?'pointer':'default',boxSizing:'border-box'}}>
             {D.buyBtn}
           </button>
           <div style={{fontSize:10.5,color:C.faint,textAlign:'center',marginTop:8}}>{D.disclaimer}</div>
