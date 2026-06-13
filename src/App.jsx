@@ -13,7 +13,7 @@ const sb = (typeof window!=="undefined" && window.supabase)
 const AUTH_T = {
   uz:{login:"Kirish",signup:"Ro'yxatdan o'tish",email:"Email",pass:"Parol",pass2:"Parolni tasdiqlang",name:"Ism familiya",
     loginBtn:"Kirish",signupBtn:"Ro'yxatdan o'tish",noAcc:"Hisobingiz yo'qmi?",hasAcc:"Hisobingiz bormi?",
-    logout:"Chiqish",locked:"Bu bo'lim faqat o'quvchilar uchun",lockedSub:"Foydalanish uchun ro'yxatdan o'ting va admin tasdig'ini kuting.",
+    logout:"Chiqish",logoutConfirm:"Hisobdan chiqmoqchimisiz?",locked:"Bu bo'lim faqat o'quvchilar uchun",lockedSub:"Foydalanish uchun ro'yxatdan o'ting va admin tasdig'ini kuting.",
     pending:"Hisobingiz tasdiq kutilmoqda",pendingSub:"Administrator hisobingizni tasdiqlagandan so'ng barcha funksiyalardan foydalana olasiz. Iltimos kuting yoki biz bilan bog'laning.",
     expired:"Foydalanish muddati tugadi",expiredSub:"Obunangiz muddati tugagan. Uzaytirish uchun biz bilan bog'laning.",
     checkEmail:"Emailingizni tasdiqlang",checkEmailSub:"Sizga tasdiqlash xati yuborildi. Email'dagi havolani bosing, keyin shu yerga qaytib kiring.",
@@ -21,7 +21,7 @@ const AUTH_T = {
     welcome:"Xush kelibsiz",validTill:"Amal qiladi",contact:"Bog'lanish: @SavuraInvest"},
   en:{login:"Login",signup:"Sign up",email:"Email",pass:"Password",pass2:"Confirm password",name:"Full name",
     loginBtn:"Login",signupBtn:"Sign up",noAcc:"No account?",hasAcc:"Have an account?",
-    logout:"Logout",locked:"This section is for students only",lockedSub:"Sign up and wait for admin approval to access.",
+    logout:"Logout",logoutConfirm:"Are you sure you want to log out?",locked:"This section is for students only",lockedSub:"Sign up and wait for admin approval to access.",
     pending:"Your account is pending approval",pendingSub:"Once an administrator approves your account, you can use all features. Please wait or contact us.",
     expired:"Access expired",expiredSub:"Your subscription has expired. Contact us to extend.",
     checkEmail:"Confirm your email",checkEmailSub:"A confirmation link was sent. Click it, then log in here.",
@@ -29,7 +29,7 @@ const AUTH_T = {
     welcome:"Welcome",validTill:"Valid until",contact:"Contact: @SavuraInvest"},
   ru:{login:"Вход",signup:"Регистрация",email:"Email",pass:"Пароль",pass2:"Повторите пароль",name:"Имя и фамилия",
     loginBtn:"Войти",signupBtn:"Зарегистрироваться",noAcc:"Нет аккаунта?",hasAcc:"Есть аккаунт?",
-    logout:"Выйти",locked:"Этот раздел только для учеников",lockedSub:"Зарегистрируйтесь и дождитесь одобрения администратора.",
+    logout:"Выйти",logoutConfirm:"Вы уверены, что хотите выйти?",locked:"Этот раздел только для учеников",lockedSub:"Зарегистрируйтесь и дождитесь одобрения администратора.",
     pending:"Аккаунт ожидает одобрения",pendingSub:"После одобрения администратором вы получите доступ ко всем функциям. Подождите или свяжитесь с нами.",
     expired:"Срок доступа истёк",expiredSub:"Ваша подписка истекла. Свяжитесь с нами для продления.",
     checkEmail:"Подтвердите email",checkEmailSub:"Отправлена ссылка для подтверждения. Нажмите её, затем войдите здесь.",
@@ -37,7 +37,7 @@ const AUTH_T = {
     welcome:"Добро пожаловать",validTill:"Действует до",contact:"Связь: @SavuraInvest"},
   tr:{login:"Giriş",signup:"Kayıt ol",email:"E-posta",pass:"Şifre",pass2:"Şifreyi onayla",name:"Ad soyad",
     loginBtn:"Giriş",signupBtn:"Kayıt ol",noAcc:"Hesabın yok mu?",hasAcc:"Hesabın var mı?",
-    logout:"Çıkış",locked:"Bu bölüm sadece öğrenciler için",lockedSub:"Erişim için kayıt olun ve yönetici onayını bekleyin.",
+    logout:"Çıkış",logoutConfirm:"Çıkış yapmak istediğinizden emin misiniz?",locked:"Bu bölüm sadece öğrenciler için",lockedSub:"Erişim için kayıt olun ve yönetici onayını bekleyin.",
     pending:"Hesabınız onay bekliyor",pendingSub:"Yönetici hesabınızı onayladıktan sonra tüm özellikleri kullanabilirsiniz.",
     expired:"Erişim süresi doldu",expiredSub:"Aboneliğiniz sona erdi. Uzatmak için bizimle iletişime geçin.",
     checkEmail:"E-postanızı onaylayın",checkEmailSub:"Onay bağlantısı gönderildi. Tıklayın, sonra buradan giriş yapın.",
@@ -45,7 +45,7 @@ const AUTH_T = {
     welcome:"Hoş geldiniz",validTill:"Geçerlilik",contact:"İletişim: @SavuraInvest"},
   ar:{login:"دخول",signup:"تسجيل",email:"البريد",pass:"كلمة المرور",pass2:"تأكيد كلمة المرور",name:"الاسم الكامل",
     loginBtn:"دخول",signupBtn:"تسجيل",noAcc:"ليس لديك حساب؟",hasAcc:"لديك حساب؟",
-    logout:"خروج",locked:"هذا القسم للطلاب فقط",lockedSub:"سجّل وانتظر موافقة المشرف للوصول.",
+    logout:"خروج",logoutConfirm:"هل تريد تسجيل الخروج؟",locked:"هذا القسم للطلاب فقط",lockedSub:"سجّل وانتظر موافقة المشرف للوصول.",
     pending:"حسابك قيد الموافقة",pendingSub:"بعد موافقة المشرف، يمكنك استخدام جميع الميزات.",
     expired:"انتهت صلاحية الوصول",expiredSub:"انتهى اشتراكك. تواصل معنا للتمديد.",
     checkEmail:"أكّد بريدك",checkEmailSub:"تم إرسال رابط التأكيد. اضغط عليه ثم سجّل الدخول هنا.",
@@ -560,7 +560,7 @@ function NavBar({page,setPage,lang,setLang,auth}){
                 {auth.profile?.is_admin&&(
                   <button onClick={()=>go("admin")} style={{display:"block",width:"100%",background:"rgba(240,169,43,0.12)",border:`1px solid rgba(240,169,43,0.4)`,borderRadius:8,color:C.amber,padding:"9px",cursor:"pointer",fontSize:13,fontWeight:600,marginBottom:8,fontFamily:"'Sora',sans-serif"}}>⚙️ Admin panel</button>
                 )}
-                <button onClick={()=>{auth.logout();setOpen(false);setPage("home");}} style={{display:"block",width:"100%",background:"transparent",border:`1px solid ${C.border}`,borderRadius:8,color:C.dim,padding:"9px",cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:"'Sora',sans-serif"}}>{(AUTH_T[lang]||AUTH_T.uz).logout}</button>
+                <button onClick={()=>{ if(window.confirm((AUTH_T[lang]||AUTH_T.uz).logoutConfirm)){auth.logout();setOpen(false);setPage("home");} }} style={{display:"block",width:"100%",background:"transparent",border:`1px solid ${C.border}`,borderRadius:8,color:C.dim,padding:"9px",cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:"'Sora',sans-serif"}}>{(AUTH_T[lang]||AUTH_T.uz).logout}</button>
               </div>
               :<button onClick={()=>go("auth")} style={{display:"block",width:"100%",background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:8,color:"#fff",padding:"11px",cursor:"pointer",fontSize:13.5,fontWeight:700,fontFamily:"'Sora',sans-serif"}}>{(AUTH_T[lang]||AUTH_T.uz).login} / {(AUTH_T[lang]||AUTH_T.uz).signup}</button>
             }
@@ -2766,6 +2766,8 @@ function DemoPage({lang="uz", setPage}){
 // ═══════════════════════════════════════════════════════════════════════════
 // AUTH UI — kirish/ro'yxatdan o'tish ekrani
 // ═══════════════════════════════════════════════════════════════════════════
+function Eye(){ return(<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>); }
+function EyeOff(){ return(<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>); }
 function AuthScreen({lang, onClose}){
   const T=AUTH_T[lang]||AUTH_T.uz;
   const [mode,setMode]=useState("login");
@@ -2776,6 +2778,7 @@ function AuthScreen({lang, onClose}){
   const [err,setErr]=useState("");
   const [busy,setBusy]=useState(false);
   const [done,setDone]=useState(false);
+  const [showPass,setShowPass]=useState(false);
 
   async function submit(){
     setErr("");
@@ -2834,16 +2837,28 @@ function AuthScreen({lang, onClose}){
         </div>
         <div style={{marginBottom:12}}>
           <div style={{fontSize:11,color:C.faint,marginBottom:5}}>{T.pass}</div>
-          <input type="password" value={pass} onChange={e=>setPass(e.target.value)} placeholder="••••••" autoComplete={mode==="login"?"current-password":"new-password"}
-            onKeyDown={e=>e.key==="Enter"&&mode==="login"&&submit()}
-            style={inpStyle()}/>
+          <div style={{position:"relative"}}>
+            <input type={showPass?"text":"password"} value={pass} onChange={e=>setPass(e.target.value)} placeholder="••••••" autoComplete={mode==="login"?"current-password":"new-password"}
+              onKeyDown={e=>e.key==="Enter"&&mode==="login"&&submit()}
+              style={{...inpStyle(),paddingRight:42}}/>
+            <button type="button" onClick={()=>setShowPass(v=>!v)} tabIndex={-1}
+              style={{position:"absolute",right:8,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",cursor:"pointer",color:C.faint,padding:4,display:"flex"}}>
+              {showPass?<EyeOff/>:<Eye/>}
+            </button>
+          </div>
         </div>
         {mode==="signup"&&(
           <div style={{marginBottom:12}}>
             <div style={{fontSize:11,color:C.faint,marginBottom:5}}>{T.pass2}</div>
-            <input type="password" value={pass2} onChange={e=>setPass2(e.target.value)} placeholder="••••••"
-              onKeyDown={e=>e.key==="Enter"&&submit()}
-              style={inpStyle()}/>
+            <div style={{position:"relative"}}>
+              <input type={showPass?"text":"password"} value={pass2} onChange={e=>setPass2(e.target.value)} placeholder="••••••"
+                onKeyDown={e=>e.key==="Enter"&&submit()}
+                style={{...inpStyle(),paddingRight:42}}/>
+              <button type="button" onClick={()=>setShowPass(v=>!v)} tabIndex={-1}
+                style={{position:"absolute",right:8,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",cursor:"pointer",color:C.faint,padding:4,display:"flex"}}>
+                {showPass?<EyeOff/>:<Eye/>}
+              </button>
+            </div>
           </div>
         )}
         {err&&<div style={{background:"rgba(229,72,77,0.1)",border:`1px solid rgba(229,72,77,0.3)`,borderRadius:8,color:C.red,fontSize:12,padding:"8px 11px",marginBottom:12}}>{err}</div>}
