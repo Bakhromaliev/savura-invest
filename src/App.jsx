@@ -6,7 +6,14 @@ import React, { useState, useEffect } from "react";
 const SUPABASE_URL = "https://xxrjcyofbgmcqzoaaktq.supabase.co";
 const SUPABASE_KEY = "sb_publishable_ceM-8qTVH8RubZcFKsFLOQ_t6iT_uAS";
 const sb = (typeof window!=="undefined" && window.supabase)
-  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+        storageKey: "savura-auth",
+      }
+    })
   : null;
 
 // Auth tarjimalari
@@ -2342,8 +2349,8 @@ function DemoPage({lang="uz", setPage}){
     return ()=>{ active=false; };
   },[]);
 
-  function saveAccs(a){ cloudSaveDemo(a, activeIdx); }
-  function saveActive(i){ cloudSaveDemo(accs, i); }
+  function saveAccs(a){ cloudSaveDemo(a, activeIdxRef.current); }
+  function saveActive(i){ cloudSaveDemo(accsRef.current, i); }
   const [showNew,setShowNew] = useState(false);
   const [newName,setNewName] = useState('');
   const [prices,setPrices] = useState({});
@@ -2356,6 +2363,11 @@ function DemoPage({lang="uz", setPage}){
   const [buyAmt,setBuyAmt] = useState('');
   const [sellId,setSellId] = useState(null);
   const [sellModal,setSellModal] = useState(null); // {pos, mode:'full'|'qty'|'amt', qty:'', amt:''}
+
+  const accsRef = React.useRef(accs);
+  React.useEffect(()=>{ accsRef.current = accs; },[accs]);
+  const activeIdxRef = React.useRef(activeIdx);
+  React.useEffect(()=>{ activeIdxRef.current = activeIdx; },[activeIdx]);
 
   const demo = accs[activeIdx]||null;
   const demoRef = React.useRef(demo);
@@ -2384,7 +2396,11 @@ function DemoPage({lang="uz", setPage}){
     const ni=Math.max(0,Math.min(activeIdx,next.length-1)); setActiveIdx(ni); saveActive(ni);
   }
 
-  function updateDemo(updated){ const next=accs.map((a,i)=>i===activeIdx?updated:a); setAccs(next); saveAccs(next); }
+  function updateDemo(updated){
+    const curAccs=accsRef.current; const curIdx=activeIdxRef.current;
+    const next=curAccs.map((a,i)=>i===curIdx?updated:a);
+    setAccs(next); cloudSaveDemo(next, curIdx);
+  }
 
   function snapshotEquity(d,px){
     const unr=(d.positions||[]).reduce((s,p)=>{ const cp=px[p.ticker]||p.buyPrice; return s+(cp-p.buyPrice)*p.shares; },0);
