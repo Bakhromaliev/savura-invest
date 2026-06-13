@@ -1,5 +1,95 @@
 import React, { useState, useEffect } from "react";
 
+// ═══════════════════════════════════════════════════════════════════════════
+// SUPABASE — autentifikatsiya va o'quvchilar ruxsati
+// ═══════════════════════════════════════════════════════════════════════════
+const SUPABASE_URL = "https://xxrjcyofbgmcqzoaaktq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_ceM-8qTVH8RubZcFKsFLOQ_t6iT_uAS";
+const sb = (typeof window!=="undefined" && window.supabase)
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+  : null;
+
+// Auth tarjimalari
+const AUTH_T = {
+  uz:{login:"Kirish",signup:"Ro'yxatdan o'tish",email:"Email",pass:"Parol",pass2:"Parolni tasdiqlang",name:"Ism familiya",
+    loginBtn:"Kirish",signupBtn:"Ro'yxatdan o'tish",noAcc:"Hisobingiz yo'qmi?",hasAcc:"Hisobingiz bormi?",
+    logout:"Chiqish",locked:"Bu bo'lim faqat o'quvchilar uchun",lockedSub:"Foydalanish uchun ro'yxatdan o'ting va admin tasdig'ini kuting.",
+    pending:"Hisobingiz tasdiq kutilmoqda",pendingSub:"Administrator hisobingizni tasdiqlagandan so'ng barcha funksiyalardan foydalana olasiz. Iltimos kuting yoki biz bilan bog'laning.",
+    expired:"Foydalanish muddati tugadi",expiredSub:"Obunangiz muddati tugagan. Uzaytirish uchun biz bilan bog'laning.",
+    checkEmail:"Emailingizni tasdiqlang",checkEmailSub:"Sizga tasdiqlash xati yuborildi. Email'dagi havolani bosing, keyin shu yerga qaytib kiring.",
+    passMismatch:"Parollar mos kelmadi",passShort:"Parol kamida 6 belgi bo'lsin",
+    welcome:"Xush kelibsiz",validTill:"Amal qiladi",contact:"Bog'lanish: @SavuraInvest"},
+  en:{login:"Login",signup:"Sign up",email:"Email",pass:"Password",pass2:"Confirm password",name:"Full name",
+    loginBtn:"Login",signupBtn:"Sign up",noAcc:"No account?",hasAcc:"Have an account?",
+    logout:"Logout",locked:"This section is for students only",lockedSub:"Sign up and wait for admin approval to access.",
+    pending:"Your account is pending approval",pendingSub:"Once an administrator approves your account, you can use all features. Please wait or contact us.",
+    expired:"Access expired",expiredSub:"Your subscription has expired. Contact us to extend.",
+    checkEmail:"Confirm your email",checkEmailSub:"A confirmation link was sent. Click it, then log in here.",
+    passMismatch:"Passwords do not match",passShort:"Password must be at least 6 characters",
+    welcome:"Welcome",validTill:"Valid until",contact:"Contact: @SavuraInvest"},
+  ru:{login:"Вход",signup:"Регистрация",email:"Email",pass:"Пароль",pass2:"Повторите пароль",name:"Имя и фамилия",
+    loginBtn:"Войти",signupBtn:"Зарегистрироваться",noAcc:"Нет аккаунта?",hasAcc:"Есть аккаунт?",
+    logout:"Выйти",locked:"Этот раздел только для учеников",lockedSub:"Зарегистрируйтесь и дождитесь одобрения администратора.",
+    pending:"Аккаунт ожидает одобрения",pendingSub:"После одобрения администратором вы получите доступ ко всем функциям. Подождите или свяжитесь с нами.",
+    expired:"Срок доступа истёк",expiredSub:"Ваша подписка истекла. Свяжитесь с нами для продления.",
+    checkEmail:"Подтвердите email",checkEmailSub:"Отправлена ссылка для подтверждения. Нажмите её, затем войдите здесь.",
+    passMismatch:"Пароли не совпадают",passShort:"Пароль минимум 6 символов",
+    welcome:"Добро пожаловать",validTill:"Действует до",contact:"Связь: @SavuraInvest"},
+  tr:{login:"Giriş",signup:"Kayıt ol",email:"E-posta",pass:"Şifre",pass2:"Şifreyi onayla",name:"Ad soyad",
+    loginBtn:"Giriş",signupBtn:"Kayıt ol",noAcc:"Hesabın yok mu?",hasAcc:"Hesabın var mı?",
+    logout:"Çıkış",locked:"Bu bölüm sadece öğrenciler için",lockedSub:"Erişim için kayıt olun ve yönetici onayını bekleyin.",
+    pending:"Hesabınız onay bekliyor",pendingSub:"Yönetici hesabınızı onayladıktan sonra tüm özellikleri kullanabilirsiniz.",
+    expired:"Erişim süresi doldu",expiredSub:"Aboneliğiniz sona erdi. Uzatmak için bizimle iletişime geçin.",
+    checkEmail:"E-postanızı onaylayın",checkEmailSub:"Onay bağlantısı gönderildi. Tıklayın, sonra buradan giriş yapın.",
+    passMismatch:"Şifreler eşleşmiyor",passShort:"Şifre en az 6 karakter olmalı",
+    welcome:"Hoş geldiniz",validTill:"Geçerlilik",contact:"İletişim: @SavuraInvest"},
+  ar:{login:"دخول",signup:"تسجيل",email:"البريد",pass:"كلمة المرور",pass2:"تأكيد كلمة المرور",name:"الاسم الكامل",
+    loginBtn:"دخول",signupBtn:"تسجيل",noAcc:"ليس لديك حساب؟",hasAcc:"لديك حساب؟",
+    logout:"خروج",locked:"هذا القسم للطلاب فقط",lockedSub:"سجّل وانتظر موافقة المشرف للوصول.",
+    pending:"حسابك قيد الموافقة",pendingSub:"بعد موافقة المشرف، يمكنك استخدام جميع الميزات.",
+    expired:"انتهت صلاحية الوصول",expiredSub:"انتهى اشتراكك. تواصل معنا للتمديد.",
+    checkEmail:"أكّد بريدك",checkEmailSub:"تم إرسال رابط التأكيد. اضغط عليه ثم سجّل الدخول هنا.",
+    passMismatch:"كلمتا المرور غير متطابقتين",passShort:"كلمة المرور 6 أحرف على الأقل",
+    welcome:"مرحباً",validTill:"صالح حتى",contact:"تواصل: @SavuraInvest"},
+};
+
+// useAuth — sessiya va profil holatini boshqaradi
+function useAuth(){
+  const [session,setSession]=useState(null);
+  const [profile,setProfile]=useState(null);
+  const [loading,setLoading]=useState(true);
+
+  useEffect(()=>{
+    if(!sb){ setLoading(false); return; }
+    sb.auth.getSession().then(({data})=>{ setSession(data.session); });
+    const {data:sub}=sb.auth.onAuthStateChange((_e,s)=>{ setSession(s); });
+    return ()=>{ sub?.subscription?.unsubscribe?.(); };
+  },[]);
+
+  useEffect(()=>{
+    if(!sb){ setLoading(false); return; }
+    if(!session?.user){ setProfile(null); setLoading(false); return; }
+    let active=true;
+    setLoading(true);
+    sb.from("students").select("*").eq("id",session.user.id).single()
+      .then(({data})=>{ if(active){ setProfile(data); setLoading(false); } });
+    return ()=>{ active=false; };
+  },[session]);
+
+  const logout=async()=>{ if(sb) await sb.auth.signOut(); setProfile(null); };
+  return {session,profile,loading,logout,user:session?.user||null};
+}
+
+// Ruxsat holati: o'quvchi foydalana oladimi?
+function accessState(profile){
+  if(!profile) return "none";
+  if(profile.is_admin) return "ok";
+  if(!profile.approved) return "pending";
+  if(profile.expires_at && new Date(profile.expires_at) < new Date()) return "expired";
+  return "ok";
+}
+
+
 const C={bg:"#060a14",bg2:"#0b1628",card:"rgba(13,22,42,0.85)",border:"rgba(74,163,255,0.1)",borderHi:"rgba(74,163,255,0.28)",blue:"#2f7df6",blueLt:"#4aa3ff",green:"#37b24d",greenLt:"#52d869",amber:"#f0a92b",orange:"#e8590c",red:"#e5484d",text:"#edf2ff",dim:"#8ea0c4",faint:"#4a5c82"};
 
 const FOUNDER_PHOTO="data:image/jpeg;base64,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";
@@ -408,7 +498,7 @@ const BookIcon=({s=28})=><svg width={s} height={s} viewBox="0 0 24 24" fill="non
 function Logo({size=42}){return(<svg width={size} height={size} viewBox="0 0 100 100" fill="none"><defs><linearGradient id="lgB" x1="20" y1="15" x2="85" y2="60" gradientUnits="userSpaceOnUse"><stop stopColor="#3461d6"/><stop offset="1" stopColor="#4aa3ff"/></linearGradient><linearGradient id="lgG" x1="30" y1="55" x2="80" y2="92" gradientUnits="userSpaceOnUse"><stop stopColor="#5fd36a"/><stop offset="1" stopColor="#2f9e44"/></linearGradient></defs><path d="M70 16 C40 16 24 30 24 47 C24 60 35 66 47 60 C36 62 33 52 41 45 C49 38 64 40 70 30 C73 24 73 18 70 16 Z" fill="url(#lgB)"/><path d="M30 84 C60 84 76 70 76 53 C76 40 65 34 53 40 C64 38 67 48 59 55 C51 62 36 60 30 70 C27 76 27 82 30 84 Z" fill="url(#lgG)"/><path d="M40 62 L62 47 L57 44 L66 40 L67 51 L62 49 L43 66 Z" fill="#4aa3ff"/></svg>);}
 
 // ─── NavBar ─────────────────────────────────────────────────────────────────
-function NavBar({page,setPage,lang,setLang}){
+function NavBar({page,setPage,lang,setLang,auth}){
   const [open,setOpen]=useState(false);
   const [flagOpen,setFlagOpen]=useState(false);
   const [scrolled,setScrolled]=useState(false);
@@ -459,6 +549,22 @@ function NavBar({page,setPage,lang,setLang}){
             </a>
             :<button key={l.id} onClick={()=>go(l.id)} style={{display:"block",width:"100%",background:page===l.id?"rgba(47,125,246,0.08)":"transparent",border:"none",borderLeft:`3px solid ${page===l.id?C.blue:"transparent"}`,color:page===l.id?C.blueLt:C.dim,padding:"15px 24px",fontSize:15,fontWeight:page===l.id?700:500,cursor:"pointer",fontFamily:"'Manrope',sans-serif",textAlign:"left"}}>{l.label}</button>;
           })}
+          <div style={{padding:"10px 24px 6px",borderTop:`1px solid ${C.border}`}}>
+            {auth&&auth.user
+              ?<div>
+                <div style={{fontSize:11,color:C.faint,marginBottom:3}}>{(AUTH_T[lang]||AUTH_T.uz).welcome}</div>
+                <div style={{fontSize:13,color:C.text,fontWeight:600,marginBottom:2,wordBreak:"break-all"}}>{auth.profile?.full_name||auth.user.email}</div>
+                {auth.profile&&!auth.profile.is_admin&&auth.profile.expires_at&&accessState(auth.profile)==="ok"&&(
+                  <div style={{fontSize:10.5,color:C.green,marginBottom:8}}>{(AUTH_T[lang]||AUTH_T.uz).validTill}: {new Date(auth.profile.expires_at).toLocaleDateString()}</div>
+                )}
+                {auth.profile?.is_admin&&(
+                  <button onClick={()=>go("admin")} style={{display:"block",width:"100%",background:"rgba(240,169,43,0.12)",border:`1px solid rgba(240,169,43,0.4)`,borderRadius:8,color:C.amber,padding:"9px",cursor:"pointer",fontSize:13,fontWeight:600,marginBottom:8,fontFamily:"'Sora',sans-serif"}}>⚙️ Admin panel</button>
+                )}
+                <button onClick={()=>{auth.logout();setOpen(false);setPage("home");}} style={{display:"block",width:"100%",background:"transparent",border:`1px solid ${C.border}`,borderRadius:8,color:C.dim,padding:"9px",cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:"'Sora',sans-serif"}}>{(AUTH_T[lang]||AUTH_T.uz).logout}</button>
+              </div>
+              :<button onClick={()=>go("auth")} style={{display:"block",width:"100%",background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:8,color:"#fff",padding:"11px",cursor:"pointer",fontSize:13.5,fontWeight:700,fontFamily:"'Sora',sans-serif"}}>{(AUTH_T[lang]||AUTH_T.uz).login} / {(AUTH_T[lang]||AUTH_T.uz).signup}</button>
+            }
+          </div>
           <div style={{display:"flex",gap:16,padding:"12px 24px 16px",borderTop:`1px solid ${C.border}`}}>
             <a href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"center",gap:6,color:C.blueLt,fontSize:13,textDecoration:"none",fontWeight:600}}><TgIcon s={16}/> @savura_invest</a>
             <a href="https://instagram.com/savura_invest" target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"center",gap:6,color:"#e1306c",fontSize:13,textDecoration:"none",fontWeight:600}}><IgIcon s={16}/> savura_invest</a>
@@ -2656,6 +2762,260 @@ function DemoPage({lang="uz", setPage}){
 }
 
 
+
+// ═══════════════════════════════════════════════════════════════════════════
+// AUTH UI — kirish/ro'yxatdan o'tish ekrani
+// ═══════════════════════════════════════════════════════════════════════════
+function AuthScreen({lang, onClose}){
+  const T=AUTH_T[lang]||AUTH_T.uz;
+  const [mode,setMode]=useState("login");
+  const [email,setEmail]=useState("");
+  const [pass,setPass]=useState("");
+  const [pass2,setPass2]=useState("");
+  const [name,setName]=useState("");
+  const [err,setErr]=useState("");
+  const [busy,setBusy]=useState(false);
+  const [done,setDone]=useState(false);
+
+  async function submit(){
+    setErr("");
+    if(!sb){ setErr("Server ulanmadi"); return; }
+    if(!email.trim()||!pass){ setErr(T.email+" / "+T.pass); return; }
+    if(mode==="signup"){
+      if(pass.length<6){ setErr(T.passShort); return; }
+      if(pass!==pass2){ setErr(T.passMismatch); return; }
+    }
+    setBusy(true);
+    try{
+      if(mode==="signup"){
+        const {error}=await sb.auth.signUp({email:email.trim(),password:pass,options:{data:{full_name:name.trim()}}});
+        if(error) throw error;
+        setDone(true);
+      }else{
+        const {error}=await sb.auth.signInWithPassword({email:email.trim(),password:pass});
+        if(error) throw error;
+        onClose&&onClose();
+      }
+    }catch(e){ setErr(e.message||"Xatolik"); }
+    setBusy(false);
+  }
+
+  if(done){
+    return(
+      <div style={{padding:"100px 24px",maxWidth:440,margin:"0 auto",textAlign:"center"}}>
+        <div style={{fontSize:44,marginBottom:12}}>✉️</div>
+        <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:22,color:C.text,marginBottom:10}}>{T.checkEmail}</h2>
+        <p style={{color:C.dim,fontSize:13.5,lineHeight:1.7,marginBottom:24}}>{T.checkEmailSub}</p>
+        <button onClick={()=>{setMode("login");setDone(false);}} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:10,color:"#fff",fontWeight:700,fontSize:14,padding:"11px 28px",cursor:"pointer"}}>{T.loginBtn}</button>
+      </div>
+    );
+  }
+
+  return(
+    <div style={{padding:"90px 24px 60px",maxWidth:420,margin:"0 auto"}}>
+      <div style={{textAlign:"center",marginBottom:24}}>
+        <Logo size={48}/>
+        <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:24,color:C.text,margin:"14px 0 4px"}}>{mode==="login"?T.login:T.signup}</h2>
+        <p style={{fontSize:12,color:C.faint}}>Savura Invest</p>
+      </div>
+
+      <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:"22px 20px"}}>
+        {mode==="signup"&&(
+          <div style={{marginBottom:12}}>
+            <div style={{fontSize:11,color:C.faint,marginBottom:5}}>{T.name}</div>
+            <input value={name} onChange={e=>setName(e.target.value)} placeholder={T.name}
+              style={inpStyle()}/>
+          </div>
+        )}
+        <div style={{marginBottom:12}}>
+          <div style={{fontSize:11,color:C.faint,marginBottom:5}}>{T.email}</div>
+          <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="email@example.com" autoComplete="email"
+            style={inpStyle()}/>
+        </div>
+        <div style={{marginBottom:12}}>
+          <div style={{fontSize:11,color:C.faint,marginBottom:5}}>{T.pass}</div>
+          <input type="password" value={pass} onChange={e=>setPass(e.target.value)} placeholder="••••••" autoComplete={mode==="login"?"current-password":"new-password"}
+            onKeyDown={e=>e.key==="Enter"&&mode==="login"&&submit()}
+            style={inpStyle()}/>
+        </div>
+        {mode==="signup"&&(
+          <div style={{marginBottom:12}}>
+            <div style={{fontSize:11,color:C.faint,marginBottom:5}}>{T.pass2}</div>
+            <input type="password" value={pass2} onChange={e=>setPass2(e.target.value)} placeholder="••••••"
+              onKeyDown={e=>e.key==="Enter"&&submit()}
+              style={inpStyle()}/>
+          </div>
+        )}
+        {err&&<div style={{background:"rgba(229,72,77,0.1)",border:`1px solid rgba(229,72,77,0.3)`,borderRadius:8,color:C.red,fontSize:12,padding:"8px 11px",marginBottom:12}}>{err}</div>}
+        <button onClick={submit} disabled={busy}
+          style={{width:"100%",background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:10,color:"#fff",fontWeight:700,fontSize:14.5,padding:"12px",cursor:busy?"default":"pointer",opacity:busy?0.6:1,marginBottom:14}}>
+          {busy?"...":(mode==="login"?T.loginBtn:T.signupBtn)}
+        </button>
+        <div style={{textAlign:"center",fontSize:12.5,color:C.dim}}>
+          {mode==="login"?T.noAcc:T.hasAcc}{" "}
+          <button onClick={()=>{setMode(mode==="login"?"signup":"login");setErr("");}}
+            style={{background:"none",border:"none",color:C.blueLt,fontWeight:700,cursor:"pointer",fontSize:12.5,fontFamily:"'Sora',sans-serif"}}>
+            {mode==="login"?T.signup:T.login}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+function inpStyle(){ return {width:"100%",background:"rgba(255,255,255,0.05)",border:`1px solid ${C.border}`,borderRadius:9,color:C.text,padding:"10px 12px",fontSize:14,outline:"none",boxSizing:"border-box",fontFamily:"'Manrope',sans-serif"}; }
+
+// LockGate — himoyalangan sahifalarni o'rab turadi
+function LockGate({state, lang, setPage, children}){
+  const T=AUTH_T[lang]||AUTH_T.uz;
+  if(state==="ok") return children;
+
+  let icon="🔒",title=T.locked,sub=T.lockedSub,showAuth=(state==="none");
+  if(state==="pending"){ icon="⏳"; title=T.pending; sub=T.pendingSub; }
+  if(state==="expired"){ icon="⌛"; title=T.expired; sub=T.expiredSub; }
+
+  return(
+    <div style={{padding:"100px 24px 60px",maxWidth:440,margin:"0 auto",textAlign:"center"}}>
+      {setPage&&<div style={{marginBottom:14,textAlign:"left"}}><BackBtn setPage={setPage} lang={lang}/></div>}
+      <div style={{fontSize:48,marginBottom:14}}>{icon}</div>
+      <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:22,color:C.text,marginBottom:10}}>{title}</h2>
+      <p style={{color:C.dim,fontSize:13.5,lineHeight:1.7,marginBottom:24}}>{sub}</p>
+      {showAuth
+        ?<button onClick={()=>setPage("auth")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:10,color:"#fff",fontWeight:700,fontSize:14,padding:"12px 30px",cursor:"pointer"}}>{T.signup} / {T.login}</button>
+        :<div style={{fontSize:12.5,color:C.faint}}>{T.contact}</div>}
+    </div>
+  );
+}
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ADMIN PANEL — o'quvchilarni tasdiqlash va muddat belgilash
+// ═══════════════════════════════════════════════════════════════════════════
+function AdminPanel({lang,setPage,auth}){
+  const [students,setStudents]=useState([]);
+  const [loading,setLoading]=useState(true);
+  const [filter,setFilter]=useState("all");
+  const [msg,setMsg]=useState("");
+
+  async function load(){
+    if(!sb){ setLoading(false); return; }
+    setLoading(true);
+    const {data,error}=await sb.from("students").select("*").order("created_at",{ascending:false});
+    if(!error&&data) setStudents(data);
+    setLoading(false);
+  }
+  useEffect(()=>{ load(); },[]);
+
+  async function approve(stu, months){
+    const exp=new Date(); exp.setMonth(exp.getMonth()+months);
+    const {error}=await sb.from("students").update({approved:true,expires_at:exp.toISOString()}).eq("id",stu.id);
+    if(error){ setMsg("Xato: "+error.message); }
+    else { setMsg(stu.email+" — "+months+" oyga tasdiqlandi"); load(); }
+    setTimeout(()=>setMsg(""),3000);
+  }
+  async function revoke(stu){
+    const {error}=await sb.from("students").update({approved:false,expires_at:null}).eq("id",stu.id);
+    if(!error){ setMsg(stu.email+" — bloklandi"); load(); }
+    setTimeout(()=>setMsg(""),3000);
+  }
+  async function extend(stu, months){
+    const base=stu.expires_at&&new Date(stu.expires_at)>new Date()?new Date(stu.expires_at):new Date();
+    base.setMonth(base.getMonth()+months);
+    const {error}=await sb.from("students").update({approved:true,expires_at:base.toISOString()}).eq("id",stu.id);
+    if(!error){ setMsg(stu.email+" +"+months+" oy uzaytirildi"); load(); }
+    setTimeout(()=>setMsg(""),3000);
+  }
+
+  const filtered=students.filter(s=>{
+    if(filter==="pending") return !s.approved;
+    if(filter==="active") return s.approved && (!s.expires_at||new Date(s.expires_at)>new Date());
+    if(filter==="expired") return s.approved && s.expires_at && new Date(s.expires_at)<=new Date();
+    return true;
+  });
+
+  const stat=(s)=>{
+    if(s.is_admin) return {t:"ADMIN",c:C.amber};
+    if(!s.approved) return {t:"Kutilmoqda",c:C.dim};
+    if(s.expires_at&&new Date(s.expires_at)<=new Date()) return {t:"Muddati tugagan",c:C.red};
+    return {t:"Faol",c:C.green};
+  };
+
+  const counts={
+    all:students.length,
+    pending:students.filter(s=>!s.approved).length,
+    active:students.filter(s=>s.approved&&(!s.expires_at||new Date(s.expires_at)>new Date())).length,
+    expired:students.filter(s=>s.approved&&s.expires_at&&new Date(s.expires_at)<=new Date()).length,
+  };
+
+  return(
+    <div style={{padding:"85px 16px 60px",maxWidth:920,margin:"0 auto"}}>
+      <div style={{marginBottom:14}}><BackBtn setPage={setPage} lang={lang}/></div>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:18,flexWrap:"wrap",gap:10}}>
+        <div>
+          <div style={{fontSize:10,letterSpacing:"2px",color:C.amber,marginBottom:4}}>⚙️ ADMIN PANEL</div>
+          <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:22,color:C.text,margin:0}}>O'quvchilarni boshqarish</h2>
+        </div>
+        <button onClick={load} style={{background:"rgba(47,125,246,0.1)",border:`1px solid ${C.border}`,borderRadius:8,color:C.blueLt,fontSize:12,padding:"7px 14px",cursor:"pointer"}}>↻ Yangilash</button>
+      </div>
+
+      {msg&&<div style={{background:"rgba(55,178,77,0.12)",border:`1px solid rgba(55,178,77,0.35)`,borderRadius:10,color:C.greenLt,fontSize:13,padding:"10px 14px",marginBottom:14}}>{msg}</div>}
+
+      <div style={{display:"flex",gap:6,marginBottom:16,flexWrap:"wrap"}}>
+        {[["all","Hammasi",counts.all],["pending","Kutilmoqda",counts.pending],["active","Faol",counts.active],["expired","Muddati tugagan",counts.expired]].map(f=>(
+          <button key={f[0]} onClick={()=>setFilter(f[0])}
+            style={{background:filter===f[0]?`linear-gradient(135deg,${C.blue},${C.green})`:"rgba(255,255,255,0.04)",border:`1px solid ${filter===f[0]?"transparent":C.border}`,borderRadius:9,color:filter===f[0]?"#fff":C.dim,fontWeight:filter===f[0]?700:500,padding:"7px 13px",cursor:"pointer",fontSize:12.5,fontFamily:"'Sora',sans-serif"}}>
+            {f[1]} <span style={{opacity:0.7}}>({f[2]})</span>
+          </button>
+        ))}
+      </div>
+
+      {loading
+        ?<div style={{textAlign:"center",padding:40,color:C.faint}}>Yuklanmoqda...</div>
+        :filtered.length===0
+          ?<div style={{textAlign:"center",padding:40,color:C.faint,fontSize:14}}>O'quvchi yo'q</div>
+          :<div style={{display:"flex",flexDirection:"column",gap:10}}>
+            {filtered.map(s=>{
+              const st=stat(s);
+              return(
+                <div key={s.id} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:"14px 16px"}}>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",flexWrap:"wrap",gap:10,marginBottom:10}}>
+                    <div style={{minWidth:0}}>
+                      <div style={{fontSize:14.5,fontWeight:700,color:C.text,wordBreak:"break-all"}}>{s.full_name||"—"}</div>
+                      <div style={{fontSize:12.5,color:C.dim,wordBreak:"break-all"}}>{s.email}</div>
+                      <div style={{fontSize:10.5,color:C.faint,marginTop:3}}>
+                        Ro'yxat: {new Date(s.created_at).toLocaleDateString()}
+                        {s.expires_at&&<span> · Muddat: <b style={{color:st.c}}>{new Date(s.expires_at).toLocaleDateString()}</b></span>}
+                      </div>
+                    </div>
+                    <span style={{background:st.c+"22",border:`1px solid ${st.c}55`,borderRadius:7,color:st.c,fontSize:11,fontWeight:700,padding:"3px 9px",whiteSpace:"nowrap"}}>{st.t}</span>
+                  </div>
+                  {!s.is_admin&&(
+                    <div style={{display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
+                      {!s.approved||((s.expires_at&&new Date(s.expires_at)<=new Date()))
+                        ?<>
+                          <span style={{fontSize:11,color:C.faint}}>Tasdiqlash:</span>
+                          {[1,3,6,12].map(m=>(
+                            <button key={m} onClick={()=>approve(s,m)} style={{background:"rgba(55,178,77,0.12)",border:`1px solid rgba(55,178,77,0.35)`,borderRadius:7,color:C.greenLt,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer"}}>{m} oy</button>
+                          ))}
+                        </>
+                        :<>
+                          <span style={{fontSize:11,color:C.faint}}>Uzaytirish:</span>
+                          {[1,3,6,12].map(m=>(
+                            <button key={m} onClick={()=>extend(s,m)} style={{background:"rgba(47,125,246,0.1)",border:`1px solid rgba(47,125,246,0.3)`,borderRadius:7,color:C.blueLt,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer"}}>+{m} oy</button>
+                          ))}
+                          <button onClick={()=>revoke(s)} style={{background:"rgba(229,72,77,0.1)",border:`1px solid rgba(229,72,77,0.3)`,borderRadius:7,color:C.red,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer",marginLeft:"auto"}}>Bloklash</button>
+                        </>
+                      }
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+      }
+    </div>
+  );
+}
+
 export default function App(){
   const [page,setPageRaw]=useState(()=>localStorage.getItem("savura_pg")||"home");
   const setPage=React.useCallback((p)=>{ try{window.history.pushState({pg:p},"");}catch(e){} setPageRaw(p); },[]);
@@ -2667,6 +3027,10 @@ export default function App(){
     return ()=>window.removeEventListener("popstate",onPop);
   },[]);
   const [lang,setLang]=useState("uz");
+  const auth=useAuth();
+  const aState=accessState(auth.profile);
+  // Login bo'lgach auth sahifasidan home ga qaytar
+  useEffect(()=>{ if(auth.user && page==="auth") setPage("home"); },[auth.user]);
   return(
     <div style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'Manrope',system-ui,sans-serif"}}>
       <style>{`
@@ -2675,13 +3039,16 @@ export default function App(){
         @keyframes spin{to{transform:rotate(360deg);}}\n        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
         ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:#060a14;} ::-webkit-scrollbar-thumb{background:#2f7df6;border-radius:2px;}
       `}</style>
-      <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang}/>
+      <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang} auth={auth}/>
       {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/></>}
-      {page==="tool"&&<FundamentalTool lang={lang} setLang={setLang} setPage={setPage}/>}
+      {page==="auth"&&<AuthScreen lang={lang} onClose={()=>setPage("home")}/>}
+      {page==="admin"&&auth.profile?.is_admin&&<AdminPanel lang={lang} setPage={setPage} auth={auth}/>}
+      {page==="admin"&&!auth.profile?.is_admin&&<LockGate state="none" lang={lang} setPage={setPage}><div/></LockGate>}
+      {page==="tool"&&<LockGate state={aState} lang={lang} setPage={setPage}><FundamentalTool lang={lang} setLang={setLang} setPage={setPage}/></LockGate>}
       {page==="course"&&<CoursePage lang={lang} setPage={setPage}/>}
       {page==="about"&&<AboutPage lang={lang} setPage={setPage}/>}
-      {page==="journal"&&<JournalPage lang={lang} setPage={setPage}/>}
-      {page==="demo"&&<DemoPage lang={lang} setPage={setPage}/>}
+      {page==="journal"&&<LockGate state={aState} lang={lang} setPage={setPage}><JournalPage lang={lang} setPage={setPage}/></LockGate>}
+      {page==="demo"&&<LockGate state={aState} lang={lang} setPage={setPage}><DemoPage lang={lang} setPage={setPage}/></LockGate>}
       <ChatWidget lang={lang}/>
       <Footer setPage={setPage} lang={lang}/>
     </div>
