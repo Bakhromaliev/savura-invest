@@ -269,8 +269,156 @@ const LANG = {
 
 };
 
+const HFL_T = {
+  uz: {
+    badge: "ISLOM MOLIYASI · FATVO",
+    title: "TREYDING HALOLMI?",
+    sub: "Forex savdosi va shartnoma turlari bo'yicha shariat hukmi",
+    intro: "\"Forex savdosiga ruxsat berilganmi?\" degan savol bizga tez-tez kelib turadi. Quyidagi javob asosan forex bilan shug'ullanayotgan, buni rejalashtirayotgan yoki ushbu sohadan xabardor odamlarga mo'ljallangan. Forexga oid ibora va atamalarni tushunish, fiqhiy hukmlarini o'rganish va bu masalada to'g'ri qaror qabul qilishni osonlashtirish maqsadida atamalarning bugungi kunda moliyachilar ishlatayotgan ko'rinishlarini ham qoldirishga qaror qildik. Ushbu maqolani tayyorlashda biz 19 ta mamlakatdan 35 ta shariat ulamosi a'zo bo'lgan Shariah Review Bureau tomonidan o'tkazilgan Forex bo'yicha batafsil tadqiqot natijalaridan foydalandik.",
+    keyTitle: "ENG MUHIM XULOSA",
+    keyText: "Aksiyalar bozorida shariatga muvofiq ruxsat etilgan yagona savdo turi — bu SPOT (qo'lma-qo'l, jonida) savdodir. Spot savdoda aksiya darhol haqiqiy egalik bilan sotib olinadi va sotiladi. CFD, fyuchers, opsion va spekulyativ amaliyotlar shariat bo'yicha taqiqlangan.",
+    sections: [
+      { h: "Pul birliklari savdosi", p: "AAOIFI (Islom moliyasi sohasida xalqaro standartlarni ishlab chiqish bilan shug'ullanuvchi tashkilot) bugungi kunda barcha davlatlar tomonidan foydalanib kelinayotgan pul birliklarini oltin va kumush bilan bir mavqedagi zamonaviy ayirboshlash vositasi sifatida baholaydi. Bu pul birliklari haqiqiy pul (arab tilida thaman haqiqi, ingliz tilida real money) deb hisoblangani sababli, ular ham oltin va kumush uchun amal qiladigan qoidalar doirasida ishlaydi." },
+      { h: "Pul birliklari savdosi bo'yicha AAOIFI qonun-qoidalari", p: "Valyuta, ya'ni pul birliklari savdosi, agar quyidagi shar'iy qonun-qoidalar doirasida amalga oshirilsa joizdir:\n\n• Ikki tomon, ya'ni pul ayirboshlovchi tomonlar tarqalib ketishlaridan avval qarama-qarshi qiymatlarga ega bo'lishlari kerak, ya'ni almashuv darhol (joyida, \"qo'lma-qo'l\") amalga oshirilishi lozim;\n\n• Bir mamlakat pul birligi doirasida amalga oshirilgan almashuvda esa, bittasi qog'oz pulda, ikkinchisi tanga pulda bo'lsa ham bir xil qiymatga ega bo'lishi shart;\n\n• Almashuv bitimi ayirboshlanayotgan pul birliklaridan biri yoki har ikkisi ham keyinroq berilishini ko'zda tutuvchi shartlarni o'z ichiga olishi mumkin emas." },
+      { h: "Izoh: kechiktirish va ribo", p: "Valyuta ayirboshlash amaliyoti kuchga ega bo'lishi uchun ayirboshlash qo'lma-qo'l (joyida) bo'lishi zaruriy shart hisoblanadi. Ayirboshlanayotgan pul birliklaridan birini yetkazib berishni kechiktirish jiddiy shar'iy muammo, ya'ni jinsi bir bo'lgan riboviy mahsulotlarni ayirboshlashning kechikishida yuzaga keladigan ribo an-nasiyani keltirib chiqaradi." },
+      { h: "T+2 amaliyoti", p: "Hozirgi paytda Islom moliya muassasalari tomonidan o'tkaziladigan xorijiy valyutalarni ayirboshlash amaliyotida ikkinchi to'lov T+2 (amaliyotdan so'ng ikki kun ichida) amalga oshiriladi. Malayziya Markaziy banki Shariat kengashining 2003-yil 28-avgustdagi majlisi T+2 ko'rinishidagi amaliyotlarni joiz deb qaror chiqardi. Bunday amaliyot ikki kun ichida amalga oshirilsa-da qo'lma-qo'l (spot) amaliyot deb sanaladi. Islom hamkorlik tashkiloti qoshidagi Islom fiqhi akademiyasi ham, agar ayirboshlanayotgan valyutalarni yetkazib berishning kechikishi odatiy (urf bo'lib qolgan) muddatlardan oshib ketmasa, bunday amaliyot joiz degan xulosaga kelgan." },
+      { h: "Forex nima?", p: "Forex savdosi — bu bir vaqtning o'zida bir pul birligini xarid qilish va boshqa bir pul birligini sotish amaliyotidir. Ushbu savdo broker (dallol) yoki diler orqali va juft-juft holda (valyutalar juftligida) amalga oshiriladi. Forex bozorining bir kunlik savdo ko'lami taxminan 5 trln. AQSh dollariga teng. Valyutalar savdosi turli maqsadlarda amalga oshiriladi: import uchun, xatarlarni bartaraf qilish (hedging), sarmoya kiritish yoki chayqov (spekulyatsiya) amaliyoti uchun." },
+      { h: "Tafovut bo'yicha bitim (CFD)", p: "Ushbu bitim forex bozoridagi juda keng tarqalgan chayqov amaliyoti bo'lib, uni ko'pchilik forex dallollari taklif qiladi. Bu bitim doirasida hech qanday pul birligi xarid qilinmaydi ham, sotilmaydi ham — ya'ni haqiqiy valyuta almashinuvi umuman sodir bo'lmaydi. Barcha bitimlar amalda emas, faqat kompyuterdagi yozuvlar ko'rinishida amalga oshiriladi. Ishtirokchilarning maqsadi valyuta olish yoki sotish emas, balki valyuta kurslari o'rtasidagi tafovut ustida pul ishlashdir." },
+      { h: "CFD bo'yicha shariat hukmi", p: "Shar'iy jihatdan tafovut bo'yicha bitim asosida ishlash JOIZ EMAS, chunki bunda:\n\n• Mavjud mahsulot ustida olib boriladigan haqiqiy savdo emas, balki mavjud bo'lmagan mahsulot ustida chayqov (spekulyatsiya) bor;\n\n• G'arar (mavhumlik) bor, chunki bu amaliyotning natijasi aniq emas;\n\n• Qimor alomatlari bor, chunki bir tomon ikkinchi tomonga qarshi pul tikadi — bir tomonning yutug'i ikkinchi tomonning mag'lubiyati evaziga ta'minlanadi.", note: "Buni qayerda uchratasiz: CFD asosan MetaTrader (MT4/MT5), eToro, Plus500 kabi platformalarda taklif qilinadi. Oltin, kumush, neft, valyuta yoki aksiya — qaysi tovar ustida ishlashingizdan qat'i nazar, agar u CFD shaklida bo'lsa, haqiqiy egalik bo'lmagani uchun halol emas. Ya'ni \"oltin oldim\" desangiz ham, aslida oltin sizniki bo'lmaydi, faqat narx farqiga pul tikasiz." },
+      { h: "Fyuchers forexi", p: "Forex bo'yicha fyuchers bitimi — muayyan pul birliklarini ma'lum bir narxda kelajakda (ma'lum bir sanada) xarid qilish yoki sotish bo'yicha tuziladigan shartnomadir." },
+      { h: "Fyuchers bo'yicha shariat hukmi", p: "Fyuchers shartnomasida qarama-qarshi qiymatlar, ya'ni oldi-sotdi qilinayotgan pul birliklari yo'q — bu va'da almashinuvidir. Bunda bir qarz ikkinchi qarzga almashtiriladi xolos. Bunday savdo \"bay' al-kali bil kali\" (ikki kechiktirilgan qarama-qarshi qiymatlar savdosi) deb ataladi. AAOIFI qaroriga muvofiq bunday shartnomalar huquqiy jihatdan kuchga EGA EMAS, chunki ikki qiymat darhol almashilishi kerakligi haqidagi asosiy qoidaga amal qilinmaydi.", note: "Buni qayerda uchratasiz: Fyuchers asosan Binance, Bybit, OKX kabi kripto platformalarida va MetaTrader'da keng tarqalgan. Kripto fyuchers (masalan Bitcoin yoki boshqa kripto fyucherslari) ham aynan shu hukmga kiradi — halol emas." },
+      { h: "Opsion forexi", p: "Opsion — bu kelajakdagi ma'lum bir vaqt oralig'ida biror savdo amaliyotini o'zingiz uchun ma'qul bo'lgan narxda amalga oshirish imkoniyatini (huquqini) sotib olishingizdir. Uni asosan brokerlar xususiy sarmoyadorlarga birjada chayqov amaliyotlari o'tkazish vositasi sifatida taklif qiladi." },
+      { h: "Opsion bo'yicha shariat hukmi", p: "Islom fiqhi akademiyasi: \"Bugungi kunda moliya bozorlarida qo'llanayotgan opsion shartnomalari yangi turdagi bitimlardan bo'lib, mavjud shar'iy bitimlar talabiga javob bermaydi, chunki bunda savdo moli sifatida na pul birligi, na voz kechilishi mumkin bo'lgan foyda yoki moliyaviy huquq bor — shu sababli bunday bitim shariatimizga ZID\". AAOIFI ham 20-raqamli standartida opsion savdosini joiz emasligini ko'rsatib o'tgan.", note: "Buni qayerda uchratasiz: Opsion birja va broker platformalarida, shuningdek Pocket Option, Olymp Trade, IQ Option kabi \"binary options\" saytlarida uchraydi. Bularning barchasi shu hukmga kiradi." },
+      { h: "Forex Spread Betting (FSB)", p: "CFD ga o'xshash va xuddi CFD kabi shariat nuqtai nazaridan QIMOR hisoblanuvchi, demakki taqiqlangan yana bir moliyaviy mahsulot. Bunda ham hech qanday haqiqiy oldi-sotdi amalga oshirilmaydi — maqsad valyutalar kursi o'zgarishiga pul tikishdir.", note: "Buni qayerda uchratasiz: Spread betting asosan Britaniya brokerlari (IG, CMC Markets) tomonidan taklif qilinadi. Mohiyatan qimor bo'lgani uchun halol emas." },
+      { h: "Spekulyativ spot-forex", p: "Bu ma'lum miqdordagi valyutani boshqa valyutaga oldindan kelishilgan kurs bo'yicha ikki ish kunida (T+2) almashtirish haqidagi kelishuvdir. Lekin bu bitim valyutalarni ayirboshlash maqsadida emas, balki chayqov orqali daromad qilish uchun tuziladi. Bundan tashqari brokerlar kechasi valyutalar ustidan foiz ishlashadi (overnight)." },
+      { h: "Spekulyativ spot-forex bo'yicha shariat hukmi", p: "Spekulyativ spot-forex doirasida ham real valyuta sotish yoki sotib olish ko'zda tutilmaydi. Bu ham CFD ga o'xshash — ayirboshlangan mablag' qo'lga kiritilmaydi, faqat amaliyot natijasidagi farq olinadi, shuning uchun chayqov hisoblanadi. Undan tashqari bunda ribo ham bor (overnight). Shulardan kelib chiqib, bu bitim ham shar'an HALOL EMAS.", note: "Buni qayerda uchratasiz: MetaTrader va forex brokerlari (Exness, FXTM, RoboForex va h.k.) taklif qiladigan odatiy forex hisoblari aynan shu turdagi spekulyativ spot hisoblanadi. Pozitsiyani bir kechadan ko'proq ushlasangiz overnight (svop) foizi olinadi — bu ribo bo'lgani uchun bunday savdo halol emas." },
+      { h: "Amaliy spot-forex (Physical Forex)", p: "Amaliy spot-forex — valyutalarning naqd yoki naqd bo'lmagan shaklda ayirboshlanishidir. Bu eng oddiy va ommabop ayirboshlash bo'lib, ikki tomon o'rtasida muayyan kursda, qo'lma-qo'l ayirboshlash sharti bilan bir pul birligi sotilib, boshqasi xarid qilinishini anglatadi. Masalan, dollar sotib olmoqchi bo'lgan odam brokerga mablag' o'tkazadi, broker eng yaxshi narxni topadi, oldi-sotdi elektron tarzda amalga oshiriladi va valyuta hisobga kelib tushadi." },
+      { h: "Amaliy forex bo'yicha shariat hukmi", p: "Amaliy forexda sotib olinayotgan mablag' brokerga kelib tushishi bilan egalik qo'lga kiritilgan hisoblanadi. Raqamli (elektron) valyuta ayirboshlashda kechikish muayyan va uzrli sabablarga ko'ra bo'ladi deb hisoblanadi. T+2 usulida kechikish davlatlar o'rtasidagi qonunchilik, texnologik va tadbirkorlik farqlari sababli kelib chiqadi. AAOIFI standartlariga ko'ra ushbu turdagi ayirboshlash amaliyoti JOIZ hisoblanadi.", note: "Savura Invest aynan shuni o'rgatadi: Aksiyalar bozorida SPOT savdo — kompaniya aksiyasini haqiqiy egalik bilan sotib olish va belgilangan muddatdan keyin sotish — halol shaklda ishlashning yagona to'g'ri yo'lidir. Bunda siz aksiyaning haqiqiy egasi bo'lasiz, kompaniyaning bir bo'lagiga ega bo'lasiz. Biz aynan shu halol usulni — to'g'ri aksiyani tanlash, fundamental tahlil va halollik tekshiruvi bilan — o'rgatamiz." },
+    ],
+    srcLabel: "Manba",
+    srcText: "islommoliyasi.uz — Forex savdosi halolmi?",
+    noteLabel: "Buni qayerda uchratasiz",
+  },
+  en: {
+    badge: "ISLAMIC FINANCE · FATWA",
+    title: "IS TRADING HALAL?",
+    sub: "Shariah ruling on Forex trading and contract types",
+    intro: "\"Is Forex trading permitted?\" is a question we receive often. The following answer is mainly intended for those engaged in forex, planning to be, or familiar with the field. To help understand forex terms, study their fiqh rulings, and make the right decision, we kept the terms as financiers use them today. In preparing this article we relied on the detailed Forex study conducted by the Shariah Review Bureau, whose members include 35 Shariah scholars from 19 countries.",
+    keyTitle: "THE KEY CONCLUSION",
+    keyText: "The only type of trading permitted under Shariah in the stock market is SPOT (hand-to-hand, on-the-spot) trading. In spot trading, a share is bought and sold immediately with real ownership. CFDs, futures, options and speculative operations are prohibited under Shariah.",
+    sections: [
+      { h: "Currency trading", p: "AAOIFI (the organization that develops international standards for Islamic finance) regards today's fiat currencies as a modern medium of exchange on par with gold and silver. Since these currencies are considered real money (Arabic: thaman haqiqi), they operate under the same rules that apply to gold and silver." },
+      { h: "AAOIFI rules on currency trading", p: "Currency trading is permissible if carried out within these Shariah rules:\n\n• Both parties must take possession of the counter-values before parting, i.e. the exchange must be immediate (on-the-spot, hand-to-hand);\n\n• In an exchange within one country's currency, the two amounts must be equal even if one is in paper and the other in coin;\n\n• The exchange contract may not include any condition deferring delivery of one or both currencies to a later time." },
+      { h: "Note: deferral and riba", p: "For a currency exchange to be valid, it must be hand-to-hand (on-the-spot). Deferring delivery of one of the exchanged currencies is a serious Shariah problem, giving rise to riba an-nasiah that arises from the delay in exchanging riba-bearing items of the same kind." },
+      { h: "The T+2 practice", p: "In current foreign-currency exchange by Islamic financial institutions, the second payment is made T+2 (within two days after the transaction). The Shariah Council of Bank Negara Malaysia ruled on 28 August 2003 that T+2 operations are permissible. Such an operation is still counted as hand-to-hand (spot) even if completed within two days. The Islamic Fiqh Academy of the OIC also concluded that such an operation is permissible if the delay does not exceed customary ('urf) periods." },
+      { h: "What is Forex?", p: "Forex trading is the simultaneous buying of one currency and selling of another. It is carried out through a broker or dealer, in pairs. The daily volume of the forex market is roughly 5 trillion US dollars. Currency trading serves various purposes: imports, hedging risks, investment, or speculation." },
+      { h: "Contract for Differences (CFD)", p: "This is a very widespread speculative operation in the forex market, offered by many forex brokers. Under it, no currency is actually bought or sold — no real currency exchange takes place at all. All transactions exist only as computer records. The participants' goal is not to buy or sell currency but to profit from the difference between currency rates." },
+      { h: "Shariah ruling on CFD", p: "From a Shariah standpoint, operating on the basis of a CFD is NOT PERMISSIBLE because:\n\n• It is not real trade of an existing commodity, but speculation on a non-existent one;\n\n• There is gharar (uncertainty), because the outcome is unknown;\n\n• There are signs of gambling, because one party bets against the other — one's gain comes at the other's loss.", note: "Where you encounter this: CFDs are mainly offered on platforms like MetaTrader (MT4/MT5), eToro, Plus500. Whatever the underlying — gold, silver, oil, currency or stocks — if it is in CFD form, it is not halal because there is no real ownership. Even if you \"bought gold\", the gold is never actually yours; you are only betting on the price difference." },
+      { h: "Forex futures", p: "A forex futures contract is an agreement to buy or sell certain currencies at a set price in the future (on a specific date)." },
+      { h: "Shariah ruling on futures", p: "In a futures contract there are no counter-values, i.e. no currencies actually traded — it is an exchange of promises. One debt is exchanged for another. This is called 'bay' al-kali bil kali' (sale of two deferred counter-values). According to AAOIFI, such contracts are legally INVALID because they violate the core rule that the two counter-values must be exchanged immediately.", note: "Where you encounter this: Futures are widespread mainly on crypto platforms like Binance, Bybit, OKX and on MetaTrader. Crypto futures (e.g. Bitcoin or other crypto futures) fall under exactly the same ruling — not halal." },
+      { h: "Forex options", p: "An option is the purchase of the right to carry out a trade at a price you find favorable within a certain future period. Brokers mainly offer it to private investors as a means of speculation on the exchange." },
+      { h: "Shariah ruling on options", p: "The Islamic Fiqh Academy ruled: \"The option contracts used in today's financial markets are a new type of contract that does not meet the requirements of any existing Shariah contract, because the traded item is neither a currency nor a relinquishable benefit or financial right — therefore such a contract is CONTRARY to our Shariah.\" AAOIFI also indicated in its Standard No. 20 that options trading is not permissible.", note: "Where you encounter this: Options appear on exchange and broker platforms, as well as \"binary options\" sites like Pocket Option, Olymp Trade, IQ Option. All of these fall under this ruling." },
+      { h: "Forex Spread Betting (FSB)", p: "Similar to CFD and, like CFD, considered GAMBLING from a Shariah viewpoint and therefore prohibited. Here too no real trade takes place — the goal is to bet on changes in currency rates.", note: "Where you encounter this: Spread betting is mainly offered by UK brokers (IG, CMC Markets). Being essentially gambling, it is not halal." },
+      { h: "Speculative spot-forex", p: "This is an agreement to exchange a certain amount of one currency for another at a pre-agreed rate within two business days (T+2). But this contract is made not to exchange currencies but to earn through speculation. In addition, brokers earn interest on the currencies overnight." },
+      { h: "Shariah ruling on speculative spot-forex", p: "Speculative spot-forex does not intend real buying or selling of currency either. Like a CFD, the exchanged amount is not taken into possession — only the difference is collected, so it is speculation. It also involves riba (overnight). Therefore this contract too is NOT halal.", note: "Where you encounter this: The ordinary forex accounts offered by MetaTrader and forex brokers (Exness, FXTM, RoboForex, etc.) are exactly this kind of speculative spot. If you hold a position overnight, an overnight (swap) interest is charged — being riba, such trading is not halal." },
+      { h: "Practical spot-forex (Physical Forex)", p: "Practical spot-forex is the exchange of currencies in cash or non-cash form. This is the simplest, most common exchange: between two parties at a set rate, on a hand-to-hand basis, one currency is sold and another bought. For example, someone wanting to buy dollars transfers funds to the broker, the broker finds the best price, the trade is executed electronically, and the currency arrives in the account." },
+      { h: "Shariah ruling on practical forex", p: "In practical forex, possession is considered taken once the purchased amount reaches the broker. In digital (electronic) currency exchange, delay is considered to be for specific and excusable reasons. In T+2 the delay arises from legal, technological and business differences between countries. According to AAOIFI standards, this type of exchange operation is PERMISSIBLE.", note: "This is exactly what Savura Invest teaches: SPOT trading in the stock market — buying a company's share with real ownership and selling it after a set period — is the only correct halal way. Here you become the real owner of the share, owning a piece of the company. We teach exactly this halal method: choosing the right stock, fundamental analysis and a halal screening." },
+    ],
+    srcLabel: "Source",
+    srcText: "islommoliyasi.uz — Is Forex trading halal?",
+    noteLabel: "Where you encounter this",
+  },
+  ru: {
+    badge: "ИСЛАМСКИЕ ФИНАНСЫ · ФЕТВА",
+    title: "ХАЛЯЛЬ ЛИ ТРЕЙДИНГ?",
+    sub: "Шариатское решение по торговле на Форекс и типам контрактов",
+    intro: "«Разрешена ли торговля на Форекс?» — вопрос, который нам задают часто. Следующий ответ предназначен в основном для тех, кто занимается форексом, планирует это или знаком с данной сферой. Чтобы помочь понять термины форекса, изучить их фикхские решения и принять верное решение, мы сохранили термины в том виде, в каком их используют финансисты сегодня. При подготовке этой статьи мы опирались на подробное исследование по Форексу, проведённое Shariah Review Bureau, в состав которого входят 35 шариатских учёных из 19 стран.",
+    keyTitle: "ГЛАВНЫЙ ВЫВОД",
+    keyText: "Единственный вид торговли, разрешённый по Шариату на фондовом рынке, — это СПОТ (из рук в руки, на месте) торговля. При спот-торговле акция покупается и продаётся немедленно с реальным владением. CFD, фьючерсы, опционы и спекулятивные операции запрещены по Шариату.",
+    sections: [
+      { h: "Торговля валютами", p: "AAOIFI (организация, разрабатывающая международные стандарты исламских финансов) оценивает используемые сегодня всеми государствами валюты как современное средство обмена, равноценное золоту и серебру. Поскольку эти валюты считаются реальными деньгами (араб. thaman haqiqi), они действуют в рамках тех же правил, что и золото с серебром." },
+      { h: "Правила AAOIFI по торговле валютами", p: "Торговля валютой дозволена, если осуществляется в рамках следующих шариатских правил:\n\n• Обе стороны должны получить встречные стоимости до того, как разойдутся, т.е. обмен должен быть немедленным (на месте, из рук в руки);\n\n• При обмене в рамках валюты одной страны обе суммы должны быть равны, даже если одна в бумажных деньгах, а другая в монетах;\n\n• Договор обмена не может содержать условий, предусматривающих передачу одной или обеих валют позднее." },
+      { h: "Примечание: отсрочка и риба", p: "Чтобы обмен валюты был действительным, он должен быть из рук в руки (на месте). Отсрочка передачи одной из обмениваемых валют — серьёзная шариатская проблема, порождающая рибу ан-насиа, возникающую при задержке обмена рибовых товаров одного рода." },
+      { h: "Практика T+2", p: "В нынешней практике обмена иностранных валют исламскими финансовыми учреждениями второй платёж осуществляется T+2 (в течение двух дней после операции). Шариатский совет Центрального банка Малайзии 28 августа 2003 года постановил, что операции вида T+2 дозволены. Такая операция считается из рук в руки (спот), даже если завершается в течение двух дней. Академия исламского фикха при ОИС также пришла к выводу, что такая операция дозволена, если задержка не превышает обычных ('урф) сроков." },
+      { h: "Что такое Форекс?", p: "Торговля на Форекс — это одновременная покупка одной валюты и продажа другой. Она осуществляется через брокера или дилера, парами. Дневной объём рынка форекс составляет около 5 трлн долларов США. Торговля валютами служит разным целям: импорт, хеджирование рисков, инвестиции или спекуляция." },
+      { h: "Контракт на разницу (CFD)", p: "Это очень распространённая спекулятивная операция на рынке форекс, предлагаемая многими брокерами. При ней никакая валюта фактически не покупается и не продаётся — реального обмена валют вообще не происходит. Все сделки существуют лишь как записи в компьютере. Цель участников — не купить или продать валюту, а заработать на разнице между курсами валют." },
+      { h: "Шариатское решение по CFD", p: "С точки зрения Шариата работа на основе CFD НЕ ДОЗВОЛЕНА, потому что:\n\n• Это не реальная торговля существующим товаром, а спекуляция несуществующим;\n\n• Есть гарар (неопределённость), так как результат неизвестен;\n\n• Есть признаки азартной игры, так как одна сторона делает ставку против другой — выигрыш одного обеспечивается за счёт проигрыша другого.", note: "Где вы это встречаете: CFD в основном предлагаются на платформах вроде MetaTrader (MT4/MT5), eToro, Plus500. Каким бы ни был базовый актив — золото, серебро, нефть, валюта или акции — если это в форме CFD, это не халяль, потому что нет реального владения. Даже если вы «купили золото», золото никогда фактически не ваше; вы лишь делаете ставку на разницу в цене." },
+      { h: "Фьючерсы Форекс", p: "Фьючерсный контракт на форекс — это договор о покупке или продаже определённых валют по установленной цене в будущем (на определённую дату)." },
+      { h: "Шариатское решение по фьючерсам", p: "Во фьючерсном контракте нет встречных стоимостей, т.е. реально торгуемых валют — это обмен обещаниями. Один долг обменивается на другой. Это называется «bay' al-kali bil kali» (продажа двух отсроченных встречных стоимостей). Согласно AAOIFI, такие контракты юридически НЕДЕЙСТВИТЕЛЬНЫ, так как нарушают основное правило о немедленном обмене двух стоимостей.", note: "Где вы это встречаете: Фьючерсы широко распространены в основном на крипто-платформах вроде Binance, Bybit, OKX и на MetaTrader. Крипто-фьючерсы (например, фьючерсы на Bitcoin) подпадают под то же решение — не халяль." },
+      { h: "Опционы Форекс", p: "Опцион — это покупка права совершить сделку по приемлемой для вас цене в течение определённого будущего периода. Брокеры предлагают его в основном частным инвесторам как средство спекуляции на бирже." },
+      { h: "Шариатское решение по опционам", p: "Академия исламского фикха постановила: «Используемые сегодня на финансовых рынках опционные контракты — это новый вид сделок, не отвечающий требованиям ни одной существующей шариатской сделки, поскольку предметом торга не является ни валюта, ни уступаемая выгода или финансовое право — поэтому такая сделка ПРОТИВОРЕЧИТ нашему Шариату». AAOIFI также в стандарте № 20 указал на недозволенность торговли опционами.", note: "Где вы это встречаете: Опционы есть на биржевых и брокерских платформах, а также на сайтах «бинарных опционов» вроде Pocket Option, Olymp Trade, IQ Option. Всё это подпадает под данное решение." },
+      { h: "Forex Spread Betting (FSB)", p: "Похож на CFD и, как CFD, с точки зрения Шариата считается АЗАРТНОЙ ИГРОЙ и потому запрещён. Здесь тоже не совершается реальной сделки — цель в том, чтобы делать ставку на изменение курсов валют.", note: "Где вы это встречаете: Spread betting в основном предлагают британские брокеры (IG, CMC Markets). Будучи по сути азартной игрой, это не халяль." },
+      { h: "Спекулятивный спот-форекс", p: "Это соглашение об обмене определённого количества одной валюты на другую по заранее согласованному курсу в течение двух рабочих дней (T+2). Но этот контракт заключается не ради обмена валют, а ради заработка на спекуляции. Кроме того, брокеры зарабатывают проценты на валютах за ночь (overnight)." },
+      { h: "Шариатское решение по спекулятивному спот-форексу", p: "Спекулятивный спот-форекс также не подразумевает реальной покупки или продажи валюты. Как и CFD, обмениваемая сумма не переходит во владение — берётся лишь разница от операции, поэтому это спекуляция. К тому же здесь есть риба (overnight). Исходя из этого, данный контракт также НЕ халяль.", note: "Где вы это встречаете: Обычные форекс-счета, предлагаемые MetaTrader и форекс-брокерами (Exness, FXTM, RoboForex и др.), — это именно такой спекулятивный спот. Если держать позицию дольше суток, начисляется овернайт (своп) — будучи рибой, такая торговля не халяль." },
+      { h: "Практический спот-форекс (Physical Forex)", p: "Практический спот-форекс — это обмен валют в наличной или безналичной форме. Это простейший и популярный обмен: между двумя сторонами по установленному курсу, на условии обмена из рук в руки, одна валюта продаётся, другая покупается. Например, желающий купить доллары переводит средства брокеру, брокер находит лучшую цену, сделка совершается электронно, и валюта поступает на счёт." },
+      { h: "Шариатское решение по практическому форексу", p: "В практическом форексе владение считается полученным, как только купленная сумма поступает брокеру. При цифровом (электронном) обмене валют задержка считается обусловленной конкретными и уважительными причинами. При T+2 задержка возникает из-за различий в законодательстве, технологиях и ведении бизнеса между странами. Согласно стандартам AAOIFI, этот вид обменной операции ДОЗВОЛЕН.", note: "Именно этому учит Savura Invest: SPOT-торговля на фондовом рынке — покупка акции компании с реальным владением и продажа её через установленный срок — единственный правильный халяльный путь. Здесь вы становитесь реальным владельцем акции, владея частью компании. Мы учим именно этому халяльному методу: выбор правильной акции, фундаментальный анализ и проверка халяльности." },
+    ],
+    srcLabel: "Источник",
+    srcText: "islommoliyasi.uz — Халяльна ли торговля на Форекс?",
+    noteLabel: "Где вы это встречаете",
+  },
+  tr: {
+    badge: "İSLAMİ FİNANS · FETVA",
+    title: "TRADING HELAL Mİ?",
+    sub: "Forex ticareti ve sözleşme türleri hakkında şer'i hüküm",
+    intro: "«Forex ticaretine izin var mı?» sorusu bize sık sık geliyor. Aşağıdaki cevap, esas olarak forexle uğraşan, bunu planlayan veya bu alanı bilen kişiler içindir. Forex terimlerini anlamaya, fıkhi hükümlerini öğrenmeye ve doğru karar vermeye yardımcı olmak için terimleri, finansçıların bugün kullandığı şekliyle bıraktık. Bu makaleyi hazırlarken, 19 ülkeden 35 şeriat âliminin üye olduğu Shariah Review Bureau tarafından yapılan ayrıntılı Forex araştırmasından yararlandık.",
+    keyTitle: "EN ÖNEMLİ SONUÇ",
+    keyText: "Borsada Şeriata göre izin verilen tek ticaret türü SPOT (elden ele, anında) ticarettir. Spot ticarette hisse, gerçek mülkiyetle anında alınıp satılır. CFD, vadeli işlemler, opsiyon ve spekülatif işlemler Şeriata göre yasaktır.",
+    sections: [
+      { h: "Döviz ticareti", p: "AAOIFI (İslami finans alanında uluslararası standartlar geliştiren kuruluş), bugün tüm devletlerin kullandığı para birimlerini altın ve gümüşle eşdeğer modern bir mübadele aracı olarak değerlendirir. Bu para birimleri gerçek para (Arapça thaman haqiqi) sayıldığı için, altın ve gümüş için geçerli olan kurallar çerçevesinde işler." },
+      { h: "Döviz ticareti hakkında AAOIFI kuralları", p: "Döviz ticareti, aşağıdaki şer'i kurallar çerçevesinde yapılırsa caizdir:\n\n• İki taraf, ayrılmadan önce karşılıklı değerlere sahip olmalıdır, yani değişim anında (yerinde, elden ele) gerçekleşmelidir;\n\n• Bir ülkenin para birimi içinde yapılan değişimde, biri kağıt parada diğeri madeni parada olsa bile iki miktar eşit olmalıdır;\n\n• Değişim sözleşmesi, değiştirilen para birimlerinden birinin veya her ikisinin daha sonra verilmesini öngören şartlar içeremez." },
+      { h: "Not: erteleme ve riba", p: "Döviz değişiminin geçerli olması için elden ele (yerinde) olması zorunlu şarttır. Değiştirilen para birimlerinden birinin tesliminin ertelenmesi ciddi bir şer'i sorundur; aynı cinsten ribalı malların değişiminin gecikmesinden doğan riba en-nesie'ye yol açar." },
+      { h: "T+2 uygulaması", p: "İslami finans kuruluşlarınca yapılan döviz değişiminde ikinci ödeme T+2 (işlemden iki gün sonra) yapılır. Malezya Merkez Bankası Şeriat Kurulu, 28 Ağustos 2003'te T+2 işlemlerinin caiz olduğuna karar verdi. Böyle bir işlem, iki gün içinde tamamlansa da elden ele (spot) sayılır. İİT bünyesindeki İslam Fıkıh Akademisi de, gecikme örfi ('urf) sürelerini aşmazsa böyle bir işlemin caiz olduğu sonucuna varmıştır." },
+      { h: "Forex nedir?", p: "Forex ticareti, aynı anda bir para birimini alıp başka bir para birimini satma işlemidir. Bir aracı (broker) veya dealer aracılığıyla, çiftler halinde yapılır. Forex piyasasının günlük hacmi yaklaşık 5 trilyon ABD dolarıdır. Döviz ticareti çeşitli amaçlarla yapılır: ithalat, risk korunması (hedging), yatırım veya spekülasyon." },
+      { h: "Fark Sözleşmesi (CFD)", p: "Bu, forex piyasasında çok yaygın bir spekülatif işlemdir ve birçok forex aracısı tarafından sunulur. Bunda hiçbir para birimi gerçekten alınmaz veya satılmaz — gerçek bir döviz değişimi hiç gerçekleşmez. Tüm işlemler yalnızca bilgisayar kayıtları olarak vardır. Katılımcıların amacı döviz alıp satmak değil, döviz kurları arasındaki farktan kazanç sağlamaktır." },
+      { h: "CFD hakkında şer'i hüküm", p: "Şer'i açıdan CFD esasında işlem yapmak CAİZ DEĞİLDİR, çünkü:\n\n• Mevcut bir mal üzerinde gerçek ticaret değil, var olmayan bir mal üzerinde spekülasyon vardır;\n\n• Garar (belirsizlik) vardır, çünkü işlemin sonucu belli değildir;\n\n• Kumar belirtileri vardır, çünkü bir taraf diğerine karşı bahis oynar — birinin kazancı diğerinin kaybı pahasınadır.", note: "Bununla nerede karşılaşırsınız: CFD'ler esas olarak MetaTrader (MT4/MT5), eToro, Plus500 gibi platformlarda sunulur. Dayanak varlık ne olursa olsun — altın, gümüş, petrol, döviz veya hisse — eğer CFD biçimindeyse, gerçek mülkiyet olmadığı için helal değildir. \"Altın aldım\" deseniz bile altın aslında sizin olmaz; sadece fiyat farkına bahis oynarsınız." },
+      { h: "Forex vadeli işlemleri", p: "Forex vadeli işlem sözleşmesi, belirli para birimlerini gelecekte (belirli bir tarihte) belirlenmiş bir fiyattan alma veya satma sözleşmesidir." },
+      { h: "Vadeli işlemler hakkında şer'i hüküm", p: "Vadeli işlem sözleşmesinde karşılıklı değerler, yani gerçekten alınıp satılan para birimleri yoktur — bu bir vaat değişimidir. Bir borç başka bir borçla değiştirilir. Buna 'bay' al-kali bil kali' (iki ertelenmiş karşılıklı değerin satışı) denir. AAOIFI'ye göre böyle sözleşmeler hukuken GEÇERSİZDİR, çünkü iki değerin hemen değiştirilmesi gerektiği temel kurala uyulmaz.", note: "Bununla nerede karşılaşırsınız: Vadeli işlemler esas olarak Binance, Bybit, OKX gibi kripto platformlarında ve MetaTrader'da yaygındır. Kripto vadeli işlemleri (örneğin Bitcoin vadelileri) de tam olarak aynı hükme girer — helal değildir." },
+      { h: "Forex opsiyonları", p: "Opsiyon, gelecekteki belirli bir dönem içinde bir işlemi sizin için uygun bir fiyattan gerçekleştirme hakkını satın almanızdır. Aracılar bunu esas olarak özel yatırımcılara borsada spekülasyon aracı olarak sunar." },
+      { h: "Opsiyonlar hakkında şer'i hüküm", p: "İslam Fıkıh Akademisi şöyle karar verdi: «Bugün finans piyasalarında kullanılan opsiyon sözleşmeleri yeni bir sözleşme türüdür ve mevcut hiçbir şer'i sözleşmenin gereklerini karşılamaz, çünkü ticaret konusu ne bir para birimi ne de vazgeçilebilir bir fayda veya mali haktır — bu yüzden böyle bir sözleşme Şeriatımıza AYKIRIDIR». AAOIFI da 20 numaralı standardında opsiyon ticaretinin caiz olmadığını belirtmiştir.", note: "Bununla nerede karşılaşırsınız: Opsiyonlar borsa ve aracı platformlarında, ayrıca Pocket Option, Olymp Trade, IQ Option gibi \"binary options\" sitelerinde bulunur. Bunların hepsi bu hükme girer." },
+      { h: "Forex Spread Betting (FSB)", p: "CFD'ye benzer ve tıpkı CFD gibi Şeriat açısından KUMAR sayılan, dolayısıyla yasak olan bir başka finansal üründür. Burada da gerçek bir alım satım yapılmaz — amaç döviz kuru değişimlerine bahis oynamaktır.", note: "Bununla nerede karşılaşırsınız: Spread betting esas olarak İngiliz aracılar (IG, CMC Markets) tarafından sunulur. Özünde kumar olduğu için helal değildir." },
+      { h: "Spekülatif spot-forex", p: "Bu, belirli miktarda bir para birimini başka bir para birimiyle önceden anlaşılan kurdan iki iş günü içinde (T+2) değiştirme anlaşmasıdır. Ancak bu sözleşme dövizleri değiştirmek için değil, spekülasyonla kazanç sağlamak için yapılır. Ayrıca aracılar geceleri dövizler üzerinden faiz kazanır (overnight)." },
+      { h: "Spekülatif spot-forex hakkında şer'i hüküm", p: "Spekülatif spot-forex de gerçek döviz alım satımını amaçlamaz. CFD gibi, değiştirilen tutar mülkiyete geçmez — yalnızca işlemin farkı alınır, bu yüzden spekülasyondur. Ayrıca burada riba da vardır (overnight). Bundan dolayı bu sözleşme de şer'an HELAL DEĞİLDİR.", note: "Bununla nerede karşılaşırsınız: MetaTrader ve forex aracılarının (Exness, FXTM, RoboForex vb.) sunduğu sıradan forex hesapları tam olarak bu tür spekülatif spottur. Pozisyonu bir geceden fazla tutarsanız overnight (swap) faizi alınır — riba olduğu için bu ticaret helal değildir." },
+      { h: "Pratik spot-forex (Physical Forex)", p: "Pratik spot-forex, dövizlerin nakit veya gayrinakdi şekilde değişimidir. Bu en basit ve yaygın değişimdir: iki taraf arasında belirli bir kurdan, elden ele değişim şartıyla bir para birimi satılıp diğeri alınır. Örneğin dolar almak isteyen kişi aracıya para aktarır, aracı en iyi fiyatı bulur, alım satım elektronik yapılır ve döviz hesaba ulaşır." },
+      { h: "Pratik forex hakkında şer'i hüküm", p: "Pratik forexte, satın alınan tutar aracıya ulaşır ulaşmaz mülkiyet alınmış sayılır. Dijital (elektronik) döviz değişiminde gecikme, belirli ve mazur sebeplere bağlı sayılır. T+2'de gecikme, ülkeler arasındaki yasal, teknolojik ve ticari farklardan kaynaklanır. AAOIFI standartlarına göre bu tür değişim işlemi CAİZDİR.", note: "Savura Invest tam olarak bunu öğretir: Borsada SPOT ticaret — bir şirketin hissesini gerçek mülkiyetle alıp belirli bir süre sonra satmak — helal çalışmanın tek doğru yoludur. Burada hissenin gerçek sahibi olursunuz, şirketin bir parçasına sahip olursunuz. Biz tam olarak bu helal yöntemi öğretiyoruz: doğru hisseyi seçmek, temel analiz ve helallik kontrolü." },
+    ],
+    srcLabel: "Kaynak",
+    srcText: "islommoliyasi.uz — Forex ticareti helal mi?",
+    noteLabel: "Bununla nerede karşılaşırsınız",
+  },
+  ar: {
+    badge: "التمويل الإسلامي · فتوى",
+    title: "هل التداول حلال؟",
+    sub: "الحكم الشرعي في تداول الفوركس وأنواع العقود",
+    intro: "«هل يجوز تداول الفوركس؟» سؤال يصلنا كثيراً. الإجابة التالية موجهة أساساً لمن يعملون في الفوركس أو يخططون لذلك أو لديهم إلمام بهذا المجال. ولتسهيل فهم مصطلحات الفوركس ودراسة أحكامها الفقهية واتخاذ القرار الصحيح، أبقينا المصطلحات كما يستخدمها الماليون اليوم. وقد اعتمدنا في إعداد هذا المقال على الدراسة التفصيلية حول الفوركس التي أجراها Shariah Review Bureau، الذي يضم 35 عالماً شرعياً من 19 دولة.",
+    keyTitle: "الخلاصة الأهم",
+    keyText: "النوع الوحيد من التداول المسموح به شرعاً في سوق الأسهم هو التداول الفوري (SPOT — يداً بيد، في الحال). في التداول الفوري يُشترى السهم ويُباع فوراً مع التملك الحقيقي. أما عقود الفروقات (CFD) والعقود الآجلة والخيارات والعمليات المضاربية فهي محظورة شرعاً.",
+    sections: [
+      { h: "تداول العملات", p: "تعتبر هيئة AAOIFI (المنظمة التي تضع المعايير الدولية للتمويل الإسلامي) العملات المستخدمة اليوم في جميع الدول وسيلة تبادل حديثة بمنزلة الذهب والفضة. ولأن هذه العملات تُعد نقوداً حقيقية (ثمن حقيقي)، فإنها تخضع لنفس الأحكام التي تنطبق على الذهب والفضة." },
+      { h: "قواعد AAOIFI في تداول العملات", p: "يجوز تداول العملات إذا تم وفق القواعد الشرعية التالية:\n\n• يجب أن يتقابض الطرفان قبل الافتراق، أي أن يتم التبادل فوراً (في الحال، يداً بيد)؛\n\n• في التبادل ضمن عملة دولة واحدة يجب أن يتساوى المبلغان حتى لو كان أحدهما ورقياً والآخر معدنياً؛\n\n• لا يجوز أن يتضمن عقد التبادل أي شرط يؤجل تسليم إحدى العملتين أو كلتيهما إلى وقت لاحق." },
+      { h: "ملاحظة: التأجيل والربا", p: "لكي يصح تبادل العملات يجب أن يكون يداً بيد (في الحال). وتأجيل تسليم إحدى العملتين المتبادلتين مشكلة شرعية خطيرة تؤدي إلى ربا النسيئة الناشئ عن التأخير في تبادل الأصناف الربوية من الجنس نفسه." },
+      { h: "ممارسة T+2", p: "في الممارسة الحالية لتبادل العملات الأجنبية لدى المؤسسات المالية الإسلامية، تتم الدفعة الثانية بنظام T+2 (خلال يومين بعد العملية). وقد قرر مجلس الشريعة بالبنك المركزي الماليزي في 28 أغسطس 2003 جواز عمليات T+2. وتُعد هذه العملية يداً بيد (فورية) حتى لو اكتملت خلال يومين. كما خلص مجمع الفقه الإسلامي التابع لمنظمة التعاون الإسلامي إلى جواز هذه العملية إذا لم يتجاوز التأخير المدد المعتادة (العرف)." },
+      { h: "ما هو الفوركس؟", p: "تداول الفوركس هو شراء عملة وبيع أخرى في الوقت نفسه. ويتم عبر وسيط (broker) أو dealer، على شكل أزواج. ويبلغ الحجم اليومي لسوق الفوركس نحو 5 تريليون دولار أمريكي. ويُستخدم تداول العملات لأغراض متعددة: الاستيراد، والتحوط من المخاطر (hedging)، والاستثمار، أو المضاربة." },
+      { h: "عقد الفروقات (CFD)", p: "هذه عملية مضاربية شائعة جداً في سوق الفوركس، يقدمها كثير من وسطاء الفوركس. لا يتم فيها شراء أو بيع أي عملة فعلياً — ولا يحدث أي تبادل حقيقي للعملات إطلاقاً. وجميع الصفقات لا توجد إلا كسجلات في الحاسوب. وهدف المشاركين ليس شراء أو بيع العملة، بل الربح من الفرق بين أسعار العملات." },
+      { h: "الحكم الشرعي في عقد الفروقات", p: "من الناحية الشرعية، العمل بعقد الفروقات غير جائز، لأن فيه:\n\n• ليس تجارة حقيقية في سلعة موجودة، بل مضاربة على سلعة غير موجودة؛\n\n• فيه غرر، لأن نتيجة العملية غير معلومة؛\n\n• فيه علامات القمار، لأن طرفاً يراهن ضد الآخر — ومكسب أحدهما على حساب خسارة الآخر.", note: "أين تصادف هذا: تُقدَّم عقود الفروقات أساساً على منصات مثل MetaTrader (MT4/MT5) وeToro وPlus500. وأياً كان الأصل — ذهب أو فضة أو نفط أو عملة أو أسهم — فإذا كان بصيغة CFD فهو ليس حلالاً لعدم وجود تملك حقيقي. حتى لو قلت \"اشتريت ذهباً\"، فالذهب ليس ملكك فعلياً؛ أنت فقط تراهن على فرق السعر." },
+      { h: "العقود الآجلة للفوركس", p: "عقد الفوركس الآجل هو عقد لشراء أو بيع عملات معينة بسعر محدد في المستقبل (في تاريخ معين)." },
+      { h: "الحكم الشرعي في العقود الآجلة", p: "في العقد الآجل لا توجد أعواض، أي لا توجد عملات تُتداول فعلياً — إنه تبادل وعود. ويُبادَل دَين بدَين. ويسمى هذا «بيع الكالئ بالكالئ» (بيع عوضين مؤجلين). ووفقاً لـ AAOIFI، هذه العقود باطلة شرعاً لأنها تخالف القاعدة الأساسية بوجوب تبادل العوضين فوراً.", note: "أين تصادف هذا: العقود الآجلة منتشرة أساساً على منصات الكريبتو مثل Binance وBybit وOKX وعلى MetaTrader. والعقود الآجلة للكريبتو (مثل عقود Bitcoin) تدخل تحت نفس الحكم — ليست حلالاً." },
+      { h: "خيارات الفوركس", p: "الخيار (Option) هو شراء حق تنفيذ صفقة بسعر يناسبك خلال فترة مستقبلية معينة. ويقدمه الوسطاء أساساً للمستثمرين الأفراد كوسيلة للمضاربة في البورصة." },
+      { h: "الحكم الشرعي في الخيارات", p: "قرر مجمع الفقه الإسلامي: «عقود الخيارات المستخدمة اليوم في الأسواق المالية نوع جديد من العقود لا يستوفي شروط أي عقد شرعي قائم، لأن محل العقد ليس عملة ولا منفعة يمكن التنازل عنها ولا حقاً مالياً — لذا فهذا العقد مخالف لشريعتنا». كما أشارت AAOIFI في معيارها رقم 20 إلى عدم جواز تداول الخيارات.", note: "أين تصادف هذا: الخيارات موجودة على منصات البورصة والوسطاء، وكذلك على مواقع \"الخيارات الثنائية\" مثل Pocket Option وOlymp Trade وIQ Option. وكلها تدخل تحت هذا الحكم." },
+      { h: "المراهنة على الفروقات (FSB)", p: "تشبه عقد الفروقات، ومثله تُعد قماراً من الناحية الشرعية وبالتالي محظورة. وهنا أيضاً لا تتم أي صفقة حقيقية — والهدف هو المراهنة على تغيرات أسعار العملات.", note: "أين تصادف هذا: المراهنة على الفروقات يقدمها أساساً وسطاء بريطانيون (IG وCMC Markets). ولأنها في جوهرها قمار فهي ليست حلالاً." },
+      { h: "الفوركس الفوري المضاربي", p: "هو اتفاق على تبادل مقدار معين من عملة بأخرى بسعر متفق عليه مسبقاً خلال يومي عمل (T+2). لكن هذا العقد لا يُعقد لتبادل العملات بل للربح عبر المضاربة. كما يكسب الوسطاء فائدة على العملات ليلاً (overnight)." },
+      { h: "الحكم الشرعي في الفوركس الفوري المضاربي", p: "الفوركس الفوري المضاربي لا يقصد به بيع أو شراء العملة فعلياً أيضاً. ومثل عقد الفروقات، لا يُقبض المبلغ المتبادل — بل يؤخذ فرق العملية فقط، فهو مضاربة. كما أن فيه ربا (overnight). وبناءً على ذلك فهذا العقد أيضاً غير حلال شرعاً.", note: "أين تصادف هذا: حسابات الفوركس العادية التي تقدمها MetaTrader ووسطاء الفوركس (Exness وFXTM وRoboForex وغيرها) هي بالضبط هذا النوع من المضاربة الفورية. وإذا احتفظت بالمركز أكثر من ليلة، تُحتسب فائدة المبيت (سواب) — ولكونها ربا فإن هذا التداول ليس حلالاً." },
+      { h: "الفوركس الفوري العملي (Physical Forex)", p: "الفوركس الفوري العملي هو تبادل العملات نقداً أو بغير نقد. وهو أبسط وأشهر أنواع التبادل: بين طرفين بسعر محدد، بشرط التقابض يداً بيد، تُباع عملة وتُشترى أخرى. مثلاً من يريد شراء الدولار يحوّل المبلغ للوسيط، فيجد الوسيط أفضل سعر، وتُنفّذ الصفقة إلكترونياً، وتصل العملة إلى الحساب." },
+      { h: "الحكم الشرعي في الفوركس العملي", p: "في الفوركس العملي يُعتبر القبض حاصلاً بمجرد وصول المبلغ المشترى إلى الوسيط. وفي التبادل الرقمي (الإلكتروني) للعملات يُعتبر التأخير لأسباب محددة ومعذورة. وفي T+2 ينشأ التأخير من الاختلافات القانونية والتقنية والتجارية بين الدول. ووفقاً لمعايير AAOIFI، فإن هذا النوع من عمليات التبادل جائز.", note: "هذا بالضبط ما تعلّمه Savura Invest: التداول الفوري (SPOT) في سوق الأسهم — شراء سهم شركة بتملك حقيقي وبيعه بعد مدة محددة — هو الطريق الصحيح الوحيد للعمل الحلال. هنا تصبح المالك الحقيقي للسهم، وتملك جزءاً من الشركة. نحن نعلّم هذا الأسلوب الحلال تحديداً: اختيار السهم الصحيح، والتحليل الأساسي، وفحص الحلال." },
+    ],
+    srcLabel: "المصدر",
+    srcText: "islommoliyasi.uz — هل تداول الفوركس حلال؟",
+    noteLabel: "أين تصادف هذا",
+  },
+};
+
 const SITE_T={
-  uz:{nav:{home:"Bosh sahifa",tool:"Fundamental Tahlil",course:"Aksiyalar savdosi kursi",journal:"Kundalik",demo:"Demo",about:"Biz haqimizda",erp:"Savura ERP"},
+  uz:{nav:{halal:"TREYDING HALOLMI?",home:"Bosh sahifa",tool:"Fundamental Tahlil",course:"Aksiyalar savdosi kursi",journal:"Kundalik",demo:"Demo",about:"Biz haqimizda",erp:"Savura ERP"},
     hero:{badge:"AQSh BIRJASI · FUNDAMENTAL TAHLIL",h1:"Aksiya bozorida",h2:"ongli investitsiya",
       desc:"AQSh aksiya bozorida fundamental tahlil va halol investitsiya bo’yicha O‘zbekistonning yetakchi platformasi.",
       btn1:"Tahlilni boshlash →",btn2:"Kursni ko‘rish",
@@ -291,7 +439,7 @@ const SITE_T={
       ft:"Bu kurs siz uchun, agar...",ol:"Kurs egasi",sl:"Kurs dasturi",
       ct:"Kursga qoʻshilishga tayormisiz?",cd:"Telegram orqali murojaat qiling.",cb:"Murojaat qilish",
       mt:["Investitsiya asoslari","Aksiyalarni tanlash","Halol investitsiya","Fundamental tahlil","Risk boshqaruvi","Real amaliyot"]}},
-  en:{nav:{home:"Home",tool:"Fundamental Analysis",course:"Stock Trading Course",journal:"My Space",demo:"Demo",about:"About Us",erp:"Savura ERP"},
+  en:{nav:{halal:"IS TRADING HALAL?",home:"Home",tool:"Fundamental Analysis",course:"Stock Trading Course",journal:"My Space",demo:"Demo",about:"About Us",erp:"Savura ERP"},
     hero:{badge:"US MARKETS · FUNDAMENTAL ANALYSIS",h1:"Smart investing",h2:"in the stock market",
       desc:"Uzbekistan's leading platform for fundamental analysis and halal investing in US stock markets.",
       btn1:"Start Analysis →",btn2:"View Course",
@@ -312,7 +460,7 @@ const SITE_T={
       ft:"This course is for you if...",ol:"Instructor",sl:"Curriculum",
       ct:"Ready to join?",cd:"Contact us via Telegram.",cb:"Contact Us",
       mt:["Investment Basics","Selecting Stocks","Halal Investing","Fundamental Analysis","Risk Management","Real Practice"]}},
-  tr:{nav:{home:"Ana Sayfa",tool:"Temel Analiz",course:"Hisse Senedi Kursu",journal:"Günlüğüm",demo:"Demo",about:"Hakkımızda",erp:"Savura ERP"},
+  tr:{nav:{halal:"TRADING HELAL Mİ?",home:"Ana Sayfa",tool:"Temel Analiz",course:"Hisse Senedi Kursu",journal:"Günlüğüm",demo:"Demo",about:"Hakkımızda",erp:"Savura ERP"},
     hero:{badge:"ABD PİYASALARI · TEMEL ANALİZ",h1:"Borsada",h2:"biliçli yatırım",
       desc:"ABD hisse senedi piyasasında temel analiz ve helal yatırım için Özbekistan’in lider platformu.",
       btn1:"Analize Başla →",btn2:"Kursu Gör",
@@ -333,7 +481,7 @@ const SITE_T={
       ft:"Bu kurs şunlar için...",ol:"Eğitmen",sl:"Program",
       ct:"Hazır mısınız?",cd:"Telegram üzerinden iletişime geçin.",cb:"İletişime Geç",
       mt:["Yatırım Temelleri","Hisse Seçimi","Helal Yatırım","Temel Analiz","Risk Yönetimi","Gerçek Uygulama"]}},
-  ru:{nav:{home:"Главная",tool:"Фунд. анализ",course:"Курс торговли",journal:"Журнал",demo:"Демо",about:"О нас",erp:"Savura ERP"},
+  ru:{nav:{halal:"ХАЛЯЛЬ ЛИ ТРЕЙДИНГ?",home:"Главная",tool:"Фунд. анализ",course:"Курс торговли",journal:"Журнал",demo:"Демо",about:"О нас",erp:"Savura ERP"},
     hero:{badge:"РЫНОК США · ФУНД. АНАЛИЗ",h1:"Осознанное инвестирование",h2:"на фондовом рынке",
       desc:"Ведущая платформа Узбекистана для фундаментального анализа и халяльного инвестирования.",
       btn1:"Начать анализ →",btn2:"Смотреть курс",
@@ -354,7 +502,7 @@ const SITE_T={
       ft:"Этот курс для вас, если...",ol:"Ведущий",sl:"Программа",
       ct:"Готовы?",cd:"Свяжитесь через Telegram.",cb:"Связаться",
       mt:["Основы","Выбор акций","Халяльное","Фунд. анализ","Управление риском","Практика"]}},
-  ar:{nav:{home:"الرئيسية",tool:"التحليل الأساسي",course:"دورة تداول",journal:"مفكرتي",demo:"تجريبي",about:"من نحن",erp:"Savura ERP"},
+  ar:{nav:{halal:"هل التداول حلال؟",home:"الرئيسية",tool:"التحليل الأساسي",course:"دورة تداول",journal:"مفكرتي",demo:"تجريبي",about:"من نحن",erp:"Savura ERP"},
     hero:{badge:"أسواق أمريكا",h1:"استثمار واع",h2:"في سوق الأسهم",
       desc:"منصة أوزبكستان للتحليل الحلال.",
       btn1:"ابدأ التحليل",btn2:"عرض الدورة",
@@ -512,7 +660,7 @@ function NavBar({page,setPage,lang,setLang,auth}){
   const [scrolled,setScrolled]=useState(false);
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>30);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   const sn=getST(lang).nav;
-  const links=[{id:"home",label:sn.home},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"demo",label:sn.demo||"Demo"},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
+  const links=[{id:"halal",label:sn.halal,hot:true},{id:"home",label:sn.home},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"demo",label:sn.demo||"Demo"},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
   const go=(id)=>{setPage(id);setOpen(false);setFlagOpen(false);window.scrollTo({top:0,behavior:"smooth"});};
   const LANGS=[{k:"uz",f:"🇺🇿",l:"O'Z"},{k:"en",f:"🇺🇸",l:"EN"},{k:"tr",f:"🇹🇷",l:"TR"},{k:"ru",f:"🇷🇺",l:"RU"},{k:"ar",f:"🇸🇦",l:"AR"}];
   const cur=LANGS.find(function(x){return x.k===lang;})||LANGS[0];
@@ -555,7 +703,7 @@ function NavBar({page,setPage,lang,setLang,auth}){
               <span style={{flex:1}}>{l.label}</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{opacity:.4}}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
-            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"block",width:"100%",background:page===l.id?"rgba(47,125,246,0.08)":"transparent",border:"none",borderLeft:`3px solid ${page===l.id?C.blue:"transparent"}`,color:page===l.id?C.blueLt:C.dim,padding:"15px 24px",fontSize:15,fontWeight:page===l.id?700:500,cursor:"pointer",fontFamily:"'Manrope',sans-serif",textAlign:"left"}}>{l.label}</button>;
+            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:8,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"15px 24px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}>{l.hot&&<span style={{fontSize:15}}>☪️</span>}<span>{l.label}</span></button>;
           })}
           <div style={{padding:"10px 24px 6px",borderTop:`1px solid ${C.border}`}}>
             {auth&&auth.user
@@ -3247,6 +3395,82 @@ function AdminPanel({lang,setPage,auth}){
   );
 }
 
+
+// ═══════════════════════════════════════════════════════════════════════════
+// HALAL PAGE — "Treyding halolmi?" maqolasi (5 til)
+// ═══════════════════════════════════════════════════════════════════════════
+function HalalPage({lang="uz", setPage}){
+  const H = HFL_T[lang]||HFL_T.uz;
+  const rtl = lang==="ar";
+  // Hukm so'zlarini rang bilan ajratish uchun yordamchi
+  function renderP(text){
+    const lines = text.split("\n");
+    return lines.map(function(line, idx){
+      if(line.trim()===""){ return <div key={idx} style={{height:8}}/>; }
+      const bullet = line.trim().startsWith("•");
+      return <p key={idx} style={{margin:bullet?"4px 0":"0 0 10px",paddingLeft:bullet?14:0,color:C.dim,fontSize:14.5,lineHeight:1.85}}>{line}</p>;
+    });
+  }
+  return(
+    <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 20px 70px",maxWidth:760,margin:"0 auto",textAlign:rtl?"right":"left"}}>
+      <div style={{marginBottom:18,textAlign:rtl?"right":"left"}}><BackBtn setPage={setPage} lang={lang}/></div>
+
+      {/* Sarlavha */}
+      <div style={{textAlign:"center",marginBottom:30}}>
+        <div style={{fontSize:10.5,letterSpacing:"2.5px",color:C.greenLt,marginBottom:12,fontWeight:600}}>{H.badge}</div>
+        <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(28px,6vw,42px)",color:C.text,margin:"0 0 12px",lineHeight:1.1}}>{H.title}</h1>
+        <p style={{color:C.dim,fontSize:15,lineHeight:1.6,maxWidth:560,margin:"0 auto"}}>{H.sub}</p>
+      </div>
+
+      {/* Kirish */}
+      <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:"20px 22px",marginBottom:22}}>
+        <p style={{color:C.dim,fontSize:14.5,lineHeight:1.85,margin:0}}>{H.intro}</p>
+      </div>
+
+      {/* ENG MUHIM XULOSA — rangli ramka */}
+      <div style={{background:"linear-gradient(135deg,rgba(55,178,77,0.14),rgba(47,125,246,0.1))",border:`2px solid ${C.green}`,borderRadius:18,padding:"22px 24px",marginBottom:30,position:"relative"}}>
+        <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
+          <span style={{fontSize:24}}>✓</span>
+          <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:15,letterSpacing:"1px",color:C.greenLt}}>{H.keyTitle}</div>
+        </div>
+        <p style={{color:C.text,fontSize:15.5,lineHeight:1.8,margin:0,fontWeight:500}}>{H.keyText}</p>
+      </div>
+
+      {/* Bo'limlar */}
+      {H.sections.map(function(s, i){
+        // Hukm bo'limlari (taqiq/ruxsat) ni rang bilan ajratamiz
+        const isForbidden = /JOIZ EMAS|EGA EMAS|ZID|HALOL EMAS|QIMOR|NOT PERMISSIBLE|INVALID|CONTRARY|GAMBLING|NOT halal|НЕ ДОЗВОЛЕНА|НЕДЕЙСТВ|ПРОТИВОРЕЧ|АЗАРТНОЙ|НЕ халяль|CAİZ DEĞİL|GEÇERSİZ|AYKIRI|KUMAR|HELAL DEĞİL|غير جائز|باطل|مخالف|قمار|غير حلال/.test(s.p);
+        const isAllowed = /\bJOIZ\b|\bPERMISSIBLE\b|\bДОЗВОЛЕН\b|\bCAİZDİR\b|\bجائز\b/.test(s.p) && !isForbidden;
+        const accent = isForbidden ? C.red : (isAllowed ? C.green : C.blueLt);
+        return(
+          <div key={i} style={{marginBottom:24}}>
+            <h3 style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:18,color:C.text,margin:"0 0 10px",paddingLeft:rtl?0:12,paddingRight:rtl?12:0,borderLeft:rtl?"none":`3px solid ${accent}`,borderRight:rtl?`3px solid ${accent}`:"none"}}>{s.h}</h3>
+            <div>{renderP(s.p)}</div>
+            {s.note&&(
+              <div style={{marginTop:12,background:s.note.indexOf("Savura Invest")>=0||s.note.indexOf("تعلّمه")>=0?"linear-gradient(135deg,rgba(55,178,77,0.12),rgba(47,125,246,0.08))":"rgba(240,169,43,0.08)",border:`1px solid ${s.note.indexOf("Savura Invest")>=0||s.note.indexOf("تعلّمه")>=0?"rgba(55,178,77,0.4)":"rgba(240,169,43,0.35)"}`,borderRadius:12,padding:"13px 16px"}}>
+                <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:7}}>
+                  <span style={{fontSize:15}}>{s.note.indexOf("Savura Invest")>=0||s.note.indexOf("تعلّمه")>=0?"✅":"💡"}</span>
+                  <span style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:12,letterSpacing:"0.5px",color:s.note.indexOf("Savura Invest")>=0||s.note.indexOf("تعلّمه")>=0?C.greenLt:C.amber}}>{(s.note.split(":")[0])}</span>
+                </div>
+                <p style={{margin:0,color:C.dim,fontSize:13.5,lineHeight:1.75}}>{s.note.substring(s.note.indexOf(":")+1).trim()}</p>
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+      {/* Manba */}
+      <div style={{marginTop:34,paddingTop:20,borderTop:`1px solid ${C.border}`,textAlign:"center"}}>
+        <div style={{fontSize:11,color:C.faint,marginBottom:8,letterSpacing:"1px"}}>{H.srcLabel.toUpperCase()}</div>
+        <a href="https://islommoliyasi.uz/uz/forex/" target="_blank" rel="noreferrer"
+          style={{display:"inline-flex",alignItems:"center",gap:7,background:"rgba(47,125,246,0.1)",border:`1px solid ${C.border}`,borderRadius:10,color:C.blueLt,fontSize:13.5,textDecoration:"none",padding:"10px 18px",fontWeight:600}}>
+          {H.srcText} ↗
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function App(){
   const [page,setPageRaw]=useState("home");
   const setPage=React.useCallback((p)=>{ try{window.history.pushState({pg:p},"");}catch(e){} setPageRaw(p); },[]);
@@ -3271,6 +3495,7 @@ export default function App(){
       `}</style>
       <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang} auth={auth}/>
       {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/></>}
+      {page==="halal"&&<HalalPage lang={lang} setPage={setPage}/>}
       {page==="auth"&&<AuthScreen lang={lang} onClose={()=>setPage("home")}/>}
       {page==="admin"&&auth.profile?.is_admin&&<AdminPanel lang={lang} setPage={setPage} auth={auth}/>}
       {page==="admin"&&!auth.profile?.is_admin&&<LockGate state="none" lang={lang} setPage={setPage}><div/></LockGate>}
