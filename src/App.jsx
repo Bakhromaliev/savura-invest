@@ -68,7 +68,8 @@ function useAuth(){
 
   useEffect(()=>{
     if(!sb){ setLoading(false); return; }
-    if(!session?.user){ setProfile(null); setLoading(false); return; }
+    if(!session?.user){ setProfile(null); setCurrentUid(null); setLoading(false); return; }
+    setCurrentUid(session.user.id);
     let active=true;
     setLoading(true);
     sb.from("students").select("*").eq("id",session.user.id).single()
@@ -1600,6 +1601,91 @@ function lsGet(key){ try{return JSON.parse(localStorage.getItem(key))||[];}catch
 function lsSave(key,data){ localStorage.setItem(key,JSON.stringify(data)); }
 function lsGetObj(key,def={}){ try{return JSON.parse(localStorage.getItem(key))||def;}catch{return def;} }
 
+// ═══ CLOUD STORAGE — login bo'lsa Supabase, bo'lmasa localStorage ═══
+// Hozirgi foydalanuvchi ID (global, useAuth o'rnatadi)
+let CURRENT_UID = null;
+function setCurrentUid(uid){ CURRENT_UID = uid; }
+
+// Demo hisoblarini yuklash (cloud yoki local)
+async function cloudLoadDemo(){
+  if(sb && CURRENT_UID){
+    try{
+      const {data}=await sb.from("demo_accounts").select("accounts,active_idx").eq("user_id",CURRENT_UID).single();
+      if(data) return {accs:data.accounts||[], active:data.active_idx||0};
+      return {accs:[], active:0};
+    }catch{ return {accs:[], active:0}; }
+  }
+  let accs=[]; try{accs=JSON.parse(localStorage.getItem('savura_demo_accs_v2'))||[];}catch{}
+  let active=0; try{active=parseInt(localStorage.getItem('savura_demo_active_v2'))||0;}catch{}
+  return {accs, active};
+}
+async function cloudSaveDemo(accs, active){
+  if(sb && CURRENT_UID){
+    try{ await sb.from("demo_accounts").upsert({user_id:CURRENT_UID, accounts:accs, active_idx:active, updated_at:new Date().toISOString()}); }catch{}
+    return;
+  }
+  localStorage.setItem('savura_demo_accs_v2',JSON.stringify(accs));
+  localStorage.setItem('savura_demo_active_v2',String(active));
+}
+
+// Kundalik (journal) — cloud yoki local
+async function cloudLoadJournal(){
+  if(sb && CURRENT_UID){
+    try{ const {data}=await sb.from("journal_entries").select("*").eq("user_id",CURRENT_UID).order("created_at",{ascending:false}); return data||[]; }catch{ return []; }
+  }
+  return lsGet('savura_journal_v1');
+}
+async function cloudAddJournal(entry){
+  if(sb && CURRENT_UID){
+    try{ const {data}=await sb.from("journal_entries").insert({user_id:CURRENT_UID,date:entry.date,ticker:entry.ticker,action:entry.action,price:String(entry.price||''),shares:String(entry.shares||''),pnl:String(entry.pnl||''),result:entry.result,reason:entry.reason,notes:entry.notes}).select().single(); return data; }catch{ return null; }
+  }
+  const all=lsGet('savura_journal_v1'); const e={...entry,id:Date.now()}; lsSave('savura_journal_v1',[e,...all]); return e;
+}
+async function cloudDeleteJournal(id){
+  if(sb && CURRENT_UID){ try{ await sb.from("journal_entries").delete().eq("id",id); }catch{} return; }
+  const all=lsGet('savura_journal_v1'); lsSave('savura_journal_v1',all.filter(e=>e.id!==id));
+}
+
+// Checklist tarixi
+async function cloudLoadChecks(){
+  if(sb && CURRENT_UID){
+    try{ const {data}=await sb.from("checklist_history").select("*").eq("user_id",CURRENT_UID).order("created_at",{ascending:false}); return (data||[]).map(r=>({id:r.id,...r.data})); }catch{ return []; }
+  }
+  return lsGet('savura_checks_v1');
+}
+async function cloudAddCheck(entry){
+  if(sb && CURRENT_UID){ try{ const {data}=await sb.from("checklist_history").insert({user_id:CURRENT_UID,data:entry}).select().single(); return {id:data.id,...entry}; }catch{ return null; } }
+  const all=lsGet('savura_checks_v1'); const e={...entry,id:Date.now()}; lsSave('savura_checks_v1',[e,...all]); return e;
+}
+async function cloudDeleteCheck(id){
+  if(sb && CURRENT_UID){ try{ await sb.from("checklist_history").delete().eq("id",id); }catch{} return; }
+  const all=lsGet('savura_checks_v1'); lsSave('savura_checks_v1',all.filter(e=>e.id!==id));
+}
+
+// Watchlist
+async function cloudLoadWatch(){
+  if(sb && CURRENT_UID){
+    try{ const {data}=await sb.from("watchlist").select("*").eq("user_id",CURRENT_UID).order("created_at",{ascending:false}); return (data||[]).map(r=>({id:r.id,...r.data})); }catch{ return []; }
+  }
+  return lsGet('savura_watch_v1');
+}
+async function cloudAddWatch(entry){
+  if(sb && CURRENT_UID){ try{ const {data}=await sb.from("watchlist").insert({user_id:CURRENT_UID,data:entry}).select().single(); return {id:data.id,...entry}; }catch{ return null; } }
+  const all=lsGet('savura_watch_v1'); const e={...entry,id:Date.now()}; lsSave('savura_watch_v1',[e,...all]); return e;
+}
+async function cloudDeleteWatch(id){
+  if(sb && CURRENT_UID){ try{ await sb.from("watchlist").delete().eq("id",id); }catch{} return; }
+  const all=lsGet('savura_watch_v1'); lsSave('savura_watch_v1',all.filter(e=>e.id!==id));
+}
+async function cloudUpdateWatch(id, fullItem){
+  if(sb && CURRENT_UID){
+    const {id:_drop, ...data}=fullItem;
+    try{ await sb.from("watchlist").update({data}).eq("id",id); }catch{}
+    return;
+  }
+  const all=lsGet('savura_watch_v1'); lsSave('savura_watch_v1',all.map(e=>e.id===id?fullItem:e));
+}
+
 function csvExport(rows, filename){
   if(!rows.length) return;
   const keys = Object.keys(rows[0]);
@@ -1612,21 +1698,42 @@ function csvExport(rows, filename){
 // ─── Journal Tab ─────────────────────────────────────────────────────────────
 function JournalTab({lang="uz"}){
   const J=(JNL_T&&JNL_T[lang])||JNL_T.uz;
-  const KEY = 'savura_journal_v1';
-  const [entries, setEntries] = useState(()=>lsGet(KEY));
+  const [entries, setEntries] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const EMPTY = {date:new Date().toISOString().split('T')[0],ticker:'',action:'BUY',price:'',shares:'',pnl:'',result:'OPEN',reason:'',notes:''};
   const [form, setForm] = useState(EMPTY);
   const [filter, setFilter] = useState('ALL');
 
-  function save(){
+  React.useEffect(()=>{
+    let active=true;
+    (async()=>{
+      // Migratsiya: local'da bor, cloud'da yo'q bo'lsa ko'chiramiz
+      if(sb && CURRENT_UID){
+        const cloud=await cloudLoadJournal();
+        const local=lsGet('savura_journal_v1');
+        if((!cloud||cloud.length===0) && local.length>0){
+          for(const e of [...local].reverse()){ await cloudAddJournal(e); }
+          localStorage.removeItem('savura_journal_v1');
+          const fresh=await cloudLoadJournal();
+          if(active) setEntries(fresh);
+          return;
+        }
+        if(active) setEntries(cloud);
+      } else {
+        if(active) setEntries(lsGet('savura_journal_v1'));
+      }
+    })();
+    return ()=>{active=false;};
+  },[]);
+
+  async function save(){
     if(!form.ticker.trim()) return;
-    const entry = {...form, id:Date.now(), ticker:form.ticker.toUpperCase()};
-    const next = [entry, ...entries];
-    setEntries(next); lsSave(KEY, next);
+    const entry = {...form, ticker:form.ticker.toUpperCase()};
+    const saved = await cloudAddJournal(entry);
+    setEntries(prev=>[saved||{...entry,id:Date.now()}, ...prev]);
     setForm(EMPTY); setShowForm(false);
   }
-  function del(id){ const next=entries.filter(e=>e.id!==id); setEntries(next); lsSave(KEY,next); }
+  async function del(id){ await cloudDeleteJournal(id); setEntries(prev=>prev.filter(e=>e.id!==id)); }
 
   const inp = (field,type='text',ph='')=>(
     <input type={type} value={form[field]} placeholder={ph}
@@ -1770,12 +1877,32 @@ const CL_QUESTIONS = [
 
 function ChecklistTab({lang="uz"}){
   const J=(JNL_T&&JNL_T[lang])||JNL_T.uz;
-  const KEY = 'savura_checks_v1';
-  const [history, setHistory] = useState(()=>lsGet(KEY));
+  const [history, setHistory] = useState([]);
   const [ticker, setTicker] = useState('');
   const [answers, setAnswers] = useState(Array(15).fill(false));
   const [notes, setNotes] = useState('');
   const [view, setView] = useState('form'); // form | history
+
+  React.useEffect(()=>{
+    let active=true;
+    (async()=>{
+      if(sb && CURRENT_UID){
+        const cloud=await cloudLoadChecks();
+        const local=lsGet('savura_checks_v1');
+        if((!cloud||cloud.length===0) && local.length>0){
+          for(const e of [...local].reverse()){ await cloudAddCheck(e); }
+          localStorage.removeItem('savura_checks_v1');
+          const fresh=await cloudLoadChecks();
+          if(active) setHistory(fresh);
+          return;
+        }
+        if(active) setHistory(cloud);
+      } else {
+        if(active) setHistory(lsGet('savura_checks_v1'));
+      }
+    })();
+    return ()=>{active=false;};
+  },[]);
 
   function toggle(i){ setAnswers(a=>{const n=[...a];n[i]=!n[i];return n;}); }
 
@@ -1790,15 +1917,15 @@ function ChecklistTab({lang="uz"}){
   const noCount = answers.filter(a=>!a).length;
   const risk = calcRisk(answers);
 
-  function saveCheck(){
+  async function saveCheck(){
     if(!ticker.trim()) return;
-    const entry = {id:Date.now(), date:new Date().toISOString().split('T')[0], ticker:ticker.toUpperCase(), answers:[...answers], noCount, riskLevel:risk.level, notes};
-    const next = [entry,...history];
-    setHistory(next); lsSave(KEY,next);
+    const entry = {date:new Date().toISOString().split('T')[0], ticker:ticker.toUpperCase(), answers:[...answers], noCount, riskLevel:risk.level, notes};
+    const saved = await cloudAddCheck(entry);
+    setHistory(prev=>[saved||{...entry,id:Date.now()}, ...prev]);
     setTicker(''); setAnswers(Array(15).fill(false)); setNotes('');
     setView('history');
   }
-  function del(id){ const next=history.filter(e=>e.id!==id); setHistory(next); lsSave(KEY,next); }
+  async function del(id){ await cloudDeleteCheck(id); setHistory(prev=>prev.filter(e=>e.id!==id)); }
 
   return(
     <div>
@@ -1898,8 +2025,28 @@ function ChecklistTab({lang="uz"}){
 // ─── Watchlist Tab ────────────────────────────────────────────────────────────
 function WatchlistTab({lang="uz"}){
   const J=(JNL_T&&JNL_T[lang])||JNL_T.uz;
-  const KEY = 'savura_watch_v1';
-  const [items, setItems] = useState(()=>lsGet(KEY));
+  const [items, setItems] = useState([]);
+
+  React.useEffect(()=>{
+    let active=true;
+    (async()=>{
+      if(sb && CURRENT_UID){
+        const cloud=await cloudLoadWatch();
+        const local=lsGet('savura_watch_v1');
+        if((!cloud||cloud.length===0) && local.length>0){
+          for(const e of [...local].reverse()){ await cloudAddWatch(e); }
+          localStorage.removeItem('savura_watch_v1');
+          const fresh=await cloudLoadWatch();
+          if(active) setItems(fresh);
+          return;
+        }
+        if(active) setItems(cloud);
+      } else {
+        if(active) setItems(lsGet('savura_watch_v1'));
+      }
+    })();
+    return ()=>{active=false;};
+  },[]);
   const [showForm, setShowForm] = useState(false);
   const EMPTY = {ticker:'',company:'',targetPrice:'',notes:'',status:'watching'};
   const [form, setForm] = useState(EMPTY);
@@ -1919,15 +2066,20 @@ function WatchlistTab({lang="uz"}){
     } catch(e){ setLookupState('error'); }
   }
 
-  function save(){
+  async function save(){
     if(!form.ticker.trim()) return;
-    const item = {...form,id:Date.now(),addedDate:new Date().toISOString().split('T')[0],ticker:form.ticker.toUpperCase()};
-    const next = [item,...items];
-    setItems(next); lsSave(KEY,next);
+    const item = {...form,addedDate:new Date().toISOString().split('T')[0],ticker:form.ticker.toUpperCase()};
+    const saved = await cloudAddWatch(item);
+    setItems(prev=>[saved||{...item,id:Date.now()}, ...prev]);
     setForm(EMPTY); setShowForm(false);
   }
-  function del(id){ const next=items.filter(e=>e.id!==id); setItems(next); lsSave(KEY,next); }
-  function updateStatus(id,status){ const next=items.map(e=>e.id===id?{...e,status}:e); setItems(next); lsSave(KEY,next); }
+  async function del(id){ await cloudDeleteWatch(id); setItems(prev=>prev.filter(e=>e.id!==id)); }
+  async function updateStatus(id,status){
+    const item=items.find(e=>e.id===id); if(!item) return;
+    const updated={...item,status};
+    setItems(prev=>prev.map(e=>e.id===id?updated:e));
+    await cloudUpdateWatch(id, updated);
+  }
 
   const STATUS_COL = {watching:C.amber, bought:C.green, passed:C.faint};
   const STATUS_LBL = {watching:'Kuzatilmoqda 👁', bought:"Sotib olindi ✓", passed:'O\'tkazib yuborildi ✗'};
@@ -2141,15 +2293,33 @@ function EquityChart({history, startBal}){
 
 function DemoPage({lang="uz", setPage}){
   const D = DMO_T[lang]||DMO_T.uz;
-  const ACCS_KEY = 'savura_demo_accs_v2';
-  const ACTIVE_KEY = 'savura_demo_active_v2';
-  function loadAccs(){ try{return JSON.parse(localStorage.getItem(ACCS_KEY))||[];}catch{return[];} }
-  function saveAccs(a){ localStorage.setItem(ACCS_KEY,JSON.stringify(a)); }
-  function loadActive(){ try{return parseInt(localStorage.getItem(ACTIVE_KEY))||0;}catch{return 0;} }
-  function saveActive(i){ localStorage.setItem(ACTIVE_KEY,String(i)); }
 
-  const [accs,setAccs] = useState(()=>loadAccs());
-  const [activeIdx,setActiveIdx] = useState(()=>{ const i=loadActive(); const a=loadAccs(); return i<a.length?i:0; });
+  const [accs,setAccs] = useState([]);
+  const [activeIdx,setActiveIdx] = useState(0);
+  const [cloudLoading,setCloudLoading] = useState(true);
+
+  // Cloud'dan yuklash (+ eski localStorage ma'lumotini bir martalik ko'chirish)
+  React.useEffect(()=>{
+    let active=true;
+    (async()=>{
+      const {accs:loaded, active:idx} = await cloudLoadDemo();
+      // Migratsiya: cloud bo'sh, lekin localStorage'da eski demo bor bo'lsa ko'chiramiz
+      if(sb && CURRENT_UID && (!loaded || loaded.length===0)){
+        let oldAccs=[]; try{oldAccs=JSON.parse(localStorage.getItem('savura_demo_accs_v2'))||[];}catch{}
+        if(oldAccs.length>0){
+          let oldIdx=0; try{oldIdx=parseInt(localStorage.getItem('savura_demo_active_v2'))||0;}catch{}
+          await cloudSaveDemo(oldAccs, oldIdx);
+          if(active){ setAccs(oldAccs); setActiveIdx(oldIdx<oldAccs.length?oldIdx:0); setCloudLoading(false); }
+          return;
+        }
+      }
+      if(active){ setAccs(loaded); setActiveIdx(idx<loaded.length?idx:0); setCloudLoading(false); }
+    })();
+    return ()=>{ active=false; };
+  },[]);
+
+  function saveAccs(a){ cloudSaveDemo(a, activeIdx); }
+  function saveActive(i){ cloudSaveDemo(accs, i); }
   const [showNew,setShowNew] = useState(false);
   const [newName,setNewName] = useState('');
   const [prices,setPrices] = useState({});
@@ -2284,46 +2454,30 @@ function DemoPage({lang="uz", setPage}){
     const cost=buyForm.price*shr;
     if(cost>demo.cash){ alert("Mablag' yetarli emas!"); return; }
     const pos={id:Date.now(),ticker:buyForm.ticker,shares:shr,buyPrice:buyForm.price,buyDate:new Date().toISOString().split('T')[0],sl:buyForm.sl?parseFloat(buyForm.sl):null,tp:buyForm.tp?parseFloat(buyForm.tp):null};
-    try {
-      const jKey='savura_journal_v1';
-      const existing=JSON.parse(localStorage.getItem(jKey)||'[]');
-      const entry={
-        id:Date.now()+1,
-        date:pos.buyDate,
-        ticker:pos.ticker,
-        action:'BUY',
-        price:pos.buyPrice,
-        shares:pos.shares,
-        pnl:'',
-        result:'OPEN',
-        reason:'[Demo] Xarid'+(pos.sl?' | SL: $'+pos.sl:'')+(pos.tp?' | TP: $'+pos.tp:''),
-        notes:'Demo treydingdan avtomatik yuklandi'
-      };
-      localStorage.setItem(jKey,JSON.stringify([entry,...existing]));
-    } catch(e){}
+    cloudAddJournal({
+      date:pos.buyDate, ticker:pos.ticker, action:'BUY',
+      price:pos.buyPrice, shares:pos.shares, pnl:'', result:'OPEN',
+      reason:'[Demo] Xarid'+(pos.sl?' | SL: $'+pos.sl:'')+(pos.tp?' | TP: $'+pos.tp:''),
+      notes:'Demo treydingdan avtomatik yuklandi'
+    });
     const upd=snapshotEquity({...demo,cash:demo.cash-cost,positions:[...(demo.positions||[]),pos]},{...prices,[buyForm.ticker]:buyForm.price});
     updateDemo(upd); setBuyForm({ticker:'',shares:'',sl:'',tp:'',price:null,fetching:false,err:''}); setBuyAmt('');
   }
 
 
   function syncToJournal(trade){
-    try {
-      const jKey = 'savura_journal_v1';
-      const existing = JSON.parse(localStorage.getItem(jKey)||'[]');
-      const entry = {
-        id: Date.now(),
-        date: trade.closeDate||new Date().toISOString().split('T')[0],
-        ticker: trade.ticker,
-        action: 'SELL',
-        price: trade.closePrice||trade.buyPrice,
-        shares: trade.shares,
-        pnl: trade.pnl ? trade.pnl.toFixed(2) : '0',
-        result: trade.pnl >= 0 ? 'PROFIT' : 'LOSS',
-        reason: '[Demo] Kirish: $'+trade.buyPrice+' | '+( trade.reason||'Manual'),
-        notes: 'Demo treydingdan avtomatik yuklandi'
-      };
-      localStorage.setItem(jKey, JSON.stringify([entry, ...existing]));
-    } catch(e) {}
+    const entry = {
+      date: trade.closeDate||new Date().toISOString().split('T')[0],
+      ticker: trade.ticker,
+      action: 'SELL',
+      price: trade.closePrice||trade.buyPrice,
+      shares: trade.shares,
+      pnl: trade.pnl ? trade.pnl.toFixed(2) : '0',
+      result: trade.pnl >= 0 ? 'PROFIT' : 'LOSS',
+      reason: '[Demo] Kirish: $'+trade.buyPrice+' | '+( trade.reason||'Manual'),
+      notes: 'Demo treydingdan avtomatik yuklandi'
+    };
+    cloudAddJournal(entry);
   }
   function closePosition(pos){
     if(!demo) return;
@@ -2368,6 +2522,17 @@ function DemoPage({lang="uz", setPage}){
   const totPnl=portVal-(demo?.startBal||0);
   const totPct=demo?.startBal?(totPnl/demo.startBal*100):0;
   const isUp=totPnl>=0;
+
+  // Cloud yuklanmoqda
+  if(cloudLoading){
+    return(
+      <div style={{padding:'140px 24px',maxWidth:520,margin:'0 auto',textAlign:'center'}}>
+        {setPage&&<div style={{marginBottom:14,textAlign:'left'}}><BackBtn setPage={setPage} lang={lang}/></div>}
+        <div style={{width:36,height:36,border:`3px solid ${C.border}`,borderTopColor:C.blue,borderRadius:'50%',margin:'0 auto',animation:'spin 0.8s linear infinite'}}/>
+        <div style={{color:C.faint,fontSize:13,marginTop:16}}>Yuklanmoqda...</div>
+      </div>
+    );
+  }
 
   // Setup screen
   if(accs.length===0){
