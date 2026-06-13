@@ -2334,17 +2334,28 @@ function DemoPage({lang="uz", setPage}){
     (async()=>{
       const uid=await getUid();
       const {accs:loaded, active:idx} = await cloudLoadDemo();
+      let finalAccs = loaded;
+      let finalIdx = idx;
       // Migratsiya: cloud bo'sh, lekin localStorage'da eski demo bor bo'lsa ko'chiramiz
       if(sb && uid && (!loaded || loaded.length===0)){
         let oldAccs=[]; try{oldAccs=JSON.parse(localStorage.getItem('savura_demo_accs_v2'))||[];}catch{}
         if(oldAccs.length>0){
           let oldIdx=0; try{oldIdx=parseInt(localStorage.getItem('savura_demo_active_v2'))||0;}catch{}
           await cloudSaveDemo(oldAccs, oldIdx);
-          if(active){ setAccs(oldAccs); setActiveIdx(oldIdx<oldAccs.length?oldIdx:0); setCloudLoading(false); }
-          return;
+          finalAccs = oldAccs;
+          finalIdx = oldIdx;
         }
       }
-      if(active){ setAccs(loaded); setActiveIdx(idx<loaded.length?idx:0); setCloudLoading(false); }
+      if(active){ setAccs(finalAccs); setActiveIdx(finalIdx<finalAccs.length?finalIdx:0); }
+      // Narxlarni darhol yuklab, jonli qiymatni ko'rsatamiz (sakrash bo'lmaydi)
+      const firstAcc = (finalAccs && finalAccs[finalIdx<finalAccs.length?finalIdx:0]) || null;
+      if(firstAcc?.positions?.length){
+        const syms=[...new Set(firstAcc.positions.map(p=>p.ticker))];
+        const px={};
+        for(const s of syms){ try{ const r=await fetch('/api/lookup?sym='+s); const d=await r.json(); if(d.price) px[s]=d.price; }catch{} }
+        if(active) setPrices(px);
+      }
+      if(active) setCloudLoading(false);
     })();
     return ()=>{ active=false; };
   },[]);
