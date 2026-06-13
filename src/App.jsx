@@ -1602,15 +1602,24 @@ function lsSave(key,data){ localStorage.setItem(key,JSON.stringify(data)); }
 function lsGetObj(key,def={}){ try{return JSON.parse(localStorage.getItem(key))||def;}catch{return def;} }
 
 // ═══ CLOUD STORAGE — login bo'lsa Supabase, bo'lmasa localStorage ═══
-// Hozirgi foydalanuvchi ID (global, useAuth o'rnatadi)
+// Hozirgi foydalanuvchi ID — global cache + jonli getter
 let CURRENT_UID = null;
 function setCurrentUid(uid){ CURRENT_UID = uid; }
+// Jonli UID: avval cache, bo'lmasa Supabase sessiyasidan o'qiydi
+async function getUid(){
+  if(CURRENT_UID) return CURRENT_UID;
+  if(sb){
+    try{ const {data}=await sb.auth.getSession(); const uid=data?.session?.user?.id||null; if(uid) CURRENT_UID=uid; return uid; }catch{ return null; }
+  }
+  return null;
+}
 
 // Demo hisoblarini yuklash (cloud yoki local)
 async function cloudLoadDemo(){
-  if(sb && CURRENT_UID){
+  const uid=await getUid();
+  if(sb && uid){
     try{
-      const {data}=await sb.from("demo_accounts").select("accounts,active_idx").eq("user_id",CURRENT_UID).single();
+      const {data}=await sb.from("demo_accounts").select("accounts,active_idx").eq("user_id",uid).single();
       if(data) return {accs:data.accounts||[], active:data.active_idx||0};
       return {accs:[], active:0};
     }catch{ return {accs:[], active:0}; }
@@ -1620,8 +1629,9 @@ async function cloudLoadDemo(){
   return {accs, active};
 }
 async function cloudSaveDemo(accs, active){
-  if(sb && CURRENT_UID){
-    try{ await sb.from("demo_accounts").upsert({user_id:CURRENT_UID, accounts:accs, active_idx:active, updated_at:new Date().toISOString()}); }catch{}
+  const uid=await getUid();
+  if(sb && uid){
+    try{ await sb.from("demo_accounts").upsert({user_id:uid, accounts:accs, active_idx:active, updated_at:new Date().toISOString()}); }catch{}
     return;
   }
   localStorage.setItem('savura_demo_accs_v2',JSON.stringify(accs));
@@ -1630,55 +1640,65 @@ async function cloudSaveDemo(accs, active){
 
 // Kundalik (journal) — cloud yoki local
 async function cloudLoadJournal(){
-  if(sb && CURRENT_UID){
-    try{ const {data}=await sb.from("journal_entries").select("*").eq("user_id",CURRENT_UID).order("created_at",{ascending:false}); return data||[]; }catch{ return []; }
+  const uid=await getUid();
+  if(sb && uid){
+    try{ const {data}=await sb.from("journal_entries").select("*").eq("user_id",uid).order("created_at",{ascending:false}); return data||[]; }catch{ return []; }
   }
   return lsGet('savura_journal_v1');
 }
 async function cloudAddJournal(entry){
-  if(sb && CURRENT_UID){
-    try{ const {data}=await sb.from("journal_entries").insert({user_id:CURRENT_UID,date:entry.date,ticker:entry.ticker,action:entry.action,price:String(entry.price||''),shares:String(entry.shares||''),pnl:String(entry.pnl||''),result:entry.result,reason:entry.reason,notes:entry.notes}).select().single(); return data; }catch{ return null; }
+  const uid=await getUid();
+  if(sb && uid){
+    try{ const {data}=await sb.from("journal_entries").insert({user_id:uid,date:entry.date,ticker:entry.ticker,action:entry.action,price:String(entry.price||''),shares:String(entry.shares||''),pnl:String(entry.pnl||''),result:entry.result,reason:entry.reason,notes:entry.notes}).select().single(); return data; }catch{ return null; }
   }
   const all=lsGet('savura_journal_v1'); const e={...entry,id:Date.now()}; lsSave('savura_journal_v1',[e,...all]); return e;
 }
 async function cloudDeleteJournal(id){
-  if(sb && CURRENT_UID){ try{ await sb.from("journal_entries").delete().eq("id",id); }catch{} return; }
+  const uid=await getUid();
+  if(sb && uid){ try{ await sb.from("journal_entries").delete().eq("id",id); }catch{} return; }
   const all=lsGet('savura_journal_v1'); lsSave('savura_journal_v1',all.filter(e=>e.id!==id));
 }
 
 // Checklist tarixi
 async function cloudLoadChecks(){
-  if(sb && CURRENT_UID){
-    try{ const {data}=await sb.from("checklist_history").select("*").eq("user_id",CURRENT_UID).order("created_at",{ascending:false}); return (data||[]).map(r=>({id:r.id,...r.data})); }catch{ return []; }
+  const uid=await getUid();
+  if(sb && uid){
+    try{ const {data}=await sb.from("checklist_history").select("*").eq("user_id",uid).order("created_at",{ascending:false}); return (data||[]).map(r=>({id:r.id,...r.data})); }catch{ return []; }
   }
   return lsGet('savura_checks_v1');
 }
 async function cloudAddCheck(entry){
-  if(sb && CURRENT_UID){ try{ const {data}=await sb.from("checklist_history").insert({user_id:CURRENT_UID,data:entry}).select().single(); return {id:data.id,...entry}; }catch{ return null; } }
+  const uid=await getUid();
+  if(sb && uid){ try{ const {data}=await sb.from("checklist_history").insert({user_id:uid,data:entry}).select().single(); return {id:data.id,...entry}; }catch{ return null; } }
   const all=lsGet('savura_checks_v1'); const e={...entry,id:Date.now()}; lsSave('savura_checks_v1',[e,...all]); return e;
 }
 async function cloudDeleteCheck(id){
-  if(sb && CURRENT_UID){ try{ await sb.from("checklist_history").delete().eq("id",id); }catch{} return; }
+  const uid=await getUid();
+  if(sb && uid){ try{ await sb.from("checklist_history").delete().eq("id",id); }catch{} return; }
   const all=lsGet('savura_checks_v1'); lsSave('savura_checks_v1',all.filter(e=>e.id!==id));
 }
 
 // Watchlist
 async function cloudLoadWatch(){
-  if(sb && CURRENT_UID){
-    try{ const {data}=await sb.from("watchlist").select("*").eq("user_id",CURRENT_UID).order("created_at",{ascending:false}); return (data||[]).map(r=>({id:r.id,...r.data})); }catch{ return []; }
+  const uid=await getUid();
+  if(sb && uid){
+    try{ const {data}=await sb.from("watchlist").select("*").eq("user_id",uid).order("created_at",{ascending:false}); return (data||[]).map(r=>({id:r.id,...r.data})); }catch{ return []; }
   }
   return lsGet('savura_watch_v1');
 }
 async function cloudAddWatch(entry){
-  if(sb && CURRENT_UID){ try{ const {data}=await sb.from("watchlist").insert({user_id:CURRENT_UID,data:entry}).select().single(); return {id:data.id,...entry}; }catch{ return null; } }
+  const uid=await getUid();
+  if(sb && uid){ try{ const {data}=await sb.from("watchlist").insert({user_id:uid,data:entry}).select().single(); return {id:data.id,...entry}; }catch{ return null; } }
   const all=lsGet('savura_watch_v1'); const e={...entry,id:Date.now()}; lsSave('savura_watch_v1',[e,...all]); return e;
 }
 async function cloudDeleteWatch(id){
-  if(sb && CURRENT_UID){ try{ await sb.from("watchlist").delete().eq("id",id); }catch{} return; }
+  const uid=await getUid();
+  if(sb && uid){ try{ await sb.from("watchlist").delete().eq("id",id); }catch{} return; }
   const all=lsGet('savura_watch_v1'); lsSave('savura_watch_v1',all.filter(e=>e.id!==id));
 }
 async function cloudUpdateWatch(id, fullItem){
-  if(sb && CURRENT_UID){
+  const uid=await getUid();
+  if(sb && uid){
     const {id:_drop, ...data}=fullItem;
     try{ await sb.from("watchlist").update({data}).eq("id",id); }catch{}
     return;
@@ -1707,8 +1727,9 @@ function JournalTab({lang="uz"}){
   React.useEffect(()=>{
     let active=true;
     (async()=>{
+      const uid=await getUid();
       // Migratsiya: local'da bor, cloud'da yo'q bo'lsa ko'chiramiz
-      if(sb && CURRENT_UID){
+      if(sb && uid){
         const cloud=await cloudLoadJournal();
         const local=lsGet('savura_journal_v1');
         if((!cloud||cloud.length===0) && local.length>0){
@@ -1886,7 +1907,8 @@ function ChecklistTab({lang="uz"}){
   React.useEffect(()=>{
     let active=true;
     (async()=>{
-      if(sb && CURRENT_UID){
+      const uid=await getUid();
+      if(sb && uid){
         const cloud=await cloudLoadChecks();
         const local=lsGet('savura_checks_v1');
         if((!cloud||cloud.length===0) && local.length>0){
@@ -2030,7 +2052,8 @@ function WatchlistTab({lang="uz"}){
   React.useEffect(()=>{
     let active=true;
     (async()=>{
-      if(sb && CURRENT_UID){
+      const uid=await getUid();
+      if(sb && uid){
         const cloud=await cloudLoadWatch();
         const local=lsGet('savura_watch_v1');
         if((!cloud||cloud.length===0) && local.length>0){
@@ -2302,9 +2325,10 @@ function DemoPage({lang="uz", setPage}){
   React.useEffect(()=>{
     let active=true;
     (async()=>{
+      const uid=await getUid();
       const {accs:loaded, active:idx} = await cloudLoadDemo();
       // Migratsiya: cloud bo'sh, lekin localStorage'da eski demo bor bo'lsa ko'chiramiz
-      if(sb && CURRENT_UID && (!loaded || loaded.length===0)){
+      if(sb && uid && (!loaded || loaded.length===0)){
         let oldAccs=[]; try{oldAccs=JSON.parse(localStorage.getItem('savura_demo_accs_v2'))||[];}catch{}
         if(oldAccs.length>0){
           let oldIdx=0; try{oldIdx=parseInt(localStorage.getItem('savura_demo_active_v2'))||0;}catch{}
