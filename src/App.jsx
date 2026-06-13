@@ -3248,9 +3248,8 @@ function AdminPanel({lang,setPage,auth}){
 }
 
 export default function App(){
-  const [page,setPageRaw]=useState(()=>localStorage.getItem("savura_pg")||"home");
+  const [page,setPageRaw]=useState("home");
   const setPage=React.useCallback((p)=>{ try{window.history.pushState({pg:p},"");}catch(e){} setPageRaw(p); },[]);
-  React.useEffect(()=>{localStorage.setItem("savura_pg",page);},[page]);
   React.useEffect(()=>{
     try{window.history.replaceState({pg:page},"");}catch(e){}
     const onPop=(e)=>{ setPageRaw((e.state&&e.state.pg)||"home"); window.scrollTo({top:0}); };
