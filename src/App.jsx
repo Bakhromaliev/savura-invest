@@ -842,17 +842,67 @@ function HeroSection({setPage,lang}){
 }
 
 // ─── Features ───────────────────────────────────────────────────────────────
+const FEAT_T = {
+  uz: [
+    {title:"Fundamental Tahlil",desc:"5 toifa: O'sish, Baholanish, Rentabellik, Moliyaviy sog'lomlik, Samaradorlik. Professional metodologiya asosida."},
+    {title:"Risk Darajasi",desc:"15 savollik professional risk modeli. PAST dan JUDA YUQORI gacha aniq baho. Har bir savol izohlanadi."},
+    {title:"100+ AQSh Aksiyasi",desc:"AQSh birjasining asosiy kompaniyalari — AAPL, NVDA, TSLA va ko'plab boshqalar. Real vaqt ma'lumot."},
+    {title:"Aksiyalar savdosi kursi",desc:"Noldan boshlash uchun to'liq amaliy kurs. Halol investitsiya, fundamental tahlil va risk boshqaruvi."},
+    {title:"Telegram Kanal",desc:"Savura Invest kanalida yangiliklar, tahlillar va investitsiya bo'yicha dolzarb ma'lumotlar."},
+    {title:"Instagram",desc:"Visual tahlillar, grafiklar va investitsiya bo'yicha foydali educational kontentlar."},
+    {title:"Savura ERP",desc:"Savura brendi tomonidan ishlab chiqilgan ERP tizimi — korxona resurslarini boshqarish platformasi."},
+  ],
+  en: [
+    {title:"Fundamental Analysis",desc:"5 categories: Growth, Valuation, Profitability, Financial health, Efficiency. Based on professional methodology."},
+    {title:"Risk Assessment",desc:"A 15-question professional risk model. Clear rating from LOW to VERY HIGH. Each question is explained."},
+    {title:"100+ US Stocks",desc:"Major companies of the US market — AAPL, NVDA, TSLA and many more. Real-time data."},
+    {title:"Stock Trading Course",desc:"A complete hands-on course to start from zero. Halal investing, fundamental analysis and risk management."},
+    {title:"Telegram Channel",desc:"News, analyses and timely investment insights on the Savura Invest channel."},
+    {title:"Instagram",desc:"Visual analyses, charts and useful educational content on investing."},
+    {title:"Savura ERP",desc:"An ERP system developed by the Savura brand — an enterprise resource management platform."},
+  ],
+  ru: [
+    {title:"Фундаментальный анализ",desc:"5 категорий: Рост, Оценка, Рентабельность, Финансовое здоровье, Эффективность. На основе профессиональной методологии."},
+    {title:"Оценка риска",desc:"Профессиональная модель риска из 15 вопросов. Чёткая оценка от НИЗКОГО до ОЧЕНЬ ВЫСОКОГО. Каждый вопрос пояснён."},
+    {title:"100+ акций США",desc:"Основные компании рынка США — AAPL, NVDA, TSLA и многие другие. Данные в реальном времени."},
+    {title:"Курс торговли акциями",desc:"Полный практический курс для старта с нуля. Халяльное инвестирование, фундаментальный анализ и управление рисками."},
+    {title:"Telegram-канал",desc:"Новости, аналитика и актуальные инвестиционные материалы на канале Savura Invest."},
+    {title:"Instagram",desc:"Визуальная аналитика, графики и полезный образовательный контент об инвестициях."},
+    {title:"Savura ERP",desc:"ERP-система, разработанная брендом Savura — платформа управления ресурсами предприятия."},
+  ],
+  tr: [
+    {title:"Temel Analiz",desc:"5 kategori: Büyüme, Değerleme, Kârlılık, Finansal sağlık, Verimlilik. Profesyonel metodolojiye dayalı."},
+    {title:"Risk Değerlendirmesi",desc:"15 soruluk profesyonel risk modeli. DÜŞÜK'ten ÇOK YÜKSEK'e net puan. Her soru açıklanır."},
+    {title:"100+ ABD Hissesi",desc:"ABD piyasasının başlıca şirketleri — AAPL, NVDA, TSLA ve daha fazlası. Gerçek zamanlı veri."},
+    {title:"Hisse Ticareti Kursu",desc:"Sıfırdan başlamak için tam uygulamalı kurs. Helal yatırım, temel analiz ve risk yönetimi."},
+    {title:"Telegram Kanalı",desc:"Savura Invest kanalında haberler, analizler ve güncel yatırım bilgileri."},
+    {title:"Instagram",desc:"Görsel analizler, grafikler ve yatırım hakkında faydalı eğitim içerikleri."},
+    {title:"Savura ERP",desc:"Savura markası tarafından geliştirilen ERP sistemi — kurumsal kaynak yönetim platformu."},
+  ],
+  ar: [
+    {title:"التحليل الأساسي",desc:"5 فئات: النمو، التقييم، الربحية، الصحة المالية، الكفاءة. وفق منهجية احترافية."},
+    {title:"تقييم المخاطر",desc:"نموذج مخاطر احترافي من 15 سؤالاً. تقييم واضح من منخفض إلى مرتفع جداً. كل سؤال موضّح."},
+    {title:"100+ سهم أمريكي",desc:"كبرى شركات السوق الأمريكي — AAPL وNVDA وTSLA وغيرها الكثير. بيانات فورية."},
+    {title:"دورة تداول الأسهم",desc:"دورة عملية كاملة للبدء من الصفر. الاستثمار الحلال والتحليل الأساسي وإدارة المخاطر."},
+    {title:"قناة تليجرام",desc:"أخبار وتحليلات ومعلومات استثمارية محدّثة على قناة Savura Invest."},
+    {title:"Instagram",desc:"تحليلات مرئية ورسوم بيانية ومحتوى تعليمي مفيد عن الاستثمار."},
+    {title:"Savura ERP",desc:"نظام ERP طوّرته علامة Savura — منصة لإدارة موارد المؤسسات."},
+  ],
+};
+
 function FeaturesSection({setPage,lang}){
   const sf=getST(lang).feat;
-  const cards=[
-    {Icon:ChartIcon,title:"Fundamental Tahlil",desc:"5 toifa: O'sish, Baholanish, Rentabellik, Moliyaviy sog'lomlik, Samaradorlik. Professional metodologiya asosida.",color:C.blue,action:()=>setPage("tool")},
-    {Icon:ShieldIcon,title:"Risk Darajasi",desc:"15 savollik professional risk modeli. PAST dan JUDA YUQORI gacha aniq baho. Har bir savol izohlanadi.",color:C.amber,action:()=>setPage("tool")},
-    {Icon:GlobeIcon,title:"100+ AQSh Aksiyasi",desc:"AQSh birjasining asosiy kompaniyalari — AAPL, NVDA, TSLA va ko'plab boshqalar. Real vaqt ma'lumot.",color:C.green,action:()=>setPage("tool")},
-    {Icon:BookIcon,title:"Aksiyalar savdosi kursi",desc:"Noldan boshlash uchun to'liq amaliy kurs. Halol investitsiya, fundamental tahlil va risk boshqaruvi.",color:"#8b5cf6",action:()=>setPage("course")},
-    {Icon:TgIcon,title:"Telegram Kanal",desc:"Savura Invest kanalida yangiliklar, tahlillar va investitsiya bo'yicha dolzarb ma'lumotlar.",color:C.blueLt,action:()=>window.open("https://t.me/savura_invest","_blank")},
-    {Icon:IgIcon,title:"Instagram",desc:"Visual tahlillar, grafiklar va investitsiya bo'yicha foydali educational kontentlar.",color:"#e1306c",action:()=>window.open("https://instagram.com/savura_invest","_blank")},
-    {Icon:GlobeIcon,title:"Savura ERP",desc:"Savura brendi tomonidan ishlab chiqilgan ERP tizimi — korxona resurslarini boshqarish platformasi.",color:C.greenLt,action:()=>window.open("https://savuraerp.com","_blank")},
+  const ft=FEAT_T[lang]||FEAT_T.uz;
+  const meta=[
+    {Icon:ChartIcon,color:C.blue,action:()=>setPage("tool")},
+    {Icon:ShieldIcon,color:C.amber,action:()=>setPage("tool")},
+    {Icon:GlobeIcon,color:C.green,action:()=>setPage("tool")},
+    {Icon:BookIcon,color:"#8b5cf6",action:()=>setPage("course")},
+    {Icon:TgIcon,color:C.blueLt,action:()=>window.open("https://t.me/savura_invest","_blank")},
+    {Icon:IgIcon,color:"#e1306c",action:()=>window.open("https://instagram.com/savura_invest","_blank")},
+    {Icon:GlobeIcon,color:C.greenLt,action:()=>window.open("https://savuraerp.com","_blank")},
   ];
+  const cards=meta.map((m,i)=>({...m,title:ft[i].title,desc:ft[i].desc}));
   return(
     <div style={{padding:"60px 24px 80px",maxWidth:1100,margin:"0 auto"}}>
       <div style={{textAlign:"center",marginBottom:40}}>
@@ -1135,7 +1185,7 @@ function BoolSection({ticker, bools, setBools, t, lang}){
       {showP && (
         <div style={{background:"rgba(0,0,0,0.3)", border:"1px solid rgba(74,163,255,0.2)", borderRadius:10, padding:"12px", marginBottom:14}}>
           <div style={{fontSize:11, color:C.blueLt, fontWeight:600, marginBottom:6}}>
-            Nusxa oling, Claude.ai yoki ChatGPT ga yuboring, javobga qarab katakchalarni belgilang
+            {(t&&t.tf)?t.tf.aiInstr:""}
           </div>
           <div style={{display:"flex", gap:8, marginBottom:10, flexWrap:"wrap"}}>
             <a href="https://claude.ai" target="_blank" rel="noreferrer"
@@ -1149,15 +1199,7 @@ function BoolSection({ticker, bools, setBools, t, lang}){
           </div>
           <div style={{background:"rgba(0,0,0,0.25)", borderRadius:8, padding:"10px", marginBottom:10}}>
             <div style={{fontFamily:"'JetBrains Mono',monospace", fontSize:10, color:C.dim, lineHeight:1.7, whiteSpace:"pre-wrap", wordBreak:"break-word"}}>
-              {"Siz moliyaviy tahlilchi sifatida " + cn + " (" + ticker + ") aksiyasi haqida"}<br/>
-              {"HOZIRGI eng songi real malumotlar asosida javob bering. Sana: " + today}<br/>
-              <br/>
-              {"1. " + cn + " (" + ticker + ") otgan 12 oyda foydali boldimi?"}<br/>
-              {"2. " + cn + " (" + ticker + ") operatsion pul oqimi musbatmi?"}<br/>
-              {"3. " + cn + " (" + ticker + ") himoya qiluvchi sektordami? (Healthcare/Utilities/Consumer Staples/Energy)"}<br/>
-              {"4. " + cn + " (" + ticker + ") sanoatida top-10 ichidami? (bozor kap. boyicha)"}<br/>
-              {"5. " + cn + " (" + ticker + ") yirik yuridik muammo yoqmi?"}<br/>
-              {"6. " + cn + " (" + ticker + ") songgi 5 yilda SP500 dan ustun keldimi?"}
+              {buildPrompt()}
             </div>
           </div>
           <button onClick={copyPrompt}
@@ -1283,7 +1325,7 @@ function FundamentalTool({lang, setLang, setPage}){
   if(step===2&&result) return(
     <div style={{padding:"85px 24px 60px",maxWidth:940,margin:"0 auto"}}>
       <button onClick={()=>{setResult(null);setStep(1);}} style={{background:`rgba(47,125,246,0.1)`,border:`1px solid ${C.border}`,color:C.blueLt,borderRadius:9,padding:"8px 16px",fontSize:13,cursor:"pointer",marginBottom:20,display:"inline-flex",alignItems:"center",gap:7}}>
-        ← Qayta kiriting
+        ← {t.tf.reEnter}
       </button>
       <ToolResult d={result} t={t}/>
     </div>
@@ -1294,13 +1336,13 @@ function FundamentalTool({lang, setLang, setPage}){
     <div style={{padding:"85px 24px 60px",maxWidth:940,margin:"0 auto"}}>
       {setPage&&<BackBtn setPage={setPage} lang={lang}/>}
       <div style={{textAlign:"center",marginBottom:36}}>
-        <div style={{fontSize:10.5,letterSpacing:"2px",color:C.faint,fontFamily:"'JetBrains Mono',monospace",marginBottom:10}}>FUNDAMENTAL TAHLIL VOSITASI</div>
+        <div style={{fontSize:10.5,letterSpacing:"2px",color:C.faint,fontFamily:"'JetBrains Mono',monospace",marginBottom:10}}>{t.tf.badge}</div>
         <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(22px,4vw,38px)",lineHeight:1.15,margin:"0 0 10px",color:C.text}}>
-          Aksiyaning fundamental holati <br/>
-          <span style={{background:`linear-gradient(90deg,${C.blueLt},${C.greenLt})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>qanday?</span>
+          {t.tf.h1} <br/>
+          <span style={{background:`linear-gradient(90deg,${C.blueLt},${C.greenLt})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>{t.tf.h2}</span>
         </h1>
         <p style={{color:C.dim,fontSize:14,maxWidth:480,margin:"0 auto 8px",lineHeight:1.6}}>
-          Aksiya belgisini kiriting, keyin <strong style={{color:C.greenLt}}>stockanalysis.com</strong> dan ma'lumotlarni o'zingiz kiritasiz.
+          {t.tf.sub2}
         </p>
         <a href="https://stockanalysis.com" target="_blank" rel="noreferrer" style={{fontSize:12,color:C.blueLt,border:`1px solid rgba(74,163,255,0.3)`,borderRadius:7,padding:"4px 10px",display:"inline-flex",alignItems:"center",gap:5}}>
           stockanalysis.com →
@@ -1315,14 +1357,14 @@ function FundamentalTool({lang, setLang, setPage}){
       {/* Ticker input */}
       <div style={{display:"flex",gap:10,maxWidth:540,margin:"0 auto 16px"}}>
         <input value={ticker} onChange={e=>setTicker(e.target.value.toUpperCase())} onKeyDown={e=>{if(e.key==="Enter"&&ticker.trim()){setStep(1);setCName("");setExchange("");setSector("");setIndustry("");setVals({...EMPTY_VALS});setBools({...EMPTY_BOOLS});} }} placeholder="AAPL, MSFT, NVDA ..." style={{flex:1,background:"rgba(12,20,38,.85)",border:`1px solid ${C.border}`,borderRadius:12,color:C.text,padding:"14px 18px",fontSize:16,fontFamily:"'JetBrains Mono',monospace",letterSpacing:"1px",outline:"none"}}/>
-        <button onClick={()=>{if(ticker.trim()){setStep(1);setCName("");setExchange("");setSector("");setIndustry("");setVals({...EMPTY_VALS});setBools({...EMPTY_BOOLS});}}} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"0 22px",cursor:"pointer",fontFamily:"'Sora',sans-serif",whiteSpace:"nowrap"}}>Keyingi →</button>
+        <button onClick={()=>{if(ticker.trim()){setStep(1);setCName("");setExchange("");setSector("");setIndustry("");setVals({...EMPTY_VALS});setBools({...EMPTY_BOOLS});}}} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"0 22px",cursor:"pointer",fontFamily:"'Sora',sans-serif",whiteSpace:"nowrap"}}>{t.tf.nextBtn} →</button>
       </div>
       {/* Quick samples */}
       <div style={{display:"flex",gap:7,justifyContent:"center",flexWrap:"wrap",marginBottom:20}}>
-        {EX.map(x=><button key={x} onClick={()=>loadSample(x)} style={{background:"transparent",border:`1px solid ${C.border}`,color:C.dim,borderRadius:20,padding:"5px 12px",fontSize:12,cursor:"pointer",fontFamily:"'JetBrains Mono',monospace"}} title="Namuna ma'lumot">{x}</button>)}
+        {EX.map(x=><button key={x} onClick={()=>loadSample(x)} style={{background:"transparent",border:`1px solid ${C.border}`,color:C.dim,borderRadius:20,padding:"5px 12px",fontSize:12,cursor:"pointer",fontFamily:"'JetBrains Mono',monospace"}} title={t.tf.sample||""}>{x}</button>)}
       </div>
       <div style={{textAlign:"center",fontSize:11,color:C.faint,maxWidth:500,margin:"0 auto",lineHeight:1.7}}>
-        Namuna tugmalarini bossangiz — o'sha aksiyaning namuna ma'lumotlari avtomatik to'ldiriladi va tahrirlashingiz mumkin.
+        {t.tf.sampleNote}
       </div>
     </div>
   );
@@ -1334,9 +1376,9 @@ function FundamentalTool({lang, setLang, setPage}){
       {/* Header */}
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12,marginBottom:24}}>
         <div style={{display:"flex",alignItems:"center",gap:14}}>
-          <button onClick={()=>setStep(0)} style={{background:"transparent",border:`1px solid ${C.border}`,color:C.dim,borderRadius:8,padding:"7px 13px",fontSize:12.5,cursor:"pointer"}}>← Orqaga</button>
+          <button onClick={()=>setStep(0)} style={{background:"transparent",border:`1px solid ${C.border}`,color:C.dim,borderRadius:8,padding:"7px 13px",fontSize:12.5,cursor:"pointer"}}>← {t.tf.backBtn}</button>
           <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:22,color:C.blueLt}}>{ticker}</div>
-          <div style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(240,169,43,.4)",borderRadius:6,padding:"3px 8px",fontWeight:600}}>QO'LDA KIRITILADI</div>
+          <div style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(240,169,43,.4)",borderRadius:6,padding:"3px 8px",fontWeight:600}}>{t.tf.manualBadge}</div>
         </div>
         <a href={`https://stockanalysis.com/stocks/${ticker.toLowerCase()}/statistics/`} target="_blank" rel="noreferrer" style={{fontSize:12,color:C.blueLt,border:`1px solid rgba(74,163,255,0.3)`,borderRadius:8,padding:"7px 12px",display:"inline-flex",alignItems:"center",gap:5}}>
           stockanalysis.com/{ticker.toLowerCase()} →
@@ -1347,7 +1389,7 @@ function FundamentalTool({lang, setLang, setPage}){
       <div style={{background:`rgba(47,125,246,0.07)`,border:`1px solid rgba(47,125,246,0.2)`,borderRadius:12,padding:"12px 16px",marginBottom:24,display:"flex",alignItems:"flex-start",gap:10}}>
         <span style={{color:C.blueLt,fontSize:18,flexShrink:0}}>ℹ</span>
         <div style={{fontSize:13,color:C.dim,lineHeight:1.6}}>
-          <strong style={{color:C.text}}>stockanalysis.com</strong> saytiga kiring → aksiya belgisini qidiring → <strong style={{color:C.greenLt}}>Statistics</strong> sahifasini oching. Quyidagi barcha ko'rsatkichlarni shu sahifadan ko'rib kiriting.
+          {t.tf.instrText}
         </div>
       </div>
 
@@ -1360,7 +1402,7 @@ function FundamentalTool({lang, setLang, setPage}){
           </div>
           {cn!==ticker&&<span style={{fontSize:14,fontWeight:600,color:C.text}}>{cn}</span>}
           {sc&&<span style={{fontSize:12,color:C.dim}}>{sc}{ind&&ind!==sc?" · "+ind:""}</span>}
-          <span style={{marginLeft:"auto",fontSize:10.5,color:C.faint,fontStyle:"italic"}}>Ma'lumotlar avtomatik</span>
+          <span style={{marginLeft:"auto",fontSize:10.5,color:C.faint,fontStyle:"italic"}}>{t.tf.autoLabel}</span>
         </div>
       );})()}
 
@@ -2095,26 +2137,98 @@ function JournalTab({lang="uz"}){
 }
 
 // ─── Checklist Tab ────────────────────────────────────────────────────────────
-const CL_QUESTIONS = [
-  "Moliyaviy sog'lomlik ko'rsatkichlari o'tacha yoki yuqori? (Current Ratio, D/E, Interest Coverage)",
-  "Rentabellik ko'rsatkichlari o'tacha yoki yuqori? (Gross Margin, Oper. Margin, Net Margin)",
-  "Samaradorlik ko'rsatkichlari o'tacha yoki yuqori? (ROA, ROE, ROIC)",
-  "O'sish ko'rsatkichlari o'tacha yoki yuqori? (Revenue Growth, EPS Growth)",
-  "P/E bozor o'rtachasiga yaqin yoki kichik? (P/E ≤ 28)",
-  "O'tgan yil va chorakda foydali bo'lganmi? (Net Margin > 0)",
-  "Operatsion pul oqimi musbat bo'lganmi? (OCF > 0)",
-  "Beta 1.5 dan kichikmi? (Beta < 1.5)",
-  "Bozor kapitalizatsiyasi $2 mlrd yoki ko'pmi? (Market Cap ≥ $2B)",
-  "Himoya qiluvchi sektordami? (Healthcare/Utilities/Consumer Staples/Energy)",
-  "Sanoatida top-10 ichidami? (bozor kap. bo'yicha)",
-  "Geosiyosiy/huquqiy muammo yo'qmi? (katta SEC ishi, jarima yo'q)",
-  "So'nggi 5 yilda S&P 500 dan ustun keldimi?",
-  "Kutilmagan risklar baholab ko'rildi? (har doim No)",
-  "Qo'shimcha shaxsiy tekshiruv o'tkazildi? (har doim No)",
-];
+const CLQ_T = {
+  uz: [
+    "Moliyaviy sog'lomlik ko'rsatkichlari o'rtacha yoki yuqori? (Current Ratio, D/E, Interest Coverage)",
+    "Rentabellik ko'rsatkichlari o'rtacha yoki yuqori? (Gross Margin, Oper. Margin, Net Margin)",
+    "Samaradorlik ko'rsatkichlari o'rtacha yoki yuqori? (ROA, ROE, ROIC)",
+    "O'sish ko'rsatkichlari o'rtacha yoki yuqori? (Revenue Growth, EPS Growth)",
+    "P/E bozor o'rtachasiga yaqin yoki kichik? (P/E ≤ 28)",
+    "O'tgan yil va chorakda foydali bo'lganmi? (Net Margin > 0)",
+    "Operatsion pul oqimi musbat bo'lganmi? (OCF > 0)",
+    "Beta 1.5 dan kichikmi? (Beta < 1.5)",
+    "Bozor kapitalizatsiyasi $2 mlrd yoki ko'pmi? (Market Cap ≥ $2B)",
+    "Himoya qiluvchi sektordami? (Healthcare/Utilities/Consumer Staples/Energy)",
+    "Sanoatida top-10 ichidami? (bozor kap. bo'yicha)",
+    "Geosiyosiy/huquqiy muammo yo'qmi? (katta SEC ishi, jarima yo'q)",
+    "So'nggi 5 yilda S&P 500 dan ustun keldimi?",
+    "Kutilmagan risklar baholab ko'rildi? (har doim Yo'q)",
+    "Qo'shimcha shaxsiy tekshiruv o'tkazildi? (har doim Yo'q)",
+  ],
+  en: [
+    "Are financial health metrics average or high? (Current Ratio, D/E, Interest Coverage)",
+    "Are profitability metrics average or high? (Gross Margin, Oper. Margin, Net Margin)",
+    "Are efficiency metrics average or high? (ROA, ROE, ROIC)",
+    "Are growth metrics average or high? (Revenue Growth, EPS Growth)",
+    "Is P/E near or below market average? (P/E ≤ 28)",
+    "Was it profitable last year and quarter? (Net Margin > 0)",
+    "Was operating cash flow positive? (OCF > 0)",
+    "Is Beta below 1.5? (Beta < 1.5)",
+    "Is market cap $2B or more? (Market Cap ≥ $2B)",
+    "Is it in a defensive sector? (Healthcare/Utilities/Consumer Staples/Energy)",
+    "Is it top-10 in its industry? (by market cap)",
+    "No geopolitical/legal issues? (no major SEC case or fine)",
+    "Outperformed S&P 500 in the last 5 years?",
+    "Have unexpected risks been assessed? (always No)",
+    "Was an additional personal check done? (always No)",
+  ],
+  ru: [
+    "Показатели фин. здоровья средние или высокие? (Current Ratio, D/E, Interest Coverage)",
+    "Показатели рентабельности средние или высокие? (Gross, Oper., Net Margin)",
+    "Показатели эффективности средние или высокие? (ROA, ROE, ROIC)",
+    "Показатели роста средние или высокие? (Revenue Growth, EPS Growth)",
+    "P/E близко или ниже среднерыночного? (P/E ≤ 28)",
+    "Была ли прибыль в прошлом году и квартале? (Net Margin > 0)",
+    "Операционный денежный поток был положительным? (OCF > 0)",
+    "Бета меньше 1.5? (Beta < 1.5)",
+    "Рыночная капитализация $2 млрд или больше? (Market Cap ≥ $2B)",
+    "В защитном секторе? (Healthcare/Utilities/Consumer Staples/Energy)",
+    "Топ-10 в отрасли? (по капитализации)",
+    "Нет геополитических/юридических проблем? (нет крупного дела SEC, штрафа)",
+    "Опередила S&P 500 за последние 5 лет?",
+    "Оценены ли неожиданные риски? (всегда Нет)",
+    "Проведена ли доп. личная проверка? (всегда Нет)",
+  ],
+  tr: [
+    "Finansal sağlık göstergeleri ortalama veya yüksek mi? (Current Ratio, D/E, Interest Coverage)",
+    "Kârlılık göstergeleri ortalama veya yüksek mi? (Gross, Oper., Net Margin)",
+    "Verimlilik göstergeleri ortalama veya yüksek mi? (ROA, ROE, ROIC)",
+    "Büyüme göstergeleri ortalama veya yüksek mi? (Revenue Growth, EPS Growth)",
+    "P/E piyasa ortalamasına yakın veya altında mı? (P/E ≤ 28)",
+    "Geçen yıl ve çeyrekte kârlı mıydı? (Net Margin > 0)",
+    "İşletme nakit akışı pozitif miydi? (OCF > 0)",
+    "Beta 1.5'ten küçük mü? (Beta < 1.5)",
+    "Piyasa değeri 2 milyar $ veya daha fazla mı? (Market Cap ≥ $2B)",
+    "Savunmacı sektörde mi? (Healthcare/Utilities/Consumer Staples/Energy)",
+    "Sektöründe ilk 10'da mı? (piyasa değerine göre)",
+    "Jeopolitik/hukuki sorun yok mu? (büyük SEC davası, ceza yok)",
+    "Son 5 yılda S&P 500'ü geçti mi?",
+    "Beklenmedik riskler değerlendirildi mi? (her zaman Hayır)",
+    "Ek kişisel kontrol yapıldı mı? (her zaman Hayır)",
+  ],
+  ar: [
+    "هل مؤشرات الصحة المالية متوسطة أو عالية؟ (Current Ratio, D/E, Interest Coverage)",
+    "هل مؤشرات الربحية متوسطة أو عالية؟ (Gross, Oper., Net Margin)",
+    "هل مؤشرات الكفاءة متوسطة أو عالية؟ (ROA, ROE, ROIC)",
+    "هل مؤشرات النمو متوسطة أو عالية؟ (Revenue Growth, EPS Growth)",
+    "هل P/E قريب من متوسط السوق أو أقل؟ (P/E ≤ 28)",
+    "هل كانت مربحة العام والربع الماضي؟ (Net Margin > 0)",
+    "هل كان التدفق النقدي التشغيلي إيجابياً؟ (OCF > 0)",
+    "هل بيتا أقل من 1.5؟ (Beta < 1.5)",
+    "هل القيمة السوقية 2 مليار دولار أو أكثر؟ (Market Cap ≥ $2B)",
+    "هل هي في قطاع دفاعي؟ (Healthcare/Utilities/Consumer Staples/Energy)",
+    "هل هي ضمن أفضل 10 في الصناعة؟ (حسب القيمة السوقية)",
+    "لا توجد مشاكل جيوسياسية/قانونية؟ (لا قضية SEC كبرى أو غرامة)",
+    "هل تفوقت على S&P 500 في آخر 5 سنوات؟",
+    "هل تم تقييم المخاطر غير المتوقعة؟ (دائماً لا)",
+    "هل تم إجراء فحص شخصي إضافي؟ (دائماً لا)",
+  ],
+};
+
 
 function ChecklistTab({lang="uz"}){
   const J=(JNL_T&&JNL_T[lang])||JNL_T.uz;
+  const CL_QUESTIONS=CLQ_T[lang]||CLQ_T.uz;
   const [history, setHistory] = useState([]);
   const [ticker, setTicker] = useState('');
   const [answers, setAnswers] = useState(Array(15).fill(false));
