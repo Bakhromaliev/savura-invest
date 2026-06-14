@@ -297,6 +297,7 @@ const HFL_T = {
     ],
     srcLabel: "Manba",
     srcText: "islommoliyasi.uz — Forex savdosi halolmi?",
+    bnTag1:"AAOIFI standartlari",bnTag2:"Spot savdo",bnTag3:"Diniy tekshiruv",bnCta:"Batafsil o'qish",bnSub:"Forex, CFD, fyuchers va aksiyalar bo'yicha to'liq shariat tahlili",
     noteLabel: "Buni qayerda uchratasiz",
   },
   en: {
@@ -326,6 +327,7 @@ const HFL_T = {
     ],
     srcLabel: "Source",
     srcText: "islommoliyasi.uz — Is Forex trading halal?",
+    bnTag1:"AAOIFI standards",bnTag2:"Spot trading",bnTag3:"Shariah review",bnCta:"Read more",bnSub:"A full Shariah analysis of Forex, CFD, futures and stocks",
     noteLabel: "Where you encounter this",
   },
   ru: {
@@ -355,6 +357,7 @@ const HFL_T = {
     ],
     srcLabel: "Источник",
     srcText: "islommoliyasi.uz — Халяльна ли торговля на Форекс?",
+    bnTag1:"Стандарты AAOIFI",bnTag2:"Спот-торговля",bnTag3:"Шариатский анализ",bnCta:"Подробнее",bnSub:"Полный шариатский анализ форекса, CFD, фьючерсов и акций",
     noteLabel: "Где вы это встречаете",
   },
   tr: {
@@ -384,6 +387,7 @@ const HFL_T = {
     ],
     srcLabel: "Kaynak",
     srcText: "islommoliyasi.uz — Forex ticareti helal mi?",
+    bnTag1:"AAOIFI standartları",bnTag2:"Spot ticaret",bnTag3:"Şer'i inceleme",bnCta:"Devamını oku",bnSub:"Forex, CFD, vadeli işlemler ve hisseler için tam şer'i analiz",
     noteLabel: "Bununla nerede karşılaşırsınız",
   },
   ar: {
@@ -413,6 +417,7 @@ const HFL_T = {
     ],
     srcLabel: "المصدر",
     srcText: "islommoliyasi.uz — هل تداول الفوركس حلال؟",
+    bnTag1:"معايير AAOIFI",bnTag2:"التداول الفوري",bnTag3:"مراجعة شرعية",bnCta:"اقرأ المزيد",bnSub:"تحليل شرعي كامل للفوركس وCFD والعقود الآجلة والأسهم",
     noteLabel: "أين تصادف هذا",
   },
 };
@@ -889,6 +894,88 @@ const FEAT_T = {
     {title:"Savura ERP",desc:"نظام ERP طوّرته علامة Savura — منصة لإدارة موارد المؤسسات."},
   ],
 };
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// HALAL BANNER — bosh sahifada "Treyding halolmi?" katta chaqiruv bloki
+// ═══════════════════════════════════════════════════════════════════════════
+function HalalBanner({setPage, lang}){
+  const H = HFL_T[lang]||HFL_T.uz;
+  const rtl = lang==="ar";
+  return(
+    <div style={{padding:"10px 24px 70px",maxWidth:1100,margin:"0 auto"}}>
+      <div onClick={()=>setPage("halal")}
+        role="button" tabIndex={0}
+        onKeyDown={(e)=>{ if(e.key==="Enter"||e.key===" ") setPage("halal"); }}
+        style={{position:"relative",overflow:"hidden",cursor:"pointer",borderRadius:24,
+          background:"linear-gradient(135deg,#0a2e1f 0%,#0d2137 55%,#0a1f3a 100%)",
+          border:"1px solid rgba(55,178,77,0.3)",
+          boxShadow:"0 16px 50px rgba(0,0,0,0.4)",
+          transition:"transform .25s ease, box-shadow .25s ease"}}
+        onMouseEnter={(e)=>{e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 22px 60px rgba(55,178,77,0.18)";}}
+        onMouseLeave={(e)=>{e.currentTarget.style.transform="translateY(0)";e.currentTarget.style.boxShadow="0 16px 50px rgba(0,0,0,0.4)";}}>
+
+        {/* Islomiy geometrik naqsh (SVG fon) */}
+        <svg width="100%" height="100%" viewBox="0 0 800 320" preserveAspectRatio="xMidYMid slice"
+          style={{position:"absolute",inset:0,opacity:0.13,pointerEvents:"none"}}>
+          <defs>
+            <pattern id="islamicStar" width="80" height="80" patternUnits="userSpaceOnUse" patternTransform="rotate(0)">
+              <g fill="none" stroke="#52d869" strokeWidth="1.1">
+                <path d="M40 8 L52 28 L74 28 L57 44 L64 66 L40 53 L16 66 L23 44 L6 28 L28 28 Z"/>
+                <circle cx="40" cy="40" r="30"/>
+                <rect x="22" y="22" width="36" height="36" transform="rotate(45 40 40)"/>
+              </g>
+            </pattern>
+            <radialGradient id="bnGlow" cx="78%" cy="30%" r="60%">
+              <stop offset="0%" stopColor="#37b24d" stopOpacity="0.35"/>
+              <stop offset="100%" stopColor="#37b24d" stopOpacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="800" height="320" fill="url(#islamicStar)"/>
+          <rect width="800" height="320" fill="url(#bnGlow)"/>
+        </svg>
+
+        {/* Kontent */}
+        <div dir={rtl?"rtl":"ltr"} style={{position:"relative",padding:"clamp(28px,5vw,48px) clamp(24px,5vw,52px)",textAlign:rtl?"right":"left"}}>
+          <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16,justifyContent:rtl?"flex-end":"flex-start"}}>
+            <span style={{fontSize:34,lineHeight:1}}>☪️</span>
+            <span style={{fontSize:11,letterSpacing:"2.5px",color:"#52d869",fontWeight:600,fontFamily:"'JetBrains Mono',monospace"}}>{H.badge}</span>
+          </div>
+
+          <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(28px,5.5vw,46px)",color:"#edf2ff",margin:"0 0 12px",lineHeight:1.08,letterSpacing:"0.5px"}}>
+            {H.title}
+          </h2>
+          <p style={{color:"#a8c0e8",fontSize:"clamp(13px,2vw,16px)",lineHeight:1.6,maxWidth:560,margin:rtl?"0 0 22px auto":"0 0 22px"}}>
+            {H.bnSub}
+          </p>
+
+          {/* 3 nishon */}
+          <div style={{display:"flex",flexWrap:"wrap",gap:10,marginBottom:26,justifyContent:rtl?"flex-end":"flex-start"}}>
+            {[H.bnTag1,H.bnTag2,H.bnTag3].map(function(tag,i){
+              return(
+                <span key={i} style={{display:"inline-flex",alignItems:"center",gap:7,
+                  background:"rgba(55,178,77,0.1)",border:"1px solid rgba(55,178,77,0.35)",
+                  borderRadius:30,padding:"7px 15px",fontSize:12.5,fontWeight:600,color:"#7ee89a"}}>
+                  <span style={{width:6,height:6,borderRadius:"50%",background:"#52d869",display:"inline-block"}}/>
+                  {tag}
+                </span>
+              );
+            })}
+          </div>
+
+          {/* CTA tugma */}
+          <div style={{display:"inline-flex",alignItems:"center",gap:9,
+            background:"linear-gradient(135deg,#37b24d,#2f7df6)",borderRadius:13,
+            color:"#fff",fontWeight:700,fontSize:15,padding:"13px 26px",
+            fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(55,178,77,0.32)"}}>
+            {H.bnCta} {rtl?"←":"→"}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 function FeaturesSection({setPage,lang}){
   const sf=getST(lang).feat;
@@ -3671,7 +3758,7 @@ export default function App(){
         ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:#060a14;} ::-webkit-scrollbar-thumb{background:#2f7df6;border-radius:2px;}
       `}</style>
       <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang} auth={auth}/>
-      {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/></>}
+      {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/><HalalBanner setPage={setPage} lang={lang}/></>}
       {page==="halal"&&<HalalPage lang={lang} setPage={setPage}/>}
       {page==="auth"&&<AuthScreen lang={lang} onClose={()=>setPage("home")}/>}
       {page==="admin"&&auth.profile?.is_admin&&<AdminPanel lang={lang} setPage={setPage} auth={auth}/>}
