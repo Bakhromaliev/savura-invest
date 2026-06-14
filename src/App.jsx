@@ -25,7 +25,7 @@ const AUTH_T = {
     expired:"Foydalanish muddati tugadi",expiredSub:"Obunangiz muddati tugagan. Uzaytirish uchun biz bilan bog'laning.",
     checkEmail:"Emailingizni tasdiqlang",checkEmailSub:"Sizga tasdiqlash xati yuborildi. Email'dagi havolani bosing, keyin shu yerga qaytib kiring.",
     passMismatch:"Parollar mos kelmadi",passShort:"Parol kamida 6 belgi bo'lsin",
-    welcome:"Xush kelibsiz",validTill:"Amal qiladi",contact:"Bog'lanish: @SavuraInvest"},
+    welcome:"Xush kelibsiz",validTill:"Amal qiladi",contact:"Bog'lanish: @SavuraInvest",adminTitle:"O'quvchilarni boshqarish",adminRefresh:"Yangilash",adminAll:"Hammasi",adminPending:"Kutilmoqda",adminActive:"Faol",adminExpired:"Muddati tugagan",adminNoStudents:"O'quvchi yo'q",adminLoading:"Yuklanmoqda...",adminApprove:"Tasdiqlash",adminExtend:"Uzaytirish",adminBlock:"Bloklash",adminReg:"Ro'yxat",adminExp:"Muddat",adminMonth:"oy",adminStatActive:"Faol",adminStatPending:"Kutilmoqda",adminStatExpired:"Muddati tugagan"},
   en:{login:"Login",signup:"Sign up",email:"Email",pass:"Password",pass2:"Confirm password",name:"Full name",
     loginBtn:"Login",signupBtn:"Sign up",noAcc:"No account?",hasAcc:"Have an account?",
     logout:"Logout",logoutConfirm:"Are you sure you want to log out?",locked:"This section is for students only",lockedSub:"Sign up and wait for admin approval to access.",
@@ -33,7 +33,7 @@ const AUTH_T = {
     expired:"Access expired",expiredSub:"Your subscription has expired. Contact us to extend.",
     checkEmail:"Confirm your email",checkEmailSub:"A confirmation link was sent. Click it, then log in here.",
     passMismatch:"Passwords do not match",passShort:"Password must be at least 6 characters",
-    welcome:"Welcome",validTill:"Valid until",contact:"Contact: @SavuraInvest"},
+    welcome:"Welcome",validTill:"Valid until",contact:"Contact: @SavuraInvest",adminTitle:"Manage students",adminRefresh:"Refresh",adminAll:"All",adminPending:"Pending",adminActive:"Active",adminExpired:"Expired",adminNoStudents:"No students",adminLoading:"Loading...",adminApprove:"Approve",adminExtend:"Extend",adminBlock:"Block",adminReg:"Registered",adminExp:"Expires",adminMonth:"mo",adminStatActive:"Active",adminStatPending:"Pending",adminStatExpired:"Expired"},
   ru:{login:"Вход",signup:"Регистрация",email:"Email",pass:"Пароль",pass2:"Повторите пароль",name:"Имя и фамилия",
     loginBtn:"Войти",signupBtn:"Зарегистрироваться",noAcc:"Нет аккаунта?",hasAcc:"Есть аккаунт?",
     logout:"Выйти",logoutConfirm:"Вы уверены, что хотите выйти?",locked:"Этот раздел только для учеников",lockedSub:"Зарегистрируйтесь и дождитесь одобрения администратора.",
@@ -41,7 +41,7 @@ const AUTH_T = {
     expired:"Срок доступа истёк",expiredSub:"Ваша подписка истекла. Свяжитесь с нами для продления.",
     checkEmail:"Подтвердите email",checkEmailSub:"Отправлена ссылка для подтверждения. Нажмите её, затем войдите здесь.",
     passMismatch:"Пароли не совпадают",passShort:"Пароль минимум 6 символов",
-    welcome:"Добро пожаловать",validTill:"Действует до",contact:"Связь: @SavuraInvest"},
+    welcome:"Добро пожаловать",validTill:"Действует до",contact:"Связь: @SavuraInvest",adminTitle:"Управление учениками",adminRefresh:"Обновить",adminAll:"Все",adminPending:"Ожидают",adminActive:"Активные",adminExpired:"Истёкшие",adminNoStudents:"Нет учеников",adminLoading:"Загрузка...",adminApprove:"Одобрить",adminExtend:"Продлить",adminBlock:"Заблокировать",adminReg:"Регистрация",adminExp:"Срок",adminMonth:"мес",adminStatActive:"Активен",adminStatPending:"Ожидает",adminStatExpired:"Истёк"},
   tr:{login:"Giriş",signup:"Kayıt ol",email:"E-posta",pass:"Şifre",pass2:"Şifreyi onayla",name:"Ad soyad",
     loginBtn:"Giriş",signupBtn:"Kayıt ol",noAcc:"Hesabın yok mu?",hasAcc:"Hesabın var mı?",
     logout:"Çıkış",logoutConfirm:"Çıkış yapmak istediğinizden emin misiniz?",locked:"Bu bölüm sadece öğrenciler için",lockedSub:"Erişim için kayıt olun ve yönetici onayını bekleyin.",
@@ -49,7 +49,7 @@ const AUTH_T = {
     expired:"Erişim süresi doldu",expiredSub:"Aboneliğiniz sona erdi. Uzatmak için bizimle iletişime geçin.",
     checkEmail:"E-postanızı onaylayın",checkEmailSub:"Onay bağlantısı gönderildi. Tıklayın, sonra buradan giriş yapın.",
     passMismatch:"Şifreler eşleşmiyor",passShort:"Şifre en az 6 karakter olmalı",
-    welcome:"Hoş geldiniz",validTill:"Geçerlilik",contact:"İletişim: @SavuraInvest"},
+    welcome:"Hoş geldiniz",validTill:"Geçerlilik",contact:"İletişim: @SavuraInvest",adminTitle:"Öğrenci yönetimi",adminRefresh:"Yenile",adminAll:"Tümü",adminPending:"Bekleyen",adminActive:"Aktif",adminExpired:"Süresi dolmuş",adminNoStudents:"Öğrenci yok",adminLoading:"Yükleniyor...",adminApprove:"Onayla",adminExtend:"Uzat",adminBlock:"Engelle",adminReg:"Kayıt",adminExp:"Süre",adminMonth:"ay",adminStatActive:"Aktif",adminStatPending:"Bekliyor",adminStatExpired:"Süresi doldu"},
   ar:{login:"دخول",signup:"تسجيل",email:"البريد",pass:"كلمة المرور",pass2:"تأكيد كلمة المرور",name:"الاسم الكامل",
     loginBtn:"دخول",signupBtn:"تسجيل",noAcc:"ليس لديك حساب؟",hasAcc:"لديك حساب؟",
     logout:"خروج",logoutConfirm:"هل تريد تسجيل الخروج؟",locked:"هذا القسم للطلاب فقط",lockedSub:"سجّل وانتظر موافقة المشرف للوصول.",
@@ -57,7 +57,7 @@ const AUTH_T = {
     expired:"انتهت صلاحية الوصول",expiredSub:"انتهى اشتراكك. تواصل معنا للتمديد.",
     checkEmail:"أكّد بريدك",checkEmailSub:"تم إرسال رابط التأكيد. اضغط عليه ثم سجّل الدخول هنا.",
     passMismatch:"كلمتا المرور غير متطابقتين",passShort:"كلمة المرور 6 أحرف على الأقل",
-    welcome:"مرحباً",validTill:"صالح حتى",contact:"تواصل: @SavuraInvest"},
+    welcome:"مرحباً",validTill:"صالح حتى",contact:"تواصل: @SavuraInvest",adminTitle:"إدارة الطلاب",adminRefresh:"تحديث",adminAll:"الكل",adminPending:"قيد الانتظار",adminActive:"نشط",adminExpired:"منتهي",adminNoStudents:"لا يوجد طلاب",adminLoading:"جارٍ التحميل...",adminApprove:"موافقة",adminExtend:"تمديد",adminBlock:"حظر",adminReg:"التسجيل",adminExp:"المدة",adminMonth:"شهر",adminStatActive:"نشط",adminStatPending:"قيد الانتظار",adminStatExpired:"منتهي"},
 };
 
 // useAuth — sessiya va profil holatini boshqaradi
@@ -877,18 +877,80 @@ function FeaturesSection({setPage,lang}){
 }
 
 // ─── CoursePage ─────────────────────────────────────────────────────────────
+const CRS_T = {
+  uz: {
+    statLessons:"Dars", statStock:"Aksiya", statVideo:"Darslik",
+    forTitle:"Bu kurs siz uchun, agar...",
+    modules: [
+      {title:"Investitsiya asoslari",desc:"Aksiya bozori nima, qanday ishlaydi. AQSh birjasi, kompaniyalar, aksiyalar turlari.",lessons:["Aksiya bozorga kirish","Qancha daromad ko'rish mumkin","Bozor mexanizmlari","Asosiy investitsion strategiyalar","Moliyaviy mustaqillikka yo'l"]},
+      {title:"Aksiyalarni tanlash",desc:"Qaysi aksiyani sotib olish kerak. Kompaniyani qanday baholash kerak. Sektor va sanoat tahlili.",lessons:["Kompaniya tahlili usullari","Sektor tahlili (GICS)","Himoyachi vs davriy sektorlar","Raqobatchilar tahlili","Top aksiyalar qanday topiladi"]},
+      {title:"Halol investitsiya",desc:"Shariat mezonlariga mos aksiyalarni aniqlash. AAOIFI standartlari. Halol skrining metodologiyasi.",lessons:["Shariat skriningi nima","Biznes faoliyati tekshiruvi","Moliyaviy nisbatlar","Nopok daromad tozalash","Amaliy misollar"]},
+      {title:"Fundamental tahlil",desc:"5 toifa bo'yicha chuqur tahlil: O'sish, Baholanish, Rentabellik, Moliyaviy sog'lomlik, Samaradorlik.",lessons:["O'sish: Daromad va EPS o'sishi","Baholanish: P/E, P/S, P/B, PEG","Rentabellik: Gross, Oper, Net marja","Moliyaviy sog'lomlik: Nisbatlar","Samaradorlik: ROA, ROE, ROIC"]},
+      {title:"Risk boshqaruvi",desc:"15 savolli risk modeli. Portfelni diversifikatsiya qilish. Beta, volatillik va xavfni baholash.",lessons:["15 savolli risk modeli","PAST/O'RTA/YUQORI/JUDA YUQORI","Portfel diversifikatsiyasi","Beta va volatillik","Stop-loss strategiyalari"]},
+      {title:"Real amaliyot",desc:"Haqiqiy akkauntni ochish. Birinchi aksiyani sotib olish. Portfelni monitoring qilish.",lessons:["Broker tanlash va akkaunt ochish","Birinchi aksiyani sotib olish","Portfelni monitoring","Hisobot o'qish","Uzoq muddatli strategiya"]},
+    ],
+    forItems:["Halol aksiyalarga investitsiya qilib, boylik orttirishni xohlasangiz","Moliyaviy savodxonligingizni oshirib, aksiya bozorini mukammal o'rganmoqchi bo'lsangiz","Oylik maoshga bog'lanmagan passiv daromad manbaiga ega bo'lishni istasangiz","Pulingiz siz uchun ishlashini xohlasangiz","Muvaffaqiyatli va ongli investitsiya strategiyalarini o'rganishni xohlasangiz"],
+  },
+  en: {
+    statLessons:"Lessons", statStock:"Stocks", statVideo:"Video",
+    forTitle:"This course is for you if...",
+    modules: [
+      {title:"Investment basics",desc:"What the stock market is and how it works. US exchanges, companies, types of shares.",lessons:["Introduction to the stock market","How much you can earn","Market mechanisms","Core investment strategies","The path to financial freedom"]},
+      {title:"Choosing stocks",desc:"Which stock to buy. How to evaluate a company. Sector and industry analysis.",lessons:["Company analysis methods","Sector analysis (GICS)","Defensive vs cyclical sectors","Competitor analysis","How to find top stocks"]},
+      {title:"Halal investing",desc:"Identifying Shariah-compliant stocks. AAOIFI standards. Halal screening methodology.",lessons:["What is Shariah screening","Business activity check","Financial ratios","Purifying impure income","Practical examples"]},
+      {title:"Fundamental analysis",desc:"In-depth analysis across 5 categories: Growth, Valuation, Profitability, Financial health, Efficiency.",lessons:["Growth: Revenue and EPS growth","Valuation: P/E, P/S, P/B, PEG","Profitability: Gross, Oper, Net margin","Financial health: Ratios","Efficiency: ROA, ROE, ROIC"]},
+      {title:"Risk management",desc:"15-question risk model. Portfolio diversification. Beta, volatility and risk assessment.",lessons:["15-question risk model","LOW/MEDIUM/HIGH/VERY HIGH","Portfolio diversification","Beta and volatility","Stop-loss strategies"]},
+      {title:"Real practice",desc:"Opening a real account. Buying your first stock. Monitoring your portfolio.",lessons:["Choosing a broker and opening an account","Buying your first stock","Monitoring your portfolio","Reading reports","Long-term strategy"]},
+    ],
+    forItems:["You want to build wealth by investing in halal stocks","You want to improve your financial literacy and master the stock market","You want a source of passive income not tied to a monthly salary","You want your money to work for you","You want to learn successful, conscious investment strategies"],
+  },
+  ru: {
+    statLessons:"Уроков", statStock:"Акций", statVideo:"Видео",
+    forTitle:"Этот курс для вас, если...",
+    modules: [
+      {title:"Основы инвестирования",desc:"Что такое фондовый рынок и как он работает. Биржи США, компании, виды акций.",lessons:["Введение в фондовый рынок","Сколько можно заработать","Механизмы рынка","Основные инвестиционные стратегии","Путь к финансовой свободе"]},
+      {title:"Выбор акций",desc:"Какую акцию покупать. Как оценить компанию. Анализ сектора и отрасли.",lessons:["Методы анализа компании","Анализ сектора (GICS)","Защитные vs циклические секторы","Анализ конкурентов","Как найти лучшие акции"]},
+      {title:"Халяльное инвестирование",desc:"Определение акций, соответствующих Шариату. Стандарты AAOIFI. Методология халяльного скрининга.",lessons:["Что такое шариатский скрининг","Проверка деятельности бизнеса","Финансовые коэффициенты","Очищение нечистого дохода","Практические примеры"]},
+      {title:"Фундаментальный анализ",desc:"Глубокий анализ по 5 категориям: Рост, Оценка, Рентабельность, Финансовое здоровье, Эффективность.",lessons:["Рост: Выручка и рост EPS","Оценка: P/E, P/S, P/B, PEG","Рентабельность: Валовая, Опер, Чистая маржа","Финансовое здоровье: Коэффициенты","Эффективность: ROA, ROE, ROIC"]},
+      {title:"Управление рисками",desc:"Модель риска из 15 вопросов. Диверсификация портфеля. Бета, волатильность и оценка риска.",lessons:["Модель риска из 15 вопросов","НИЗКИЙ/СРЕДНИЙ/ВЫСОКИЙ/ОЧЕНЬ ВЫСОКИЙ","Диверсификация портфеля","Бета и волатильность","Стратегии стоп-лосс"]},
+      {title:"Реальная практика",desc:"Открытие реального счёта. Покупка первой акции. Мониторинг портфеля.",lessons:["Выбор брокера и открытие счёта","Покупка первой акции","Мониторинг портфеля","Чтение отчётности","Долгосрочная стратегия"]},
+    ],
+    forItems:["Вы хотите создать капитал, инвестируя в халяльные акции","Вы хотите повысить финансовую грамотность и освоить фондовый рынок","Вы хотите источник пассивного дохода, не привязанный к зарплате","Вы хотите, чтобы ваши деньги работали на вас","Вы хотите изучить успешные, осознанные инвестиционные стратегии"],
+  },
+  tr: {
+    statLessons:"Ders", statStock:"Hisse", statVideo:"Video",
+    forTitle:"Bu kurs sizin için, eğer...",
+    modules: [
+      {title:"Yatırım temelleri",desc:"Borsa nedir ve nasıl çalışır. ABD borsaları, şirketler, hisse türleri.",lessons:["Borsaya giriş","Ne kadar kazanabilirsiniz","Piyasa mekanizmaları","Temel yatırım stratejileri","Finansal özgürlüğe giden yol"]},
+      {title:"Hisse seçimi",desc:"Hangi hisseyi almalı. Bir şirket nasıl değerlendirilir. Sektör ve endüstri analizi.",lessons:["Şirket analiz yöntemleri","Sektör analizi (GICS)","Savunmacı vs döngüsel sektörler","Rakip analizi","En iyi hisseler nasıl bulunur"]},
+      {title:"Helal yatırım",desc:"Şeriata uygun hisseleri belirleme. AAOIFI standartları. Helal tarama metodolojisi.",lessons:["Şeriat taraması nedir","İş faaliyeti kontrolü","Finansal oranlar","Helal olmayan geliri arındırma","Pratik örnekler"]},
+      {title:"Temel analiz",desc:"5 kategoride derin analiz: Büyüme, Değerleme, Kârlılık, Finansal sağlık, Verimlilik.",lessons:["Büyüme: Gelir ve EPS büyümesi","Değerleme: P/E, P/S, P/B, PEG","Kârlılık: Brüt, Faaliyet, Net marj","Finansal sağlık: Oranlar","Verimlilik: ROA, ROE, ROIC"]},
+      {title:"Risk yönetimi",desc:"15 soruluk risk modeli. Portföy çeşitlendirmesi. Beta, volatilite ve risk değerlendirmesi.",lessons:["15 soruluk risk modeli","DÜŞÜK/ORTA/YÜKSEK/ÇOK YÜKSEK","Portföy çeşitlendirmesi","Beta ve volatilite","Stop-loss stratejileri"]},
+      {title:"Gerçek uygulama",desc:"Gerçek hesap açma. İlk hissenizi alma. Portföyünüzü izleme.",lessons:["Aracı seçimi ve hesap açma","İlk hissenizi alma","Portföy izleme","Rapor okuma","Uzun vadeli strateji"]},
+    ],
+    forItems:["Helal hisselere yatırım yaparak servet oluşturmak istiyorsanız","Finansal okuryazarlığınızı artırıp borsayı tam öğrenmek istiyorsanız","Maaşa bağlı olmayan pasif gelir kaynağı istiyorsanız","Paranızın sizin için çalışmasını istiyorsanız","Başarılı ve bilinçli yatırım stratejileri öğrenmek istiyorsanız"],
+  },
+  ar: {
+    statLessons:"درس", statStock:"سهم", statVideo:"فيديو",
+    forTitle:"هذه الدورة لك إذا...",
+    modules: [
+      {title:"أساسيات الاستثمار",desc:"ما هو سوق الأسهم وكيف يعمل. بورصات أمريكا، الشركات، أنواع الأسهم.",lessons:["مقدمة في سوق الأسهم","كم يمكنك أن تربح","آليات السوق","استراتيجيات الاستثمار الأساسية","الطريق إلى الحرية المالية"]},
+      {title:"اختيار الأسهم",desc:"أي سهم تشتري. كيف تقيّم شركة. تحليل القطاع والصناعة.",lessons:["طرق تحليل الشركة","تحليل القطاع (GICS)","القطاعات الدفاعية مقابل الدورية","تحليل المنافسين","كيف تجد أفضل الأسهم"]},
+      {title:"الاستثمار الحلال",desc:"تحديد الأسهم المتوافقة مع الشريعة. معايير AAOIFI. منهجية الفحص الحلال.",lessons:["ما هو الفحص الشرعي","فحص نشاط العمل","النسب المالية","تطهير الدخل غير الحلال","أمثلة عملية"]},
+      {title:"التحليل الأساسي",desc:"تحليل معمّق في 5 فئات: النمو، التقييم، الربحية، الصحة المالية، الكفاءة.",lessons:["النمو: نمو الإيرادات وEPS","التقييم: P/E, P/S, P/B, PEG","الربحية: الإجمالي، التشغيلي، الصافي","الصحة المالية: النسب","الكفاءة: ROA, ROE, ROIC"]},
+      {title:"إدارة المخاطر",desc:"نموذج مخاطر من 15 سؤالاً. تنويع المحفظة. بيتا والتقلب وتقييم المخاطر.",lessons:["نموذج المخاطر من 15 سؤالاً","منخفض/متوسط/مرتفع/مرتفع جداً","تنويع المحفظة","بيتا والتقلب","استراتيجيات وقف الخسارة"]},
+      {title:"التطبيق العملي",desc:"فتح حساب حقيقي. شراء أول سهم. مراقبة المحفظة.",lessons:["اختيار الوسيط وفتح حساب","شراء أول سهم","مراقبة المحفظة","قراءة التقارير","استراتيجية طويلة الأمد"]},
+    ],
+    forItems:["تريد بناء الثروة عبر الاستثمار في الأسهم الحلال","تريد تحسين ثقافتك المالية وإتقان سوق الأسهم","تريد مصدر دخل سلبي غير مرتبط بالراتب الشهري","تريد أن يعمل مالك من أجلك","تريد تعلّم استراتيجيات استثمار ناجحة وواعية"],
+  },
+};
+
 function CoursePage({lang, setPage}){
   const sc=getST(lang).course;
   const sa=getST(lang).about;
-  const modules=[
-    {title:"Investitsiya asoslari",desc:"Aksiya bozori nima, qanday ishlaydi. AQSh birjasi, kompaniyalar, aktsiyalar turlari.",lessons:["Aksiya bozorga kirish","Qancha daromad ko'rish mumkin","Bozor mexanizmlari","Asosiy investitsion strategiyalar","Moliyaviy mustaqillikka yo'l"]},
-    {title:"Aksiyalarni tanlash",desc:"Qaysi aksiyani sotib olish kerak. Kompaniyani qanday baholash kerak. Sektor va sanoat tahlili.",lessons:["Kompaniya tahlili usullari","Sektor tahlili (GICS)","Himoyachi vs davriy sektorlar","Raqobatchilar tahlili","Top aksiyalar qanday topiladi"]},
-    {title:"Halol investitsiya",desc:"Shariat mezonlariga mos aksiyalarni aniqlash. AAOIFI standartlari. Halol skrining metodologiyasi.",lessons:["Shariat skriningi nima","Biznes faoliyati tekshiruvi","Moliyaviy nisbatlar","Nopok daromad tozalash","Amaliy misollar"]},
-    {title:"Fundamental tahlil",desc:"5 toifa bo'yicha chuqur tahlil: O'sish, Baholanish, Rentabellik, Moliyaviy sog'lomlik, Samaradorlik.",lessons:["O'sish: Daromad va EPS o'sishi","Baholanish: P/E, P/S, P/B, PEG","Rentabellik: Gross, Oper, Net marja","Moliyaviy sog'lomlik: Nisbatlar","Samaradorlik: ROA, ROE, ROIC"]},
-    {title:"Risk boshqaruvi",desc:"15 savolli risk modeli. Portfelni diversifikatsiya qilish. Beta, volatillik va xavfni baholash.",lessons:["15 savolli risk modeli","PAST/O'RTA/YUQORI/JUDA YUQORI","Portfel diversifikatsiyasi","Beta va volatillik","Stop-loss strategiyalari"]},
-    {title:"Real amaliyot",desc:"Haqiqiy akkauntni ochish. Birinchi aksiyani sotib olish. Portfelni monitoring qilish.",lessons:["Broker tanlash va akkaunt ochish","Birinchi aksiyani sotib olish","Portfelni monitoring","Hisobot o'qish","Uzoq muddatli strategiya"]},
-  ];
-  const forItems=["Halol aksiyalarga investitsiya qilib, boylik orttirishni xohlasangiz","Moliyaviy savodxonligingizni oshirib, aksiya bozorini mukammal o'rganmoqchi bo'lsangiz","Oylik maoshga bog'lanmagan passiv daromad manbaiga ega bo'lishni istasangiz","Pulingiz siz uchun ishlashini xohlasangiz","Muvaffaqiyatli va ongli investitsiya strategiyalarini o'rganishni xohlasangiz"];
+  const cr=CRS_T[lang]||CRS_T.uz;
+  const modules=cr.modules;
+  const forItems=cr.forItems;
   return(
     <div style={{paddingTop:80,minHeight:"100vh"}}>
       <div style={{background:"linear-gradient(160deg,rgba(6,10,20,1) 0%,rgba(11,22,40,1) 100%)",padding:"60px 24px 50px",borderBottom:`1px solid ${C.border}`}}>
@@ -897,7 +959,7 @@ function CoursePage({lang, setPage}){
           <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(26px,5vw,46px)",color:C.text,margin:"0 0 18px",lineHeight:1.1}}>{sc.title}</h1>
           <p style={{fontSize:16,color:C.dim,lineHeight:1.7,maxWidth:580,marginBottom:28}}>{sc.desc}</p>
           <div style={{display:"flex",gap:16,flexWrap:"wrap",marginBottom:32}}>
-            {[["6",sc.sl],["30+","Dars"],["100+","Aksiya"],["Video","Darslik"]].map(function(it){return(
+            {[["6",sc.sl],["30+",cr.statLessons],["100+",cr.statStock],["Video",cr.statVideo]].map(function(it){return(
               <div key={it[1]} style={{background:"rgba(47,125,246,0.08)",border:"1px solid rgba(47,125,246,0.18)",borderRadius:10,padding:"10px 16px",textAlign:"center"}}>
                 <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:18,color:C.blueLt}}>{it[0]}</div>
                 <div style={{fontSize:11,color:C.faint,marginTop:2}}>{it[1]}</div>
@@ -1658,35 +1720,35 @@ const JNL_T = {
     noEntry:"Yozuv yo'q. Yangi yozuv qo'shing.",noCheck:"Saqlangan tekshiruv yo'q.",noWatch:"Ro'yxat bo'sh.",
     newCheck:"+ Yangi tekshiruv", checkHist:"Tarix", addWatch:"+ Aksiya qo'shish",
     watchStatuses:{watching:"Kuzatilmoqda",bought:"Sotib olindi",passed:"O'tkazib yuborildi"},
-    trDate:"Sana",trTicker:"Ticker",trAction:"Harakat",trPrice:"Narx",trShares:"Miqdor",trPnl:"P&L",trResult:"Natija",trReason:"Sabab",trNotes:"Eslatma"},
+    jTotal:"Jami savdo",jOpen:"Ochiq pozitsiya",jProfit:"Foyda",jLoss:"Zarar",jPnl:"Umumiy P&L",fBuy:"Sotib olish",fSell:"Sotish",fQty:"Miqdor (dona)",fProfitable:"Foydali",fLoss:"Zararli",saveBtn:"Saqlash",noAns:"Yo'q",yesAns:"Ha",riskSave:"Saqlash",addBtn:"Qo'shish",trDate:"Sana",trTicker:"Ticker",trAction:"Harakat",trPrice:"Narx",trShares:"Miqdor",trPnl:"P&L",trResult:"Natija",trReason:"Sabab",trNotes:"Eslatma"},
   en:{title:"Trading Journal", tabs:["Journal","Checklist","Watchlist"],
     new:"+ New Entry", close:"Close", save:"Save", del:"CSV",
     stAll:"All",stOpen:"Open",stProfit:"Profit",stLoss:"Loss",
     noEntry:"No entries yet.",noCheck:"No saved checklists.",noWatch:"Watchlist empty.",
     newCheck:"+ New Check", checkHist:"History", addWatch:"+ Add Stock",
     watchStatuses:{watching:"Watching",bought:"Bought",passed:"Passed"},
-    trDate:"Date",trTicker:"Ticker",trAction:"Action",trPrice:"Price",trShares:"Qty",trPnl:"P&L",trResult:"Result",trReason:"Reason",trNotes:"Notes"},
+    jTotal:"Total trades",jOpen:"Open positions",jProfit:"Profit",jLoss:"Loss",jPnl:"Total P&L",fBuy:"Buy",fSell:"Sell",fQty:"Quantity (shares)",fProfitable:"Profit",fLoss:"Loss",saveBtn:"Save",noAns:"No",yesAns:"Yes",riskSave:"Save",addBtn:"Add",trDate:"Date",trTicker:"Ticker",trAction:"Action",trPrice:"Price",trShares:"Qty",trPnl:"P&L",trResult:"Result",trReason:"Reason",trNotes:"Notes"},
   tr:{title:"İşlem Günlüğü", tabs:["Günlük","Kontrol","İzleme"],
     new:"+ Yeni Kayıt", close:"Kapat", save:"Kaydet", del:"CSV",
     stAll:"Tümü",stOpen:"Açık",stProfit:"Kârlı",stLoss:"Zararlı",
     noEntry:"Kayıt yok.",noCheck:"Kayıtlı kontrol yok.",noWatch:"Liste boş.",
     newCheck:"+ Yeni Kontrol", checkHist:"Geçmiş", addWatch:"+ Hisse Ekle",
     watchStatuses:{watching:"İzleniyor",bought:"Alındı",passed:"Geçildi"},
-    trDate:"Tarih",trTicker:"Ticker",trAction:"İşlem",trPrice:"Fiyat",trShares:"Adet",trPnl:"K/Z",trResult:"Sonuç",trReason:"Neden",trNotes:"Not"},
+    jTotal:"Toplam işlem",jOpen:"Açık pozisyon",jProfit:"Kâr",jLoss:"Zarar",jPnl:"Toplam K/Z",fBuy:"Al",fSell:"Sat",fQty:"Miktar (adet)",fProfitable:"Kârlı",fLoss:"Zararlı",saveBtn:"Kaydet",noAns:"Hayır",yesAns:"Evet",riskSave:"Kaydet",addBtn:"Ekle",trDate:"Tarih",trTicker:"Ticker",trAction:"İşlem",trPrice:"Fiyat",trShares:"Adet",trPnl:"K/Z",trResult:"Sonuç",trReason:"Neden",trNotes:"Not"},
   ru:{title:"Торговый Журнал", tabs:["Журнал","Чеклист","Наблюдение"],
     new:"+ Запись", close:"Закрыть", save:"Сохранить", del:"CSV",
     stAll:"Все",stOpen:"Открыт.",stProfit:"Прибыль",stLoss:"Убыток",
     noEntry:"Записей нет.",noCheck:"Чеклистов нет.",noWatch:"Список пуст.",
     newCheck:"+ Новый чеклист", checkHist:"История", addWatch:"+ Добавить",
     watchStatuses:{watching:"Наблюдение",bought:"Куплено",passed:"Пропущено"},
-    trDate:"Дата",trTicker:"Тикер",trAction:"Действие",trPrice:"Цена",trShares:"Кол.",trPnl:"П/У",trResult:"Итог",trReason:"Причина",trNotes:"Заметки"},
+    jTotal:"Всего сделок",jOpen:"Открытые",jProfit:"Прибыль",jLoss:"Убыток",jPnl:"Общий П/У",fBuy:"Покупка",fSell:"Продажа",fQty:"Количество (шт)",fProfitable:"Прибыль",fLoss:"Убыток",saveBtn:"Сохранить",noAns:"Нет",yesAns:"Да",riskSave:"Сохранить",addBtn:"Добавить",trDate:"Дата",trTicker:"Тикер",trAction:"Действие",trPrice:"Цена",trShares:"Кол.",trPnl:"П/У",trResult:"Итог",trReason:"Причина",trNotes:"Заметки"},
   ar:{title:"مفكرة التداول", tabs:["اليومية","القائمة","المراقبة"],
     new:"+ إضافة", close:"إغلاق", save:"حفظ", del:"CSV",
     stAll:"الكل",stOpen:"مفتوح",stProfit:"ربح",stLoss:"خسارة",
     noEntry:"لا توجد إدخالات.",noCheck:"لا توجد قوائم.",noWatch:"القائمة فارغة.",
     newCheck:"+ قائمة جديدة", checkHist:"السجل", addWatch:"+ إضافة سهم",
     watchStatuses:{watching:"مراقبة",bought:"تم الشراء",passed:"تم التجاوز"},
-    trDate:"التاريخ",trTicker:"الرمز",trAction:"الإجراء",trPrice:"السعر",trShares:"الكمية",trPnl:"ر/خ",trResult:"النتيجة",trReason:"السبب",trNotes:"ملاحظة"},
+    jTotal:"إجمالي الصفقات",jOpen:"المراكز المفتوحة",jProfit:"ربح",jLoss:"خسارة",jPnl:"إجمالي ر/خ",fBuy:"شراء",fSell:"بيع",fQty:"الكمية (سهم)",fProfitable:"رابح",fLoss:"خاسر",saveBtn:"حفظ",noAns:"لا",yesAns:"نعم",riskSave:"حفظ",addBtn:"إضافة",trDate:"التاريخ",trTicker:"الرمز",trAction:"الإجراء",trPrice:"السعر",trShares:"الكمية",trPnl:"ر/خ",trResult:"النتيجة",trReason:"السبب",trNotes:"ملاحظة"},
 };
 
 const DMO_T = {
@@ -1701,7 +1763,7 @@ const DMO_T = {
     noPos:"Hozircha aktiv yo'q.",noHist:"Yopilgan savdo yo'q.",
     colTicker:"Ticker",colQty:"Dona",colEntry:"Kirish",colCur:"Hozir",colPnl:"P&L",colPct:"P&L%",colSl:"SL",colTp:"TP",
     histEntry:"Kirish",histExit:"Chiqish",histQty:"Dona",histPnl:"P&L",histReason:"Sabab",histDate:"Sana",
-    startLabel:["Start","O'rtacha","Standart","Professional"]},
+    newAcc:"+ Yangi hisob",loading:"Yuklanmoqda...",browserSave:"Brauzerda saqlanadi. 3 ta hisob ocha olasiz.",accName:"Hisob nomi",curPrice:"Joriy narx",max:"Max",dona:"dona",noFunds:"Mablag' yetarli emas!",delAccQ:"hisobini o'chirasizmi?",sellM:{title:"Sotish",full:"To'liq",own:"Sizda",sellQ:"Sotiladi",get:"Olinadi"},startLabel:["Start","O'rtacha","Standart","Professional"]},
   en:{title:"Demo Trading",setup:"Open Account",
     bal:"Portfolio",cash:"Cash",invest:"Invested",opnl:"Open P&L",start:"Starting",
     refresh:"Refresh",reset:"Reset",resetQ:"Reset demo account?",
@@ -1713,7 +1775,7 @@ const DMO_T = {
     noPos:"No open positions.",noHist:"No closed trades.",
     colTicker:"Ticker",colQty:"Qty",colEntry:"Entry",colCur:"Current",colPnl:"P&L",colPct:"P&L%",colSl:"SL",colTp:"TP",
     histEntry:"Entry",histExit:"Exit",histQty:"Qty",histPnl:"P&L",histReason:"Reason",histDate:"Date",
-    startLabel:["Starter","Moderate","Standard","Professional"]},
+    newAcc:"+ New account",loading:"Loading...",browserSave:"Saved in browser. You can open up to 3 accounts.",accName:"Account name",curPrice:"Current price",max:"Max",dona:"shares",noFunds:"Insufficient funds!",delAccQ:"delete this account?",sellM:{title:"Sell",full:"Full",own:"You own",sellQ:"Selling",get:"Proceeds"},startLabel:["Starter","Moderate","Standard","Professional"]},
   tr:{title:"Demo Ticaret",setup:"Hesap Aç",
     bal:"Portföy",cash:"Nakit",invest:"Yatırım",opnl:"Açık K/Z",start:"Başlangıç",
     refresh:"Yenile",reset:"Sıfırla",resetQ:"Demo hesabı sıfırlayın mı?",
@@ -1725,7 +1787,7 @@ const DMO_T = {
     noPos:"Açık pozisyon yok.",noHist:"Kapalı işlem yok.",
     colTicker:"Ticker",colQty:"Adet",colEntry:"Giriş",colCur:"Güncel",colPnl:"K/Z",colPct:"K/Z%",colSl:"SL",colTp:"TP",
     histEntry:"Giriş",histExit:"Çıkış",histQty:"Adet",histPnl:"K/Z",histReason:"Sebep",histDate:"Tarih",
-    startLabel:["Başlangıç","Orta","Standart","Profesyonel"]},
+    newAcc:"+ Yeni hesap",loading:"Yükleniyor...",browserSave:"Tarayıcıda saklanır. En fazla 3 hesap açabilirsiniz.",accName:"Hesap adı",curPrice:"Güncel fiyat",max:"Max",dona:"adet",noFunds:"Yetersiz bakiye!",delAccQ:"hesabını silmek istiyor musunuz?",sellM:{title:"Sat",full:"Tümü",own:"Sahip",sellQ:"Satılacak",get:"Alınacak"},startLabel:["Başlangıç","Orta","Standart","Profesyonel"]},
   ru:{title:"Демо Торговля",setup:"Открыть счёт",
     bal:"Портфель",cash:"Наличные",invest:"Инвестиции",opnl:"Незакр. П/У",start:"Начальный",
     refresh:"Обновить",reset:"Сбросить",resetQ:"Сбросить демо-счёт?",
@@ -1737,7 +1799,7 @@ const DMO_T = {
     noPos:"Нет открытых позиций.",noHist:"Нет закрытых сделок.",
     colTicker:"Тикер",colQty:"Кол.",colEntry:"Вход",colCur:"Текущая",colPnl:"П/У",colPct:"П/У%",colSl:"СЛ",colTp:"ТП",
     histEntry:"Вход",histExit:"Выход",histQty:"Кол.",histPnl:"П/У",histReason:"Причина",histDate:"Дата",
-    startLabel:["Начальный","Средний","Стандарт","Профессионал"]},
+    newAcc:"+ Новый счёт",loading:"Загрузка...",browserSave:"Сохраняется в браузере. До 3 счетов.",accName:"Имя счёта",curPrice:"Тек. цена",max:"Макс",dona:"шт",noFunds:"Недостаточно средств!",delAccQ:"удалить этот счёт?",sellM:{title:"Продать",full:"Всё",own:"У вас",sellQ:"Продаётся",get:"Получите"},startLabel:["Начальный","Средний","Стандарт","Профессионал"]},
   ar:{title:"التداول التجريبي",setup:"فتح الحساب",
     bal:"المحفظة",cash:"نقداً",invest:"مستثمر",opnl:"ر/خ مفتوح",start:"البداية",
     refresh:"تحديث",reset:"إعادة",resetQ:"إعادة تعيين الحساب التجريبي؟",
@@ -1749,7 +1811,7 @@ const DMO_T = {
     noPos:"لا توجد مراكز مفتوحة.",noHist:"لا توجد صفقات مغلقة.",
     colTicker:"الرمز",colQty:"الكمية",colEntry:"الدخول",colCur:"الحالي",colPnl:"ر/خ",colPct:"ر/خ%",colSl:"SL",colTp:"TP",
     histEntry:"الدخول",histExit:"الخروج",histQty:"الكمية",histPnl:"ر/خ",histReason:"السبب",histDate:"التاريخ",
-    startLabel:["مبتدئ","متوسط","قياسي","محترف"]},
+    newAcc:"+ حساب جديد",loading:"جارٍ التحميل...",browserSave:"يُحفظ في المتصفح. حتى 3 حسابات.",accName:"اسم الحساب",curPrice:"السعر الحالي",max:"الأقصى",dona:"سهم",noFunds:"رصيد غير كافٍ!",delAccQ:"حذف هذا الحساب؟",sellM:{title:"بيع",full:"الكل",own:"لديك",sellQ:"سيتم بيع",get:"ستحصل على"},startLabel:["مبتدئ","متوسط","قياسي","محترف"]},
 };
 // ─── localStorage helpers ────────────────────────────────────────────────────
 function lsGet(key){ try{return JSON.parse(localStorage.getItem(key))||[];}catch{return[];} }
@@ -1925,11 +1987,11 @@ function JournalTab({lang="uz"}){
       {/* Stats row */}
       <div style={{display:'flex',gap:12,marginBottom:20,flexWrap:'wrap'}}>
         {[
-          ['Jami savdo',entries.length,''],
-          ['Ochiq pozitsiya',entries.filter(e=>e.result==='OPEN').length,''],
-          ['Foyda',entries.filter(e=>e.result==='PROFIT').length,C.green],
-          ['Zarar',entries.filter(e=>e.result==='LOSS').length,C.red],
-          ['Umumiy P&L',(totalPnl>=0?'+':'')+totalPnl.toFixed(0)+' $', totalPnl>=0?C.green:C.red],
+          [J.jTotal,entries.length,''],
+          [J.jOpen,entries.filter(e=>e.result==='OPEN').length,''],
+          [J.jProfit,entries.filter(e=>e.result==='PROFIT').length,C.green],
+          [J.jLoss,entries.filter(e=>e.result==='LOSS').length,C.red],
+          [J.jPnl,(totalPnl>=0?'+':'')+totalPnl.toFixed(0)+' $', totalPnl>=0?C.green:C.red],
         ].map(([l,v,col])=>(
           <div key={l} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:'12px 18px',flex:1,minWidth:120}}>
             <div style={{fontSize:11,color:C.faint,marginBottom:4}}>{l}</div>
@@ -1947,7 +2009,7 @@ function JournalTab({lang="uz"}){
         {['ALL','OPEN','PROFIT','LOSS'].map(f=>(
           <button key={f} onClick={()=>setFilter(f)}
             style={{background:filter===f?'rgba(47,125,246,0.2)':'transparent',border:`1px solid ${filter===f?C.blue:C.border}`,borderRadius:8,color:filter===f?C.blueLt:C.dim,fontSize:12,padding:'7px 14px',cursor:'pointer'}}>
-            {f==='ALL'?'Barchasi':f==='OPEN'?"Ochiq":f==='PROFIT'?'Foydali':'Zararli'}
+            {f==='ALL'?J.stAll:f==='OPEN'?J.stOpen:f==='PROFIT'?J.fProfitable:J.fLoss}
           </button>
         ))}
         <button onClick={()=>csvExport(entries,'savura_journal.csv')}
@@ -1967,20 +2029,20 @@ function JournalTab({lang="uz"}){
               <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Harakat</div>
               <select value={form.action} onChange={e=>setForm(f=>({...f,action:e.target.value}))}
                 style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%'}}>
-                <option value="BUY">BUY — Sotib olish</option>
-                <option value="SELL">SELL — Sotish</option>
+                <option value="BUY">BUY — {J.fBuy}</option>
+                <option value="SELL">SELL — {J.fSell}</option>
               </select>
             </div>
             <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Narx ($)</div>{inp('price','number','195.50')}</div>
-            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Miqdor (dona)</div>{inp('shares','number','10')}</div>
+            <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>{J.fQty}</div>{inp('shares','number','10')}</div>
             <div><div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>P&L ($)</div>{inp('pnl','number','+150')}</div>
             <div>
               <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Natija</div>
               <select value={form.result} onChange={e=>setForm(f=>({...f,result:e.target.value}))}
                 style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%'}}>
                 <option value="OPEN">Ochiq (hali davom etmoqda)</option>
-                <option value="PROFIT">Foydali ✓</option>
-                <option value="LOSS">Zararli ✗</option>
+                <option value="PROFIT">{J.fProfitable} ✓</option>
+                <option value="LOSS">{J.fLoss} ✗</option>
               </select>
             </div>
           </div>
@@ -1998,7 +2060,7 @@ function JournalTab({lang="uz"}){
           </div>
           <button onClick={save}
             style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'10px 28px',cursor:'pointer'}}>
-            Saqlash
+            {J.saveBtn}
           </button>
         </div>
       )}
@@ -2124,7 +2186,7 @@ function ChecklistTab({lang="uz"}){
             <div style={{background:`rgba(0,0,0,0.3)`,border:`2px solid ${risk.color}`,borderRadius:12,padding:'8px 16px',textAlign:'center'}}>
               <div style={{fontSize:10,color:C.faint,marginBottom:2}}>RISK DARAJASI</div>
               <div style={{fontWeight:800,fontSize:18,color:risk.color,fontFamily:"'JetBrains Mono',monospace"}}>{risk.level}</div>
-              <div style={{fontSize:11,color:C.faint}}>{noCount}/15 Yo'q</div>
+              <div style={{fontSize:11,color:C.faint}}>{noCount}/15 {J.noAns}</div>
             </div>
           </div>
 
@@ -2147,7 +2209,7 @@ function ChecklistTab({lang="uz"}){
                     <span style={{fontSize:12.5,color:answers[i]||last2?C.dim:C.text,lineHeight:1.5}}>{q}</span>
                   </div>
                   <span style={{fontSize:12,fontWeight:700,color:last2?C.red:answers[i]?C.green:C.faint,flexShrink:0}}>
-                    {last2?"Yo'q":answers[i]?"Ha":"Yo'q"}
+                    {last2?J.noAns:answers[i]?J.yesAns:J.noAns}
                   </span>
                 </div>
               );
@@ -2161,7 +2223,7 @@ function ChecklistTab({lang="uz"}){
           </div>
           <button onClick={saveCheck} disabled={!ticker.trim()}
             style={{background:ticker.trim()?`linear-gradient(135deg,${C.blue},${C.green})`:'rgba(255,255,255,0.05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'11px 28px',cursor:ticker.trim()?'pointer':'default'}}>
-            Saqlash — {risk.level}
+            {J.saveBtn} — {risk.level}
           </button>
         </div>
       )}
@@ -2181,7 +2243,7 @@ function ChecklistTab({lang="uz"}){
                   </div>
                   <div style={{flex:1}}>
                     <span style={{border:`1.5px solid ${col}`,borderRadius:8,padding:'3px 10px',fontSize:12,fontWeight:700,color:col}}>{e.riskLevel}</span>
-                    <span style={{fontSize:12,color:C.dim,marginLeft:10}}>{yes} Ha / {e.noCount} Yo'q</span>
+                    <span style={{fontSize:12,color:C.dim,marginLeft:10}}>{yes} {J.yesAns} / {e.noCount} {J.noAns}</span>
                     {e.notes&&<div style={{fontSize:12,color:C.faint,marginTop:4}}>{e.notes}</div>}
                   </div>
                   <button onClick={()=>del(e.id)} style={{background:'transparent',border:'none',color:C.faint,cursor:'pointer',fontSize:16}}>🗑</button>
@@ -2260,7 +2322,7 @@ function WatchlistTab({lang="uz"}){
   }
 
   const STATUS_COL = {watching:C.amber, bought:C.green, passed:C.faint};
-  const STATUS_LBL = {watching:'Kuzatilmoqda 👁', bought:"Sotib olindi ✓", passed:'O\'tkazib yuborildi ✗'};
+  const STATUS_LBL = {watching:J.watchStatuses.watching+' 👁', bought:J.watchStatuses.bought+' ✓', passed:J.watchStatuses.passed+' ✗'};
   const inp = (f,ph='')=>(
     <input value={form[f]} onChange={e=>setForm(x=>({...x,[f]:e.target.value}))} placeholder={ph}
       style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
@@ -2284,7 +2346,7 @@ function WatchlistTab({lang="uz"}){
 
       {showForm&&(
         <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:'18px',marginBottom:20}}>
-          <div style={{fontSize:12,fontWeight:700,color:C.text,marginBottom:14}}>Kuzatuv ro'yxatiga qo'shish</div>
+          <div style={{fontSize:12,fontWeight:700,color:C.text,marginBottom:14}}>{J.addWatch}</div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))',gap:10,marginBottom:12}}>
             <div>
               <div style={{fontSize:10.5,color:C.faint,marginBottom:4,display:'flex',gap:8,alignItems:'center'}}>
@@ -2321,7 +2383,7 @@ function WatchlistTab({lang="uz"}){
           </div>
           <button onClick={save}
             style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'10px 28px',cursor:'pointer'}}>
-            Qo'shish
+            {J.addBtn}
           </button>
         </div>
       )}
@@ -2550,7 +2612,7 @@ function DemoPage({lang="uz", setPage}){
   }
 
   function deleteAcc(i){
-    if(!window.confirm('"'+(accs[i]?.name||'Hisob')+'" hisobini o\'chirasizmi?')) return;
+    if(!window.confirm((accs[i]?.name||'')+' '+D.delAccQ)) return;
     const next=accs.filter((_,idx)=>idx!==i); setAccs(next); saveAccs(next);
     const ni=Math.max(0,Math.min(activeIdx,next.length-1)); setActiveIdx(ni); saveActive(ni);
   }
@@ -2651,7 +2713,7 @@ function DemoPage({lang="uz", setPage}){
     const shr=effShares();
     if(!demo||!buyForm.price||!shr) return;
     const cost=buyForm.price*shr;
-    if(cost>demo.cash){ alert("Mablag' yetarli emas!"); return; }
+    if(cost>demo.cash){ alert(D.noFunds); return; }
     const pos={id:Date.now(),ticker:buyForm.ticker,shares:shr,buyPrice:buyForm.price,buyDate:new Date().toISOString().split('T')[0],sl:buyForm.sl?parseFloat(buyForm.sl):null,tp:buyForm.tp?parseFloat(buyForm.tp):null};
     cloudAddJournal({
       date:pos.buyDate, ticker:pos.ticker, action:'BUY',
@@ -2728,7 +2790,7 @@ function DemoPage({lang="uz", setPage}){
       <div style={{padding:'140px 24px',maxWidth:520,margin:'0 auto',textAlign:'center'}}>
         {setPage&&<div style={{marginBottom:14,textAlign:'left'}}><BackBtn setPage={setPage} lang={lang}/></div>}
         <div style={{width:36,height:36,border:`3px solid ${C.border}`,borderTopColor:C.blue,borderRadius:'50%',margin:'0 auto',animation:'spin 0.8s linear infinite'}}/>
-        <div style={{color:C.faint,fontSize:13,marginTop:16}}>Yuklanmoqda...</div>
+        <div style={{color:C.faint,fontSize:13,marginTop:16}}>{D.loading}</div>
       </div>
     );
   }
@@ -2741,8 +2803,8 @@ function DemoPage({lang="uz", setPage}){
       <div style={{fontSize:10,letterSpacing:'2px',color:C.faint,marginBottom:8}}>SAVURA INVEST</div>
         <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:'0 0 8px'}}>{D.setup}</h2>
         <p style={{color:C.dim,fontSize:13,marginBottom:8,lineHeight:1.6}}>Haqiqiy pul yo'q — real narxlarda mashq qiling.</p>
-        <p style={{color:C.faint,fontSize:11,marginBottom:24}}>Brauzerda saqlanadi. 3 tagacha hisob ocha olasiz.</p>
-        <input value={newName} onChange={e=>setNewName(e.target.value)} placeholder="Hisob nomi (ixtiyoriy: Agressiv, Konservativ...)"
+        <p style={{color:C.faint,fontSize:11,marginBottom:24}}>{D.browserSave}</p>
+        <input value={newName} onChange={e=>setNewName(e.target.value)} placeholder={D.accName}
           style={{width:'100%',background:'rgba(12,20,38,.85)',border:`1px solid ${C.border}`,borderRadius:10,color:C.text,padding:'11px 14px',fontSize:13,outline:'none',marginBottom:14,boxSizing:'border-box',fontFamily:"'Sora',sans-serif"}}/>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
           {[1000,3000,5000,10000].map((amt,idx)=>(
@@ -2818,7 +2880,7 @@ function DemoPage({lang="uz", setPage}){
                     ?{...m,qty:String(m.pos.shares)}
                     :{...m,amt:String(Math.floor(cp*m.pos.shares*100)/100)})}
                   style={{marginBottom:12,background:'rgba(229,72,77,0.07)',border:`1px dashed rgba(229,72,77,0.35)`,borderRadius:7,color:C.red,fontSize:10.5,fontWeight:600,padding:'4px 10px',cursor:'pointer',fontFamily:"'Sora',sans-serif"}}>
-                  Max: {m.mode==='qty'?m.pos.shares+' dona':'$'+(cp*m.pos.shares).toFixed(2)}
+                  {D.max}: {m.mode==='qty'?m.pos.shares+' '+D.dona:'$'+(cp*m.pos.shares).toFixed(2)}
                 </button>
               )}
               {shr>0&&(
@@ -2873,13 +2935,13 @@ function DemoPage({lang="uz", setPage}){
             style={{padding:'8px 14px',borderRadius:12,background:'transparent',border:`1.5px dashed ${C.border}`,color:C.faint,cursor:'pointer',fontSize:12.5,fontWeight:600,transition:'all .2s'}}
             onMouseEnter={e=>{e.currentTarget.style.borderColor=C.green;e.currentTarget.style.color=C.greenLt;}}
             onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.color=C.faint;}}>
-            + Yangi hisob
+            {D.newAcc}
           </button>
         )}
 
         {showNew&&(
           <div style={{display:'flex',gap:7,alignItems:'center',flexWrap:'wrap',padding:'8px 12px',background:C.card,border:`1px solid ${C.border}`,borderRadius:12}}>
-            <input value={newName} onChange={e=>setNewName(e.target.value)} placeholder="Hisob nomi"
+            <input value={newName} onChange={e=>setNewName(e.target.value)} placeholder={D.accName}
               style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'6px 10px',fontSize:12,outline:'none',width:130,fontFamily:"'Sora',sans-serif"}}/>
             {[1000,3000,5000,10000].map(function(amt){
               return(
@@ -2960,7 +3022,7 @@ function DemoPage({lang="uz", setPage}){
           </div>
           {buyForm.price&&(
             <div style={{background:'rgba(47,125,246,0.08)',border:`1px solid rgba(47,125,246,0.2)`,borderRadius:10,padding:'9px 12px',marginBottom:12}}>
-              <div style={{fontSize:10,color:C.faint}}>Joriy narx</div>
+              <div style={{fontSize:10,color:C.faint}}>{D.curPrice}</div>
               <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:800,fontSize:22,color:C.blueLt}}>${buyForm.price.toFixed(2)}</div>
             </div>
           )}
@@ -2987,14 +3049,14 @@ function DemoPage({lang="uz", setPage}){
                   else setBuyForm(f=>({...f,shares:String(Math.floor(demo.cash/buyForm.price*10000)/10000)}));
                 }}
                 style={{marginTop:5,background:'rgba(47,125,246,0.08)',border:`1px dashed rgba(74,163,255,0.3)`,borderRadius:7,color:C.blueLt,fontSize:10.5,fontWeight:600,padding:'4px 10px',cursor:'pointer',fontFamily:"'Sora',sans-serif"}}>
-                Max: {buyMode==='amt'
+                {D.max}: {buyMode==='amt'
                   ? '$'+demo.cash.toFixed(2)
-                  : (Math.floor(demo.cash/buyForm.price*10000)/10000)+' dona'}
+                  : (Math.floor(demo.cash/buyForm.price*10000)/10000)+' '+D.dona}
               </button>
             )}
             {buyForm.price&&effShares()>0&&(
               <div style={{fontSize:11,color:C.dim,marginTop:3}}>
-                {buyMode==='amt'&&<span>≈ <b style={{color:C.blueLt}}>{effShares()}</b> dona{'  ·  '}</span>}
+                {buyMode==='amt'&&<span>≈ <b style={{color:C.blueLt}}>{effShares()}</b> {D.dona}{'  ·  '}</span>}
                 {D.total}: <b style={{color:C.text}}>${(buyForm.price*effShares()).toFixed(2)}</b>
                 {'  '}({D.cash}: <span style={{color:demo.cash<buyForm.price*effShares()?C.red:C.green}}>${demo.cash.toFixed(0)}</span>)
               </div>
@@ -3270,6 +3332,7 @@ function LockGate({state, lang, setPage, children}){
 // ADMIN PANEL — o'quvchilarni tasdiqlash va muddat belgilash
 // ═══════════════════════════════════════════════════════════════════════════
 function AdminPanel({lang,setPage,auth}){
+  const T=AUTH_T[lang]||AUTH_T.uz;
   const [students,setStudents]=useState([]);
   const [loading,setLoading]=useState(true);
   const [filter,setFilter]=useState("all");
@@ -3313,9 +3376,9 @@ function AdminPanel({lang,setPage,auth}){
 
   const stat=(s)=>{
     if(s.is_admin) return {t:"ADMIN",c:C.amber};
-    if(!s.approved) return {t:"Kutilmoqda",c:C.dim};
-    if(s.expires_at&&new Date(s.expires_at)<=new Date()) return {t:"Muddati tugagan",c:C.red};
-    return {t:"Faol",c:C.green};
+    if(!s.approved) return {t:T.adminStatPending,c:C.dim};
+    if(s.expires_at&&new Date(s.expires_at)<=new Date()) return {t:T.adminStatExpired,c:C.red};
+    return {t:T.adminStatActive,c:C.green};
   };
 
   const counts={
@@ -3331,15 +3394,15 @@ function AdminPanel({lang,setPage,auth}){
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:18,flexWrap:"wrap",gap:10}}>
         <div>
           <div style={{fontSize:10,letterSpacing:"2px",color:C.amber,marginBottom:4}}>⚙️ ADMIN PANEL</div>
-          <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:22,color:C.text,margin:0}}>O'quvchilarni boshqarish</h2>
+          <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:22,color:C.text,margin:0}}>{T.adminTitle}</h2>
         </div>
-        <button onClick={load} style={{background:"rgba(47,125,246,0.1)",border:`1px solid ${C.border}`,borderRadius:8,color:C.blueLt,fontSize:12,padding:"7px 14px",cursor:"pointer"}}>↻ Yangilash</button>
+        <button onClick={load} style={{background:"rgba(47,125,246,0.1)",border:`1px solid ${C.border}`,borderRadius:8,color:C.blueLt,fontSize:12,padding:"7px 14px",cursor:"pointer"}}>↻ {T.adminRefresh}</button>
       </div>
 
       {msg&&<div style={{background:"rgba(55,178,77,0.12)",border:`1px solid rgba(55,178,77,0.35)`,borderRadius:10,color:C.greenLt,fontSize:13,padding:"10px 14px",marginBottom:14}}>{msg}</div>}
 
       <div style={{display:"flex",gap:6,marginBottom:16,flexWrap:"wrap"}}>
-        {[["all","Hammasi",counts.all],["pending","Kutilmoqda",counts.pending],["active","Faol",counts.active],["expired","Muddati tugagan",counts.expired]].map(f=>(
+        {[["all",T.adminAll,counts.all],["pending",T.adminPending,counts.pending],["active",T.adminActive,counts.active],["expired",T.adminExpired,counts.expired]].map(f=>(
           <button key={f[0]} onClick={()=>setFilter(f[0])}
             style={{background:filter===f[0]?`linear-gradient(135deg,${C.blue},${C.green})`:"rgba(255,255,255,0.04)",border:`1px solid ${filter===f[0]?"transparent":C.border}`,borderRadius:9,color:filter===f[0]?"#fff":C.dim,fontWeight:filter===f[0]?700:500,padding:"7px 13px",cursor:"pointer",fontSize:12.5,fontFamily:"'Sora',sans-serif"}}>
             {f[1]} <span style={{opacity:0.7}}>({f[2]})</span>
@@ -3348,9 +3411,9 @@ function AdminPanel({lang,setPage,auth}){
       </div>
 
       {loading
-        ?<div style={{textAlign:"center",padding:40,color:C.faint}}>Yuklanmoqda...</div>
+        ?<div style={{textAlign:"center",padding:40,color:C.faint}}>{T.adminLoading}</div>
         :filtered.length===0
-          ?<div style={{textAlign:"center",padding:40,color:C.faint,fontSize:14}}>O'quvchi yo'q</div>
+          ?<div style={{textAlign:"center",padding:40,color:C.faint,fontSize:14}}>{T.adminNoStudents}</div>
           :<div style={{display:"flex",flexDirection:"column",gap:10}}>
             {filtered.map(s=>{
               const st=stat(s);
@@ -3361,8 +3424,8 @@ function AdminPanel({lang,setPage,auth}){
                       <div style={{fontSize:14.5,fontWeight:700,color:C.text,wordBreak:"break-all"}}>{s.full_name||"—"}</div>
                       <div style={{fontSize:12.5,color:C.dim,wordBreak:"break-all"}}>{s.email}</div>
                       <div style={{fontSize:10.5,color:C.faint,marginTop:3}}>
-                        Ro'yxat: {new Date(s.created_at).toLocaleDateString()}
-                        {s.expires_at&&<span> · Muddat: <b style={{color:st.c}}>{new Date(s.expires_at).toLocaleDateString()}</b></span>}
+                        {T.adminReg}: {new Date(s.created_at).toLocaleDateString()}
+                        {s.expires_at&&<span> · {T.adminExp}: <b style={{color:st.c}}>{new Date(s.expires_at).toLocaleDateString()}</b></span>}
                       </div>
                     </div>
                     <span style={{background:st.c+"22",border:`1px solid ${st.c}55`,borderRadius:7,color:st.c,fontSize:11,fontWeight:700,padding:"3px 9px",whiteSpace:"nowrap"}}>{st.t}</span>
@@ -3371,17 +3434,17 @@ function AdminPanel({lang,setPage,auth}){
                     <div style={{display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
                       {!s.approved||((s.expires_at&&new Date(s.expires_at)<=new Date()))
                         ?<>
-                          <span style={{fontSize:11,color:C.faint}}>Tasdiqlash:</span>
+                          <span style={{fontSize:11,color:C.faint}}>{T.adminApprove}:</span>
                           {[1,3,6,12].map(m=>(
-                            <button key={m} onClick={()=>approve(s,m)} style={{background:"rgba(55,178,77,0.12)",border:`1px solid rgba(55,178,77,0.35)`,borderRadius:7,color:C.greenLt,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer"}}>{m} oy</button>
+                            <button key={m} onClick={()=>approve(s,m)} style={{background:"rgba(55,178,77,0.12)",border:`1px solid rgba(55,178,77,0.35)`,borderRadius:7,color:C.greenLt,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer"}}>{m} {T.adminMonth}</button>
                           ))}
                         </>
                         :<>
-                          <span style={{fontSize:11,color:C.faint}}>Uzaytirish:</span>
+                          <span style={{fontSize:11,color:C.faint}}>{T.adminExtend}:</span>
                           {[1,3,6,12].map(m=>(
-                            <button key={m} onClick={()=>extend(s,m)} style={{background:"rgba(47,125,246,0.1)",border:`1px solid rgba(47,125,246,0.3)`,borderRadius:7,color:C.blueLt,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer"}}>+{m} oy</button>
+                            <button key={m} onClick={()=>extend(s,m)} style={{background:"rgba(47,125,246,0.1)",border:`1px solid rgba(47,125,246,0.3)`,borderRadius:7,color:C.blueLt,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer"}}>+{m} {T.adminMonth}</button>
                           ))}
-                          <button onClick={()=>revoke(s)} style={{background:"rgba(229,72,77,0.1)",border:`1px solid rgba(229,72,77,0.3)`,borderRadius:7,color:C.red,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer",marginLeft:"auto"}}>Bloklash</button>
+                          <button onClick={()=>revoke(s)} style={{background:"rgba(229,72,77,0.1)",border:`1px solid rgba(229,72,77,0.3)`,borderRadius:7,color:C.red,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer",marginLeft:"auto"}}>{T.adminBlock}</button>
                         </>
                       }
                     </div>
