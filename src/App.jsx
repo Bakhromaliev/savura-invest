@@ -3743,12 +3743,21 @@ function AdminPanel({lang,setPage,auth}){
   const [loading,setLoading]=useState(true);
   const [filter,setFilter]=useState("all");
   const [msg,setMsg]=useState("");
+  const [examByUser,setExamByUser]=useState({});   // {user_id: {module: percent}}
+  const [expandExam,setExpandExam]=useState(null); // qaysi o'quvchi natijasi ochilgan
 
   async function load(){
     if(!sb){ setLoading(false); return; }
     setLoading(true);
     const {data,error}=await sb.from("students").select("*").order("created_at",{ascending:false});
     if(!error&&data) setStudents(data);
+    // Imtihon natijalarini yuklash (admin barchani ko'radi)
+    try{
+      const {data:ex}=await sb.from("exam_results").select("user_id,module,best_percent");
+      const map={};
+      (ex||[]).forEach(r=>{ if(!map[r.user_id])map[r.user_id]={}; map[r.user_id][String(r.module)]=r.best_percent; });
+      setExamByUser(map);
+    }catch{}
     setLoading(false);
   }
   useEffect(()=>{ load(); },[]);
@@ -3855,6 +3864,38 @@ function AdminPanel({lang,setPage,auth}){
                       }
                     </div>
                   )}
+                  {!s.is_admin&&(function(){
+                    const ex=examByUser[s.id]||{};
+                    const passedN=Object.keys(ex).filter(m=>ex[m]>=70).length;
+                    const hasAny=Object.keys(ex).length>0;
+                    const open=expandExam===s.id;
+                    return(
+                      <div style={{marginTop:10,paddingTop:10,borderTop:`1px solid ${C.border}`}}>
+                        <button onClick={()=>setExpandExam(open?null:s.id)}
+                          style={{display:"flex",alignItems:"center",gap:8,width:"100%",background:"transparent",border:"none",cursor:"pointer",padding:0,color:C.dim,fontSize:12,fontFamily:"'Sora',sans-serif"}}>
+                          <span>📝 Imtihon:</span>
+                          <span style={{color:hasAny?C.greenLt:C.faint,fontWeight:700}}>{passedN}/7 modul o'tildi</span>
+                          <span style={{marginLeft:"auto",color:C.faint}}>{open?"▲":"▼"}</span>
+                        </button>
+                        {open&&(
+                          <div style={{marginTop:10,display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(150px,1fr))",gap:6}}>
+                            {[1,2,3,4,5,6,7].map(function(m){
+                              const pct=ex[String(m)];
+                              const done=pct!=null;
+                              const passed=done&&pct>=70;
+                              return(
+                                <div key={m} style={{display:"flex",alignItems:"center",gap:7,background:"rgba(0,0,0,0.2)",borderRadius:8,padding:"6px 9px"}}>
+                                  <span style={{flexShrink:0,width:20,height:20,borderRadius:6,background:passed?C.green:done?"rgba(240,169,43,0.2)":"rgba(255,255,255,0.05)",color:passed?"#fff":done?C.amber:C.faint,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10.5,fontWeight:700}}>{passed?"✓":m}</span>
+                                  <span style={{fontSize:10.5,color:C.faint}}>M{m}:</span>
+                                  <span style={{fontSize:11.5,fontWeight:700,color:done?(passed?C.greenLt:C.amber):C.faint,marginLeft:"auto"}}>{done?pct+"%":"—"}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </div>
               );
             })}
