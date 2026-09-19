@@ -583,11 +583,11 @@ const EXAM_BANK = {
 // IMTIHON — tarjimalar va savollar banki
 // ═══════════════════════════════════════════════════════════════════════════
 const EXAM_T = {
-  uz:{title:"IMTIHON",sub:"Har modul bo'yicha bilimingizni sinang",mod:"Modul",locked:"Qulflangan",passed:"O'tdingiz",start:"Boshlash",retake:"Qayta topshirish",q:"Savol",of:"dan",next:"Keyingi",finish:"Yakunlash",result:"Natija",correct:"To'g'ri",wrong:"Xato",yourScore:"Sizning natijangiz",passZone:"70% dan yuqori — a'lo!",failZone:"70% kerak — yana urinib ko'ring",reviewTitle:"Xatolaringiz ustida ishlang",yourAns:"Sizning javobingiz",correctAns:"To'g'ri javob",backToList:"Modullarga qaytish",screenshot:"Bu natijani skrinshot qilib guruhga yuboring ✅",passMsg:"Tabriklaymiz! Keyingi modul ochildi 🎉",locked2:"Avvalgi modulni 70% ga topshiring",unlockNext:"Keyingi modul ochildi!",examOf:"7 modullik imtihon",progress:"Jarayon"},
-  en:{title:"EXAM",sub:"Test your knowledge for each module",mod:"Module",locked:"Locked",passed:"Passed",start:"Start",retake:"Retake",q:"Question",of:"of",next:"Next",finish:"Finish",result:"Result",correct:"Correct",wrong:"Wrong",yourScore:"Your score",passZone:"Above 70% — excellent!",failZone:"70% needed — try again",reviewTitle:"Review your mistakes",yourAns:"Your answer",correctAns:"Correct answer",backToList:"Back to modules",screenshot:"Screenshot this result and send it to the group ✅",passMsg:"Congratulations! Next module unlocked 🎉",locked2:"Pass the previous module with 70%",unlockNext:"Next module unlocked!",examOf:"7-module exam",progress:"Progress"},
-  ru:{title:"ЭКЗАМЕН",sub:"Проверьте знания по каждому модулю",mod:"Модуль",locked:"Заблокировано",passed:"Сдано",start:"Начать",retake:"Пересдать",q:"Вопрос",of:"из",next:"Далее",finish:"Завершить",result:"Результат",correct:"Верно",wrong:"Неверно",yourScore:"Ваш результат",passZone:"Выше 70% — отлично!",failZone:"Нужно 70% — попробуйте снова",reviewTitle:"Работа над ошибками",yourAns:"Ваш ответ",correctAns:"Правильный ответ",backToList:"К модулям",screenshot:"Сделайте скриншот результата и отправьте в группу ✅",passMsg:"Поздравляем! Следующий модуль открыт 🎉",locked2:"Сдайте предыдущий модуль на 70%",unlockNext:"Следующий модуль открыт!",examOf:"Экзамен из 7 модулей",progress:"Прогресс"},
-  tr:{title:"SINAV",sub:"Her modül için bilginizi test edin",mod:"Modül",locked:"Kilitli",passed:"Geçti",start:"Başla",retake:"Tekrar",q:"Soru",of:"/",next:"İleri",finish:"Bitir",result:"Sonuç",correct:"Doğru",wrong:"Yanlış",yourScore:"Puanınız",passZone:"70% üzeri — mükemmel!",failZone:"70% gerekli — tekrar deneyin",reviewTitle:"Hatalarınızı gözden geçirin",yourAns:"Cevabınız",correctAns:"Doğru cevap",backToList:"Modüllere dön",screenshot:"Bu sonucun ekran görüntüsünü alıp gruba gönderin ✅",passMsg:"Tebrikler! Sonraki modül açıldı 🎉",locked2:"Önceki modülü 70% ile geçin",unlockNext:"Sonraki modül açıldı!",examOf:"7 modüllük sınav",progress:"İlerleme"},
-  ar:{title:"الامتحان",sub:"اختبر معرفتك في كل وحدة",mod:"الوحدة",locked:"مقفل",passed:"ناجح",start:"ابدأ",retake:"إعادة",q:"سؤال",of:"من",next:"التالي",finish:"إنهاء",result:"النتيجة",correct:"صحيح",wrong:"خطأ",yourScore:"نتيجتك",passZone:"أكثر من 70% — ممتاز!",failZone:"مطلوب 70% — حاول مجدداً",reviewTitle:"راجع أخطاءك",yourAns:"إجابتك",correctAns:"الإجابة الصحيحة",backToList:"إلى الوحدات",screenshot:"التقط صورة للنتيجة وأرسلها إلى المجموعة ✅",passMsg:"تهانينا! فُتحت الوحدة التالية 🎉",locked2:"اجتز الوحدة السابقة بنسبة 70%",unlockNext:"فُتحت الوحدة التالية!",examOf:"امتحان من 7 وحدات",progress:"التقدم"},
+  uz:{title:"IMTIHON",sub:"Har modul bo'yicha bilimingizni sinang",mod:"Modul",locked:"Qulflangan",passed:"O'tdingiz",start:"Boshlash",retake:"Qayta topshirish",q:"Savol",of:"dan",next:"Keyingi",finish:"Yakunlash",result:"Natija",correct:"To'g'ri",wrong:"Xato",yourScore:"Sizning natijangiz",passZone:"70% dan yuqori — a'lo!",failZone:"70% kerak — yana urinib ko'ring",reviewTitle:"Xatolaringiz ustida ishlang",yourAns:"Sizning javobingiz",correctAns:"To'g'ri javob",backToList:"Modullarga qaytish",screenshot:"Bu natijani skrinshot qilib guruhga yuboring ✅",passMsg:"Tabriklaymiz! Keyingi modul ochildi 🎉",locked2:"Avvalgi modulni 70% ga topshiring",unlockNext:"Keyingi modul ochildi!",examOf:"7 modullik imtihon",progress:"Jarayon",certBtn:"🎓 Sertifikatni olish",certLocked:"Sertifikat uchun 7 modulni ham 70% ga to'ldiring",certTitle:"SERTIFIKAT",certName:"Ism va familiyangiz",certNamePh:"Masalan: Alisher Karimov",certGen:"Sertifikat yaratish",certText:"ushbu shaxs Savura Invest \"Halol aksiyalarga investitsiya kiritish\" kursining 7 ta modulini muvaffaqiyatli tamomlaganini tasdiqlaymiz",certAwarded:"Ushbu sertifikat",certDir:"Direktor",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Berilgan sana",certDownload:"⬇ Yuklab olish (PNG)",certShare:"Sertifikatni skrinshot qilib ijtimoiy tarmoqlarda ulashing! 🎉",certBack:"Orqaga",certNameReq:"Iltimos ism va familiyangizni kiriting"},
+  en:{title:"EXAM",sub:"Test your knowledge for each module",mod:"Module",locked:"Locked",passed:"Passed",start:"Start",retake:"Retake",q:"Question",of:"of",next:"Next",finish:"Finish",result:"Result",correct:"Correct",wrong:"Wrong",yourScore:"Your score",passZone:"Above 70% — excellent!",failZone:"70% needed — try again",reviewTitle:"Review your mistakes",yourAns:"Your answer",correctAns:"Correct answer",backToList:"Back to modules",screenshot:"Screenshot this result and send it to the group ✅",passMsg:"Congratulations! Next module unlocked 🎉",locked2:"Pass the previous module with 70%",unlockNext:"Next module unlocked!",examOf:"7-module exam",progress:"Progress",certBtn:"🎓 Get certificate",certLocked:"Complete all 7 modules with 70% to earn the certificate",certTitle:"CERTIFICATE",certName:"Your full name",certNamePh:"e.g. Alisher Karimov",certGen:"Generate certificate",certText:"has successfully completed all 7 modules of the Savura Invest \"Halal Stock Investing\" course",certAwarded:"This certificate is awarded to",certDir:"Director",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Date issued",certDownload:"⬇ Download (PNG)",certShare:"Screenshot your certificate and share it on social media! 🎉",certBack:"Back",certNameReq:"Please enter your full name"},
+  ru:{title:"ЭКЗАМЕН",sub:"Проверьте знания по каждому модулю",mod:"Модуль",locked:"Заблокировано",passed:"Сдано",start:"Начать",retake:"Пересдать",q:"Вопрос",of:"из",next:"Далее",finish:"Завершить",result:"Результат",correct:"Верно",wrong:"Неверно",yourScore:"Ваш результат",passZone:"Выше 70% — отлично!",failZone:"Нужно 70% — попробуйте снова",reviewTitle:"Работа над ошибками",yourAns:"Ваш ответ",correctAns:"Правильный ответ",backToList:"К модулям",screenshot:"Сделайте скриншот результата и отправьте в группу ✅",passMsg:"Поздравляем! Следующий модуль открыт 🎉",locked2:"Сдайте предыдущий модуль на 70%",unlockNext:"Следующий модуль открыт!",examOf:"Экзамен из 7 модулей",progress:"Прогресс",certBtn:"🎓 Получить сертификат",certLocked:"Сдайте все 7 модулей на 70% для получения сертификата",certTitle:"СЕРТИФИКАТ",certName:"Ваше имя и фамилия",certNamePh:"Например: Алишер Каримов",certGen:"Создать сертификат",certText:"успешно завершил(а) все 7 модулей курса Savura Invest \"Халяльное инвестирование в акции\"",certAwarded:"Настоящий сертификат выдан",certDir:"Директор",certDirName:"Бахромалиев Мухаммадюсуф",certDate:"Дата выдачи",certDownload:"⬇ Скачать (PNG)",certShare:"Сделайте скриншот сертификата и поделитесь в соцсетях! 🎉",certBack:"Назад",certNameReq:"Пожалуйста, введите имя и фамилию"},
+  tr:{title:"SINAV",sub:"Her modül için bilginizi test edin",mod:"Modül",locked:"Kilitli",passed:"Geçti",start:"Başla",retake:"Tekrar",q:"Soru",of:"/",next:"İleri",finish:"Bitir",result:"Sonuç",correct:"Doğru",wrong:"Yanlış",yourScore:"Puanınız",passZone:"70% üzeri — mükemmel!",failZone:"70% gerekli — tekrar deneyin",reviewTitle:"Hatalarınızı gözden geçirin",yourAns:"Cevabınız",correctAns:"Doğru cevap",backToList:"Modüllere dön",screenshot:"Bu sonucun ekran görüntüsünü alıp gruba gönderin ✅",passMsg:"Tebrikler! Sonraki modül açıldı 🎉",locked2:"Önceki modülü 70% ile geçin",unlockNext:"Sonraki modül açıldı!",examOf:"7 modüllük sınav",progress:"İlerleme",certBtn:"🎓 Sertifika al",certLocked:"Sertifika için 7 modülü de 70% ile tamamlayın",certTitle:"SERTİFİKA",certName:"Ad ve soyadınız",certNamePh:"Örn: Alisher Karimov",certGen:"Sertifika oluştur",certText:"Savura Invest \"Helal Hisse Yatırımı\" kursunun 7 modülünü başarıyla tamamlamıştır",certAwarded:"Bu sertifika şu kişiye verilmiştir",certDir:"Direktör",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Veriliş tarihi",certDownload:"⬇ İndir (PNG)",certShare:"Sertifikanızın ekran görüntüsünü alıp sosyal medyada paylaşın! 🎉",certBack:"Geri",certNameReq:"Lütfen ad ve soyadınızı girin"},
+  ar:{title:"الامتحان",sub:"اختبر معرفتك في كل وحدة",mod:"الوحدة",locked:"مقفل",passed:"ناجح",start:"ابدأ",retake:"إعادة",q:"سؤال",of:"من",next:"التالي",finish:"إنهاء",result:"النتيجة",correct:"صحيح",wrong:"خطأ",yourScore:"نتيجتك",passZone:"أكثر من 70% — ممتاز!",failZone:"مطلوب 70% — حاول مجدداً",reviewTitle:"راجع أخطاءك",yourAns:"إجابتك",correctAns:"الإجابة الصحيحة",backToList:"إلى الوحدات",screenshot:"التقط صورة للنتيجة وأرسلها إلى المجموعة ✅",passMsg:"تهانينا! فُتحت الوحدة التالية 🎉",locked2:"اجتز الوحدة السابقة بنسبة 70%",unlockNext:"فُتحت الوحدة التالية!",examOf:"امتحان من 7 وحدات",progress:"التقدم",certBtn:"🎓 احصل على الشهادة",certLocked:"أكمل جميع الوحدات السبع بنسبة 70% للحصول على الشهادة",certTitle:"شهادة",certName:"اسمك الكامل",certNamePh:"مثال: علیشیر كریموف",certGen:"إنشاء الشهادة",certText:"أكمل بنجاح جميع وحدات دورة Savura Invest السبع \"الاستثمار الحلال في الأسهم\"",certAwarded:"تُمنح هذه الشهادة إلى",certDir:"المدير",certDirName:"بهرملييف محمد يوسف",certDate:"تاريخ الإصدار",certDownload:"⬇ تحميل (PNG)",certShare:"التقط صورة لشهادتك وشاركها على وسائل التواصل! 🎉",certBack:"رجوع",certNameReq:"الرجاء إدخال اسمك الكامل"},
 };
 
 // Modul nomlari (5 til) — CRS_T dagi modul sarlavhalaridan foydalanamiz
@@ -3982,6 +3982,154 @@ function HalalPage({lang="uz", setPage}){
 }
 
 
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CERTIFICATE — 7 modulni tugatganlar uchun sertifikat (zamonaviy minimalizm)
+// ═══════════════════════════════════════════════════════════════════════════
+function CertificatePage({lang="uz", setPage, fullName}){
+  const T=EXAM_T[lang]||EXAM_T.uz;
+  const rtl=lang==="ar";
+  const [name,setName]=useState(fullName||"");
+  const [issued,setIssued]=useState(null); // sertifikat yaratilgach ism saqlanadi
+  const [err,setErr]=useState("");
+  const certRef = React.useRef(null);
+  const today = new Date().toLocaleDateString(lang==="en"?"en-GB":lang==="ar"?"ar":lang==="ru"?"ru-RU":lang==="tr"?"tr-TR":"uz-UZ",{day:"2-digit",month:"long",year:"numeric"});
+
+  function generate(){
+    if(!name.trim()){ setErr(T.certNameReq); return; }
+    setErr(""); setIssued(name.trim());
+    setTimeout(()=>{ if(certRef.current) certRef.current.scrollIntoView({behavior:"smooth",block:"center"}); },100);
+  }
+
+  async function downloadPng(){
+    if(!certRef.current) return;
+    // html2canvas CDN orqali yuklab, PNG qilamiz
+    if(!window.html2canvas){
+      await new Promise((res,rej)=>{
+        const s=document.createElement("script");
+        s.src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+        s.onload=res; s.onerror=rej; document.head.appendChild(s);
+      }).catch(()=>{});
+    }
+    if(window.html2canvas){
+      try{
+        const canvas=await window.html2canvas(certRef.current,{scale:2,backgroundColor:null,useCORS:true});
+        const link=document.createElement("a");
+        link.download="Savura_Invest_Sertifikat_"+(issued||"").replace(/\s+/g,"_")+".png";
+        link.href=canvas.toDataURL("image/png");
+        link.click();
+      }catch(e){ alert("Skrinshot qilib saqlang."); }
+    } else {
+      alert("Skrinshot qilib saqlang.");
+    }
+  }
+
+  return(
+    <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 16px 70px",maxWidth:820,margin:"0 auto"}}>
+      <div style={{marginBottom:18}}><BackBtn setPage={setPage} lang={lang}/></div>
+
+      {!issued&&(
+        <div style={{maxWidth:440,margin:"0 auto",textAlign:"center"}}>
+          <div style={{fontSize:48,marginBottom:14}}>🎓</div>
+          <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:"0 0 10px"}}>{T.certTitle}</h1>
+          <p style={{color:C.dim,fontSize:14,lineHeight:1.6,marginBottom:24}}>{T.certShare}</p>
+          <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:"22px 20px",textAlign:rtl?"right":"left"}}>
+            <div style={{fontSize:12,color:C.faint,marginBottom:6}}>{T.certName}</div>
+            <input value={name} onChange={e=>setName(e.target.value)} placeholder={T.certNamePh}
+              onKeyDown={e=>e.key==="Enter"&&generate()}
+              style={{width:"100%",background:"rgba(255,255,255,0.05)",border:`1px solid ${C.border}`,borderRadius:10,color:C.text,padding:"12px 14px",fontSize:15,outline:"none",boxSizing:"border-box",fontFamily:"'Manrope',sans-serif",marginBottom:err?8:14,textAlign:rtl?"right":"left"}}/>
+            {err&&<div style={{color:C.red,fontSize:12,marginBottom:12}}>{err}</div>}
+            <button onClick={generate} style={{width:"100%",background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:11,color:"#fff",fontWeight:700,fontSize:15,padding:"13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.certGen}</button>
+          </div>
+        </div>
+      )}
+
+      {issued&&(
+        <div>
+          {/* SERTIFIKAT — zamonaviy minimalizm */}
+          <div ref={certRef} dir="ltr" style={{
+            background:"linear-gradient(160deg,#0a1020 0%,#0d1830 100%)",
+            border:"1px solid rgba(120,150,200,0.2)",
+            borderRadius:20,padding:"clamp(30px,6vw,64px) clamp(24px,5vw,60px)",
+            position:"relative",overflow:"hidden",marginBottom:22,
+            boxShadow:"0 20px 60px rgba(0,0,0,0.5)"}}>
+
+            {/* Nozik geometrik ramka (SVG) */}
+            <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",opacity:0.5}} preserveAspectRatio="none">
+              <rect x="14" y="14" width="calc(100% - 28px)" height="calc(100% - 28px)" fill="none" stroke="url(#certgrad)" strokeWidth="1.2"/>
+              <defs>
+                <linearGradient id="certgrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#4aa3ff"/><stop offset="50%" stopColor="#37b24d"/><stop offset="100%" stopColor="#4aa3ff"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            {/* Burchak bezaklari */}
+            <div style={{position:"absolute",top:22,left:22,width:34,height:34,borderTop:"2px solid #4aa3ff",borderLeft:"2px solid #4aa3ff",opacity:0.6}}/>
+            <div style={{position:"absolute",top:22,right:22,width:34,height:34,borderTop:"2px solid #37b24d",borderRight:"2px solid #37b24d",opacity:0.6}}/>
+            <div style={{position:"absolute",bottom:22,left:22,width:34,height:34,borderBottom:"2px solid #37b24d",borderLeft:"2px solid #37b24d",opacity:0.6}}/>
+            <div style={{position:"absolute",bottom:22,right:22,width:34,height:34,borderBottom:"2px solid #4aa3ff",borderRight:"2px solid #4aa3ff",opacity:0.6}}/>
+
+            <div style={{position:"relative",textAlign:"center"}}>
+              {/* Logo + brend */}
+              <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:11,marginBottom:22}}>
+                <Logo size={38}/>
+                <div style={{textAlign:"left"}}>
+                  <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:17,color:"#edf2ff",lineHeight:1}}>SAVURA <span style={{color:"#5fd36a"}}>INVEST</span></div>
+                  <div style={{fontSize:8,color:"#7e94aa",letterSpacing:"2px",marginTop:2}}>AKSIYA TAHLILI</div>
+                </div>
+              </div>
+
+              {/* Sarlavha */}
+              <div style={{fontSize:"clamp(11px,2vw,13px)",letterSpacing:"6px",color:"#5fd36a",fontWeight:600,marginBottom:8,fontFamily:"'JetBrains Mono',monospace"}}>{T.certTitle}</div>
+              <div style={{width:60,height:2,background:"linear-gradient(90deg,#4aa3ff,#37b24d)",margin:"0 auto 26px",borderRadius:2}}/>
+
+              {/* Beriladi */}
+              <div style={{fontSize:"clamp(11px,1.6vw,13px)",color:"#8ea0c4",marginBottom:14,letterSpacing:"0.5px"}}>{T.certAwarded}</div>
+
+              {/* ISM */}
+              <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(26px,5.5vw,42px)",color:"#fff",lineHeight:1.1,marginBottom:20,letterSpacing:"0.5px"}}>{issued}</div>
+
+              {/* Matn */}
+              <div style={{fontSize:"clamp(12px,1.9vw,15px)",color:"#a8c0e8",lineHeight:1.7,maxWidth:520,margin:"0 auto 34px"}}>{T.certText}</div>
+
+              {/* Imzo qatori */}
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",maxWidth:480,margin:"0 auto",gap:20,flexWrap:"wrap"}}>
+                <div style={{textAlign:"center",flex:1,minWidth:130}}>
+                  <div style={{fontFamily:"'Sora',sans-serif",fontStyle:"italic",fontSize:20,color:"#5fd36a",marginBottom:4,fontWeight:700}}>B. Muhammadyusuf</div>
+                  <div style={{height:1,background:"rgba(120,150,200,0.3)",marginBottom:6}}/>
+                  <div style={{fontSize:11,color:"#8ea0c4"}}>{T.certDir}</div>
+                  <div style={{fontSize:11.5,color:"#edf2ff",fontWeight:600}}>{T.certDirName}</div>
+                </div>
+                <div style={{textAlign:"center",flex:1,minWidth:130}}>
+                  <div style={{fontSize:13,color:"#edf2ff",marginBottom:4,fontWeight:600}}>{today}</div>
+                  <div style={{height:1,background:"rgba(120,150,200,0.3)",marginBottom:6}}/>
+                  <div style={{fontSize:11,color:"#8ea0c4"}}>{T.certDate}</div>
+                </div>
+              </div>
+
+              {/* Muhr belgi */}
+              <div style={{marginTop:24,display:"flex",justifyContent:"center"}}>
+                <div style={{width:58,height:58,borderRadius:"50%",border:"2px solid rgba(55,178,77,0.5)",display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
+                  <span style={{fontSize:20}}>☪️</span>
+                  <span style={{fontSize:6.5,color:"#5fd36a",letterSpacing:"0.5px",marginTop:1}}>HALOL</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{background:"rgba(55,178,77,0.08)",border:`1px solid rgba(55,178,77,0.3)`,borderRadius:12,padding:"12px 16px",marginBottom:16,textAlign:"center",fontSize:13,color:C.greenLt,fontWeight:600}}>{T.certShare}</div>
+
+          <div style={{display:"flex",gap:10}}>
+            <button onClick={downloadPng} style={{flex:1,background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:14,padding:"13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.certDownload}</button>
+            <button onClick={()=>{setIssued(null);}} style={{flex:"0 0 auto",background:"transparent",border:`1px solid ${C.border}`,borderRadius:12,color:C.dim,fontWeight:600,fontSize:14,padding:"13px 20px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.certBack}</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
 // ═══════════════════════════════════════════════════════════════════════════
 // EXAM PAGE — imtihon tizimi (random savol + random variant, 70% o'tish)
 // ═══════════════════════════════════════════════════════════════════════════
@@ -4207,6 +4355,11 @@ function ExamPage({lang="uz", setPage}){
             <div style={{height:"100%",width:`${passedCount/7*100}%`,background:`linear-gradient(90deg,${C.green},${C.blueLt})`,borderRadius:4,transition:"width .4s"}}/>
           </div>
         </div>
+        {/* Sertifikat tugmasi — 7/7 o'tilganda */}
+        {passedCount>=7
+          ?<button onClick={()=>setPage("certificate")} style={{marginTop:18,background:`linear-gradient(135deg,${C.green},${C.blue})`,border:"none",borderRadius:13,color:"#fff",fontWeight:700,fontSize:15,padding:"14px 22px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(55,178,77,0.3)"}}>{T.certBtn}</button>
+          :<div style={{marginTop:14,fontSize:11.5,color:C.faint,display:"flex",alignItems:"center",gap:6,justifyContent:"center"}}>🔒 {T.certLocked}</div>
+        }
       </div>
 
       <div style={{display:"flex",flexDirection:"column",gap:12}}>
@@ -4284,6 +4437,7 @@ export default function App(){
       {page==="journal"&&<LockGate state={aState} lang={lang} setPage={setPage}><JournalPage lang={lang} setPage={setPage}/></LockGate>}
       {page==="demo"&&<LockGate state={aState} lang={lang} setPage={setPage}><DemoPage lang={lang} setPage={setPage}/></LockGate>}
       {page==="exam"&&<LockGate state={aState} lang={lang} setPage={setPage}><ExamPage lang={lang} setPage={setPage}/></LockGate>}
+      {page==="certificate"&&<LockGate state={aState} lang={lang} setPage={setPage}><CertificatePage lang={lang} setPage={setPage} fullName={auth.profile?.full_name||""}/></LockGate>}
       <ChatWidget lang={lang}/>
       <Footer setPage={setPage} lang={lang}/>
     </div>
