@@ -422,6 +422,184 @@ const HFL_T = {
   },
 };
 
+const EXAM_BANK = {
+  "1": [
+    {q:"Treyding nima?",opts:["Foyda olish maqsadida moliyaviy instrumentlarni oldi-sotdi qilish","Faqat bankka pul qo'yish","Uzoq muddatga pulni saqlash","Soliq to'lash jarayoni"],correct:0,expl:"Treyding — foyda olish maqsadida aksiya, obligatsiya, valyuta kabi moliyaviy instrumentlarni oldi-sotdi qilishdir."},
+    {q:"Quyidagilardan qaysi biri moliyaviy instrument EMAS?",opts:["Aksiya","Obligatsiya","Valyuta","Oziq-ovqat retsepti"],correct:3,expl:"Moliyaviy instrumentlarga aksiya, obligatsiya, valyuta, tovar-xom ashyo kiradi."},
+    {q:"Scalping treydingi qanday muddatda amalga oshiriladi?",opts:["Bir necha sekund yoki minut","Bir necha oy","Bir necha yil","Faqat dam olish kunlari"],correct:0,expl:"Scalping — juda qisqa vaqt ichida, bir necha sekund yoki minut oralig'ida savdo qilish."},
+    {q:"Day trading nima?",opts:["1 kun ichida savdo, pozitsiya o'sha kuni yopiladi","1 yil ushlab turish","Faqat kechqurun savdo","Bir haftalik savdo"],correct:0,expl:"Day trading — 1 kun ichida savdo qilish; ochilgan pozitsiyalar keyingi kunga o'tmasdan o'sha kuni yopiladi."},
+    {q:"Swing treyding qancha muddatga mo'ljallangan?",opts:["Bir necha kun yoki hafta","Bir necha sekund","10 yildan ortiq","Faqat 1 soat"],correct:0,expl:"Swing treyding — bir necha kun yoki hafta davomida instrumentlarni ushlab turib savdo qilish."},
+    {q:"Positional treyding qanday muddatli savdo?",opts:["Bir necha oy yoki yil","Bir necha minut","Bir necha sekund","Yarim kun"],correct:0,expl:"Positional treyding — bir necha oy yoki yil davomida instrumentlarni ushlab turib savdo qilish."},
+    {q:"Savura Invest kursida qanday treyding o'rgatiladi?",opts:["Shariatga muvofiq real aksiyalar bilan","Forex va kripto","CFD va optsionlar","Margin va short-selling"],correct:0,expl:"Savura Invest kursida faqat shariatga muvofiq (halol) real aksiyalar bilan savdo o'rgatiladi."},
+    {q:"Quyidagilardan qaysi biri Savura Invest kursida O'RGATILMAYDI?",opts:["Kriptovalyuta","Real aksiyalar","Swing treyding","Uzoq muddatli investitsiya"],correct:0,expl:"Forex, kripto, CFD, optsion, futures, margin va short-selling o'rgatilmaydi. Faqat halol real aksiyalar o'rgatiladi."},
+    {q:"Muvaffaqiyatli treydingning 5 ustuni qaysilar?",opts:["Bilim, Psixologiya, Risk menejment, Treyding reja, Intizom","Faqat omad va sabr","Pul va vaqt","Kompyuter va internet"],correct:0,expl:"5 ustun: Bilim, Psixologiya, Risk menejment, Treyding reja va Intizom."},
+    {q:"Aksiyalar bilan treyd qilishning 1-bosqichi nima?",opts:["Broker tanlash va hisob raqam ochish","Aksiyani darhol sotish","Kredit olish","Soliq to'lash"],correct:0,expl:"1-bosqich — ishonchli broker tanlash va hisob raqam ochish."},
+    {q:"Broker hisobiga depozit qilish nimani anglatadi?",opts:["Bank hisobingizdan broker hisobiga pul yuborish","Aksiyani sotish","Kredit olish","Dividend olish"],correct:0,expl:"Depozit — bank hisob raqamingizdan broker hisob raqamingizga pul yuborish."},
+    {q:"Aksiya narxining ko'tarilishi yoki pastlashi treyderga nima keltiradi?",opts:["Daromad yoki ziyon","Faqat daromad","Faqat ziyon","Hech qanday ta'sir yo'q"],correct:0,expl:"Ma'lum vaqt o'tgach, aksiya narxining o'zgarishi hisobiga daromad yoki ziyon ko'riladi."},
+    {q:"Treyding instrumentlari halol bo'lishi uchun nima kerak?",opts:["Ma'lum shar'iy me'zonlarга javob berishi","Faqat ko'p daromad keltirishi","Mashhur bo'lishi","Arzon bo'lishi"],correct:0,expl:"Treyding instrument va amaliyotlari halol bo'lishi uchun ma'lum shar'iy me'zonlar mavjud."},
+    {q:"Momentum trading nima?",opts:["Narx kuchli ko'tarilayotganda o'sish davom etishini taxmin qilib savdo","Faqat tushishда savdo","Robotlar orqali savdo","Yangiliklarsiz savdo"],correct:0,expl:"Momentum trading — narx kuchli ko'tarilayotganda o'sish qisqa muddat davom etishini taxmin qilib savdo qilish."},
+    {q:"Algo / Automatic trading nima?",opts:["Kompyuter dasturlari va robotlar orqali savdo","Qo'lda hisoblash","Faqat telefon orqali","Yangilik o'qib savdo"],correct:0,expl:"Algo trading — oldindan yaratilgan qoida va tahlillar asosida kompyuter dasturlari va robotlar orqali savdo."},
+    {q:"Copy / Social trading nima?",opts:["Boshqa treyderlar savdosini ko'chirish yoki kuzatish","Faqat o'z tahliling bilan","Robot yaratish","Yangilik yozish"],correct:0,expl:"Copy/Social trading — boshqa treyderlarning savdolarini ko'chirgan yoki kuzatgan holda savdo qilish."},
+    {q:"News trading qachon amalga oshiriladi?",opts:["Muhim yangilik va hisobotlar chiqadigan vaqtda","Faqat tunda","Dam olish kunlari","Yangilik yo'q paytda"],correct:0,expl:"News trading — muhim yangilik va hisobotlar chiqadigan vaqtda savdo qilish."},
+    {q:"Treyding haqidagi reklama va va'dalarga qanday yondashish kerak?",opts:["Ehtiyotkor bo'lish, ko'p yolg'on reklama bor","To'liq ishonish","Barchasini rad etish","E'tibor bermaslik"],correct:0,expl:"Treyding haqida ko'plab yolg'on va aldamchi reklama mavjud — ehtiyotkor bo'lish kerak."},
+    {q:"High-frequency trading (HFT) qanday savdo?",opts:["Murakkab algoritm bilan millisekundlarda ko'p bitim","Yiliga bir marta savdo","Qo'lда sekin savdo","Faqat katta aksiyalar"],correct:0,expl:"HFT — murakkab algoritm va texnologiyalar bilan ko'plab bitimlarni millisekundlar ichida amalga oshirish."},
+    {q:"Aksiya bilan treyd qilishning to'g'ri tartibi qaysi?",opts:["Broker tanlash → depozit → tahlil va sotib olish → daromad/ziyon","Sotib olish → broker tanlash → depozit","Depozit → daromad → tahlil","Sotish → sotib olish → broker"],correct:0,expl:"To'g'ri tartib: broker tanlash va hisob ochish → depozit → bozorni tahlil qilib sotib olish → narx o'zgarishidan daromad/ziyon."},
+  ],
+  "2": [
+    {q:"Aksiyaga egalik nimani anglatadi?",opts:["Kompaniyaning bir bo'lagiga sheriklik","Kompaniyaga pul qarz berish","Kompaniyada ishlash","Kompaniya mahsulotini sotib olish"],correct:0,expl:"Aksiyaga egalik — kompaniyaning bir bo'lagiga sheriklik, pul qarz berish emas, biznesning haqiqiy sherigiga aylanish."},
+    {q:"1000 dona aksiyaning 100 donasiga egalik nechi foizni bildiradi?",opts:["10%","1%","100%","50%"],correct:0,expl:"100/1000 = kompaniyaning 10% ulushiga egalik."},
+    {q:"Savura Invest skriningida asosan qaysi standart asos qilib olinadi?",opts:["AAOIFI 21-Standarti","Faqat Dow Jones","FTSE Shariah","MSCI Islamic"],correct:0,expl:"Savura Invest skriningida asosan AAOIFI 21-Standarti me'zonlari asos qilib olinadi."},
+    {q:"AAOIFI nima?",opts:["Islom moliya muassasalari uchun Buxgalteriya va Audit tashkiloti","AQSh banki","Aksiya birjasi","Broker kompaniya"],correct:0,expl:"AAOIFI — Islom moliya muassasalari uchun Buxgalteriya va Audit tashkiloti, 1991-yil Bahraynda tashkil topgan."},
+    {q:"AAOIFI Shariat Kengashiga kim raislik qiladi?",opts:["Shayx Muhammad Taqiy Usmoniy","Warren Buffett","George Soros","AQSh prezidenti"],correct:0,expl:"AAOIFI Shariat Kengashiga shayx Muhammad Taqiy Usmoniy raislik qiladi."},
+    {q:"AAOIFI standartlarining qaysi bo'limi aksiyalar oldi-sotdi qoidalariga oid?",opts:["21-bo'lim","17-bo'lim","27-bo'lim","45-bo'lim"],correct:0,expl:"21-bo'lim — Aksiyalar oldi-sotdi qoidalari. (17—Sukuk, 27—Indekslar, 45—Kapital himoyasi)"},
+    {q:"Halol aksiya uchun necha bosqichli filtr qo'llaniladi?",opts:["3 bosqichli filtr","1 bosqichli","5 bosqichli","10 bosqichli"],correct:0,expl:"Halol aksiya: 3 bosqichli filtr — biznes faoliyati, daromad tarkibi, moliyaviy nisbatlar."},
+    {q:"1-filtr (biznes faoliyati) bo'yicha qaysi soha HALOL?",opts:["Texnika ishlab chiqarish","An'anaviy bank (ribo)","Kazino (qimor)","Tamaki ishlab chiqarish"],correct:0,expl:"Ribo, qimor, spirtli ichimlik, tamaki, harom oziq-ovqat, axloqsizlik taqiqlangan. Texnika ishlab chiqarish halol soha."},
+    {q:"2-filtr bo'yicha taqiqlangan daromad jami daromadning necha foizidan oshmasligi kerak?",opts:["5%","30%","50%","10%"],correct:0,expl:"2-filtr: taqiqlangan daromad jami daromadning 5% dan oshmasligi kerak (halol daromad > 95%)."},
+    {q:"3-filtr bo'yicha foizli qarz nisbati qanchadan kam bo'lishi kerak?",opts:["Bozor kap.ning 30% dan kam","5% dan kam","50% dan kam","70% dan kam"],correct:0,expl:"3-filtr: foizli qarz / bozor kapitalizatsiyasi < 30%."},
+    {q:"Bozor kapitalizatsiyasi qanday hisoblanadi?",opts:["Aksiya narxi × muomaladagi aksiyalar soni","Faqat aksiya narxi","Sof foyda × 2","Daromad − xarajat"],correct:0,expl:"Bozor kapitalizatsiyasi = aksiya narxi × muomaladagi aksiyalar soni."},
+    {q:"Quyidagilardan qaysi biri taqiqlangan (harom) daromad turi?",opts:["Foizli (interest) daromad","Mahsulot sotuvidan daromad","Xizmat ko'rsatishdan daromad","Ijara (halol) daromad"],correct:0,expl:"Taqiqlangan daromad: foizli daromad, lizingdan foiz, sug'urta mukofoti, derivativlar, obligatsiya savdosi, harom dividend."},
+    {q:"Foizli qarz va aktivlar shariat skriningda qaysi hisobotdan olinadi?",opts:["Balance Sheet (balans)","Income Statement","Faqat yangiliklardan","Cash Flow"],correct:0,expl:"Foizli qarz va aktivlar Balance Sheet (balans hisobvarag'i)dan olinadi."},
+    {q:"Daromad manbalari qaysi hisobotda tekshiriladi?",opts:["Income Statement (daromad hisoboti)","Balance Sheet","Cash Flow","10-K muqovasi"],correct:0,expl:"Income Statement — daromad, xarajat va sof foyda; daromad manbalari shu yerda tekshiriladi."},
+    {q:"AQSh kompaniyasining YILLIK hisoboti qanday nomlanadi?",opts:["10-K","10-Q","20-F","S-1"],correct:0,expl:"10-K — AQSh kompaniyasining yillik hisoboti. 10-Q — choraklik, 20-F — chet el, S-1 — IPO."},
+    {q:"AQSh kompaniyasining CHORAKLIK hisoboti qanday nomlanadi?",opts:["10-Q","10-K","20-F","S-1"],correct:0,expl:"10-Q — AQSh kompaniyasining choraklik hisoboti."},
+    {q:"Kompaniya hisobotlarini qaysi tizimdan topish mumkin?",opts:["SEC EDGAR (sec.gov/edgar)","Faqat Instagram","YouTube","Telegram"],correct:0,expl:"AQSh birjalaridagi kompaniyalar hisobotlarini SEC EDGAR tizimidan (sec.gov/edgar) ochiq va bepul topish mumkin."},
+    {q:"Halollik aksiyaning o'zida emas, balki nimada aniqlanadi?",opts:["Kompaniya faoliyati va hisobotlarida","Aksiya narxida","Broker nomida","Birja joylashuvida"],correct:0,expl:"Halollik — aksiyaning o'zida emas, kompaniya faoliyati va moliyaviy hisobotlarida aniqlanadi."},
+    {q:"Harom ulush aralashgan daromad bilan nima qilinadi?",opts:["Undan voz kechiladi (tozalanadi)","Saqlab qolinadi","Qayta investitsiya qilinadi","Brokerga beriladi"],correct:0,expl:"Harom ulushdan voz kechiladi (tozalash), mulkdan zakot ado etiladi."},
+    {q:"IPOga chiqayotgan kompaniya hisoboti qanday nomlanadi?",opts:["S-1","10-K","10-Q","20-F"],correct:0,expl:"S-1 — IPOga chiqayotgan kompaniya hisoboti."},
+  ],
+  "3": [
+    {q:"Fundamental tahlil nima?",opts:["Iqtisodiy va moliyaviy ko'rsatkichlar orqali aksiyaning haqiqiy qiymatini aniqlash","Faqat grafik shakllarni o'rganish","Faqat yangiliklarni o'qish","Robot yaratish"],correct:0,expl:"Fundamental tahlil — turli iqtisodiy va moliyaviy ko'rsatkichlarni chuqur o'rganib aksiyaning haqiqiy qiymatini aniqlash usuli."},
+    {q:"Top-down yondashuv qanday ketma-ketlikda?",opts:["Mamlakat → sanoat → kompaniya","Kompaniya → sanoat → mamlakat","Faqat kompaniya","Faqat sanoat"],correct:0,expl:"Top-down (yuqoridan pastga): avval mamlakat va sanoat, so'ngra kompaniya."},
+    {q:"Bottom-up yondashuv qanday ketma-ketlikda?",opts:["Kompaniya → sanoat → mamlakat","Mamlakat → sanoat → kompaniya","Faqat mamlakat","Faqat indekslar"],correct:0,expl:"Bottom-up (pastdan yuqoriga): avval kompaniya, so'ngra sanoat va mamlakat."},
+    {q:"Miqdoriy (quantitative) tahlil nimaga asoslanadi?",opts:["Raqamlar va moliyaviy ko'rsatkichlar","Boshqaruv sifati","Innovatsiya salohiyati","Brend obro'si"],correct:0,expl:"Miqdoriy tahlil — raqamlarda aks etadigan moliyaviy hisobotlar va aksiya ko'rsatkichlariga asoslanadi."},
+    {q:"Sifat (qualitative) tahlil nimani baholaydi?",opts:["Biznes modeli, boshqaruv sifati, raqobatbardoshlik","P/E nisbati","Sof foyda raqami","Daromad o'sish foizi"],correct:0,expl:"Sifat tahlili — raqamlarda ko'rinmaydigan jihatlar: biznes modeli, boshqaruv sifati, raqobatbardoshlik va innovatsiya."},
+    {q:"Miqdoriy tahlilning 5 ko'rsatkich guruhi qaysilar?",opts:["O'sish, Baholanish, Rentabellik, Sog'lomlik, Samaradorlik","Faqat P/E va P/S","Narx va hajm","Trend va momentum"],correct:0,expl:"5 guruh: O'sish (Growth), Baholanish (Valuation), Rentabellik (Profitability), Sog'lomlik (Financial health), Samaradorlik (Efficiency)."},
+    {q:"Daromad o'sishi qanday hisoblanadi?",opts:["(joriy − o'tgan) / o'tgan","joriy × o'tgan","joriy + o'tgan","o'tgan / joriy"],correct:0,expl:"Daromad o'sishi = (joriy − o'tgan) / o'tgan. > 10% kuchli, 5–10% o'rta, < 5% zaif."},
+    {q:"P/E ko'rsatkichi nimani bildiradi?",opts:["Foydaga nisbatan narx (bozor kap. / sof foyda)","Sotuvga nisbatan narx","Balansga nisbatan narx","O'sish sur'ati"],correct:0,expl:"P/E = Bozor kap. / sof foyda — foydaga nisbatan narx. < 15 arzon, 15–25 o'rta, > 25 qimmat."},
+    {q:"P/S ko'rsatkichi qanday hisoblanadi?",opts:["Bozor kap. / daromad","Bozor kap. / sof foyda","Bozor kap. / kapital","P/E / o'sish"],correct:0,expl:"P/S = Bozor kap. / daromad — sotuvga nisbatan narx. < 1 arzon, 1–2 o'rta, > 2 qimmat."},
+    {q:"P/B ko'rsatkichi nimaga nisbatan narxni ko'rsatadi?",opts:["Balans qiymatiga (kapitalga)","Daromadga","Sof foydaga","O'sishga"],correct:0,expl:"P/B = Bozor kap. / kapital — balans qiymatiga nisbatan narx. < 1.2 arzon, > 3 qimmat."},
+    {q:"PEG ko'rsatkichi qanday hisoblanadi?",opts:["P/E / EPS o'sishi","P/E × P/S","P/B / P/E","EPS × narx"],correct:0,expl:"PEG = P/E / EPS o'sishi — o'sishni hisobga olgan P/E. < 1 arzon, > 1 qimmat."},
+    {q:"Yalpi marja (Gross margin) qanday hisoblanadi?",opts:["Yalpi foyda / daromad","Sof foyda / daromad","Operatsion foyda / daromad","Daromad / xarajat"],correct:0,expl:"Yalpi marja = Yalpi foyda / daromad — tannarx ayrilgandan keyingi foyda. > 40% kuchli."},
+    {q:"Sof marja (Net margin) nimani ko'rsatadi?",opts:["Barcha xarajatlardan keyingi foyda","Faqat tannarxdan keyin","Faqat operatsion xarajat","Soliqdan oldingi foyda"],correct:0,expl:"Sof marja = Sof foyda / daromad — barcha xarajatlardan keyin. > 15% kuchli, 5–15% o'rta, < 5% zaif."},
+    {q:"ROE ko'rsatkichi qaysi guruhga kiradi?",opts:["Samaradorlik (Efficiency)","O'sish","Baholanish","Rentabellik"],correct:0,expl:"ROA, ROE, ROIC — Samaradorlik (Efficiency) guruhiga kiradi."},
+    {q:"Joriy nisbat va tez nisbat qaysi guruhga kiradi?",opts:["Moliyaviy sog'lomlik (Financial health)","O'sish","Baholanish","Samaradorlik"],correct:0,expl:"Joriy nisbat, tez nisbat va qarz nisbatlari — Moliyaviy sog'lomlik guruhiga kiradi."},
+    {q:"Markaziy bank foiz stavkasini oshirsa, bozorga qanday ta'sir qiladi?",opts:["Qarz qimmatlashadi, bozor ko'pincha pasayadi","Bozor darhol o'sadi","Hech qanday ta'sir yo'q","Faqat energiya sektori o'sadi"],correct:0,expl:"Foiz stavkasi oshsa qarz qimmatlashadi va umumiy bozor ko'pincha pasayadi."},
+    {q:"Neft narxining ko'tarilishi qaysi sektorga ijobiy ta'sir qiladi?",opts:["Energiya sektori","Faqat texnologiya","Faqat sog'liqni saqlash","Hech biriga"],correct:0,expl:"Neft narxi ko'tarilsa energiya sektoridagi kompaniyalar daromadi oshadi."},
+    {q:"Kutilgandan yaxshi chorak hisoboti aksiyaga qanday ta'sir qiladi?",opts:["Narx keskin ko'tariladi","Narx tushadi","Ta'sir qilmaydi","Aksiya to'xtatiladi"],correct:0,expl:"Kutilgandan yaxshi chorak hisoboti aksiya narxining keskin ko'tarilishiga olib keladi."},
+    {q:"Daromad o'sishi qancha bo'lsa 'kuchli' hisoblanadi?",opts:["> 10%","< 5%","0%","Manfiy"],correct:0,expl:"Daromad va EPS o'sishida: > 10% kuchli, 5–10% o'rta, < 5% zaif."},
+    {q:"Fundamental tahlil treyderga asosan nimani ko'rsatadi?",opts:["Narx ortidagi haqiqiy qiymatni","Faqat kunlik narx","Faqat grafik shaklni","Broker komissiyasini"],correct:0,expl:"Fundamental tahlil aksiyaning narxi emas, uning ortidagi haqiqiy qiymatni ko'rishga yordam beradi."},
+  ],
+  "4": [
+    {q:"Texnik tahlil nimaga asoslanadi?",opts:["Narxning o'tmishdagi harakati va savdo hajmiga","Kompaniya hisobotlariga","Faqat yangiliklarga","Broker tavsiyasiga"],correct:0,expl:"Texnik tahlil — aksiya narxining o'tmishdagi harakati va savdo hajmiga asoslanib kelgusi harakatni aniqlash."},
+    {q:"Texnik tahlilning 3 asosiy tamoyilidan biri qaysi?",opts:["Narx trend bo'ylab harakatlanadi","Narx tasodifiy o'zgaradi","Faqat yangilik narxni belgilaydi","Hajm ahamiyatsiz"],correct:0,expl:"3 tamoyil: narx trend bo'ylab harakatlanadi, barcha ma'lumot narxda aks etgan, tarix takrorlanadi."},
+    {q:"Eng mashhur grafik platformasi qaysi?",opts:["TradingView","Microsoft Word","Instagram","Telegram"],correct:0,expl:"TradingView — eng mashhur grafik platformasi, boy chizish va indikator vositalariga ega."},
+    {q:"Yapon shamchasi (candlestick) qaysi 4 narxni ko'rsatadi?",opts:["Ochilish, Eng yuqori, Eng quyi, Yopilish (OHLC)","Faqat ochilish va yopilish","Faqat eng yuqori","Faqat hajm"],correct:0,expl:"Candlestick OHLC ni ko'rsatadi: Open (ochilish), High (eng yuqori), Low (eng quyi), Close (yopilish)."},
+    {q:"Yashil (buqasimon) shamcha nimani bildiradi?",opts:["Yopilish ochilishdan yuqori (narx ko'tarilgan)","Yopilish ochilishdan past","Hajm nol","Narx o'zgarmagan"],correct:0,expl:"Yashil (buqasimon/bullish) shamcha — yopilish narxi ochilishdan yuqori, ya'ni narx ko'tarilgan."},
+    {q:"Uptrend qanday belgilanadi?",opts:["HH va HL (ko'tariluvchi cho'qqi va tub)","LH va LL","Yon harakat","Faqat hajm bilan"],correct:0,expl:"Uptrend — HH (higher high) va HL (higher low), ya'ni ko'tariluvchi harakat."},
+    {q:"Downtrend qanday belgilanadi?",opts:["LH va LL (tushuvchi)","HH va HL","Sideways","Faqat gap bilan"],correct:0,expl:"Downtrend — LH (lower high) va LL (lower low), ya'ni tushuvchi harakat."},
+    {q:"Sideways trend nima?",opts:["Narx ma'lum oraliqda yon harakatlanadi","Faqat yuqoriga","Faqat pastga","Keskin sakrash"],correct:0,expl:"Sideways — yon harakat, narx ma'lum oraliqda gorizontal harakatlanadi."},
+    {q:"Support (qo'llab-quvvatlash) zonasi nima?",opts:["Quyi qismda talab kuchli bo'lgan zona","Yuqori qismda taklif kuchli zona","Faqat trend liniya","Hajm nol zona"],correct:0,expl:"Support — narxning quyi qismida talab kuchli bo'lgan zona (narx tushishдан to'xtaydi)."},
+    {q:"Resistance (qarshilik) zonasi nima?",opts:["Yuqori qismda taklif kuchli bo'lgan zona","Quyi qismda talab zona","Faqat gap","Volume indikatori"],correct:0,expl:"Resistance — narxning yuqori qismida taklif kuchli bo'lgan zona (narx ko'tarilishдан to'xtaydi)."},
+    {q:"Flip nima?",opts:["Support keyinroq resistancega aylanishi (yoki aksincha)","Narxning to'xtashi","Hajmning nolga tushishi","Trend liniya chizish"],correct:0,expl:"Flip — avval support bo'lgan zona keyinroq resistancega aylanishi yoki aksincha."},
+    {q:"Fibonacci retracementning eng ko'p ishlatiladigan darajalari?",opts:["23.6%, 38.2%, 50%, 61.8%, 78.6%","10%, 20%, 30%","100%, 200%","5%, 15%, 25%"],correct:0,expl:"Fibonacci darajalari: 23.6%, 38.2%, 50%, 61.8%, 78.6%. Oltin nisbat 0.618."},
+    {q:"Volume (savdo hajmi) nimani ko'rsatadi?",opts:["Likvidlik va qiziqish darajasini","Faqat narxni","Kompaniya foydasini","Broker komissiyasini"],correct:0,expl:"Volume — ma'lum muddatda oldi-sotdi qilingan aksiyalar miqdori, likvidlik va qiziqishni ko'rsatadi."},
+    {q:"EMA nima?",opts:["Exponential Moving Average — o'rtacha narx, so'nggilarga ko'proq og'irlik","Faqat hajm indikatori","Narx cho'qqisi","Kompaniya foydasi"],correct:0,expl:"EMA — Exponential Moving Average, o'rtacha narxni ko'rsatadi va so'nggi narxlarga ko'proq og'irlik beradi."},
+    {q:"Golden cross nima?",opts:["50 kunlik EMA 200 kunlikni yuqoriga kesib o'tishi (o'sish signali)","Narxning tushishi","Hajmning nolga tushishi","RSI 70 dan oshishi"],correct:0,expl:"Golden cross — 50 kunlik EMA 200 kunlik EMAni yuqoriga kesib o'tishi, o'sish signali. (Death cross — aksincha)"},
+    {q:"RSI indikatori nimani o'lchaydi?",opts:["Overbought/oversold darajasini (0-100)","Savdo hajmini","Kompaniya qarzini","Dividendni"],correct:0,expl:"RSI — haddan tashqari sotib olinish (overbought) yoki sotib yuborilish (oversold) darajasini o'lchaydi, 0-100 oralig'ida."},
+    {q:"RSI > 70 nimani bildiradi?",opts:["Overbought — narx haddan ortiq sotib olingan, tushish ehtimoli","Oversold — ko'tarilish ehtimoli","Neytral holat","Trend yo'q"],correct:0,expl:"RSI > 70 — narx haddan ortiq sotib olingan (overbought), tushish ehtimoli bor. RSI < 30 — oversold."},
+    {q:"MACD qanday hisoblanadi?",opts:["12 kunlik EMA − 26 kunlik EMA","50 EMA + 200 EMA","RSI × 2","Narx / hajm"],correct:0,expl:"MACD = 12 kunlik EMA − 26 kunlik EMA; signal liniyasi 9 kunlik EMA."},
+    {q:"Bollinger Bands 'squeeze' (torayish) nimani bildiradi?",opts:["Keskin harakat yaqinlashganini","Trend tugaganini","Hajm nolga tushganini","Narx o'zgarmasligini"],correct:0,expl:"Bollinger Bands chiziqlari orasi torayishi (squeeze) — keskin harakat yaqinlashganini bildiradi."},
+    {q:"Yapon shamcha shakllari necha guruhga bo'linadi?",opts:["3 guruh: buqasimon, ayiqsimon, davom etuvchi","2 guruh","5 guruh","Guruhlanmaydi"],correct:0,expl:"Shamcha shakllari 3 guruhga bo'linadi: bullish reversal (buqasimon), bearish reversal (ayiqsimon), continuation (davom etuvchi)."},
+  ],
+  "5": [
+    {q:"Swing treyding qancha muddatga pozitsiya ushlaydi?",opts:["3 kundan bir necha hafta yoki oygacha","Bir necha sekund","10 yil","Faqat 1 kun"],correct:0,expl:"Swing treyding — o'rta muddatli, 3 kundan bir necha hafta yoki oygacha pozitsiya ushlab turiladi."},
+    {q:"Fundamental tahlil savolga javob beradi?",opts:["NIMA (qaysi aksiya)","QACHON (qaysi vaqt)","QANCHA komissiya","QAYERDA broker"],correct:0,expl:"Fundamental → NIMA: kuchli biznes va sog'lom aksiyalarni saralaydi. Texnik → QACHON: kirish vaqtini aniqlaydi."},
+    {q:"Texnik tahlil qaysi savolga javob beradi?",opts:["QACHON (kirish nuqtasi va vaqt)","NIMA (qaysi aksiya)","NEGA kompaniya foydali","KIM boshqaradi"],correct:0,expl:"Texnik → QACHON: qulay narx zonasi va vaqtni — kirish nuqtasini aniqlaydi."},
+    {q:"Ikki tahlil birga ishlatilsa nima bo'ladi?",opts:["Qaror ancha ishonchli bo'ladi","Qaror qiyinlashadi","Foyda kamayadi","Farq yo'q"],correct:0,expl:"Fundamental va texnik tahlil bir yo'nalishni ko'rsatsa, qaror ancha ishonchli bo'ladi."},
+    {q:"Price action nima?",opts:["Grafikda narxning ma'lum muddat davomidagi harakati","Faqat indikator","Kompaniya foydasi","Broker hisoboti"],correct:0,expl:"Price action — grafikda o'z ifodasini topadigan, narxning ma'lum muddat davomidagi harakati."},
+    {q:"Narx harakati necha xil taymfreymda tahlil qilinadi?",opts:["3 (haftalik, kunlik, 1 soatlik)","1","5","10"],correct:0,expl:"3 taymfreym: haftalik (umumiy yo'nalish), kunlik (asosiy zonalar), 1 soatlik (aniq kirish nuqtasi)."},
+    {q:"Qaysi taymfreymdagi zonalar reaksiya uchun muhimroq?",opts:["Yuqoriroq taymfreym (haftalik)","Eng past taymfreym","1 daqiqalik","Farqi yo'q"],correct:0,expl:"Yuqoriroq taymfreymdagi zonalar reaksiya uchun muhimroq hisoblanadi."},
+    {q:"Momentum nimani o'lchaydi?",opts:["Narx o'zgarish darajasi, trend kuchi va tezligi","Faqat hajmni","Kompaniya qarzini","Dividendni"],correct:0,expl:"Momentum — narx o'zgarish darajasini o'lchaydi va trendning kuchi hamda tezligini ko'rsatadi."},
+    {q:"Trend liniya kamida necha marta tegishi kerak?",opts:["2 marta (3+ yaxshiroq)","1 marta","5 marta","10 marta"],correct:0,expl:"Trend liniya kamida 2 marta tegishi kerak, 3+ bo'lsa yaxshiroq."},
+    {q:"Tutash zona (confluence) nima?",opts:["Bir necha sabab bir joyda to'planadigan kuchli zona","Faqat bitta indikator","Narx nolga tushgan zona","Hajmsiz zona"],correct:0,expl:"Tutash zona — narx harakatiga ko'ra bir necha sabab bir joyda to'planadigan kuchli zona. Qancha ko'p sabab, shuncha ishonchli."},
+    {q:"Treydingda biz e'tibor qaratadigan 3 asosiy strategiya?",opts:["Reversal, Breakout, Pullback","Scalping, HFT, Algo","Faqat Reversal","Momentum, News, Copy"],correct:0,expl:"3 asosiy strategiya: Reversal (yo'nalish o'zgarishi), Breakout (zona buzish), Pullback (trend ichidagi qaytish)."},
+    {q:"Reversal strategiyasi nima?",opts:["Trend yo'nalishining qarama-qarshi tomonga o'zgarishi","Zonani buzib o'tish","Trend ichidagi qaytish","Faqat hajm"],correct:0,expl:"Reversal — trend yo'nalishining qarama-qarshi tomonga o'zgarishi. Kuchli va uzoq davom etadi."},
+    {q:"Breakout strategiyasi nima?",opts:["Narxning qarshilik/qo'llab zonasini buzib o'tishi","Yo'nalish o'zgarishi","Qisqa qaytish","Faqat indikator"],correct:0,expl:"Breakout — narxning qarshilik yoki qo'llab zonasini buzib o'tishi, yo'nalishда davom etadi."},
+    {q:"Pullback strategiyasi nima?",opts:["Trend ichidagi qisqa qarama-qarshi harakat","Butun trend o'zgarishi","Zona buzish","Yangi trend boshlanishi"],correct:0,expl:"Pullback — trend ichidagi qisqa qarama-qarshi harakat. Kuchsizroq va qisqaroq."},
+    {q:"Reversal strategiyasining bir kriteriyasi qaysi?",opts:["Downtrend liniyasini buzgan bo'lishi","Hajm nolga tushishi","RSI 50 bo'lishi","Faqat yangilik"],correct:0,expl:"Reversal kriteriyalari: downtrend liniyasini buzish, EMA 20 ni yuqoriga kesib o'tish, HL va HH hosil qilish."},
+    {q:"Price actionда qaysi elementlar birlashtiriladi?",opts:["Support/resistance, trend, shamcha shakllari, grafik shakllari","Faqat RSI","Faqat hajm","Faqat yangilik"],correct:0,expl:"Price actionда talab/taklif zonalari, trend yo'nalishi, yapon shamcha shakllari va grafik shakllar birlashtiriladi."},
+    {q:"Watchlist (kuzatuv ro'yxati) nima uchun kerak?",opts:["Nomzod aksiyalarni topish va ishni osonlashtirish uchun","Faqat narx ko'rish","Broker tanlash","Soliq to'lash"],correct:0,expl:"Watchlist — sotib olishga nomzod aksiyalarni topish va ishni osonlashtirish uchun kuzatuvdagi aksiyalar ro'yxati."},
+    {q:"Swing treydingda asosan qaysi tahlil qo'llaniladi?",opts:["Asosan texnik, fundamentalni ham hisobga olgan holda","Faqat fundamental","Faqat yangilik","Hech qanday tahlil"],correct:0,expl:"Swing treydingда asosan texnik tahlil, fundamental holatni ham hisobga olgan holda qo'llaniladi."},
+    {q:"Kuchli downtrendda long pozitsiya ochishда nima kerak?",opts:["Ehtiyotkor bo'lish","Darhol ochish","Ko'p pul qo'yish","E'tibor bermaslik"],correct:0,expl:"Kuchli downtrendda long pozitsiya ochishga ehtiyotkor bo'lish kerak."},
+    {q:"Trend liniyaning buzilishi nimani bildiradi?",opts:["Yo'nalish o'zgarayotganini","Trend kuchayganini","Hajm oshganini","Hech nima"],correct:0,expl:"Trend liniyaning buzilishi — yo'nalish o'zgarayotganini bildiradi."},
+  ],
+  "6": [
+    {q:"Risk menejment nima?",opts:["Ehtimoliy zararlarni aniqlash, o'lchash va cheklab boshqarish","Faqat ko'p foyda olish","Barcha pulni bir aksiyaga qo'yish","Zararni e'tiborsiz qoldirish"],correct:0,expl:"Risk menejment — ehtimoliy zararlarni oldindan aniqlash, o'lchash va cheklab boshqarish tartibidir."},
+    {q:"Risk menejmentning asosiy maqsadi nima?",opts:["Kapitalni saqlab qolish va 'o'yinda qolish'","Bir kunda boyib ketish","Barcha pulni ishlatish","Ko'p savdo qilish"],correct:0,expl:"Maqsad — eng yomon ssenariy yuz berganда ham kapitalni saqlab qolish va 'o'yinda qolish'."},
+    {q:"Risk va mukofot o'rtasida qanday bog'liqlik bor?",opts:["Yuqori daromad odatda yuqori risk bilan keladi","Yuqori daromad past risk bilan","Bog'liqlik yo'q","Risk foydani kamaytiradi"],correct:0,expl:"Kutilayotgan mukofot odatda risk darajasiga mutanosib: yuqori daromad va'dasi deyarli har doim yuqori risk bilan keladi."},
+    {q:"Risk–Reward nisbati 1:3 nimani anglatadi?",opts:["1 dollar tavakkal qilib 3 dollar foyda kutiladi","3 dollar tavakkal, 1 dollar foyda","3% risk","1% foyda"],correct:0,expl:"R:R 1:3 — 1 dollar tavakkal qilib 3 dollar foyda kutiladi. Nisbat qancha katta, foydada qolish osonroq."},
+    {q:"Take-profit (TP) nima?",opts:["Foydaga yetganда pozitsiyani avtomatik yopadigan narx","Zararni cheklaydigan narx","Broker komissiyasi","Kirish narxi"],correct:0,expl:"Take-profit — narx kutilgan yo'nalishда foydangizga yetganда pozitsiyani avtomatik yopib foydani qulflaydigan narx."},
+    {q:"Stop-loss (SL) nima?",opts:["Zararni cheklab pozitsiyani avtomatik yopadigan narx","Foydani qulflaydigan narx","Dividend","Broker komissiyasi"],correct:0,expl:"Stop-loss — narx aksincha ketganда zararni cheklab pozitsiyani avtomatik yopadigan oldindan belgilangan narx."},
+    {q:"Har savdoga kirishдан oldin nima qilish kerak?",opts:["TP va SL belgilab olish","Faqat sotib olish","Ko'p pul qo'yish","Hech narsa rejalamaslik"],correct:0,expl:"Har savdoga kirishдан oldin TP va SL belgilab olish kerak — bu hissiyotga emas, rejaga tayanishni ta'minlaydi."},
+    {q:"ATR (Average True Range) nimani o'lchaydi?",opts:["Narxning o'rtacha kunlik tebranish diapazonini","Kompaniya foydasini","Savdo hajmini","Dividendni"],correct:0,expl:"ATR — narxning ma'lum davrdagi o'rtacha kunlik tebranish diapazonini o'lchaydigan indikator."},
+    {q:"Swing treydingда stop-loss odatda qaysi oraliqда saqlanadi?",opts:["1.5% – 4.0%","10% – 20%","0.1% – 0.5%","20% – 50%"],correct:0,expl:"Swing treydingда ehtimoliy zarar foizi odatda 1.5% – 4.0% oralig'ida saqlanadi."},
+    {q:"Stop-loss juda yaqin bo'lsa nima bo'ladi?",opts:["Oddiy tebranish ham pozitsiyani vaqtidan oldin yopadi","Zarar kattalashadi","Foyda oshadi","Hech nima"],correct:0,expl:"SL juda yaqin bo'lsa, oddiy tebranish ham pozitsiyani vaqtidan oldin yopib yuboradi."},
+    {q:"Odatda avval nima aniqlanadi — TP yoki SL?",opts:["Avval SL (stop-loss), keyin TP","Avval TP, keyin SL","Ikkalasi birga","Faqat TP"],correct:0,expl:"Avval xavfsiz stop-loss darajasi aniqlanadi, so'ng nisbatga qarab take-profit qo'yiladi."},
+    {q:"50% zararni qoplash uchun qancha foyda kerak?",opts:["+100%","+50%","+25%","+10%"],correct:0,expl:"Zarar assimetrik: 50% zarar → +100% foyda kerak. Katta zararning oldini olish kichik foydani quvishdan muhimroq."},
+    {q:"Diversifikatsiya nima?",opts:["Mablag'ni turli aktivlarga taqsimlab riskni kamaytirish","Barcha pulni bir aksiyaga qo'yish","Faqat bitta sektorga investitsiya","Pulni saqlash"],correct:0,expl:"Diversifikatsiya — portfel riskini kamaytirish uchun mablag'ni turli xil aktivlarga taqsimlash."},
+    {q:"Riskka bardoshlikning 3 darajasi qaysi?",opts:["Konservativ, Balansli, Agressiv","Kichik, o'rta, katta","Past, yuqori","Faqat agressiv"],correct:0,expl:"Riskka bardoshlik 3 daraja: Konservativ (kapital himoyasi), Balansli (muvozanat), Agressiv (yuqori daromad)."},
+    {q:"Konservativ treyder qanday ishlaydi?",opts:["Kichik pozitsiyalar, tor stop-loss, barqaror aksiyalar","Katta tebranishni qabul qiladi","Barcha pulni bitta aksiyaga","Stop-losssiz"],correct:0,expl:"Konservativ — kapital himoyasi birinchi o'rinda: kichik pozitsiyalar, tor stop-loss, barqaror aksiyalar."},
+    {q:"Agressiv treyder nima qiladi?",opts:["Yuqori daromad uchun katta tebranishni qabul qiladi","Faqat kichik pozitsiyalar","Riskdan qochadi","Savdo qilmaydi"],correct:0,expl:"Agressiv — yuqori daromad maqsadida katta tebranishni qabul qiladi, kuchli intizom talab qiladi."},
+    {q:"Treydingда psixologik tuzoqlarга nima kiradi?",opts:["Ochko'zlik va qo'rquv","Faqat bilim","Faqat intizom","Diversifikatsiya"],correct:0,expl:"Ochko'zlik va qo'rquv — asosiy psixologik tuzoqlar. Qaror reja asosida qabul qilinishi kerak."},
+    {q:"R:R 1:2 nisbatда 40% g'alaba foizida savdo qanday?",opts:["FOYDA","ZARAR","TENG","Aniqlab bo'lmaydi"],correct:0,expl:"Jadvalga ko'ra 1:2 nisbatда 40% g'alaba foizida savdo FOYDA keltiradi."},
+    {q:"ATR asosida stop-loss qanday hisoblanadi (misolда)?",opts:["Kirish narxi − (1.5 × ATR)","Kirish narxi + ATR","Kirish narxi × 2","ATR / narx"],correct:0,expl:"Misolда: Stop-loss = kirish narxi − (1.5 × ATR), Take-profit = kirish narxi + (2.5 × ATR)."},
+    {q:"Katta zararning oldini olish nimadан muhimroq?",opts:["Kichik foydani quvishdan","Diversifikatsiyadan","Intizomdan","Tahlildan"],correct:0,expl:"Xulosa: katta zararning oldini olish kichik foydani quvishdan muhimroq (zarar assimetrik)."},
+  ],
+  "7": [
+    {q:"Yaxshi treyding rejasi nima?",opts:["Har kuni nima qilishni biladigan tizim","Faqat bir martalik reja","Broker tavsiyasi","Tasodifiy savdo"],correct:0,expl:"Yaxshi reja — har kuni nima qilishni biladigan tizim; maqsad, tahlil, treyd va jurnaldan iborat."},
+    {q:"Treyding rejasining birinchi qadami nima?",opts:["Maqsadni aniqlashtirish","Darhol sotib olish","Kredit olish","Jurnal yozish"],correct:0,expl:"1-qadam — maqsadni aniqlashtirish: aniq, o'lchanadigan maqsad keyingi barcha qarorlarning poydevori."},
+    {q:"Maqsadni aniqlashда qanday savolga javob berish kerak?",opts:["Qo'shimcha daromadmi yoki kasbmi?","Broker qaysi rangda?","Qaysi shaharda yashayman?","Telefon markasi qaysi?"],correct:0,expl:"Maqsad: qo'shimcha daromadmi yoki kasbmi, qaysi treyding turi, qaysi strategiya, riskka bardoshlik darajasi."},
+    {q:"Oylik tahlilда nima qilinadi?",opts:["Kuzatuvdagi aksiyalarni oyda kamida bir bor ko'rib chiqish","Har soatда savdo","Faqat yangilik o'qish","Broker almashtirish"],correct:0,expl:"Oylik tahlil — kuzatuvdagi barcha aksiyalarni oyda kamida bir marta ko'rib chiqish va yangi imkoniyatlarni aniqlash."},
+    {q:"Haftalik tahlilда nima o'rganiladi?",opts:["Bozor sentimenti va kelgusi haftadagi muhim hodisalar","Faqat oylik statistika","Broker komissiyasi","Soliq"],correct:0,expl:"Haftalik tahlil — bozor sentimenti, kelgusi hafta hodisalari, risk nisbati, kirish/chiqish narxlari."},
+    {q:"Kunlik treydда bozor ochilishидан oldin nima qilinadi?",opts:["Oxirgi muhim yangiliklar bilan tanishish","Darhol sotish","Jurnalni o'chirish","Brokerni almashtirish"],correct:0,expl:"Kunlik treyd: bozor ochilishидан oldin oxirgi muhim yangiliklar bilan tanishish, stop-loss qo'yish."},
+    {q:"Treyding jurnali nima uchun kerak?",opts:["Har savdoni yozib, o'sish va xatolar ustida ishlash","Faqat chiroy uchun","Brokerга ko'rsatish","Soliq to'lash"],correct:0,expl:"Jurnal — treyderning eng kuchli o'sish vositasi. Har savdoni yozib boring: nima, qachon, qancha va eng muhimi NEGA."},
+    {q:"Treyding jurnalида eng muhim yozuv nima?",opts:["NEGA (savdo sababi)","Faqat sana","Broker nomi","Ob-havo"],correct:0,expl:"Jurnalда eng muhimi — NEGA: savdo sababi va izohi. Bu xatolar ustida ishlashga yordam beradi."},
+    {q:"Demo hisob nima?",opts:["Pulsiz — platforma va strategiyani sinash uchun","Haqiqiy pul bilan","Faqat brokerlar uchun","Soliq hisobi"],correct:0,expl:"Demo hisob — pulsiz, platforma va strategiyani sinash uchun; xato qilsangiz ham real zarar yo'q."},
+    {q:"Demo hisobning asosiy chegarasi nima?",opts:["Hissiyot real emas","Pul ko'p","Sekin ishlaydi","Broker yo'q"],correct:0,expl:"Demo hisobда hissiyot real emas — bu uning asosiy chegarasi. Real pulда his-tuyg'u boshqacha."},
+    {q:"Intizom nima uchun muhim?",opts:["Strategiya bilan natija o'rtasidagi ko'prik","Faqat brokerlar uchun","Pul topish uchun","Reklama uchun"],correct:0,expl:"Intizom — strategiya bilan natija o'rtasidagi ko'prik. Eng yaxshi reja ham unga amal qilinmasa ishlamaydi."},
+    {q:"Intizomли treyderда qaror qanday qabul qilinadi?",opts:["Reja asosida, kayfiyatga qarab emas","Kayfiyatga qarab","Tasodifan","Boshqalar aytgani bo'yicha"],correct:0,expl:"Intizom: qaror reja asosida qabul qilinadi, kayfiyatga qarab emas. Stop-loss va 2% qoidasi har doim amal qiladi."},
+    {q:"2% qoidasi nimaga tegishli?",opts:["Har savdoда qancha tavakkal qilish (pozitsiya hajmi)","Broker komissiyasi","Dividend foizi","Soliq stavkasi"],correct:0,expl:"2% qoidasi — har savdoда kapitalning qancha foizини tavakkal qilishni belgilaydi (odatda 2% dan oshmaydi)."},
+    {q:"Treyding rejasining tarkibiy qismlaridan biri qaysi?",opts:["Jurnal yuritish","Broker reklama qilish","Boshqalarga maslahat berish","Faqat kuzatish"],correct:0,expl:"Reja qismlari: maqsad aniqlash, haftalik/oylik tahlil, kunlik treyd, jurnal yuritish, baholash va tuzatish."},
+    {q:"Kunlik treydда oldingi kuni sotib olingan aksiyalarга nima qilinadi?",opts:["Stop-loss qo'yiladi","Darhol sotiladi","E'tiborsiz qoldiriladi","Ko'paytiriladi"],correct:0,expl:"Kunlik treyd: oldingi kuni sotib olingan aksiyalarга stop-loss qo'yib chiqish kerak."},
+    {q:"Xatolar ustida ishlash nimani anglatadi?",opts:["Xato takrorlanmasligini tekshirib, tuzatish yo'lini belgilash","Xatoni e'tiborsiz qoldirish","Savdoni to'xtatish","Brokerni ayblash"],correct:0,expl:"Xatolar ustida ishlash — xato takrorlanmayotganини tekshirish, yangi xatoga tuzatish yo'lini belgilash, doimiy takomillashish."},
+    {q:"Yangi imkoniyat chiqsa nima qilish kerak?",opts:["Shoshmasдан avval tahlil qilish","Darhol sotib olish","E'tiborsiz qoldirish","Boshqalarga aytish"],correct:0,expl:"Yangi imkoniyat chiqsa, shoshmasдан avval tahlil qilish kerak."},
+    {q:"Real hisob demo hisobдан nimasi bilan farq qiladi?",opts:["Haqiqiy pul — haqiqiy foyda va zarar, real hissiyot","Sekinroq","Broker yo'q","Farqi yo'q"],correct:0,expl:"Real hisob — haqiqiy pul, haqiqiy foyda va zarar; hissiyot real bo'ladi (demoда bu yo'q)."},
+    {q:"Muntazamlik borasида qaysi to'g'ri?",opts:["Kichik, ammo doimiy harakat katta, tartibsiz harakatдан ustun","Katta bir martalik harakat yaxshi","Muntazamlik shart emas","Faqat katta savdolar"],correct:0,expl:"Muntazamlik: kichik, ammo doimiy harakat katta, ammo tartibsiz harakatдан ustun."},
+    {q:"Treyding jurnalidan qanday statistika chiqariladi?",opts:["Haftalik va oylik natijalar","Faqat broker nomi","Ob-havo","Soliq"],correct:0,expl:"Jurnaldan haftalik va oylik statistikani chiqarib, o'z natijangizni raqamlarda ko'rib borish mumkin."},
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// IMTIHON — tarjimalar va savollar banki
+// ═══════════════════════════════════════════════════════════════════════════
+const EXAM_T = {
+  uz:{title:"IMTIHON",sub:"Har modul bo'yicha bilimingizni sinang",mod:"Modul",locked:"Qulflangan",passed:"O'tdingiz",start:"Boshlash",retake:"Qayta topshirish",q:"Savol",of:"dan",next:"Keyingi",finish:"Yakunlash",result:"Natija",correct:"To'g'ri",wrong:"Xato",yourScore:"Sizning natijangiz",passZone:"70% dan yuqori — a'lo!",failZone:"70% kerak — yana urinib ko'ring",reviewTitle:"Xatolaringiz ustida ishlang",yourAns:"Sizning javobingiz",correctAns:"To'g'ri javob",backToList:"Modullarga qaytish",screenshot:"Bu natijani skrinshot qilib guruhga yuboring ✅",passMsg:"Tabriklaymiz! Keyingi modul ochildi 🎉",locked2:"Avvalgi modulni 70% ga topshiring",unlockNext:"Keyingi modul ochildi!",examOf:"7 modullik imtihon",progress:"Jarayon"},
+  en:{title:"EXAM",sub:"Test your knowledge for each module",mod:"Module",locked:"Locked",passed:"Passed",start:"Start",retake:"Retake",q:"Question",of:"of",next:"Next",finish:"Finish",result:"Result",correct:"Correct",wrong:"Wrong",yourScore:"Your score",passZone:"Above 70% — excellent!",failZone:"70% needed — try again",reviewTitle:"Review your mistakes",yourAns:"Your answer",correctAns:"Correct answer",backToList:"Back to modules",screenshot:"Screenshot this result and send it to the group ✅",passMsg:"Congratulations! Next module unlocked 🎉",locked2:"Pass the previous module with 70%",unlockNext:"Next module unlocked!",examOf:"7-module exam",progress:"Progress"},
+  ru:{title:"ЭКЗАМЕН",sub:"Проверьте знания по каждому модулю",mod:"Модуль",locked:"Заблокировано",passed:"Сдано",start:"Начать",retake:"Пересдать",q:"Вопрос",of:"из",next:"Далее",finish:"Завершить",result:"Результат",correct:"Верно",wrong:"Неверно",yourScore:"Ваш результат",passZone:"Выше 70% — отлично!",failZone:"Нужно 70% — попробуйте снова",reviewTitle:"Работа над ошибками",yourAns:"Ваш ответ",correctAns:"Правильный ответ",backToList:"К модулям",screenshot:"Сделайте скриншот результата и отправьте в группу ✅",passMsg:"Поздравляем! Следующий модуль открыт 🎉",locked2:"Сдайте предыдущий модуль на 70%",unlockNext:"Следующий модуль открыт!",examOf:"Экзамен из 7 модулей",progress:"Прогресс"},
+  tr:{title:"SINAV",sub:"Her modül için bilginizi test edin",mod:"Modül",locked:"Kilitli",passed:"Geçti",start:"Başla",retake:"Tekrar",q:"Soru",of:"/",next:"İleri",finish:"Bitir",result:"Sonuç",correct:"Doğru",wrong:"Yanlış",yourScore:"Puanınız",passZone:"70% üzeri — mükemmel!",failZone:"70% gerekli — tekrar deneyin",reviewTitle:"Hatalarınızı gözden geçirin",yourAns:"Cevabınız",correctAns:"Doğru cevap",backToList:"Modüllere dön",screenshot:"Bu sonucun ekran görüntüsünü alıp gruba gönderin ✅",passMsg:"Tebrikler! Sonraki modül açıldı 🎉",locked2:"Önceki modülü 70% ile geçin",unlockNext:"Sonraki modül açıldı!",examOf:"7 modüllük sınav",progress:"İlerleme"},
+  ar:{title:"الامتحان",sub:"اختبر معرفتك في كل وحدة",mod:"الوحدة",locked:"مقفل",passed:"ناجح",start:"ابدأ",retake:"إعادة",q:"سؤال",of:"من",next:"التالي",finish:"إنهاء",result:"النتيجة",correct:"صحيح",wrong:"خطأ",yourScore:"نتيجتك",passZone:"أكثر من 70% — ممتاز!",failZone:"مطلوب 70% — حاول مجدداً",reviewTitle:"راجع أخطاءك",yourAns:"إجابتك",correctAns:"الإجابة الصحيحة",backToList:"إلى الوحدات",screenshot:"التقط صورة للنتيجة وأرسلها إلى المجموعة ✅",passMsg:"تهانينا! فُتحت الوحدة التالية 🎉",locked2:"اجتز الوحدة السابقة بنسبة 70%",unlockNext:"فُتحت الوحدة التالية!",examOf:"امتحان من 7 وحدات",progress:"التقدم"},
+};
+
+// Modul nomlari (5 til) — CRS_T dagi modul sarlavhalaridan foydalanamiz
+const EXAM_MOD_NAMES = {
+  uz:["Treydingga kirish","Aksiyalar bilan halol treyding","Fundamental tahlil","Texnik tahlilga kirish","Texnik tahlil va strategiyalar","Risk menejment va psixologiya","Real treydingni boshlash"],
+  en:["Introduction to Trading","Halal Trading with Stocks","Fundamental Analysis","Introduction to Technical Analysis","Technical Analysis & Strategies","Risk Management & Psychology","Starting Real Trading"],
+  ru:["Введение в трейдинг","Халяльный трейдинг акциями","Фундаментальный анализ","Введение в технический анализ","Технический анализ и стратегии","Риск-менеджмент и психология","Начало реального трейдинга"],
+  tr:["Tradinge Giriş","Hisselerle Helal Trading","Temel Analiz","Teknik Analize Giriş","Teknik Analiz ve Stratejiler","Risk Yönetimi ve Psikoloji","Gerçek Trading'e Başlama"],
+  ar:["مقدمة في التداول","التداول الحلال بالأسهم","التحليل الأساسي","مقدمة في التحليل الفني","التحليل الفني والاستراتيجيات","إدارة المخاطر والنفسية","بدء التداول الحقيقي"],
+};
+
+
 const SITE_T={
   uz:{nav:{halal:"TREYDING HALOLMI?",home:"Bosh sahifa",tool:"Fundamental Tahlil",course:"Aksiyalar savdosi kursi",journal:"Kundalik",demo:"Demo",about:"Biz haqimizda",erp:"Savura ERP"},
     hero:{badge:"AQSh BIRJASI · FUNDAMENTAL TAHLIL",h1:"Aksiya bozorida",h2:"ongli investitsiya",
@@ -665,7 +843,7 @@ function NavBar({page,setPage,lang,setLang,auth}){
   const [scrolled,setScrolled]=useState(false);
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>30);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   const sn=getST(lang).nav;
-  const links=[{id:"halal",label:sn.halal,hot:true},{id:"home",label:sn.home},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"demo",label:sn.demo||"Demo"},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
+  const links=[{id:"halal",label:sn.halal,hot:true},{id:"home",label:sn.home},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"demo",label:sn.demo||"Demo"},{id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,badge:true},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
   const go=(id)=>{setPage(id);setOpen(false);setFlagOpen(false);window.scrollTo({top:0,behavior:"smooth"});};
   const LANGS=[{k:"uz",f:"🇺🇿",l:"O'Z"},{k:"en",f:"🇺🇸",l:"EN"},{k:"tr",f:"🇹🇷",l:"TR"},{k:"ru",f:"🇷🇺",l:"RU"},{k:"ar",f:"🇸🇦",l:"AR"}];
   const cur=LANGS.find(function(x){return x.k===lang;})||LANGS[0];
@@ -708,7 +886,7 @@ function NavBar({page,setPage,lang,setLang,auth}){
               <span style={{flex:1}}>{l.label}</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{opacity:.4}}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
-            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:8,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"15px 24px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}>{l.hot&&<span style={{fontSize:15}}>☪️</span>}<span>{l.label}</span></button>;
+            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:8,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"15px 24px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}>{l.hot&&<span style={{fontSize:15}}>☪️</span>}{l.badge&&<span style={{fontSize:14}}>📝</span>}<span>{l.label}</span></button>;
           })}
           <div style={{padding:"10px 24px 6px",borderTop:`1px solid ${C.border}`}}>
             {auth&&auth.user
@@ -2050,6 +2228,33 @@ async function cloudUpdateWatch(id, fullItem){
     return;
   }
   const all=lsGet('savura_watch_v1'); lsSave('savura_watch_v1',all.map(e=>e.id===id?fullItem:e));
+}
+
+// Imtihon natijalari — {module: bestPercent}
+async function cloudLoadExam(){
+  const uid=await getUid();
+  if(sb && uid){
+    try{ const {data}=await sb.from("exam_results").select("module,best_percent").eq("user_id",uid); 
+      const r={}; (data||[]).forEach(x=>{ r[String(x.module)]=x.best_percent; }); return r;
+    }catch{ return {}; }
+  }
+  try{ return JSON.parse(localStorage.getItem('savura_exam_v1'))||{}; }catch{ return {}; }
+}
+async function cloudSaveExam(module, percent){
+  const uid=await getUid();
+  if(sb && uid){
+    try{
+      // faqat eng yaxshi natijani saqlaymiz
+      const {data}=await sb.from("exam_results").select("best_percent").eq("user_id",uid).eq("module",module).single();
+      const prev=data?.best_percent||0;
+      const best=Math.max(prev,percent);
+      await sb.from("exam_results").upsert({user_id:uid,module:module,best_percent:best,last_percent:percent,updated_at:new Date().toISOString()},{onConflict:"user_id,module"});
+    }catch{}
+    return;
+  }
+  let r={}; try{r=JSON.parse(localStorage.getItem('savura_exam_v1'))||{};}catch{}
+  r[String(module)]=Math.max(r[String(module)]||0,percent);
+  localStorage.setItem('savura_exam_v1',JSON.stringify(r));
 }
 
 function csvExport(rows, filename){
@@ -3735,6 +3940,275 @@ function HalalPage({lang="uz", setPage}){
   );
 }
 
+
+// ═══════════════════════════════════════════════════════════════════════════
+// EXAM PAGE — imtihon tizimi (random savol + random variant, 70% o'tish)
+// ═══════════════════════════════════════════════════════════════════════════
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+function ExamPage({lang="uz", setPage}){
+  const T=EXAM_T[lang]||EXAM_T.uz;
+  const modNames=EXAM_MOD_NAMES[lang]||EXAM_MOD_NAMES.uz;
+  const rtl=lang==="ar";
+  const PASS=70;
+
+  const [results,setResults]=useState({});   // {module: bestPercent}
+  const [loading,setLoading]=useState(true);
+  const [view,setView]=useState("list");      // list | exam | result
+  const [activeMod,setActiveMod]=useState(null);
+  const [questions,setQuestions]=useState([]); // shuffled, with shuffled opts
+  const [curQ,setCurQ]=useState(0);
+  const [answers,setAnswers]=useState([]);     // user's chosen option index per question
+  const [finalPct,setFinalPct]=useState(0);
+  const [justUnlocked,setJustUnlocked]=useState(false);
+
+  React.useEffect(()=>{
+    let active=true;
+    (async()=>{ const r=await cloudLoadExam(); if(active){ setResults(r); setLoading(false); } })();
+    return ()=>{active=false;};
+  },[]);
+
+  // Modul ochiqmi? 1-modul doim ochiq; keyingi — oldingisi 70%+ bo'lsa
+  function isUnlocked(mod){
+    if(mod===1) return true;
+    return (results[String(mod-1)]||0)>=PASS;
+  }
+  function isPassed(mod){ return (results[String(mod)]||0)>=PASS; }
+
+  // Imtihonni boshlash: 20 savolni aralashtir, har birining variantlarini ham aralashtir
+  function startExam(mod){
+    const bank=EXAM_BANK[String(mod)]||[];
+    const qs=shuffle(bank).map(function(item){
+      // variantlarni aralashtirish: to'g'ri javob indeksini kuzatamiz
+      const opts=item.opts.map((text,idx)=>({text,isCorrect:idx===item.correct}));
+      const shuffledOpts=shuffle(opts);
+      const newCorrect=shuffledOpts.findIndex(o=>o.isCorrect);
+      return { q:item.q, opts:shuffledOpts.map(o=>o.text), correct:newCorrect, expl:item.expl };
+    });
+    setQuestions(qs);
+    setAnswers(new Array(qs.length).fill(-1));
+    setCurQ(0);
+    setActiveMod(mod);
+    setView("exam");
+  }
+
+  function choose(optIdx){
+    setAnswers(prev=>{ const n=[...prev]; n[curQ]=optIdx; return n; });
+  }
+
+  function nextQ(){
+    if(curQ<questions.length-1){ setCurQ(curQ+1); window.scrollTo({top:0,behavior:'smooth'}); }
+    else finishExam();
+  }
+
+  async function finishExam(){
+    let correct=0;
+    questions.forEach((q,i)=>{ if(answers[i]===q.correct) correct++; });
+    const pct=Math.round(correct/questions.length*100);
+    setFinalPct(pct);
+    const wasPassed=isPassed(activeMod);
+    await cloudSaveExam(activeMod, pct);
+    const newResults={...results,[String(activeMod)]:Math.max(results[String(activeMod)]||0,pct)};
+    setResults(newResults);
+    // Keyingi modul ochildimi?
+    if(pct>=PASS && !wasPassed && activeMod<7) setJustUnlocked(true);
+    else setJustUnlocked(false);
+    setView("result");
+    window.scrollTo({top:0});
+  }
+
+  // Motivatsion xabar (natijaga qarab)
+  function motivation(pct){
+    const M={
+      uz:{ perfect:"Ajoyib! Siz haqiqiy bilimdonsiz! 🏆", great:"Zo'r natija! Davom eting! 🌟", good:"Yaxshi! Maqsadga yaqinsiz 💪", fail:"Ummidsizlanmang — takrorlab, yana urinib ko'ring! 📚" },
+      en:{ perfect:"Excellent! You are a true expert! 🏆", great:"Great score! Keep going! 🌟", good:"Good! You're close to the goal 💪", fail:"Don't give up — review and try again! 📚" },
+      ru:{ perfect:"Отлично! Вы настоящий знаток! 🏆", great:"Отличный результат! Продолжайте! 🌟", good:"Хорошо! Вы близки к цели 💪", fail:"Не сдавайтесь — повторите и попробуйте снова! 📚" },
+      tr:{ perfect:"Mükemmel! Gerçek bir uzmansınız! 🏆", great:"Harika sonuç! Devam edin! 🌟", good:"İyi! Hedefe yakınsınız 💪", fail:"Pes etmeyin — tekrar edip yeniden deneyin! 📚" },
+      ar:{ perfect:"ممتاز! أنت خبير حقيقي! 🏆", great:"نتيجة رائعة! واصل! 🌟", good:"جيد! أنت قريب من الهدف 💪", fail:"لا تستسلم — راجع وحاول مجدداً! 📚" },
+    }[lang]||{};
+    if(pct>=90) return M.perfect;
+    if(pct>=PASS) return M.great;
+    if(pct>=50) return M.good;
+    return M.fail;
+  }
+
+  if(loading){
+    return(
+      <div style={{padding:"120px 24px",textAlign:"center"}}>
+        <div style={{width:36,height:36,border:`3px solid ${C.border}`,borderTopColor:C.blue,borderRadius:'50%',margin:'0 auto',animation:'spin 0.8s linear infinite'}}/>
+      </div>
+    );
+  }
+
+  // ═══ NATIJA EKRANI ═══
+  if(view==="result"){
+    const passed=finalPct>=PASS;
+    const correctCount=questions.filter((q,i)=>answers[i]===q.correct).length;
+    const wrongOnes=questions.map((q,i)=>({q,i})).filter(x=>answers[x.i]!==x.q.correct);
+    return(
+      <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:680,margin:"0 auto"}}>
+        {/* Natija kartasi — skrinshot uchun chiroyli */}
+        <div style={{background:passed?"linear-gradient(135deg,rgba(55,178,77,0.15),rgba(47,125,246,0.1))":"linear-gradient(135deg,rgba(229,72,77,0.12),rgba(240,169,43,0.08))",
+          border:`2px solid ${passed?C.green:C.amber}`,borderRadius:24,padding:"32px 24px",textAlign:"center",marginBottom:20,position:"relative",overflow:"hidden"}}>
+          <div style={{fontSize:13,letterSpacing:"1.5px",color:C.dim,marginBottom:6,fontWeight:600}}>SAVURA INVEST · {T.title}</div>
+          <div style={{fontSize:15,color:C.text,fontWeight:700,marginBottom:20,fontFamily:"'Sora',sans-serif"}}>{T.mod} {activeMod}: {modNames[activeMod-1]}</div>
+          <div style={{fontSize:64,fontWeight:800,color:passed?C.greenLt:C.amber,fontFamily:"'Sora',sans-serif",lineHeight:1}}>{finalPct}%</div>
+          <div style={{fontSize:14,color:C.dim,margin:"8px 0 18px"}}>{correctCount}/{questions.length} {T.correct}</div>
+          <div style={{fontSize:17,color:C.text,fontWeight:700,lineHeight:1.5,marginBottom:8}}>{motivation(finalPct)}</div>
+          {passed&&<div style={{fontSize:13,color:C.greenLt,marginTop:10}}>{justUnlocked?T.passMsg:T.passZone}</div>}
+          {!passed&&<div style={{fontSize:13,color:C.amber,marginTop:10}}>{T.failZone}</div>}
+          <div style={{marginTop:18,paddingTop:16,borderTop:`1px solid ${C.border}`,fontSize:12,color:C.faint}}>@savura_invest · {new Date().toLocaleDateString()}</div>
+        </div>
+
+        {passed&&<div style={{background:"rgba(55,178,77,0.08)",border:`1px solid rgba(55,178,77,0.3)`,borderRadius:12,padding:"12px 16px",marginBottom:20,textAlign:"center",fontSize:13.5,color:C.greenLt,fontWeight:600}}>{T.screenshot}</div>}
+
+        {/* Xatolar ustida ishlash */}
+        {wrongOnes.length>0&&(
+          <div style={{marginBottom:20}}>
+            <h3 style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:17,color:C.text,marginBottom:14}}>❌ {T.reviewTitle} ({wrongOnes.length})</h3>
+            {wrongOnes.map(function(x){
+              const q=x.q; const userAns=answers[x.i];
+              return(
+                <div key={x.i} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:"14px 16px",marginBottom:12}}>
+                  <div style={{fontSize:14,fontWeight:600,color:C.text,marginBottom:10,lineHeight:1.5}}>{q.q}</div>
+                  {userAns>=0&&(
+                    <div style={{fontSize:12.5,color:C.red,marginBottom:5,display:"flex",gap:6,alignItems:"flex-start"}}>
+                      <span>✗</span><span><b>{T.yourAns}:</b> {q.opts[userAns]}</span>
+                    </div>
+                  )}
+                  <div style={{fontSize:12.5,color:C.greenLt,marginBottom:8,display:"flex",gap:6,alignItems:"flex-start"}}>
+                    <span>✓</span><span><b>{T.correctAns}:</b> {q.opts[q.correct]}</span>
+                  </div>
+                  <div style={{fontSize:12,color:C.dim,lineHeight:1.6,background:"rgba(0,0,0,0.2)",borderRadius:8,padding:"8px 11px"}}>💡 {q.expl}</div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        <div style={{display:"flex",gap:10}}>
+          <button onClick={()=>startExam(activeMod)} style={{flex:1,background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:14,padding:"13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.retake}</button>
+          <button onClick={()=>{setView("list");setJustUnlocked(false);}} style={{flex:1,background:"transparent",border:`1px solid ${C.border}`,borderRadius:12,color:C.dim,fontWeight:600,fontSize:14,padding:"13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.backToList}</button>
+        </div>
+      </div>
+    );
+  }
+
+  // ═══ IMTIHON EKRANI ═══
+  if(view==="exam"){
+    const q=questions[curQ];
+    const answered=answers[curQ]>=0;
+    return(
+      <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:680,margin:"0 auto"}}>
+        {/* Progress */}
+        <div style={{marginBottom:20}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+            <span style={{fontSize:12.5,color:C.dim,fontWeight:600}}>{T.mod} {activeMod} · {T.q} {curQ+1} {T.of} {questions.length}</span>
+            <span style={{fontSize:12.5,color:C.blueLt,fontWeight:700}}>{Math.round((curQ)/questions.length*100)}%</span>
+          </div>
+          <div style={{height:6,background:"rgba(255,255,255,0.06)",borderRadius:3,overflow:"hidden"}}>
+            <div style={{height:"100%",width:`${((curQ+ (answered?1:0))/questions.length)*100}%`,background:`linear-gradient(90deg,${C.blue},${C.green})`,borderRadius:3,transition:"width .3s"}}/>
+          </div>
+        </div>
+
+        {/* Savol */}
+        <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:"20px 22px",marginBottom:16}}>
+          <div style={{fontSize:17,fontWeight:700,color:C.text,lineHeight:1.5,fontFamily:"'Sora',sans-serif"}}>{q.q}</div>
+        </div>
+
+        {/* Variantlar */}
+        <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:22}}>
+          {q.opts.map(function(opt,idx){
+            const sel=answers[curQ]===idx;
+            const letter=String.fromCharCode(65+idx); // A,B,C,D
+            return(
+              <button key={idx} onClick={()=>choose(idx)}
+                style={{display:"flex",alignItems:"center",gap:13,textAlign:rtl?"right":"left",
+                  background:sel?"rgba(47,125,246,0.12)":C.card,
+                  border:`1.5px solid ${sel?C.blue:C.border}`,borderRadius:13,padding:"14px 16px",cursor:"pointer",transition:"all .15s"}}>
+                <span style={{flexShrink:0,width:30,height:30,borderRadius:"50%",background:sel?`linear-gradient(135deg,${C.blue},${C.green})`:"rgba(255,255,255,0.05)",
+                  color:sel?"#fff":C.dim,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,fontSize:13.5,fontFamily:"'Sora',sans-serif"}}>{letter}</span>
+                <span style={{fontSize:14.5,color:sel?C.text:C.dim,lineHeight:1.4,fontWeight:sel?600:400}}>{opt}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <button onClick={nextQ} disabled={!answered}
+          style={{width:"100%",background:answered?`linear-gradient(135deg,${C.blue},${C.green})`:"rgba(255,255,255,0.05)",
+            border:"none",borderRadius:13,color:answered?"#fff":C.faint,fontWeight:700,fontSize:15,padding:"14px",
+            cursor:answered?"pointer":"default",fontFamily:"'Sora',sans-serif"}}>
+          {curQ<questions.length-1?T.next+" →":T.finish+" ✓"}
+        </button>
+      </div>
+    );
+  }
+
+  // ═══ MODULLAR RO'YXATI ═══
+  const passedCount=Object.keys(results).filter(m=>results[m]>=PASS).length;
+  return(
+    <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:720,margin:"0 auto"}}>
+      <div style={{marginBottom:18}}><BackBtn setPage={setPage} lang={lang}/></div>
+      <div style={{textAlign:"center",marginBottom:26}}>
+        <div style={{fontSize:11,letterSpacing:"2.5px",color:C.blueLt,marginBottom:8,fontWeight:600}}>📝 {T.examOf}</div>
+        <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(26px,5vw,38px)",color:C.text,margin:"0 0 8px"}}>{T.title}</h1>
+        <p style={{color:C.dim,fontSize:14,margin:0}}>{T.sub}</p>
+        {/* Umumiy jarayon */}
+        <div style={{marginTop:18,maxWidth:320,marginLeft:"auto",marginRight:"auto"}}>
+          <div style={{display:"flex",justifyContent:"space-between",fontSize:11.5,color:C.faint,marginBottom:5}}>
+            <span>{T.progress}</span><span>{passedCount}/7</span>
+          </div>
+          <div style={{height:8,background:"rgba(255,255,255,0.06)",borderRadius:4,overflow:"hidden"}}>
+            <div style={{height:"100%",width:`${passedCount/7*100}%`,background:`linear-gradient(90deg,${C.green},${C.blueLt})`,borderRadius:4,transition:"width .4s"}}/>
+          </div>
+        </div>
+      </div>
+
+      <div style={{display:"flex",flexDirection:"column",gap:12}}>
+        {[1,2,3,4,5,6,7].map(function(mod){
+          const unlocked=isUnlocked(mod);
+          const passed=isPassed(mod);
+          const best=results[String(mod)];
+          return(
+            <div key={mod} style={{background:C.card,border:`1px solid ${passed?"rgba(55,178,77,0.4)":C.border}`,borderRadius:16,padding:"16px 18px",
+              opacity:unlocked?1:0.55,position:"relative"}}>
+              <div style={{display:"flex",alignItems:"center",gap:14}}>
+                <div style={{flexShrink:0,width:46,height:46,borderRadius:13,
+                  background:passed?`linear-gradient(135deg,${C.green},${C.blue})`:unlocked?"rgba(47,125,246,0.12)":"rgba(255,255,255,0.04)",
+                  display:"flex",alignItems:"center",justifyContent:"center",fontSize:19,fontWeight:800,
+                  color:passed?"#fff":unlocked?C.blueLt:C.faint,fontFamily:"'Sora',sans-serif"}}>
+                  {passed?"✓":unlocked?mod:"🔒"}
+                </div>
+                <div style={{flex:1,minWidth:0}}>
+                  <div style={{fontSize:11,color:C.faint,marginBottom:2}}>{T.mod} {mod}</div>
+                  <div style={{fontSize:15,fontWeight:700,color:unlocked?C.text:C.faint,lineHeight:1.3,fontFamily:"'Sora',sans-serif"}}>{modNames[mod-1]}</div>
+                  {best!=null&&<div style={{fontSize:11.5,color:passed?C.greenLt:C.amber,marginTop:3,fontWeight:600}}>{T.yourScore}: {best}%</div>}
+                </div>
+                <div style={{flexShrink:0}}>
+                  {unlocked
+                    ?<button onClick={()=>startExam(mod)} style={{background:passed?"rgba(55,178,77,0.12)":`linear-gradient(135deg,${C.blue},${C.green})`,
+                        border:passed?`1px solid rgba(55,178,77,0.4)`:"none",borderRadius:10,
+                        color:passed?C.greenLt:"#fff",fontWeight:700,fontSize:13,padding:"9px 16px",cursor:"pointer",fontFamily:"'Sora',sans-serif",whiteSpace:"nowrap"}}>
+                        {passed?T.retake:T.start}
+                      </button>
+                    :<span style={{fontSize:11,color:C.faint,fontStyle:"italic"}}>{T.locked}</span>
+                  }
+                </div>
+              </div>
+              {!unlocked&&<div style={{fontSize:11,color:C.faint,marginTop:8,paddingTop:8,borderTop:`1px solid ${C.border}`}}>🔒 {T.locked2}</div>}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+
 export default function App(){
   const [page,setPageRaw]=useState("home");
   const setPage=React.useCallback((p)=>{ try{window.history.pushState({pg:p},"");}catch(e){} setPageRaw(p); },[]);
@@ -3768,6 +4242,7 @@ export default function App(){
       {page==="about"&&<AboutPage lang={lang} setPage={setPage}/>}
       {page==="journal"&&<LockGate state={aState} lang={lang} setPage={setPage}><JournalPage lang={lang} setPage={setPage}/></LockGate>}
       {page==="demo"&&<LockGate state={aState} lang={lang} setPage={setPage}><DemoPage lang={lang} setPage={setPage}/></LockGate>}
+      {page==="exam"&&<LockGate state={aState} lang={lang} setPage={setPage}><ExamPage lang={lang} setPage={setPage}/></LockGate>}
       <ChatWidget lang={lang}/>
       <Footer setPage={setPage} lang={lang}/>
     </div>
