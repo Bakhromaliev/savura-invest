@@ -583,11 +583,11 @@ const EXAM_BANK = {
 // IMTIHON — tarjimalar va savollar banki
 // ═══════════════════════════════════════════════════════════════════════════
 const EXAM_T = {
-  uz:{title:"IMTIHON",sub:"Har modul bo'yicha bilimingizni sinang",mod:"Modul",locked:"Qulflangan",passed:"O'tdingiz",start:"Boshlash",retake:"Qayta topshirish",q:"Savol",of:"dan",next:"Keyingi",finish:"Yakunlash",result:"Natija",correct:"To'g'ri",wrong:"Xato",yourScore:"Sizning natijangiz",passZone:"70% dan yuqori — a'lo!",failZone:"70% kerak — yana urinib ko'ring",reviewTitle:"Xatolaringiz ustida ishlang",yourAns:"Sizning javobingiz",correctAns:"To'g'ri javob",backToList:"Modullarga qaytish",screenshot:"Bu natijani skrinshot qilib guruhga yuboring ✅",passMsg:"Tabriklaymiz! Keyingi modul ochildi 🎉",locked2:"Avvalgi modulni 70% ga topshiring",unlockNext:"Keyingi modul ochildi!",examOf:"7 modullik imtihon",progress:"Jarayon",certBtn:"🎓 Sertifikatni olish",certLocked:"Sertifikat uchun 7 modulni ham 70% ga to'ldiring",certTitle:"SERTIFIKAT",certName:"Ism va familiyangiz",certNamePh:"Masalan: Alisher Karimov",certGen:"Sertifikat yaratish",certText:"ushbu shaxs Savura Invest \"Halol aksiyalarga investitsiya kiritish\" kursining 7 ta modulini muvaffaqiyatli tamomlaganini tasdiqlaymiz",certAwarded:"Ushbu sertifikat",certDir:"Direktor",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Berilgan sana",certDownload:"⬇ Yuklab olish (PNG)",certShare:"Sertifikatni skrinshot qilib ijtimoiy tarmoqlarda ulashing! 🎉",certBack:"Orqaga",certNameReq:"Iltimos ism va familiyangizni kiriting"},
-  en:{title:"EXAM",sub:"Test your knowledge for each module",mod:"Module",locked:"Locked",passed:"Passed",start:"Start",retake:"Retake",q:"Question",of:"of",next:"Next",finish:"Finish",result:"Result",correct:"Correct",wrong:"Wrong",yourScore:"Your score",passZone:"Above 70% — excellent!",failZone:"70% needed — try again",reviewTitle:"Review your mistakes",yourAns:"Your answer",correctAns:"Correct answer",backToList:"Back to modules",screenshot:"Screenshot this result and send it to the group ✅",passMsg:"Congratulations! Next module unlocked 🎉",locked2:"Pass the previous module with 70%",unlockNext:"Next module unlocked!",examOf:"7-module exam",progress:"Progress",certBtn:"🎓 Get certificate",certLocked:"Complete all 7 modules with 70% to earn the certificate",certTitle:"CERTIFICATE",certName:"Your full name",certNamePh:"e.g. Alisher Karimov",certGen:"Generate certificate",certText:"has successfully completed all 7 modules of the Savura Invest \"Halal Stock Investing\" course",certAwarded:"This certificate is awarded to",certDir:"Director",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Date issued",certDownload:"⬇ Download (PNG)",certShare:"Screenshot your certificate and share it on social media! 🎉",certBack:"Back",certNameReq:"Please enter your full name"},
-  ru:{title:"ЭКЗАМЕН",sub:"Проверьте знания по каждому модулю",mod:"Модуль",locked:"Заблокировано",passed:"Сдано",start:"Начать",retake:"Пересдать",q:"Вопрос",of:"из",next:"Далее",finish:"Завершить",result:"Результат",correct:"Верно",wrong:"Неверно",yourScore:"Ваш результат",passZone:"Выше 70% — отлично!",failZone:"Нужно 70% — попробуйте снова",reviewTitle:"Работа над ошибками",yourAns:"Ваш ответ",correctAns:"Правильный ответ",backToList:"К модулям",screenshot:"Сделайте скриншот результата и отправьте в группу ✅",passMsg:"Поздравляем! Следующий модуль открыт 🎉",locked2:"Сдайте предыдущий модуль на 70%",unlockNext:"Следующий модуль открыт!",examOf:"Экзамен из 7 модулей",progress:"Прогресс",certBtn:"🎓 Получить сертификат",certLocked:"Сдайте все 7 модулей на 70% для получения сертификата",certTitle:"СЕРТИФИКАТ",certName:"Ваше имя и фамилия",certNamePh:"Например: Алишер Каримов",certGen:"Создать сертификат",certText:"успешно завершил(а) все 7 модулей курса Savura Invest \"Халяльное инвестирование в акции\"",certAwarded:"Настоящий сертификат выдан",certDir:"Директор",certDirName:"Бахромалиев Мухаммадюсуф",certDate:"Дата выдачи",certDownload:"⬇ Скачать (PNG)",certShare:"Сделайте скриншот сертификата и поделитесь в соцсетях! 🎉",certBack:"Назад",certNameReq:"Пожалуйста, введите имя и фамилию"},
-  tr:{title:"SINAV",sub:"Her modül için bilginizi test edin",mod:"Modül",locked:"Kilitli",passed:"Geçti",start:"Başla",retake:"Tekrar",q:"Soru",of:"/",next:"İleri",finish:"Bitir",result:"Sonuç",correct:"Doğru",wrong:"Yanlış",yourScore:"Puanınız",passZone:"70% üzeri — mükemmel!",failZone:"70% gerekli — tekrar deneyin",reviewTitle:"Hatalarınızı gözden geçirin",yourAns:"Cevabınız",correctAns:"Doğru cevap",backToList:"Modüllere dön",screenshot:"Bu sonucun ekran görüntüsünü alıp gruba gönderin ✅",passMsg:"Tebrikler! Sonraki modül açıldı 🎉",locked2:"Önceki modülü 70% ile geçin",unlockNext:"Sonraki modül açıldı!",examOf:"7 modüllük sınav",progress:"İlerleme",certBtn:"🎓 Sertifika al",certLocked:"Sertifika için 7 modülü de 70% ile tamamlayın",certTitle:"SERTİFİKA",certName:"Ad ve soyadınız",certNamePh:"Örn: Alisher Karimov",certGen:"Sertifika oluştur",certText:"Savura Invest \"Helal Hisse Yatırımı\" kursunun 7 modülünü başarıyla tamamlamıştır",certAwarded:"Bu sertifika şu kişiye verilmiştir",certDir:"Direktör",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Veriliş tarihi",certDownload:"⬇ İndir (PNG)",certShare:"Sertifikanızın ekran görüntüsünü alıp sosyal medyada paylaşın! 🎉",certBack:"Geri",certNameReq:"Lütfen ad ve soyadınızı girin"},
-  ar:{title:"الامتحان",sub:"اختبر معرفتك في كل وحدة",mod:"الوحدة",locked:"مقفل",passed:"ناجح",start:"ابدأ",retake:"إعادة",q:"سؤال",of:"من",next:"التالي",finish:"إنهاء",result:"النتيجة",correct:"صحيح",wrong:"خطأ",yourScore:"نتيجتك",passZone:"أكثر من 70% — ممتاز!",failZone:"مطلوب 70% — حاول مجدداً",reviewTitle:"راجع أخطاءك",yourAns:"إجابتك",correctAns:"الإجابة الصحيحة",backToList:"إلى الوحدات",screenshot:"التقط صورة للنتيجة وأرسلها إلى المجموعة ✅",passMsg:"تهانينا! فُتحت الوحدة التالية 🎉",locked2:"اجتز الوحدة السابقة بنسبة 70%",unlockNext:"فُتحت الوحدة التالية!",examOf:"امتحان من 7 وحدات",progress:"التقدم",certBtn:"🎓 احصل على الشهادة",certLocked:"أكمل جميع الوحدات السبع بنسبة 70% للحصول على الشهادة",certTitle:"شهادة",certName:"اسمك الكامل",certNamePh:"مثال: علیشیر كریموف",certGen:"إنشاء الشهادة",certText:"أكمل بنجاح جميع وحدات دورة Savura Invest السبع \"الاستثمار الحلال في الأسهم\"",certAwarded:"تُمنح هذه الشهادة إلى",certDir:"المدير",certDirName:"بهرملييف محمد يوسف",certDate:"تاريخ الإصدار",certDownload:"⬇ تحميل (PNG)",certShare:"التقط صورة لشهادتك وشاركها على وسائل التواصل! 🎉",certBack:"رجوع",certNameReq:"الرجاء إدخال اسمك الكامل"},
+  uz:{title:"IMTIHON",sub:"Har modul bo'yicha bilimingizni sinang",mod:"Modul",locked:"Qulflangan",passed:"O'tdingiz",start:"Boshlash",retake:"Qayta topshirish",q:"Savol",of:"dan",next:"Keyingi",finish:"Yakunlash",result:"Natija",correct:"To'g'ri",wrong:"Xato",yourScore:"Sizning natijangiz",passZone:"70% dan yuqori — a'lo!",failZone:"70% kerak — yana urinib ko'ring",reviewTitle:"Xatolaringiz ustida ishlang",yourAns:"Sizning javobingiz",correctAns:"To'g'ri javob",backToList:"Modullarga qaytish",screenshot:"Bu natijani skrinshot qilib guruhga yuboring ✅",passMsg:"Tabriklaymiz! Keyingi modul ochildi 🎉",locked2:"Avvalgi modulni 70% ga topshiring",unlockNext:"Keyingi modul ochildi!",examOf:"7 modullik imtihon",progress:"Jarayon",certBtn:"🎓 Sertifikatni olish",certLocked:"Sertifikat uchun 7 modulni ham 70% ga to'ldiring",certTitle:"SERTIFIKAT",certName:"Ism va familiyangiz",certNamePh:"Masalan: Alisher Karimov",certGen:"Sertifikat yaratish",certText:"Savura Invest \"Halol aksiyalarga investitsiya kiritish\" kursining 7 ta modulini muvaffaqiyatli tamomlaganligi uchun ushbu sertifikat bilan taqdirlanadi",certAwarded:"Ushbu sertifikat quyidagi shaxsga berildi:",certDir:"Direktor",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Berilgan sana",certDownload:"⬇ PDF yuklab olish",certShare:"Sertifikatni skrinshot qilib ijtimoiy tarmoqlarda ulashing! 🎉",certBack:"Orqaga",certNameReq:"Iltimos ism va familiyangizni kiriting",wrongOnly:"❌ Faqat xatolarni takrorlash",practiceMode:"MASHQ REJIMI (natija saqlanmaydi)",timeUp:"Vaqt tugadi!",statsTitle:"Statistika",statsBest:"Eng yaxshi",statsAttempts:"Urinishlar",statsAvg:"O'rtacha",noStats:"Hali imtihon topshirmadingiz",statsBtn:"📊 Statistika",leaderboard:"Reyting jadvali",leaderboardBtn:"🏆 Reyting",you:"Siz"},
+  en:{title:"EXAM",sub:"Test your knowledge for each module",mod:"Module",locked:"Locked",passed:"Passed",start:"Start",retake:"Retake",q:"Question",of:"of",next:"Next",finish:"Finish",result:"Result",correct:"Correct",wrong:"Wrong",yourScore:"Your score",passZone:"Above 70% — excellent!",failZone:"70% needed — try again",reviewTitle:"Review your mistakes",yourAns:"Your answer",correctAns:"Correct answer",backToList:"Back to modules",screenshot:"Screenshot this result and send it to the group ✅",passMsg:"Congratulations! Next module unlocked 🎉",locked2:"Pass the previous module with 70%",unlockNext:"Next module unlocked!",examOf:"7-module exam",progress:"Progress",certBtn:"🎓 Get certificate",certLocked:"Complete all 7 modules with 70% to earn the certificate",certTitle:"CERTIFICATE",certName:"Your full name",certNamePh:"e.g. Alisher Karimov",certGen:"Generate certificate",certText:"is hereby awarded this certificate for successfully completing all 7 modules of the Savura Invest \"Halal Stock Investing\" course",certAwarded:"This certificate is proudly awarded to:",certDir:"Director",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Date issued",certDownload:"⬇ Download PDF",certShare:"Screenshot your certificate and share it on social media! 🎉",certBack:"Back",certNameReq:"Please enter your full name",wrongOnly:"❌ Practice wrong answers only",practiceMode:"PRACTICE MODE (result not saved)",timeUp:"Time is up!",statsTitle:"Statistics",statsBest:"Best",statsAttempts:"Attempts",statsAvg:"Average",noStats:"You have not taken any exams yet",statsBtn:"📊 Statistics",leaderboard:"Leaderboard",leaderboardBtn:"🏆 Leaderboard",you:"You"},
+  ru:{title:"ЭКЗАМЕН",sub:"Проверьте знания по каждому модулю",mod:"Модуль",locked:"Заблокировано",passed:"Сдано",start:"Начать",retake:"Пересдать",q:"Вопрос",of:"из",next:"Далее",finish:"Завершить",result:"Результат",correct:"Верно",wrong:"Неверно",yourScore:"Ваш результат",passZone:"Выше 70% — отлично!",failZone:"Нужно 70% — попробуйте снова",reviewTitle:"Работа над ошибками",yourAns:"Ваш ответ",correctAns:"Правильный ответ",backToList:"К модулям",screenshot:"Сделайте скриншот результата и отправьте в группу ✅",passMsg:"Поздравляем! Следующий модуль открыт 🎉",locked2:"Сдайте предыдущий модуль на 70%",unlockNext:"Следующий модуль открыт!",examOf:"Экзамен из 7 модулей",progress:"Прогресс",certBtn:"🎓 Получить сертификат",certLocked:"Сдайте все 7 модулей на 70% для получения сертификата",certTitle:"СЕРТИФИКАТ",certName:"Ваше имя и фамилия",certNamePh:"Например: Алишер Каримов",certGen:"Создать сертификат",certText:"награждается настоящим сертификатом за успешное завершение всех 7 модулей курса Savura Invest \"Халяльное инвестирование в акции\"",certAwarded:"Настоящий сертификат выдан:",certDir:"Директор",certDirName:"Бахромалиев Мухаммадюсуф",certDate:"Дата выдачи",certDownload:"⬇ Скачать PDF",certShare:"Сделайте скриншот сертификата и поделитесь в соцсетях! 🎉",certBack:"Назад",certNameReq:"Пожалуйста, введите имя и фамилию",wrongOnly:"❌ Повторить только ошибки",practiceMode:"РЕЖИМ ТРЕНИРОВКИ (не сохраняется)",timeUp:"Время вышло!",statsTitle:"Статистика",statsBest:"Лучший",statsAttempts:"Попытки",statsAvg:"Средний",noStats:"Вы ещё не сдавали экзамены",statsBtn:"📊 Статистика",leaderboard:"Рейтинг",leaderboardBtn:"🏆 Рейтинг",you:"Вы"},
+  tr:{title:"SINAV",sub:"Her modül için bilginizi test edin",mod:"Modül",locked:"Kilitli",passed:"Geçti",start:"Başla",retake:"Tekrar",q:"Soru",of:"/",next:"İleri",finish:"Bitir",result:"Sonuç",correct:"Doğru",wrong:"Yanlış",yourScore:"Puanınız",passZone:"70% üzeri — mükemmel!",failZone:"70% gerekli — tekrar deneyin",reviewTitle:"Hatalarınızı gözden geçirin",yourAns:"Cevabınız",correctAns:"Doğru cevap",backToList:"Modüllere dön",screenshot:"Bu sonucun ekran görüntüsünü alıp gruba gönderin ✅",passMsg:"Tebrikler! Sonraki modül açıldı 🎉",locked2:"Önceki modülü 70% ile geçin",unlockNext:"Sonraki modül açıldı!",examOf:"7 modüllük sınav",progress:"İlerleme",certBtn:"🎓 Sertifika al",certLocked:"Sertifika için 7 modülü de 70% ile tamamlayın",certTitle:"SERTİFİKA",certName:"Ad ve soyadınız",certNamePh:"Örn: Alisher Karimov",certGen:"Sertifika oluştur",certText:"Savura Invest \"Helal Hisse Yatırımı\" kursunun 7 modülünü başarıyla tamamladığı için bu sertifika ile ödüllendirilir",certAwarded:"Bu sertifika aşağıdaki kişiye verilmiştir:",certDir:"Direktör",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Veriliş tarihi",certDownload:"⬇ PDF indir",certShare:"Sertifikanızın ekran görüntüsünü alıp sosyal medyada paylaşın! 🎉",certBack:"Geri",certNameReq:"Lütfen ad ve soyadınızı girin",wrongOnly:"❌ Sadece yanlışları tekrarla",practiceMode:"ALIŞTIRMA MODU (kaydedilmez)",timeUp:"Süre doldu!",statsTitle:"İstatistik",statsBest:"En iyi",statsAttempts:"Deneme",statsAvg:"Ortalama",noStats:"Henüz sınav vermediniz",statsBtn:"📊 İstatistik",leaderboard:"Sıralama",leaderboardBtn:"🏆 Sıralama",you:"Siz"},
+  ar:{title:"الامتحان",sub:"اختبر معرفتك في كل وحدة",mod:"الوحدة",locked:"مقفل",passed:"ناجح",start:"ابدأ",retake:"إعادة",q:"سؤال",of:"من",next:"التالي",finish:"إنهاء",result:"النتيجة",correct:"صحيح",wrong:"خطأ",yourScore:"نتيجتك",passZone:"أكثر من 70% — ممتاز!",failZone:"مطلوب 70% — حاول مجدداً",reviewTitle:"راجع أخطاءك",yourAns:"إجابتك",correctAns:"الإجابة الصحيحة",backToList:"إلى الوحدات",screenshot:"التقط صورة للنتيجة وأرسلها إلى المجموعة ✅",passMsg:"تهانينا! فُتحت الوحدة التالية 🎉",locked2:"اجتز الوحدة السابقة بنسبة 70%",unlockNext:"فُتحت الوحدة التالية!",examOf:"امتحان من 7 وحدات",progress:"التقدم",certBtn:"🎓 احصل على الشهادة",certLocked:"أكمل جميع الوحدات السبع بنسبة 70% للحصول على الشهادة",certTitle:"شهادة",certName:"اسمك الكامل",certNamePh:"مثال: علیشیر كریموف",certGen:"إنشاء الشهادة",certText:"يُمنح هذه الشهادة لإكماله بنجاح جميع الوحدات السبع من دورة Savura Invest \"الاستثمار الحلال في الأسهم\"",certAwarded:"تُمنح هذه الشهادة بفخر إلى:",certDir:"المدير",certDirName:"بهرملييف محمد يوسف",certDate:"تاريخ الإصدار",certDownload:"⬇ تحميل PDF",certShare:"التقط صورة لشهادتك وشاركها على وسائل التواصل! 🎉",certBack:"رجوع",certNameReq:"الرجاء إدخال اسمك الكامل",wrongOnly:"❌ تكرار الأخطاء فقط",practiceMode:"وضع التدريب (لا يُحفظ)",timeUp:"انتهى الوقت!",statsTitle:"الإحصائيات",statsBest:"الأفضل",statsAttempts:"المحاولات",statsAvg:"المتوسط",noStats:"لم تُجرِ أي امتحان بعد",statsBtn:"📊 الإحصائيات",leaderboard:"لوحة المتصدرين",leaderboardBtn:"🏆 المتصدرون",you:"أنت"},
 };
 
 // Modul nomlari (5 til) — CRS_T dagi modul sarlavhalaridan foydalanamiz
@@ -2255,6 +2255,22 @@ async function cloudSaveExam(module, percent){
   let r={}; try{r=JSON.parse(localStorage.getItem('savura_exam_v1'))||{};}catch{}
   r[String(module)]=Math.max(r[String(module)]||0,percent);
   localStorage.setItem('savura_exam_v1',JSON.stringify(r));
+}
+
+// Reyting jadvali (barcha o'quvchilar)
+async function cloudLoadLeaderboard(){
+  if(sb){
+    try{ const {data}=await sb.from("exam_leaderboard").select("*"); return data||[]; }catch{ return []; }
+  }
+  return [];
+}
+// To'liq statistika (best + last + urinishlar taxminiy)
+async function cloudLoadExamFull(){
+  const uid=await getUid();
+  if(sb && uid){
+    try{ const {data}=await sb.from("exam_results").select("module,best_percent,last_percent,updated_at").eq("user_id",uid); return data||[]; }catch{ return []; }
+  }
+  return [];
 }
 
 function csvExport(rows, filename){
@@ -4001,27 +4017,33 @@ function CertificatePage({lang="uz", setPage, fullName}){
     setTimeout(()=>{ if(certRef.current) certRef.current.scrollIntoView({behavior:"smooth",block:"center"}); },100);
   }
 
-  async function downloadPng(){
+  async function loadScript(src){
+    return new Promise((res,rej)=>{
+      const s=document.createElement("script"); s.src=src; s.onload=res; s.onerror=rej; document.head.appendChild(s);
+    });
+  }
+  async function downloadPdf(){
     if(!certRef.current) return;
-    // html2canvas CDN orqali yuklab, PNG qilamiz
-    if(!window.html2canvas){
-      await new Promise((res,rej)=>{
-        const s=document.createElement("script");
-        s.src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
-        s.onload=res; s.onerror=rej; document.head.appendChild(s);
-      }).catch(()=>{});
-    }
-    if(window.html2canvas){
-      try{
-        const canvas=await window.html2canvas(certRef.current,{scale:2,backgroundColor:null,useCORS:true});
-        const link=document.createElement("a");
-        link.download="Savura_Invest_Sertifikat_"+(issued||"").replace(/\s+/g,"_")+".png";
-        link.href=canvas.toDataURL("image/png");
-        link.click();
-      }catch(e){ alert("Skrinshot qilib saqlang."); }
-    } else {
-      alert("Skrinshot qilib saqlang.");
-    }
+    try{
+      if(!window.html2canvas) await loadScript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
+      if(!window.jspdf) await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
+      const canvas=await window.html2canvas(certRef.current,{scale:2.5,backgroundColor:"#0a1020",useCORS:true});
+      const imgData=canvas.toDataURL("image/jpeg",0.95);
+      const jsPDF=window.jspdf.jsPDF;
+      // Sertifikat nisbatiga qarab A4 landscape yoki portrait
+      const wmm=canvas.width, hmm=canvas.height;
+      const pdf=new jsPDF({orientation:wmm>hmm?"landscape":"portrait",unit:"mm",format:"a4"});
+      const pw=pdf.internal.pageSize.getWidth(), ph=pdf.internal.pageSize.getHeight();
+      // rasmni sahifaga moslash (margin bilan)
+      const margin=10;
+      const availW=pw-margin*2, availH=ph-margin*2;
+      const ratio=Math.min(availW/wmm, availH/hmm);
+      const iw=wmm*ratio, ih=hmm*ratio;
+      const x=(pw-iw)/2, y=(ph-ih)/2;
+      pdf.setFillColor(10,16,32); pdf.rect(0,0,pw,ph,"F");
+      pdf.addImage(imgData,"JPEG",x,y,iw,ih);
+      pdf.save("Savura_Invest_Sertifikat_"+(issued||"").replace(/\s+/g,"_")+".pdf");
+    }catch(e){ alert("Skrinshot qilib saqlang yoki qayta urinib ko'ring."); }
   }
 
   return(
@@ -4095,7 +4117,10 @@ function CertificatePage({lang="uz", setPage, fullName}){
               {/* Imzo qatori */}
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",maxWidth:480,margin:"0 auto",gap:20,flexWrap:"wrap"}}>
                 <div style={{textAlign:"center",flex:1,minWidth:130}}>
-                  <div style={{fontFamily:"'Sora',sans-serif",fontStyle:"italic",fontSize:20,color:"#5fd36a",marginBottom:4,fontWeight:700}}>B. Muhammadyusuf</div>
+                  <svg viewBox="0 0 200 70" style={{width:"100%",maxWidth:170,height:52,margin:"0 auto 2px",display:"block"}}>
+                    <path d="M18 50 C 14 30, 20 16, 30 18 C 38 20, 34 38, 24 40 C 34 40, 44 36, 50 44 C 54 50, 60 32, 66 34 M 70 22 C 66 34, 62 48, 74 46 C 82 44, 80 32, 74 34 M 88 30 C 84 42, 90 48, 98 40 C 104 34, 100 30, 96 36 C 94 44, 102 46, 110 40 M 116 24 L 112 48 M 112 34 C 120 30, 128 32, 124 40 C 122 46, 116 44, 118 40 M 134 32 C 130 44, 138 48, 144 40 M 144 32 L 140 52 C 138 60, 132 58, 134 52 M 154 30 C 168 26, 180 40, 166 44 C 158 46, 156 34, 170 50"
+                      fill="none" stroke="#5fd36a" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                   <div style={{height:1,background:"rgba(120,150,200,0.3)",marginBottom:6}}/>
                   <div style={{fontSize:11,color:"#8ea0c4"}}>{T.certDir}</div>
                   <div style={{fontSize:11.5,color:"#edf2ff",fontWeight:600}}>{T.certDirName}</div>
@@ -4107,12 +4132,23 @@ function CertificatePage({lang="uz", setPage, fullName}){
                 </div>
               </div>
 
-              {/* Muhr belgi */}
+              {/* Halol sertifikat muhri */}
               <div style={{marginTop:24,display:"flex",justifyContent:"center"}}>
-                <div style={{width:58,height:58,borderRadius:"50%",border:"2px solid rgba(55,178,77,0.5)",display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
-                  <span style={{fontSize:20}}>☪️</span>
-                  <span style={{fontSize:6.5,color:"#5fd36a",letterSpacing:"0.5px",marginTop:1}}>HALOL</span>
-                </div>
+                <svg viewBox="0 0 100 100" style={{width:74,height:74}}>
+                  {/* Tashqi doira */}
+                  <circle cx="50" cy="50" r="47" fill="none" stroke="#37b24d" strokeWidth="2"/>
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(55,178,77,0.5)" strokeWidth="1"/>
+                  {/* Arabcha "halal" حلال */}
+                  <text x="50" y="46" textAnchor="middle" fontSize="26" fill="#5fd36a" fontFamily="'Amiri','Traditional Arabic',serif" fontWeight="700">حلال</text>
+                  {/* Pastki yozuv */}
+                  <text x="50" y="66" textAnchor="middle" fontSize="9" fill="#37b24d" letterSpacing="1.5" fontFamily="'Sora',sans-serif" fontWeight="700">HALAL</text>
+                  <text x="50" y="76" textAnchor="middle" fontSize="5.5" fill="#8ea0c4" letterSpacing="1" fontFamily="'Sora',sans-serif">CERTIFIED</text>
+                  {/* Yulduzchalar */}
+                  <circle cx="50" cy="12" r="1.6" fill="#37b24d"/>
+                  <circle cx="50" cy="88" r="1.6" fill="#37b24d"/>
+                  <circle cx="12" cy="50" r="1.6" fill="#37b24d"/>
+                  <circle cx="88" cy="50" r="1.6" fill="#37b24d"/>
+                </svg>
               </div>
             </div>
           </div>
@@ -4120,7 +4156,7 @@ function CertificatePage({lang="uz", setPage, fullName}){
           <div style={{background:"rgba(55,178,77,0.08)",border:`1px solid rgba(55,178,77,0.3)`,borderRadius:12,padding:"12px 16px",marginBottom:16,textAlign:"center",fontSize:13,color:C.greenLt,fontWeight:600}}>{T.certShare}</div>
 
           <div style={{display:"flex",gap:10}}>
-            <button onClick={downloadPng} style={{flex:1,background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:14,padding:"13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.certDownload}</button>
+            <button onClick={downloadPdf} style={{flex:1,background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:14,padding:"13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.certDownload}</button>
             <button onClick={()=>{setIssued(null);}} style={{flex:"0 0 auto",background:"transparent",border:`1px solid ${C.border}`,borderRadius:12,color:C.dim,fontWeight:600,fontSize:14,padding:"13px 20px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.certBack}</button>
           </div>
         </div>
@@ -4139,7 +4175,7 @@ function shuffle(arr){
   return a;
 }
 
-function ExamPage({lang="uz", setPage}){
+function ExamPage({lang="uz", setPage, auth}){
   const T=EXAM_T[lang]||EXAM_T.uz;
   const modNames=EXAM_MOD_NAMES[lang]||EXAM_MOD_NAMES.uz;
   const rtl=lang==="ar";
@@ -4154,6 +4190,16 @@ function ExamPage({lang="uz", setPage}){
   const [answers,setAnswers]=useState([]);     // user's chosen option index per question
   const [finalPct,setFinalPct]=useState(0);
   const [justUnlocked,setJustUnlocked]=useState(false);
+  const [timeLeft,setTimeLeft]=useState(0);       // sekundlarda
+  const [wrongMode,setWrongMode]=useState(false); // faqat xato savollar rejimi
+  const EXAM_MINUTES=15;
+  const answersRef=React.useRef(answers);
+  React.useEffect(()=>{ answersRef.current=answers; },[answers]);
+  const questionsRef=React.useRef(questions);
+  React.useEffect(()=>{ questionsRef.current=questions; },[questions]);
+  const wrongBankRef=React.useRef({}); // {module: [wrong question texts]}
+  const [leaderboard,setLeaderboard]=useState([]);
+  const [examFull,setExamFull]=useState([]);
 
   React.useEffect(()=>{
     let active=true;
@@ -4169,8 +4215,16 @@ function ExamPage({lang="uz", setPage}){
   function isPassed(mod){ return (results[String(mod)]||0)>=PASS; }
 
   // Imtihonni boshlash: 20 savolni aralashtir, har birining variantlarini ham aralashtir
-  function startExam(mod){
-    const bank=EXAM_BANK[String(mod)]||[];
+  function startExam(mod, onlyWrong){
+    let bank=EXAM_BANK[String(mod)]||[];
+    // Faqat xato savollar rejimi: oldingi urinishда xato qilingan savollarni olamiz
+    if(onlyWrong && wrongBankRef.current[String(mod)] && wrongBankRef.current[String(mod)].length>0){
+      const wrongQs=wrongBankRef.current[String(mod)];
+      bank=bank.filter(b=>wrongQs.includes(b.q));
+      setWrongMode(true);
+    } else {
+      setWrongMode(false);
+    }
     const qs=shuffle(bank).map(function(item){
       // variantlarni aralashtirish: to'g'ri javob indeksini kuzatamiz
       const opts=item.opts.map((text,idx)=>({text,isCorrect:idx===item.correct}));
@@ -4182,7 +4236,21 @@ function ExamPage({lang="uz", setPage}){
     setAnswers(new Array(qs.length).fill(-1));
     setCurQ(0);
     setActiveMod(mod);
+    setTimeLeft(EXAM_MINUTES*60);
     setView("exam");
+  }
+
+  // Taymer: har sekund kamayadi, 0 ga yetsa avtomatik yakunlanadi
+  React.useEffect(()=>{
+    if(view!=="exam") return;
+    if(timeLeft<=0){ finishExam(); return; }
+    const t=setTimeout(()=>setTimeLeft(v=>v-1),1000);
+    return ()=>clearTimeout(t);
+  },[view,timeLeft]);
+
+  function fmtTime(s){
+    const m=Math.floor(s/60), ss=s%60;
+    return m+":"+String(ss).padStart(2,"0");
   }
 
   function choose(optIdx){
@@ -4195,17 +4263,25 @@ function ExamPage({lang="uz", setPage}){
   }
 
   async function finishExam(){
+    const qs=questionsRef.current; const ans=answersRef.current;
     let correct=0;
-    questions.forEach((q,i)=>{ if(answers[i]===q.correct) correct++; });
-    const pct=Math.round(correct/questions.length*100);
+    const wrongQs=[];
+    qs.forEach((q,i)=>{ if(ans[i]===q.correct) correct++; else wrongQs.push(q.q); });
+    const pct=qs.length?Math.round(correct/qs.length*100):0;
     setFinalPct(pct);
-    const wasPassed=isPassed(activeMod);
-    await cloudSaveExam(activeMod, pct);
-    const newResults={...results,[String(activeMod)]:Math.max(results[String(activeMod)]||0,pct)};
-    setResults(newResults);
-    // Keyingi modul ochildimi?
-    if(pct>=PASS && !wasPassed && activeMod<7) setJustUnlocked(true);
-    else setJustUnlocked(false);
+    // Xato savollarni saqlaymiz (keyingi "xatolar rejimi" uchun)
+    wrongBankRef.current[String(activeMod)]=wrongQs;
+    // Xatolar rejimida natija asosiy ballga yozilmaydi (mashq rejimi)
+    if(!wrongMode){
+      const wasPassed=isPassed(activeMod);
+      await cloudSaveExam(activeMod, pct);
+      const newResults={...results,[String(activeMod)]:Math.max(results[String(activeMod)]||0,pct)};
+      setResults(newResults);
+      if(pct>=PASS && !wasPassed && activeMod<7) setJustUnlocked(true);
+      else setJustUnlocked(false);
+    } else {
+      setJustUnlocked(false);
+    }
     setView("result");
     window.scrollTo({top:0});
   }
@@ -4279,7 +4355,11 @@ function ExamPage({lang="uz", setPage}){
           </div>
         )}
 
-        <div style={{display:"flex",gap:10}}>
+        {wrongMode&&<div style={{textAlign:"center",fontSize:12,color:C.amber,marginBottom:12,fontWeight:600}}>⚠️ {T.practiceMode}</div>}
+        <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
+          {(!wrongMode && wrongBankRef.current[String(activeMod)] && wrongBankRef.current[String(activeMod)].length>0)&&(
+            <button onClick={()=>startExam(activeMod,true)} style={{flex:"1 1 100%",background:"rgba(240,169,43,0.12)",border:`1px solid rgba(240,169,43,0.4)`,borderRadius:12,color:C.amber,fontWeight:700,fontSize:13.5,padding:"12px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.wrongOnly} ({wrongBankRef.current[String(activeMod)].length})</button>
+          )}
           <button onClick={()=>startExam(activeMod)} style={{flex:1,background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:14,padding:"13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.retake}</button>
           <button onClick={()=>{setView("list");setJustUnlocked(false);}} style={{flex:1,background:"transparent",border:`1px solid ${C.border}`,borderRadius:12,color:C.dim,fontWeight:600,fontSize:14,padding:"13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.backToList}</button>
         </div>
@@ -4297,7 +4377,11 @@ function ExamPage({lang="uz", setPage}){
         <div style={{marginBottom:20}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
             <span style={{fontSize:12.5,color:C.dim,fontWeight:600}}>{T.mod} {activeMod} · {T.q} {curQ+1} {T.of} {questions.length}</span>
-            <span style={{fontSize:12.5,color:C.blueLt,fontWeight:700}}>{Math.round((curQ)/questions.length*100)}%</span>
+            <span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:13,fontWeight:700,fontFamily:"'JetBrains Mono',monospace",
+              color:timeLeft<=60?C.red:timeLeft<=180?C.amber:C.greenLt,
+              background:timeLeft<=60?"rgba(229,72,77,0.12)":"rgba(255,255,255,0.05)",borderRadius:8,padding:"4px 10px"}}>
+              ⏱ {fmtTime(timeLeft)}
+            </span>
           </div>
           <div style={{height:6,background:"rgba(255,255,255,0.06)",borderRadius:3,overflow:"hidden"}}>
             <div style={{height:"100%",width:`${((curQ+ (answered?1:0))/questions.length)*100}%`,background:`linear-gradient(90deg,${C.blue},${C.green})`,borderRadius:3,transition:"width .3s"}}/>
@@ -4337,6 +4421,96 @@ function ExamPage({lang="uz", setPage}){
     );
   }
 
+  // ═══ REYTING JADVALI ═══
+  if(view==="leaderboard"){
+    const myEmail=(auth&&auth.user&&auth.user.email)||null;
+    return(
+      <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:720,margin:"0 auto"}}>
+        <div style={{marginBottom:18}}><button onClick={()=>setView("list")} style={{background:"rgba(8,14,30,0.85)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"#8ea0c4",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>← {T.backToList}</button></div>
+        <div style={{textAlign:"center",marginBottom:24}}>
+          <div style={{fontSize:40,marginBottom:8}}>🏆</div>
+          <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:0}}>{T.leaderboard}</h1>
+        </div>
+        <div style={{display:"flex",flexDirection:"column",gap:8}}>
+          {leaderboard.length===0
+            ?<div style={{textAlign:"center",color:C.faint,padding:30,fontSize:14}}>{T.noStats}</div>
+            :leaderboard.map(function(row,i){
+              const isMe=myEmail&&row.email===myEmail;
+              const medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":String(i+1);
+              return(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:13,background:isMe?"rgba(47,125,246,0.1)":C.card,
+                  border:`1px solid ${isMe?C.blue:C.border}`,borderRadius:13,padding:"12px 15px"}}>
+                  <div style={{flexShrink:0,width:32,textAlign:"center",fontSize:i<3?20:14,fontWeight:800,color:i<3?"inherit":C.faint,fontFamily:"'Sora',sans-serif"}}>{medal}</div>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontSize:14,fontWeight:700,color:C.text,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{row.full_name||row.email.split("@")[0]}{isMe&&" ("+T.you+")"}</div>
+                    <div style={{fontSize:11,color:C.faint,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{row.email}</div>
+                  </div>
+                  <div style={{flexShrink:0,textAlign:"right"}}>
+                    <div style={{fontSize:15,fontWeight:800,color:C.greenLt,fontFamily:"'Sora',sans-serif"}}>{row.passed_modules}/7</div>
+                    <div style={{fontSize:10.5,color:C.faint}}>{T.statsAvg}: {row.avg_percent}%</div>
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+      </div>
+    );
+  }
+
+  // ═══ STATISTIKA ═══
+  if(view==="stats"){
+    const byMod={}; examFull.forEach(r=>{ byMod[String(r.module)]=r; });
+    const done=examFull.length;
+    const avgAll=done?Math.round(examFull.reduce((s,r)=>s+r.best_percent,0)/done):0;
+    const passedAll=examFull.filter(r=>r.best_percent>=PASS).length;
+    return(
+      <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:720,margin:"0 auto"}}>
+        <div style={{marginBottom:18}}><button onClick={()=>setView("list")} style={{background:"rgba(8,14,30,0.85)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"#8ea0c4",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>← {T.backToList}</button></div>
+        <div style={{textAlign:"center",marginBottom:24}}>
+          <div style={{fontSize:40,marginBottom:8}}>📊</div>
+          <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:0}}>{T.statsTitle}</h1>
+        </div>
+        {done===0
+          ?<div style={{textAlign:"center",color:C.faint,padding:30,fontSize:14}}>{T.noStats}</div>
+          :<>
+            {/* Umumiy ko'rsatkichlar */}
+            <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10,marginBottom:22}}>
+              {[[passedAll+"/7",T.statsBest,C.greenLt],[avgAll+"%",T.statsAvg,C.blueLt],[done+"/7",T.progress,C.amber]].map(function(s,i){
+                return(
+                  <div key={i} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:"16px 8px",textAlign:"center"}}>
+                    <div style={{fontSize:24,fontWeight:800,color:s[2],fontFamily:"'Sora',sans-serif"}}>{s[0]}</div>
+                    <div style={{fontSize:10.5,color:C.faint,marginTop:3}}>{s[1]}</div>
+                  </div>
+                );
+              })}
+            </div>
+            {/* Modul bo'yicha */}
+            <div style={{display:"flex",flexDirection:"column",gap:10}}>
+              {[1,2,3,4,5,6,7].map(function(m){
+                const r=byMod[String(m)];
+                const pct=r?r.best_percent:null;
+                const passed=pct!=null&&pct>=PASS;
+                return(
+                  <div key={m} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:13,padding:"12px 15px"}}>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:pct!=null?8:0}}>
+                      <span style={{fontSize:13,fontWeight:600,color:pct!=null?C.text:C.faint}}>{T.mod} {m}: {modNames[m-1]}</span>
+                      <span style={{fontSize:14,fontWeight:800,color:pct==null?C.faint:passed?C.greenLt:C.amber,fontFamily:"'Sora',sans-serif"}}>{pct!=null?pct+"%":"—"}</span>
+                    </div>
+                    {pct!=null&&(
+                      <div style={{height:6,background:"rgba(255,255,255,0.06)",borderRadius:3,overflow:"hidden"}}>
+                        <div style={{height:"100%",width:pct+"%",background:passed?`linear-gradient(90deg,${C.green},${C.blueLt})`:C.amber,borderRadius:3}}/>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        }
+      </div>
+    );
+  }
+
   // ═══ MODULLAR RO'YXATI ═══
   const passedCount=Object.keys(results).filter(m=>results[m]>=PASS).length;
   return(
@@ -4360,6 +4534,14 @@ function ExamPage({lang="uz", setPage}){
           ?<button onClick={()=>setPage("certificate")} style={{marginTop:18,background:`linear-gradient(135deg,${C.green},${C.blue})`,border:"none",borderRadius:13,color:"#fff",fontWeight:700,fontSize:15,padding:"14px 22px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(55,178,77,0.3)"}}>{T.certBtn}</button>
           :<div style={{marginTop:14,fontSize:11.5,color:C.faint,display:"flex",alignItems:"center",gap:6,justifyContent:"center"}}>🔒 {T.certLocked}</div>
         }
+      </div>
+
+      {/* Reyting va Statistika tugmalari */}
+      <div style={{display:"flex",gap:10,marginBottom:18}}>
+        <button onClick={async()=>{ const lb=await cloudLoadLeaderboard(); setLeaderboard(lb); setView("leaderboard"); }}
+          style={{flex:1,background:"rgba(240,169,43,0.1)",border:`1px solid rgba(240,169,43,0.35)`,borderRadius:12,color:C.amber,fontWeight:700,fontSize:13,padding:"11px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.leaderboardBtn}</button>
+        <button onClick={async()=>{ const f=await cloudLoadExamFull(); setExamFull(f); setView("stats"); }}
+          style={{flex:1,background:"rgba(47,125,246,0.1)",border:`1px solid rgba(47,125,246,0.35)`,borderRadius:12,color:C.blueLt,fontWeight:700,fontSize:13,padding:"11px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.statsBtn}</button>
       </div>
 
       <div style={{display:"flex",flexDirection:"column",gap:12}}>
@@ -4436,7 +4618,7 @@ export default function App(){
       {page==="about"&&<AboutPage lang={lang} setPage={setPage}/>}
       {page==="journal"&&<LockGate state={aState} lang={lang} setPage={setPage}><JournalPage lang={lang} setPage={setPage}/></LockGate>}
       {page==="demo"&&<LockGate state={aState} lang={lang} setPage={setPage}><DemoPage lang={lang} setPage={setPage}/></LockGate>}
-      {page==="exam"&&<LockGate state={aState} lang={lang} setPage={setPage}><ExamPage lang={lang} setPage={setPage}/></LockGate>}
+      {page==="exam"&&<LockGate state={aState} lang={lang} setPage={setPage}><ExamPage lang={lang} setPage={setPage} auth={auth}/></LockGate>}
       {page==="certificate"&&<LockGate state={aState} lang={lang} setPage={setPage}><CertificatePage lang={lang} setPage={setPage} fullName={auth.profile?.full_name||""}/></LockGate>}
       <ChatWidget lang={lang}/>
       <Footer setPage={setPage} lang={lang}/>
