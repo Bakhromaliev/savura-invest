@@ -843,7 +843,7 @@ function NavBar({page,setPage,lang,setLang,auth}){
   const [scrolled,setScrolled]=useState(false);
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>30);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   const sn=getST(lang).nav;
-  const links=[{id:"halal",label:sn.halal,hot:true},{id:"home",label:sn.home},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"demo",label:sn.demo||"Demo"},{id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,badge:true},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
+  const links=[{id:"halal",label:sn.halal,hot:true},{id:"home",label:sn.home},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"demo",label:sn.demo||"Demo"},{id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,badge:true},{id:"pattern",label:(PT_T[lang]||PT_T.uz).title,chart:true},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
   const go=(id)=>{setPage(id);setOpen(false);setFlagOpen(false);window.scrollTo({top:0,behavior:"smooth"});};
   const LANGS=[{k:"uz",f:"🇺🇿",l:"O'Z"},{k:"en",f:"🇺🇸",l:"EN"},{k:"tr",f:"🇹🇷",l:"TR"},{k:"ru",f:"🇷🇺",l:"RU"},{k:"ar",f:"🇸🇦",l:"AR"}];
   const cur=LANGS.find(function(x){return x.k===lang;})||LANGS[0];
@@ -886,7 +886,7 @@ function NavBar({page,setPage,lang,setLang,auth}){
               <span style={{flex:1}}>{l.label}</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{opacity:.4}}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
-            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:8,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"15px 24px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}>{l.hot&&<span style={{fontSize:15}}>☪️</span>}{l.badge&&<span style={{fontSize:14}}>📝</span>}<span>{l.label}</span></button>;
+            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:8,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"15px 24px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}>{l.hot&&<span style={{fontSize:15}}>☪️</span>}{l.badge&&<span style={{fontSize:14}}>📝</span>}{l.chart&&<span style={{fontSize:14}}>📈</span>}<span>{l.label}</span></button>;
           })}
           <div style={{padding:"10px 24px 6px",borderTop:`1px solid ${C.border}`}}>
             {auth&&auth.user
@@ -2270,6 +2270,33 @@ async function cloudLoadExamFull(){
   if(sb && uid){
     try{ const {data}=await sb.from("exam_results").select("module,best_percent,last_percent,updated_at").eq("user_id",uid); return data||[]; }catch{ return []; }
   }
+  return [];
+}
+
+// Pattern Trainer natijalari
+async function cloudLoadPattern(){
+  const uid=await getUid();
+  if(sb && uid){
+    try{ const {data}=await sb.from("pattern_scores").select("strat,best_score").eq("user_id",uid); const r={}; (data||[]).forEach(x=>{r[x.strat]=x.best_score;}); return r; }catch{ return {}; }
+  }
+  try{ return JSON.parse(localStorage.getItem('savura_pattern_v1'))||{}; }catch{ return {}; }
+}
+async function cloudSavePattern(strat, score){
+  const uid=await getUid();
+  if(sb && uid){
+    try{
+      const {data}=await sb.from("pattern_scores").select("best_score").eq("user_id",uid).eq("strat",strat).single();
+      const best=Math.max(data?.best_score||0, score);
+      await sb.from("pattern_scores").upsert({user_id:uid,strat:strat,best_score:best,updated_at:new Date().toISOString()},{onConflict:"user_id,strat"});
+    }catch{}
+    return;
+  }
+  let r={}; try{r=JSON.parse(localStorage.getItem('savura_pattern_v1'))||{};}catch{}
+  r[strat]=Math.max(r[strat]||0,score);
+  localStorage.setItem('savura_pattern_v1',JSON.stringify(r));
+}
+async function cloudLoadPatternLB(){
+  if(sb){ try{ const {data}=await sb.from("pattern_leaderboard").select("*"); return data||[]; }catch{ return []; } }
   return [];
 }
 
@@ -3999,6 +4026,178 @@ function HalalPage({lang="uz", setPage}){
 
 
 
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PATTERN TRAINER — tarjimalar
+// ═══════════════════════════════════════════════════════════════════════════
+const PT_T = {
+  uz:{title:"Pattern Trainer",sub:"Strategiyalarni jonli grafikda mashq qiling",pick:"Strategiyani tanlang",
+    breakout:"Breakout",breakoutD:"Zona yoki qarshilik sinishi — narx darajani yorib o'tgach yo'nalishda davom etadi.",
+    reversal:"Reversal",reversalD:"Trend burilishi — narx yo'nalishi qarama-qarshi tomonga o'zgaradi.",
+    pullback:"Pullback",pullbackD:"Trend ichidagi qaytish — bayroq va kanal ichida trend davom etadi.",
+    all:"Aralash",allD:"Barcha strategiyalar aralash — umumiy mashq.",
+    start:"Boshlash",best:"Rekord",back:"← Strategiyalar",lbBtn:"🏆 Pattern reyting",myBest:"Sizning rekordingiz",
+    lbTitle:"Pattern Trainer reytingi",noScore:"Hali ball to'plamadingiz",you:"Siz",pts:"ball"},
+  en:{title:"Pattern Trainer",sub:"Practice strategies on a live chart",pick:"Choose a strategy",
+    breakout:"Breakout",breakoutD:"A zone or resistance breaks — price continues in the breakout direction.",
+    reversal:"Reversal",reversalD:"Trend reversal — the price direction flips to the opposite side.",
+    pullback:"Pullback",pullbackD:"A pullback within a trend — flags and channels continue the trend.",
+    all:"Mixed",allD:"All strategies mixed — general practice.",
+    start:"Start",best:"Best",back:"← Strategies",lbBtn:"🏆 Pattern leaderboard",myBest:"Your best",
+    lbTitle:"Pattern Trainer leaderboard",noScore:"No score yet",you:"You",pts:"pts"},
+  ru:{title:"Pattern Trainer",sub:"Отрабатывайте стратегии на живом графике",pick:"Выберите стратегию",
+    breakout:"Пробой",breakoutD:"Пробой зоны или сопротивления — цена продолжает движение в сторону пробоя.",
+    reversal:"Разворот",reversalD:"Разворот тренда — направление цены меняется на противоположное.",
+    pullback:"Откат",pullbackD:"Откат внутри тренда — флаги и каналы продолжают тренд.",
+    all:"Смешанный",allD:"Все стратегии вперемешку — общая практика.",
+    start:"Начать",best:"Рекорд",back:"← Стратегии",lbBtn:"🏆 Рейтинг Pattern",myBest:"Ваш рекорд",
+    lbTitle:"Рейтинг Pattern Trainer",noScore:"Пока нет баллов",you:"Вы",pts:"балл"},
+  tr:{title:"Pattern Trainer",sub:"Stratejileri canlı grafikte çalışın",pick:"Bir strateji seçin",
+    breakout:"Kırılım",breakoutD:"Bölge veya direnç kırılır — fiyat kırılım yönünde devam eder.",
+    reversal:"Dönüş",reversalD:"Trend dönüşü — fiyat yönü ters tarafa döner.",
+    pullback:"Geri çekilme",pullbackD:"Trend içi geri çekilme — bayraklar ve kanallar trendi sürdürür.",
+    all:"Karışık",allD:"Tüm stratejiler karışık — genel alıştırma.",
+    start:"Başla",best:"Rekor",back:"← Stratejiler",lbBtn:"🏆 Pattern sıralaması",myBest:"En iyiniz",
+    lbTitle:"Pattern Trainer sıralaması",noScore:"Henüz puan yok",you:"Siz",pts:"puan"},
+  ar:{title:"Pattern Trainer",sub:"تدرّب على الاستراتيجيات على رسم بياني حي",pick:"اختر استراتيجية",
+    breakout:"اختراق",breakoutD:"اختراق منطقة أو مقاومة — يستمر السعر في اتجاه الاختراق.",
+    reversal:"انعكاس",reversalD:"انعكاس الاتجاه — ينقلب اتجاه السعر إلى الجهة المعاكسة.",
+    pullback:"ارتداد",pullbackD:"ارتداد داخل الاتجاه — الأعلام والقنوات تواصل الاتجاه.",
+    all:"مختلط",allD:"جميع الاستراتيجيات مختلطة — تدريب عام.",
+    start:"ابدأ",best:"الأفضل",back:"← الاستراتيجيات",lbBtn:"🏆 لوحة Pattern",myBest:"أفضل نتيجة",
+    lbTitle:"لوحة Pattern Trainer",noScore:"لا نقاط بعد",you:"أنت",pts:"نقطة"},
+};
+
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PATTERN TRAINER PAGE — strategiya tanlash + iframe trainer + reyting
+// ═══════════════════════════════════════════════════════════════════════════
+function PatternPage({lang="uz", setPage, auth}){
+  const T=PT_T[lang]||PT_T.uz;
+  const rtl=lang==="ar";
+  const [view,setView]=useState("pick");   // pick | play | leaderboard
+  const [strat,setStrat]=useState(null);
+  const [scores,setScores]=useState({});     // {strat: bestScore}
+  const [lb,setLb]=useState([]);
+  const [loading,setLoading]=useState(true);
+
+  React.useEffect(()=>{
+    let active=true;
+    (async()=>{ const s=await cloudLoadPattern(); if(active){ setScores(s); setLoading(false); } })();
+    return ()=>{active=false;};
+  },[]);
+
+  // iframe'dan natija xabarini qabul qilish
+  React.useEffect(()=>{
+    function onMsg(e){
+      const d=e.data;
+      if(!d||typeof d!=="object") return;
+      if(d.type==="pattern-trainer-result" && d.strat){
+        cloudSavePattern(d.strat, d.score);
+        setScores(prev=>({...prev,[d.strat]:Math.max(prev[d.strat]||0,d.score)}));
+      }
+    }
+    window.addEventListener("message",onMsg);
+    return ()=>window.removeEventListener("message",onMsg);
+  },[]);
+
+  const STRATS=[
+    {id:"breakout",name:T.breakout,desc:T.breakoutD,icon:"⚡",color:C.blue},
+    {id:"reversal",name:T.reversal,desc:T.reversalD,icon:"🔄",color:C.amber},
+    {id:"pullback",name:T.pullback,desc:T.pullbackD,icon:"↩️",color:C.green},
+    {id:"all",name:T.all,desc:T.allD,icon:"🎯",color:"#8b5cf6"},
+  ];
+
+  // ═══ O'YIN (iframe) ═══
+  if(view==="play" && strat){
+    return(
+      <div style={{padding:"70px 0 0",maxWidth:1000,margin:"0 auto"}}>
+        <div style={{padding:"0 16px 10px"}}>
+          <button onClick={()=>setView("pick")} style={{background:"rgba(8,14,30,0.85)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"#8ea0c4",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.back}</button>
+        </div>
+        <iframe title="Pattern Trainer" src={"/pattern-trainer.html?strat="+strat}
+          style={{width:"100%",height:"820px",border:"none",borderRadius:0,background:"#060a14"}}/>
+      </div>
+    );
+  }
+
+  // ═══ REYTING ═══
+  if(view==="leaderboard"){
+    const myEmail=(auth&&auth.user&&auth.user.email)||null;
+    return(
+      <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:720,margin:"0 auto"}}>
+        <div style={{marginBottom:18}}><button onClick={()=>setView("pick")} style={{background:"rgba(8,14,30,0.85)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"#8ea0c4",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.back}</button></div>
+        <div style={{textAlign:"center",marginBottom:24}}>
+          <div style={{fontSize:40,marginBottom:8}}>🏆</div>
+          <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:24,color:C.text,margin:0}}>{T.lbTitle}</h1>
+        </div>
+        <div style={{display:"flex",flexDirection:"column",gap:8}}>
+          {lb.length===0
+            ?<div style={{textAlign:"center",color:C.faint,padding:30,fontSize:14}}>{T.noScore}</div>
+            :lb.map(function(row,i){
+              const isMe=myEmail&&row.email===myEmail;
+              const medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":String(i+1);
+              return(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:13,background:isMe?"rgba(47,125,246,0.1)":C.card,
+                  border:`1px solid ${isMe?C.blue:C.border}`,borderRadius:13,padding:"12px 15px"}}>
+                  <div style={{flexShrink:0,width:32,textAlign:"center",fontSize:i<3?20:14,fontWeight:800,color:i<3?"inherit":C.faint,fontFamily:"'Sora',sans-serif"}}>{medal}</div>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontSize:14,fontWeight:700,color:C.text,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{row.full_name||row.email.split("@")[0]}{isMe&&" ("+T.you+")"}</div>
+                    <div style={{fontSize:11,color:C.faint}}>{row.strategies_played} strategiya</div>
+                  </div>
+                  <div style={{flexShrink:0,fontSize:16,fontWeight:800,color:C.greenLt,fontFamily:"'Sora',sans-serif"}}>{row.total_score} <span style={{fontSize:11,color:C.faint,fontWeight:400}}>{T.pts}</span></div>
+                </div>
+              );
+            })}
+        </div>
+      </div>
+    );
+  }
+
+  // ═══ STRATEGIYA TANLASH ═══
+  return(
+    <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:760,margin:"0 auto"}}>
+      <div style={{marginBottom:18}}><BackBtn setPage={setPage} lang={lang}/></div>
+      <div style={{textAlign:"center",marginBottom:24}}>
+        <div style={{fontSize:11,letterSpacing:"2.5px",color:C.blueLt,marginBottom:8,fontWeight:600}}>📈 {T.title.toUpperCase()}</div>
+        <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(26px,5vw,36px)",color:C.text,margin:"0 0 8px"}}>{T.pick}</h1>
+        <p style={{color:C.dim,fontSize:14,margin:0}}>{T.sub}</p>
+      </div>
+
+      <div style={{marginBottom:18}}>
+        <button onClick={async()=>{ const d=await cloudLoadPatternLB(); setLb(d); setView("leaderboard"); }}
+          style={{width:"100%",background:"rgba(240,169,43,0.1)",border:`1px solid rgba(240,169,43,0.35)`,borderRadius:12,color:C.amber,fontWeight:700,fontSize:13,padding:"11px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.lbBtn}</button>
+      </div>
+
+      <div style={{display:"flex",flexDirection:"column",gap:12}}>
+        {STRATS.map(function(s){
+          const best=scores[s.id];
+          return(
+            <div key={s.id} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:"16px 18px"}}>
+              <div style={{display:"flex",alignItems:"flex-start",gap:14}}>
+                <div style={{flexShrink:0,width:48,height:48,borderRadius:13,background:s.color+"1f",border:`1px solid ${s.color}55`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:22}}>{s.icon}</div>
+                <div style={{flex:1,minWidth:0}}>
+                  <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
+                    <span style={{fontSize:16,fontWeight:800,color:C.text,fontFamily:"'Sora',sans-serif"}}>{s.name}</span>
+                    {best!=null&&best>0&&<span style={{fontSize:11,color:C.greenLt,fontWeight:600}}>· {T.myBest}: {best}</span>}
+                  </div>
+                  <p style={{fontSize:12.5,color:C.dim,lineHeight:1.55,margin:"5px 0 0"}}>{s.desc}</p>
+                </div>
+              </div>
+              <button onClick={()=>{ setStrat(s.id); setView("play"); }}
+                style={{width:"100%",marginTop:13,background:`linear-gradient(135deg,${s.color},${C.green})`,border:"none",borderRadius:11,color:"#fff",fontWeight:700,fontSize:14,padding:"11px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>
+                {T.start}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+
 // ═══════════════════════════════════════════════════════════════════════════
 // CERTIFICATE — 7 modulni tugatganlar uchun sertifikat (zamonaviy minimalizm)
 // ═══════════════════════════════════════════════════════════════════════════
@@ -4619,6 +4818,7 @@ export default function App(){
       {page==="demo"&&<LockGate state={aState} lang={lang} setPage={setPage}><DemoPage lang={lang} setPage={setPage}/></LockGate>}
       {page==="exam"&&<LockGate state={aState} lang={lang} setPage={setPage}><ExamPage lang={lang} setPage={setPage} auth={auth}/></LockGate>}
       {page==="certificate"&&<LockGate state={aState} lang={lang} setPage={setPage}><CertificatePage lang={lang} setPage={setPage} fullName={auth.profile?.full_name||""}/></LockGate>}
+      {page==="pattern"&&<LockGate state={aState} lang={lang} setPage={setPage}><PatternPage lang={lang} setPage={setPage} auth={auth}/></LockGate>}
       <ChatWidget lang={lang}/>
       <Footer setPage={setPage} lang={lang}/>
     </div>
