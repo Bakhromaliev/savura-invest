@@ -25,6 +25,8 @@ header{display:flex;justify-content:space-between;align-items:center;margin-bott
 .chip b{font-family:'JetBrains Mono',monospace;font-weight:500}
 .bar{width:150px;height:6px;background:var(--grid);border-radius:3px;overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:var(--line);border-radius:3px;transition:width .35s}
+.streakchip{color:var(--gold);border-color:rgba(245,185,66,.5);background:rgba(245,185,66,.1);font-weight:600;animation:streakpulse .4s ease}
+@keyframes streakpulse{0%{transform:scale(1.15)}100%{transform:scale(1)}}
 .rbtn{cursor:pointer;font-size:13px;color:var(--gold);border-color:rgba(245,185,66,.4);padding:7px 14px}
 .rbtn:hover{background:rgba(245,185,66,.1)}
 .flist{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px 16px;margin:24px auto 0;text-align:left;max-height:280px;overflow:auto;max-width:760px;padding:0 12px}
@@ -77,6 +79,34 @@ button:focus-visible{outline:2px solid var(--line);outline-offset:2px}
 .final .big{font-size:56px;font-weight:600;font-family:'JetBrains Mono',monospace;margin:10px 0}
 .final .pct{font-size:15px;color:var(--muted)}
 .final .verdict{margin-top:10px;font-size:15px}
+.liboverlay{display:none;position:fixed;inset:0;background:rgba(6,10,20,.86);backdrop-filter:blur(6px);z-index:100;padding:20px;overflow:auto}
+.liboverlay.on{display:flex;align-items:flex-start;justify-content:center}
+.libbox{background:var(--panel);border:1px solid var(--border);border-radius:16px;max-width:820px;width:100%;margin:20px auto;overflow:hidden}
+.libhead{display:flex;justify-content:space-between;align-items:flex-start;padding:20px 22px;border-bottom:1px solid var(--border);background:var(--panel2)}
+.libhead h2{font-size:19px;font-weight:600}
+.libhead span{display:block;font-size:12.5px;color:var(--muted);margin-top:3px}
+.libclose{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px}
+.libclose:hover{color:var(--text);background:none}
+.libfilter{display:flex;gap:7px;flex-wrap:wrap;padding:14px 22px 4px}
+.libfilter button{font-size:12.5px;padding:6px 13px;border-radius:20px}
+.libfilter button.act{background:var(--line);border-color:var(--line);color:#fff}
+.libgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;padding:16px 22px 24px}
+.libcard{background:var(--panel2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.libcard svg{display:block;width:100%;height:120px;background:#0d1017}
+.libcard .lbody{padding:12px 14px}
+.libcard .lname{font-size:13.5px;font-weight:600;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.libcard .ltag{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500}
+.libcard .ltag.up{color:var(--up);background:rgba(38,166,154,.12)}
+.libcard .ltag.down{color:var(--down);background:rgba(239,83,80,.12)}
+.libcard .ldesc{font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:6px}
+.badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:20px 0 4px}
+.badge{background:var(--panel2);border:1px solid rgba(245,185,66,.3);border-radius:12px;padding:12px 16px;min-width:96px}
+.badge .bi{font-size:26px;display:block}
+.badge b{display:block;font-size:13px;color:var(--gold);margin-top:4px}
+.badge .bd{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}
+.weak{max-width:400px;margin:16px auto 0;text-align:left;background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.weak .weakttl{font-size:13px;color:var(--text);font-weight:600;margin-bottom:8px}
+.weak .weakrow{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);padding:3px 0}
 kbd{background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:1px 7px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--muted)}
 .hint{text-align:center;font-size:12px;color:var(--dim);margin-top:16px}
 @keyframes pulse{0%{r:5;opacity:1}100%{r:22;opacity:0}}
@@ -98,6 +128,8 @@ kbd{background:var(--panel2);border:1px solid var(--border);border-radius:5px;pa
   <div class="hud">
     <div class="bar" aria-label="Jarayon"><i id="barFill"></i></div>
     <div class="chip"><span style="color:var(--muted)">Ball</span><b id="score">0 / 0</b></div>
+    <div class="chip streakchip" id="streak" style="display:none">🔥 0</div>
+    <button class="chip rbtn" id="btnLib" title="Pattern kutubxonasi" style="color:var(--line);border-color:rgba(79,139,255,.4)">📖 Kutubxona</button>
     <button class="chip rbtn" id="btnReset" title="Yangi tasodifiy sessiya">↻ Yangi</button>
   </div>
 </header>
@@ -135,11 +167,25 @@ kbd{background:var(--panel2);border:1px solid var(--border);border-radius:5px;pa
   <div class="big" id="finalScore">0 / 12</div>
   <div class="pct" id="finalPct"></div>
   <div class="verdict" id="finalVerdict"></div>
+  <div id="finalStreak" style="color:var(--gold);font-size:14px;margin-top:8px;font-weight:500"></div>
+  <div class="badges" id="finalBadges"></div>
+  <div class="weak" id="finalWeak" style="display:none"></div>
   <div class="flist" id="finalList"></div>
   <button class="b-next" id="btnRestart" style="display:inline-flex;margin-top:24px">↻ Qaytadan boshlash</button>
 </div>
 
 <div class="hint">Sichqoncha bilan torting — chiziq chiziladi · ushlab suring yoki uchidan buring · ikki marta bosib o'chiring · <kbd>Space</kbd> keyingi sham · <kbd>↑</kbd>/<kbd>↓</kbd> javob</div>
+</div>
+
+<div class="liboverlay" id="libOverlay">
+  <div class="libbox">
+    <div class="libhead">
+      <div><h2>📖 Pattern kutubxonasi</h2><span>20 ta grafik pattern — mashqdan oldin o'rganing</span></div>
+      <button class="libclose" id="libClose">✕</button>
+    </div>
+    <div class="libfilter" id="libFilter"></div>
+    <div class="libgrid" id="libGrid"></div>
+  </div>
 </div>
 
 <script>
@@ -387,6 +433,16 @@ const progBar=document.getElementById('barFill'), scoreEl=document.getElementByI
 const finalEl=document.getElementById('final'), terminal=document.getElementById('terminal');
 
 let idx=0, score=0, answered=0, timers=[], cur=null, phase='form';
+let streak=0, bestStreak=0;
+// Per-pattern statistika localStorage'da (o'quvchi qaysida zaif)
+let patStats={};
+try{ patStats=JSON.parse(localStorage.getItem('pt_stats_v1'))||{}; }catch(e){}
+function saveStats(){ try{ localStorage.setItem('pt_stats_v1',JSON.stringify(patStats)); }catch(e){} }
+function recordStat(name,ok){
+  if(!patStats[name]) patStats[name]={c:0,w:0};
+  patStats[name].c++; if(ok)patStats[name].w++;
+  saveStats();
+}
 
 function T(fn,ms){timers.push(setTimeout(fn,ms/SPD));}
 function clearT(){timers.forEach(clearTimeout);timers=[];}
@@ -840,9 +896,13 @@ function finishReveal(){
  T(()=>{
   const ok=pendingGuess===p.dir;
   answered++;
-  if(ok)score++;
+  if(ok){score++;streak++;if(streak>bestStreak)bestStreak=streak;}else{streak=0;}
+  recordStat(p.n,ok);
   results.push({n:p.n,ok});
   scoreEl.textContent=score+' / '+answered;
+  // Streak ko'rsatkichi
+  const stEl=document.getElementById('streak');
+  if(stEl){ if(streak>=2){stEl.style.display='inline-flex';stEl.textContent='🔥 '+streak;}else{stEl.style.display='none';} }
   progBar.style.width=((idx+1)/ROUNDS*100)+'%';
   try{ window.parent.postMessage({type:'pattern-trainer-progress',strat:URLSTRAT,score:score,answered:answered},'*'); }catch(e){}
   let tradeHtml='';
@@ -900,20 +960,40 @@ function showFinal(){
  finalEl.style.display='block';
  const pct=Math.round(score/ROUNDS*100);
  // React parent'ga natijani yuborish (leaderboard uchun)
- try{ window.parent.postMessage({type:'pattern-trainer-result',strat:URLSTRAT,score:score,total:ROUNDS,pct:pct},'*'); }catch(e){}
+ try{ window.parent.postMessage({type:'pattern-trainer-result',strat:URLSTRAT,score:score,total:ROUNDS,pct:pct,bestStreak:bestStreak},'*'); }catch(e){}
  document.getElementById('finalScore').textContent=score+' / '+ROUNDS;
  document.getElementById('finalPct').textContent='Aniqlik: '+pct+'%';
  document.getElementById('finalVerdict').textContent=
   pct>=85?'Ajoyib! Siz patternlarni professional darajada o\'qiysiz.':
   pct>=60?'Yaxshi natija — yana bir necha mashq bilan mukammal bo\'lasiz.':
   'Boshlanishi shu — har bir pattern izohini o\'qib, qaytadan urinib ko\'ring.';
+ // Nishonlar
+ const badges=[];
+ if(pct>=90)badges.push(['🏆','Snayper','90%+ aniqlik']);
+ if(bestStreak>=10)badges.push(['🔥','Olov','10+ ketma-ket']);
+ else if(bestStreak>=5)badges.push(['⚡','Zarba','5+ ketma-ket']);
+ if(score>=ROUNDS)badges.push(['💎','Mukammal','Hammasi to\'g\'ri']);
+ if(pct>=60&&pct<90)badges.push(['🎯','Barqaror','60%+ aniqlik']);
+ const badgeEl=document.getElementById('finalBadges');
+ badgeEl.innerHTML=badges.length?badges.map(b=>'<div class="badge"><span class="bi">'+b[0]+'</span><b>'+b[1]+'</b><span class="bd">'+b[2]+'</span></div>').join(''):'';
+ // Eng ko'p xato qilingan patternlar (statistika)
+ const weak=Object.entries(patStats).filter(([n,s])=>s.c>=2).map(([n,s])=>({n,rate:s.w/s.c,c:s.c})).sort((a,b)=>a.rate-b.rate).slice(0,3).filter(x=>x.rate<0.75);
+ const weakEl=document.getElementById('finalWeak');
+ if(weak.length){
+  weakEl.innerHTML='<div class="weakttl">📊 Ko\'proq mashq qiling:</div>'+weak.map(w=>'<div class="weakrow"><span>'+w.n+'</span><b style="color:'+(w.rate<.5?'var(--down)':'var(--gold)')+'">'+Math.round(w.rate*100)+'%</b></div>').join('');
+  weakEl.style.display='block';
+ } else weakEl.style.display='none';
  document.getElementById('finalList').innerHTML=
   results.map((r,i)=>'<div><span class="'+(r.ok?'y':'n')+'">'+(r.ok?'✓':'✗')+'</span>'+String(i+1).padStart(2,'0')+'. '+r.n+'</div>').join('');
+ // bestStreak ko'rsatish
+ const bsEl=document.getElementById('finalStreak');
+ if(bsEl)bsEl.textContent=bestStreak>=2?('🔥 Eng uzun ketma-ketlik: '+bestStreak):'';
 }
 function resetAll(){
  clearT();
  buildSession();
- idx=0;score=0;answered=0;
+ idx=0;score=0;answered=0;streak=0;bestStreak=0;
+ const stEl=document.getElementById('streak'); if(stEl)stEl.style.display='none';
  scoreEl.textContent='0 / 0';
  progBar.style.width='0%';
  finalEl.style.display='none';terminal.style.display='block';controls.style.display='flex';
@@ -931,6 +1011,53 @@ document.addEventListener('keydown',e=>{
  else if(e.key===' '){e.preventDefault();step();}
  else if(e.key==='Enter'){if(phase==='step')step();else next();}
 });
+// ── Pattern kutubxonasi ──
+function miniChart(p){
+  // Kichik preview: pattern piv'laridan soddalashtirilgan chiziq
+  const w=228,h=120,pad=10;
+  const piv=p.piv.map(pv=>typeof pv[1]==='number'?[pv[0],pv[1]]:[pv[0],0.5]);
+  // Agar chiziq referens bo'lsa taxminiy o'rtacha
+  const maxI=30;
+  let d='';
+  const pts=[];
+  for(let i=0;i<=maxI;i++){
+    let y=0.5;
+    for(let k=1;k<piv.length;k++){ if(i<=piv[k][0]){const a=piv[k-1],b=piv[k];const t=(i-a[0])/((b[0]-a[0])||1);y=a[1]+(b[1]-a[1])*t;break;} y=piv[piv.length-1][1]; }
+    const x=pad+(i/maxI)*(w-pad*2);
+    const yy=pad+(1-y)*(h-pad*2);
+    pts.push([x,yy]);
+  }
+  d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  // trend chiziqlarini ham chizamiz
+  let lines='';
+  for(const k in p.lines){
+    const l=p.lines[k];
+    const x1=pad+(l.a[0]/maxI)*(w-pad*2), y1=pad+(1-l.a[1])*(h-pad*2);
+    const x2=pad+(l.b[0]/maxI)*(w-pad*2), y2=pad+(1-l.b[1])*(h-pad*2);
+    lines+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="#4f8bff" stroke-width="1.4" stroke-dasharray="3 3" opacity="0.7"/>';
+  }
+  const col=p.dir==='up'?'#26a69a':'#ef5350';
+  return '<svg viewBox="0 0 '+w+' '+h+'">'+lines+'<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2" stroke-linejoin="round"/></svg>';
+}
+let libFilterVal='all';
+function renderLib(){
+  const grid=document.getElementById('libGrid');
+  const items=PATTERNS.filter(p=>libFilterVal==='all'||p.strat===libFilterVal);
+  grid.innerHTML=items.map(p=>{
+    const tag=p.dir==='up'?'<span class="ltag up">Bullish ▲</span>':'<span class="ltag down">Bearish ▼</span>';
+    return '<div class="libcard">'+miniChart(p)+'<div class="lbody"><div class="lname"><span>'+p.n+'</span>'+tag+'</div><div class="ldesc">'+p.e+'</div></div></div>';
+  }).join('');
+}
+function renderLibFilter(){
+  const f=document.getElementById('libFilter');
+  const cats=[['all','Hammasi'],['breakout','Breakout'],['reversal','Reversal'],['pullback','Pullback']];
+  f.innerHTML=cats.map(c=>'<button data-f="'+c[0]+'" class="'+(c[0]===libFilterVal?'act':'')+'">'+c[1]+'</button>').join('');
+  f.querySelectorAll('button').forEach(b=>b.onclick=()=>{libFilterVal=b.dataset.f;renderLibFilter();renderLib();});
+}
+document.getElementById('btnLib').onclick=()=>{ renderLibFilter();renderLib();document.getElementById('libOverlay').classList.add('on'); };
+document.getElementById('libClose').onclick=()=>document.getElementById('libOverlay').classList.remove('on');
+document.getElementById('libOverlay').onclick=(e)=>{ if(e.target.id==='libOverlay')e.target.classList.remove('on'); };
+
 buildSession();
 startPattern();
 </script>
