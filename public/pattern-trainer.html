@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pattern Trainer — Sham grafigi trenajyori</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1017; --panel:#131722; --panel2:#171c2a; --grid:#1e2433;
+  --border:#242b3d; --text:#d1d4dc; --muted:#787b86; --dim:#4c5266;
+  --up:#26a69a; --down:#ef5350; --line:#4f8bff; --gold:#f5b942;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 48px}
+.wrap{width:100%;max-width:940px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{display:block}
+.brand h1{font-size:17px;font-weight:600;letter-spacing:.2px}
+.brand span{display:block;font-size:12px;color:var(--muted);font-weight:400}
+.hud{display:flex;align-items:center;gap:14px}
+.chip{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:13px;display:flex;align-items:center;gap:8px}
+.chip b{font-family:'JetBrains Mono',monospace;font-weight:500}
+.bar{width:150px;height:6px;background:var(--grid);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--line);border-radius:3px;transition:width .35s}
+.rbtn{cursor:pointer;font-size:13px;color:var(--gold);border-color:rgba(245,185,66,.4);padding:7px 14px}
+.rbtn:hover{background:rgba(245,185,66,.1)}
+.flist{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px 16px;margin:24px auto 0;text-align:left;max-height:280px;overflow:auto;max-width:760px;padding:0 12px}
+.flist div{font-size:12.5px;color:var(--muted);display:flex;gap:7px;align-items:center}
+.flist .y{color:var(--up);font-weight:600}
+.flist .n{color:var(--down);font-weight:600}
+.terminal{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.tbar{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--panel2)}
+.tbar .sym{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
+.tbar .sym em{font-style:normal;color:var(--muted);font-weight:400}
+.tbar .pnum{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--up);animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.3}}
+#chart{display:block;width:100%;touch-action:none}
+.clr{font-size:12px;padding:5px 12px;color:var(--gold);border-color:rgba(245,185,66,.35);border-radius:6px}
+.clr:hover{background:rgba(245,185,66,.1)}
+.tradebar{display:none;align-items:center;gap:12px;padding:8px 16px;border-bottom:1px solid var(--border);background:var(--panel2);font-size:13px;flex-wrap:wrap}
+#btnBuy{padding:8px 22px;font-size:14px;font-weight:600}
+#btnBuy.long{color:var(--up);border-color:rgba(38,166,154,.6)}
+#btnBuy.long:hover{background:rgba(38,166,154,.12)}
+#btnConfirm{display:none;padding:8px 18px;color:var(--line);border-color:rgba(79,139,255,.55)}
+#btnConfirm:hover{background:rgba(79,139,255,.12)}
+#tradeInfo{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:12px}
+.statusbar{padding:12px 16px;border-top:1px solid var(--border);text-align:center;font-size:14px;color:var(--muted);min-height:44px;display:flex;align-items:center;justify-content:center;gap:8px}
+.statusbar.ask{color:var(--text);font-weight:500}
+.controls{display:flex;gap:12px;justify-content:center;margin-top:18px;visibility:hidden}
+button{font-family:'Inter',sans-serif;font-size:15px;font-weight:500;border-radius:10px;padding:12px 30px;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text);transition:transform .1s,background .15s,border-color .15s;display:inline-flex;align-items:center;gap:8px}
+button:hover{background:var(--panel2)}
+button:active{transform:scale(.97)}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible{outline:2px solid var(--line);outline-offset:2px}
+.b-up{border-color:rgba(38,166,154,.5);color:var(--up)}
+.b-up:hover{background:rgba(38,166,154,.12)}
+.b-down{border-color:rgba(239,83,80,.5);color:var(--down)}
+.b-down:hover{background:rgba(239,83,80,.12)}
+.b-next{background:var(--line);border-color:var(--line);color:#fff;display:none;margin:14px auto 0}
+.b-next:hover{background:#3d7bf0}
+.b-step{border-color:rgba(245,185,66,.55);color:var(--gold);padding:12px 28px}
+.b-step:hover{background:rgba(245,185,66,.12)}
+.result{display:none;margin-top:16px;border-radius:12px;padding:16px 20px;font-size:14px;line-height:1.6;border:1px solid}
+.result.ok{background:rgba(38,166,154,.1);border-color:rgba(38,166,154,.4)}
+.result.bad{background:rgba(239,83,80,.1);border-color:rgba(239,83,80,.4)}
+.result h3{font-size:15px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.result.ok h3{color:var(--up)}
+.result.bad h3{color:var(--down)}
+.result .pname{display:inline-block;margin-top:8px;font-size:12px;color:var(--gold);border:1px solid rgba(245,185,66,.4);border-radius:6px;padding:3px 10px}
+.final{display:none;text-align:center;padding:40px 20px}
+.final .big{font-size:56px;font-weight:600;font-family:'JetBrains Mono',monospace;margin:10px 0}
+.final .pct{font-size:15px;color:var(--muted)}
+.final .verdict{margin-top:10px;font-size:15px}
+kbd{background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:1px 7px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--muted)}
+.hint{text-align:center;font-size:12px;color:var(--dim);margin-top:16px}
+@keyframes pulse{0%{r:5;opacity:1}100%{r:22;opacity:0}}
+@media (prefers-reduced-motion: reduce){.dot{animation:none}}
+@media (max-width:560px){.hud{width:100%;justify-content:space-between}.brand h1{font-size:15px}button{padding:11px 20px;font-size:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">
+    <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+      <rect x="4" y="12" width="6" height="12" rx="1.5" fill="#ef5350"/><line x1="7" y1="7" x2="7" y2="28" stroke="#ef5350" stroke-width="1.6"/>
+      <rect x="14" y="8" width="6" height="14" rx="1.5" fill="#26a69a"/><line x1="17" y1="4" x2="17" y2="26" stroke="#26a69a" stroke-width="1.6"/>
+      <rect x="24" y="4" width="6" height="12" rx="1.5" fill="#26a69a"/><line x1="27" y1="1" x2="27" y2="20" stroke="#26a69a" stroke-width="1.6"/>
+    </svg>
+    <div><h1>Pattern Trainer</h1><span>Trend chiziqlari sinishini o'rganing</span></div>
+  </div>
+  <div class="hud">
+    <div class="bar" aria-label="Jarayon"><i id="barFill"></i></div>
+    <div class="chip"><span style="color:var(--muted)">Ball</span><b id="score">0 / 0</b></div>
+    <button class="chip rbtn" id="btnReset" title="Yangi tasodifiy sessiya">↻ Yangi</button>
+  </div>
+</header>
+
+<div class="terminal" id="terminal">
+  <div class="tbar">
+    <div class="sym"><span class="dot"></span><span id="symT">AAPL</span> <em id="symN">· 4H · Apple Inc.</em></div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <button class="clr" id="btnClear">⌫ Chiziqlarni o'chirish</button>
+      <div class="pnum" id="pnum">PATTERN 01/50</div>
+    </div>
+  </div>
+  <div class="tradebar" id="tradebar">
+    <button id="btnBuy">▲ Sotib olish</button>
+    <button id="btnConfirm">✔ Tasdiqlash</button>
+    <span id="tradeInfo"></span>
+  </div>
+  <svg id="chart" viewBox="0 0 940 430" role="img" aria-label="Sham grafigi — pattern shakllanmoqda"></svg>
+  <div class="statusbar" id="status">Shamlar shakllanmoqda…</div>
+</div>
+
+<div class="controls" id="controls">
+  <button class="b-up" id="btnUp">▲ Tepaga <kbd>↑</kbd></button>
+  <button class="b-down" id="btnDown">▼ Pastga <kbd>↓</kbd></button>
+  <button class="b-step" id="btnStep">▸ Keyingi sham <kbd>Space</kbd></button>
+</div>
+
+<div class="result" id="result"></div>
+<button class="b-next" id="btnNext">Keyingi pattern →</button>
+
+<div class="terminal final" id="final">
+  <div style="font-size:14px;color:var(--muted);letter-spacing:1px">YAKUNIY NATIJA</div>
+  <div class="big" id="finalScore">0 / 12</div>
+  <div class="pct" id="finalPct"></div>
+  <div class="verdict" id="finalVerdict"></div>
+  <div class="flist" id="finalList"></div>
+  <button class="b-next" id="btnRestart" style="display:inline-flex;margin-top:24px">↻ Qaytadan boshlash</button>
+</div>
+
+<div class="hint">Sichqoncha bilan torting — chiziq chiziladi · ushlab suring yoki uchidan buring · ikki marta bosib o'chiring · <kbd>Space</kbd> keyingi sham · <kbd>↑</kbd>/<kbd>↓</kbd> javob</div>
+</div>
+
+<script>
+'use strict';
+const UP='#26a69a', DOWN='#ef5350', LINE='#4f8bff', NS='http://www.w3.org/2000/svg';
+const W=940, H=430, padL=16, padR=78, padT=22, padB=18;
+const plotW=W-padL-padR, plotH=H-padT-padB;
+const NP=30, NC=16, NT=NP+NC;
+const cw=plotW/(NT+1);
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const SPD=reduced?12:1;
+
+// ---------- Pattern spec ----------
+// lines: {U,L,N} har biri {a:[index,y], b:[index,y]}
+// piv: [[index, 'U'|'L'|son, offset]] — 'U'/'L' chiziq ustidagi aniq nuqta
+// brk: qaysi chiziq sinadi; side: neckline patternlarda narx qaysi tomonda turadi
+const PATTERNS=[
+ {n:"Boshi va yelkalar", strat:"reversal", dir:"down", brk:"N", side:"above",
+  lines:{N:{a:[5,.44],b:[30,.44]}},
+  piv:[[0,.15],[6,.56],[9,.445],[14,.78],[19,.445],[23,.57],[28,.465]],
+  e:"Boshi va yelkalar (Head & Shoulders) — trendni buruvchi klassik pattern. Ikkita yelka va baland bosh shakllangach, bo'yin chizig'i (neckline) pastga sinadi va narx keskin tushadi."},
+ {n:"Ikkilangan tub", strat:"reversal", dir:"up", brk:"N", side:"below",
+  lines:{N:{a:[4,.54],b:[30,.54]}},
+  piv:[[0,.86],[6,.30],[11,.53],[16,.29],[21,.53],[26,.46],[29,.51]],
+  e:"Ikkilangan tub (Double Bottom) — narx pastda ikki marta bir xil darajadan qaytdi. Qarshilik (neckline) tepaga sinishi bilan o'sish trendi boshlanadi."},
+ {n:"Simmetrik uchburchak", strat:"breakout", dir:"down", brk:"L",
+  lines:{U:{a:[4,.74],b:[36,.49]},L:{a:[4,.30],b:[36,.465]}},
+  piv:[[0,.92],[4,'L'],[8,'U'],[12,'L'],[16,'U'],[20,'L'],[24,'U'],[27,'L',.02]],
+  e:"Simmetrik uchburchak — davomli pattern. Pasayish trendidan keyin shakllandi, shuning uchun pastki chiziq sinib, tushish davom etdi."},
+ {n:"Ko'tarilgan kanal", strat:"pullback", dir:"up", brk:"U",
+  lines:{U:{a:[3,.42],b:[36,.80]},L:{a:[3,.22],b:[36,.60]}},
+  piv:[[0,.06],[6,'U'],[10,'L'],[14,'U'],[18,'L'],[22,'U'],[25,'L',.03],[29,'U',-.01]],
+  e:"Ko'tarilgan kanal — narx ikki parallel chiziq orasida yuqoriga harakat qiladi. Yuqori chegara sinishi o'sishning kuchayganini bildiradi."},
+ {n:"Teskari boshi va yelkalar", strat:"reversal", dir:"up", brk:"N", side:"below",
+  lines:{N:{a:[5,.58],b:[30,.58]}},
+  piv:[[0,.90],[6,.46],[9,.575],[14,.24],[19,.575],[23,.45],[28,.555]],
+  e:"Teskari boshi va yelkalar — pasayish trendini tepaga buruvchi pattern. Bo'yin chizig'i yuqoriga sinishi — kuchli xarid signali."},
+ {n:"Ko'tarilgan pona", strat:"reversal", dir:"down", brk:"L",
+  lines:{U:{a:[3,.48],b:[36,.82]},L:{a:[3,.28],b:[36,.72]}},
+  piv:[[0,.06],[5,'L'],[9,'U'],[13,'L'],[17,'U'],[21,'L'],[25,'U'],[29,'L',.015]],
+  e:"Ko'tarilgan pona (Rising Wedge) — bearish pattern. Chiziqlar torayib boradi, o'sish kuchsizlanadi va pastki chiziq sinib narx tushadi."},
+ {n:"Ko'tarilgan pona (tuzatish)", strat:"pullback", dir:"down", brk:"L",
+  lines:{U:{a:[6,.50],b:[36,.70]},L:{a:[4,.32],b:[36,.62]}},
+  piv:[[0,.94],[4,'L'],[8,'U'],[12,'L'],[16,'U'],[20,'L'],[24,'U'],[28,'L',.02]],
+  e:"Pasayish trendidagi ko'tarilgan pona — bu faqat tuzatish (korreksiya). Pastki chiziq sinib, asosiy tushish trendi davom etdi."},
+ {n:"To'rtburchak (qarshilik)", strat:"breakout", dir:"up", brk:"U",
+  lines:{U:{a:[4,.58],b:[36,.58]},L:{a:[4,.34],b:[36,.34]}},
+  piv:[[0,.08],[5,'U'],[9,'L'],[13,'U'],[17,'L'],[21,'U'],[25,'L',.06],[29,'U',-.02]],
+  e:"To'rtburchak — narx ikki gorizontal daraja orasida to'planadi. O'sish trendida qarshilik sinishi bilan harakat tepaga davom etadi."},
+ {n:"Ikkilangan cho'qqi", strat:"reversal", dir:"down", brk:"N", side:"above",
+  lines:{N:{a:[4,.47],b:[30,.47]}},
+  piv:[[0,.14],[6,.72],[11,.48],[16,.72],[21,.50],[26,.56],[29,.50]],
+  e:"Ikkilangan cho'qqi (Double Top) — narx tepada ikki marta bir darajadan qaytdi. Qo'llab-quvvatlash sinishi bilan pasayish boshlanadi."},
+ {n:"To'rtburchak (tub)", strat:"breakout", dir:"up", brk:"U",
+  lines:{U:{a:[4,.56],b:[36,.56]},L:{a:[4,.32],b:[36,.32]}},
+  piv:[[0,.92],[5,'L'],[9,'U'],[13,'L'],[17,'U'],[21,'L'],[25,'U',-.06],[29,'U',-.015]],
+  e:"Pasayishdan keyingi to'rtburchak tub — narx to'planish bosqichidan o'tdi, qarshilik tepaga sindi va trend burildi."},
+ {n:"Tushayotgan pona", strat:"reversal", dir:"up", brk:"U",
+  lines:{U:{a:[3,.72],b:[36,.42]},L:{a:[5,.38],b:[36,.32]}},
+  piv:[[0,.94],[5,'L'],[9,'U'],[13,'L'],[17,'U'],[21,'L'],[25,'U'],[28,'U',-.02]],
+  e:"Tushayotgan pona (Falling Wedge) — bullish pattern. Pasayish kuchsizlanib boradi, yuqori chiziq sinishi bilan narx ko'tariladi."},
+ {n:"Tushuvchi kanal", strat:"pullback", dir:"down", brk:"L",
+  lines:{U:{a:[3,.76],b:[36,.44]},L:{a:[3,.56],b:[36,.24]}},
+  piv:[[0,.92],[5,'L'],[9,'U'],[13,'L'],[17,'U'],[21,'L'],[25,'U'],[29,'L',.015]],
+  e:"Tushuvchi kanal — narx ikki parallel chiziq orasida pastga harakat qiladi. Pastki chegara sinishi tushishning kuchayganini bildiradi."},
+ {n:"Qarshilik sinishi", strat:"breakout", dir:"up", brk:"N", side:"below",
+  lines:{N:{a:[3,.60],b:[30,.60]}},
+  piv:[[0,.10],[5,.58],[9,.38],[13,.57],[17,.42],[21,.58],[25,.46],[29,.565]],
+  e:"Qarshilik darajasi (resistance) bir necha marta test qilindi. Sotuvchilar kuchi tugab, daraja tepaga sindi — narx o'sishda davom etadi."},
+ {n:"Qo'llab-quvvatlash sinishi", strat:"breakout", dir:"down", brk:"N", side:"above",
+  lines:{N:{a:[3,.40],b:[30,.40]}},
+  piv:[[0,.90],[5,.42],[9,.62],[13,.43],[17,.58],[21,.42],[25,.54],[29,.435]],
+  e:"Qo'llab-quvvatlash darajasi (support) bir necha marta ushlab turdi, lekin xaridorlar kuchi tugadi. Daraja pastga sindi — tushish davom etadi."},
+ {n:"Ko'tarilgan uchburchak", strat:"breakout", dir:"up", brk:"U",
+  lines:{U:{a:[4,.62],b:[36,.62]},L:{a:[4,.26],b:[36,.58]}},
+  piv:[[0,.08],[5,'U'],[9,'L'],[13,'U'],[17,'L'],[21,'U'],[25,'L'],[29,'U',-.01]],
+  e:"Ko'tarilgan uchburchak — bullish pattern. Tublar tobora yuqorilab boradi, gorizontal qarshilik sinishi bilan kuchli o'sish boshlanadi."},
+ {n:"Tushuvchi uchburchak", strat:"breakout", dir:"down", brk:"L",
+  lines:{U:{a:[4,.74],b:[36,.42]},L:{a:[4,.38],b:[36,.38]}},
+  piv:[[0,.92],[5,'L'],[9,'U'],[13,'L'],[17,'U'],[21,'L'],[25,'U'],[29,'L',.01]],
+  e:"Tushuvchi uchburchak — bearish pattern. Cho'qqilar tobora pasayib boradi, gorizontal qo'llab-quvvatlash sinishi bilan tushish kuchayadi."},
+ {n:"Uchlangan cho'qqi", strat:"reversal", dir:"down", brk:"N", side:"above",
+  lines:{N:{a:[3,.50],b:[30,.50]}},
+  piv:[[0,.14],[5,.70],[9,.51],[13,.70],[17,.51],[21,.70],[25,.53],[29,.51]],
+  e:"Uchlangan cho'qqi (Triple Top) — narx uch marta bir darajadan qaytdi. Qo'llab-quvvatlash sinishi bilan kuchli pasayish boshlanadi."},
+ {n:"Uchlangan tub", strat:"reversal", dir:"up", brk:"N", side:"below",
+  lines:{N:{a:[3,.50],b:[30,.50]}},
+  piv:[[0,.88],[5,.28],[9,.49],[13,.28],[17,.49],[21,.28],[25,.47],[29,.49]],
+  e:"Uchlangan tub (Triple Bottom) — narx uch marta bir darajadan qaytib chiqdi. Qarshilik sinishi bilan kuchli o'sish boshlanadi."},
+ {n:"Buqa bayrog'i", strat:"pullback", dir:"up", brk:"U",
+  lines:{U:{a:[8,.78],b:[36,.58]},L:{a:[8,.62],b:[36,.42]}},
+  piv:[[0,.06],[8,'U'],[12,'L'],[16,'U'],[20,'L'],[24,'U'],[27,'L',.04],[29,'U',-.01]],
+  e:"Buqa bayrog'i (Bull Flag) — keskin o'sishdan keyingi kichik pastga tuzatish. Yuqori chiziq sinishi bilan o'sish davom etadi."},
+ {n:"Ayiq bayrog'i", strat:"pullback", dir:"down", brk:"L",
+  lines:{U:{a:[8,.38],b:[36,.58]},L:{a:[8,.22],b:[36,.42]}},
+  piv:[[0,.94],[8,'L'],[12,'U'],[16,'L'],[20,'U'],[24,'L'],[27,'U',-.04],[29,'L',.01]],
+  e:"Ayiq bayrog'i (Bear Flag) — keskin tushishdan keyingi kichik yuqoriga tuzatish. Pastki chiziq sinishi bilan tushish davom etadi."}
+];
+const ROUNDS=50;
+const URLSTRAT=(new URLSearchParams(location.search)).get('strat')||'all';
+const STRAT_PATTERNS = URLSTRAT==='all' ? PATTERNS.map((_,i)=>i) : PATTERNS.map((p,i)=>p.strat===URLSTRAT?i:-1).filter(i=>i>=0);
+
+// ---------- Utils ----------
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const Y=v=>padT+(1-v)*plotH;
+const Xc=i=>padL+(i+.7)*cw;
+let PBASE=100, PRNGE=30;
+const price=v=>(PBASE+v*PRNGE).toFixed(2);
+const TICKERS=[
+ ['AAPL','Apple Inc.'],['MSFT','Microsoft'],['GOOGL','Alphabet'],['NVDA','NVIDIA'],
+ ['TSLA','Tesla, Inc.'],['AMD','Adv. Micro Devices'],['ADBE','Adobe'],['CRM','Salesforce'],
+ ['ORCL','Oracle'],['CSCO','Cisco Systems'],['QCOM','Qualcomm'],['INTC','Intel'],
+ ['JNJ','Johnson & Johnson'],['PFE','Pfizer'],['NKE','Nike'],['PG','Procter & Gamble']
+];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function lineAt(l,i){const t=(i-l.a[0])/(l.b[0]-l.a[0]);return l.a[1]+(l.b[1]-l.a[1])*t;}
+function el(tag,attrs){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);return e;}
+
+// ---------- Sessiya: har safar tasodifiy tartib va o'zgargan geometriya ----------
+let session=[], results=[];
+function buildSession(){
+ session=[]; results=[];
+ const order=[];
+ const pool=STRAT_PATTERNS.length?STRAT_PATTERNS:PATTERNS.map((_,i)=>i);
+ while(order.length<ROUNDS){
+  const chunk=[...pool];
+  for(let i=chunk.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[chunk[i],chunk[j]]=[chunk[j],chunk[i]];}
+  order.push(...chunk);
+ }
+ order.length=ROUNDS;
+ for(let i=1;i<ROUNDS;i++)if(order[i]===order[i-1]){const j=(i+2)%ROUNDS;[order[i],order[j]]=[order[j],order[i]];}
+ for(let i=0;i<ROUNDS;i++)session.push({
+  t:order[i],
+  seed:Math.floor(Math.random()*1e9)+1,
+  tk:TICKERS[Math.floor(Math.random()*TICKERS.length)],
+  base:Math.round((20+Math.random()*380)*100)/100
+ });
+}
+function roundPattern(r){
+ const base=PATTERNS[r.t];
+ const rr=rng(r.seed^0x9e3779);
+ const dy=(rr()-.5)*.11;
+ const sh=v=>clamp(v+dy,.05,.95);
+ const p={n:base.n,dir:base.dir,brk:base.brk,side:base.side,e:base.e,lines:{},
+  piv:base.piv.map(pv=>typeof pv[1]==='number'?[pv[0],sh(pv[1]),pv[2]]:pv.slice())};
+ for(const k in base.lines){const l=base.lines[k];p.lines[k]={a:[l.a[0],sh(l.a[1])],b:[l.b[0],sh(l.b[1])]};}
+ return p;
+}
+
+// ---------- Data generation ----------
+function resolvePivots(p){
+ return p.piv.map(pv=>{
+  if(typeof pv[1]==='number')return [pv[0],pv[1]];
+  const l=p.lines[pv[1]], off=pv[2]||0;
+  const inner=pv[1]==='U'?-0.008:0.008;
+  return [pv[0], lineAt(l,pv[0])+inner+off];
+ });
+}
+function interp(piv,i){
+ for(let k=1;k<piv.length;k++){
+  if(i<=piv[k][0]){const a=piv[k-1],b=piv[k];const t=(i-a[0])/(b[0]-a[0]||1);return a[1]+(b[1]-a[1])*t;}
+ }
+ return piv[piv.length-1][1];
+}
+function buildPattern(p,seed){
+ const r=rng(seed), piv=resolvePivots(p), candles=[];
+ let prev=piv[0][1];
+ for(let i=0;i<NP;i++){
+  const base=interp(piv,i);
+  let close=base+(r()-.5)*.03;
+  let o=prev, hi=Math.max(o,close)+r()*.022, lo=Math.min(o,close)-r()*.022;
+  // Chiziqlar ichida qat'iy ushlab turish — shamlar chiziqni oldindan sindirmaydi
+  if(p.lines.U && i>=p.lines.U.a[0]){const u=lineAt(p.lines.U,i);close=Math.min(close,u-.012);o=Math.min(o,u-.005);hi=Math.min(hi,u+.002);}
+  if(p.lines.L && i>=p.lines.L.a[0]){const lv=lineAt(p.lines.L,i);close=Math.max(close,lv+.012);o=Math.max(o,lv+.005);lo=Math.max(lo,lv-.002);}
+  if(p.lines.N && i>=p.lines.N.a[0]){
+   const nv=lineAt(p.lines.N,i);
+   if(p.side==='above'){lo=Math.max(lo,nv-.006);close=Math.max(close,nv+.004);}
+   else{hi=Math.min(hi,nv+.006);close=Math.min(close,nv-.004);}
+  }
+  hi=Math.max(hi,Math.max(o,close));lo=Math.min(lo,Math.min(o,close));
+  candles.push({o,c:close,h:clamp(hi,.01,.99),l:clamp(lo,.01,.99)});
+  prev=close;
+ }
+ return candles;
+}
+// Sinish: birinchi sham chiziqni ANIQ yorib o'tadi, keyin retest, keyin davom
+function buildBreakout(p,last,seed){
+ const r=rng(seed+991), sgn=p.dir==='up'?1:-1;
+ const bl=p.lines[p.brk], candles=[];
+ let prev=last;
+ for(let i=0;i<NC;i++){
+  const gi=NP+i, lv=lineAt(bl,gi);
+  let close,hi,lo;
+  if(i===0){ // Sinish shami — bitta katta sham chiziqni ANIQ yorib o'tadi
+   close=lv+sgn*.11;
+   hi=Math.max(prev,close)+r()*.008; lo=Math.min(prev,close)-r()*.008;
+  }else if(i===1){
+   close=prev+sgn*(.045+r()*.02);
+  }else if(i===3||i===4){ // Retest — chiziqqa qaytib tegib ketadi
+   const target=lv+sgn*(.012+r()*.01);
+   close=prev+(target-prev)*.75;
+  }else{
+   close=prev+sgn*(.04+(r()-.35)*.045);
+   if(i%5===4)close=prev-sgn*.018;
+  }
+  close=clamp(close,.03,.97);
+  if(i>0){
+   hi=Math.max(prev,close)+r()*.02; lo=Math.min(prev,close)-r()*.02;
+   if(sgn>0)lo=Math.max(lo,lv-.006); else hi=Math.min(hi,lv+.006); // sinishdan keyin chiziq ortiga qaytmaydi
+  }
+  candles.push({o:prev,c:close,h:clamp(hi,.01,.99),l:clamp(lo,.01,.99)});
+  prev=close;
+ }
+ return candles;
+}
+
+// ---------- Rendering ----------
+const svg=document.getElementById('chart');
+const statusEl=document.getElementById('status');
+const controls=document.getElementById('controls');
+const resultEl=document.getElementById('result');
+const btnUp=document.getElementById('btnUp'), btnDown=document.getElementById('btnDown');
+const btnNext=document.getElementById('btnNext');
+const progBar=document.getElementById('barFill'), scoreEl=document.getElementById('score'), pnumEl=document.getElementById('pnum');
+const finalEl=document.getElementById('final'), terminal=document.getElementById('terminal');
+
+let idx=0, score=0, answered=0, timers=[], cur=null, phase='form';
+
+function T(fn,ms){timers.push(setTimeout(fn,ms/SPD));}
+function clearT(){timers.forEach(clearTimeout);timers=[];}
+
+let lastPriceLine=null,lastPriceTag=null,lastPriceTxt=null;
+function drawBase(){
+ svg.innerHTML='';
+ for(let g=0;g<=5;g++){
+  const v=g/5;
+  svg.appendChild(el('line',{x1:padL,x2:W-padR,y1:Y(v),y2:Y(v),stroke:'#1e2433','stroke-width':1}));
+  const t=el('text',{x:W-padR+10,y:Y(v)+4,'font-size':11,fill:'#787b86','font-family':"'JetBrains Mono',monospace"});
+  t.textContent=price(v); svg.appendChild(t);
+ }
+ // joriy narx belgisi
+ lastPriceLine=el('line',{x1:padL,x2:W-padR,y1:-99,y2:-99,stroke:'#4c5266','stroke-width':1,'stroke-dasharray':'2 4'});
+ svg.appendChild(lastPriceLine);
+ lastPriceTag=el('rect',{x:W-padR+2,y:-99,width:70,height:18,rx:4,fill:'#2a3247'});
+ svg.appendChild(lastPriceTag);
+ lastPriceTxt=el('text',{x:W-padR+10,y:-99,'font-size':11,fill:'#d1d4dc','font-family':"'JetBrains Mono',monospace"});
+ svg.appendChild(lastPriceTxt);
+ userG=el('g',{});
+ svg.appendChild(userG);
+ userLines=[];
+}
+function updatePriceTag(v,col){
+ lastPriceLine.setAttribute('y1',Y(v));lastPriceLine.setAttribute('y2',Y(v));
+ lastPriceLine.setAttribute('stroke',col);
+ lastPriceTag.setAttribute('y',Y(v)-9);lastPriceTag.setAttribute('fill',col);
+ lastPriceTxt.setAttribute('y',Y(v)+4);lastPriceTxt.textContent=price(v);
+ lastPriceTxt.setAttribute('fill','#0d1017');
+}
+function drawCandle(cd,i){
+ const g=el('g',{});
+ const bull=cd.c>=cd.o, col=bull?UP:DOWN, x=Xc(i), bw=cw*.6;
+ g.appendChild(el('line',{x1:x,x2:x,y1:Y(cd.h),y2:Y(cd.l),stroke:col,'stroke-width':1.4}));
+ const yTop=Y(Math.max(cd.o,cd.c)), hh=Math.max(1.6,Math.abs(Y(cd.o)-Y(cd.c)));
+ g.appendChild(el('rect',{x:x-bw/2,y:yTop,width:bw,height:hh,fill:col,rx:1}));
+ if(!reduced){g.style.opacity='0';g.style.transition='opacity .18s';requestAnimationFrame(()=>g.style.opacity='1');}
+ svg.appendChild(g);
+ if(userG)svg.appendChild(userG);
+ updatePriceTag(cd.c,col);
+}
+function drawTrendline(l,delay,done){
+ T(()=>{
+  const x1=Xc(l.a[0]), y1=Y(l.a[1]);
+  const xSolidEnd=Xc(NP-1), ySolidEnd=Y(lineAt(l,NP-1));
+  const xDashEnd=Xc(NT-1), yDashEnd=Y(lineAt(l,NT-1));
+  const solid=el('line',{x1,y1,x2:xSolidEnd,y2:ySolidEnd,stroke:LINE,'stroke-width':2.4,'stroke-linecap':'round'});
+  const len=Math.hypot(xSolidEnd-x1,ySolidEnd-y1);
+  solid.setAttribute('stroke-dasharray',len);solid.setAttribute('stroke-dashoffset',reduced?0:len);
+  solid.style.transition='stroke-dashoffset .8s ease';
+  svg.appendChild(solid);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>solid.setAttribute('stroke-dashoffset',0)));
+  // Proyeksiya — kelajakka punktir davomi
+  T(()=>{
+   svg.appendChild(el('line',{x1:xSolidEnd,y1:ySolidEnd,x2:xDashEnd,y2:yDashEnd,stroke:LINE,'stroke-width':1.6,'stroke-dasharray':'6 6',opacity:.55}));
+   if(done)done();
+  },850);
+ },delay);
+}
+function breakMarker(i,v){
+ const x=Xc(i), y=Y(v);
+ const c=el('circle',{cx:x,cy:y,r:5,fill:'none',stroke:'#f5b942','stroke-width':2});
+ if(!reduced)c.style.animation='pulse 1.2s ease-out 3';
+ svg.appendChild(c);
+ svg.appendChild(el('circle',{cx:x,cy:y,r:4,fill:'#f5b942'}));
+ const lbl=el('text',{x:x,y:y+(cur.p.dir==='up'?26:-18),'font-size':12,fill:'#f5b942','text-anchor':'middle','font-weight':600});
+ lbl.textContent='SINISH!';
+ svg.appendChild(lbl);
+}
+
+// Savol paytida: keyingi sham o'rnida tepaga-pastga harakatlanuvchi xira sharpa sham
+let ghostG=null, ghostRaf=0;
+function showGhost(i,baseV){
+ hideGhost();
+ ghostG=el('g',{opacity:'.35'});
+ const x=Xc(i), bw=cw*.62;
+ const wick=el('line',{x1:x,x2:x,'stroke-width':1.4});
+ const body=el('rect',{x:x-bw/2,width:bw,rx:1});
+ ghostG.appendChild(wick);ghostG.appendChild(body);
+ const q=el('text',{x:x+bw+8,y:Y(baseV)+5,'font-size':16,fill:'#f5b942','font-weight':600,opacity:'.9'});
+ q.textContent='?';
+ ghostG.appendChild(q);
+ svg.appendChild(ghostG);
+ if(reduced){
+  const yO=Y(baseV);
+  body.setAttribute('y',yO-22);body.setAttribute('height',44);body.setAttribute('fill','#8b93a5');
+  wick.setAttribute('stroke','#8b93a5');wick.setAttribute('y1',yO-30);wick.setAttribute('y2',yO+30);
+  return;
+ }
+ const t0=performance.now();
+ function frame(t){
+  if(!ghostG)return;
+  const off=Math.sin((t-t0)/450)*.07;
+  const col=off>=0?UP:DOWN;
+  const yO=Y(baseV), yC=Y(clamp(baseV+off,.02,.98));
+  const top=Math.min(yO,yC), h=Math.max(2,Math.abs(yO-yC));
+  body.setAttribute('y',top);body.setAttribute('height',h);
+  body.setAttribute('fill',col);
+  wick.setAttribute('stroke',col);
+  wick.setAttribute('y1',top-9);wick.setAttribute('y2',top+h+9);
+  ghostRaf=requestAnimationFrame(frame);
+ }
+ ghostRaf=requestAnimationFrame(frame);
+}
+function hideGhost(){
+ if(ghostRaf)cancelAnimationFrame(ghostRaf);
+ ghostRaf=0;
+ if(ghostG){ghostG.remove();ghostG=null;}
+}
+
+function drawArrow(p,lastClose){
+ const sgn=p.dir==='up'?1:-1;
+ const col=p.dir==='up'?UP:DOWN;
+ const x1=Xc(NP), y1=Y(lineAt(p.lines[p.brk],NP));
+ const x2=Xc(NT-1)+16, y2=Y(clamp(lastClose+sgn*.11,.04,.96));
+ const ang=Math.atan2(y2-y1,x2-x1);
+ const g=el('g',{});
+ g.appendChild(el('line',{x1,y1,x2,y2,stroke:col,'stroke-width':5,'stroke-linecap':'round',opacity:.9}));
+ const ah=18;
+ const p1x=x2-ah*Math.cos(ang-.45), p1y=y2-ah*Math.sin(ang-.45);
+ const p2x=x2-ah*Math.cos(ang+.45), p2y=y2-ah*Math.sin(ang+.45);
+ g.appendChild(el('path',{d:'M'+x2+','+y2+' L'+p1x+','+p1y+' L'+p2x+','+p2y+' Z',fill:col}));
+ if(!reduced){g.style.opacity='0';g.style.transition='opacity .5s';requestAnimationFrame(()=>requestAnimationFrame(()=>g.style.opacity='1'));}
+ svg.appendChild(g);
+}
+
+// ---------- Foydalanuvchi o'zi chizadigan trend chiziqlari ----------
+let drawing=false, drawStart=null, tempLine=null, userLines=[], userG=null;
+let dragLine=null, dragMode=null, dragLast=null;
+function svgPoint(e){
+ const r=svg.getBoundingClientRect();
+ return [(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height];
+}
+function distToSeg(px,py,x1,y1,x2,y2){
+ const dx=x2-x1,dy=y2-y1,len2=dx*dx+dy*dy;
+ let t=len2?((px-x1)*dx+(py-y1)*dy)/len2:0;
+ t=clamp(t,0,1);
+ return Math.hypot(px-(x1+t*dx),py-(y1+t*dy));
+}
+function getXY(l){return [+l.getAttribute('x1'),+l.getAttribute('y1'),+l.getAttribute('x2'),+l.getAttribute('y2')];}
+function hitTest(pt){
+ for(let i=userLines.length-1;i>=0;i--){
+  const l=userLines[i], c=getXY(l);
+  if(Math.hypot(pt[0]-c[0],pt[1]-c[1])<12)return{l,mode:'p1'};
+  if(Math.hypot(pt[0]-c[2],pt[1]-c[3])<12)return{l,mode:'p2'};
+  if(distToSeg(pt[0],pt[1],c[0],c[1],c[2],c[3])<9)return{l,mode:'move'};
+ }
+ return null;
+}
+svg.addEventListener('pointerdown',e=>{
+ if(phase==='sltp'){
+  const pt=svgPoint(e);
+  if(Math.abs(pt[1]-Y(slV))<13)dragTrade='sl';
+  else if(Math.abs(pt[1]-Y(tpV))<13)dragTrade='tp';
+  if(dragTrade){e.preventDefault();svg.setPointerCapture(e.pointerId);}
+  return;
+ }
+ if(phase!=='draw')return;
+ e.preventDefault();
+ svg.setPointerCapture(e.pointerId);
+ const pt=svgPoint(e);
+ const hit=hitTest(pt);
+ if(hit){
+  dragLine=hit.l; dragMode=hit.mode; dragLast=pt;
+  dragLine.setAttribute('stroke-width','4');
+  dragLine.setAttribute('opacity','.85');
+  svg.style.cursor=hit.mode==='move'?'grabbing':'crosshair';
+  return;
+ }
+ drawing=true; drawStart=pt;
+ tempLine=el('line',{x1:pt[0],y1:pt[1],x2:pt[0],y2:pt[1],stroke:'#f5b942','stroke-width':2.5,'stroke-linecap':'round'});
+ userG.appendChild(tempLine);
+});
+svg.addEventListener('pointermove',e=>{
+ const pt=svgPoint(e);
+ if(dragTrade){
+  const v=clamp(1-(pt[1]-padT)/plotH,.02,.98);
+  if(dragTrade==='sl')slV=v; else tpV=v;
+  updateTradeLines();
+  return;
+ }
+ if(phase==='sltp'){
+  svg.style.cursor=(Math.abs(pt[1]-Y(slV))<13||Math.abs(pt[1]-Y(tpV))<13)?'ns-resize':'default';
+  return;
+ }
+ if(dragLine){
+  const c=getXY(dragLine);
+  if(dragMode==='move'){
+   const dx=pt[0]-dragLast[0], dy=pt[1]-dragLast[1];
+   dragLine.setAttribute('x1',c[0]+dx);dragLine.setAttribute('y1',c[1]+dy);
+   dragLine.setAttribute('x2',c[2]+dx);dragLine.setAttribute('y2',c[3]+dy);
+   dragLast=pt;
+  }else if(dragMode==='p1'){
+   dragLine.setAttribute('x1',pt[0]);dragLine.setAttribute('y1',pt[1]);
+  }else{
+   dragLine.setAttribute('x2',pt[0]);dragLine.setAttribute('y2',pt[1]);
+  }
+  return;
+ }
+ if(drawing&&tempLine){
+  tempLine.setAttribute('x2',pt[0]);tempLine.setAttribute('y2',pt[1]);
+  return;
+ }
+ if(phase==='draw'){
+  svg.style.cursor=hitTest(pt)?'grab':'crosshair';
+ }
+});
+svg.addEventListener('pointerup',e=>{
+ if(dragTrade){dragTrade=null;return;}
+ if(dragLine){
+  dragLine.setAttribute('stroke-width','2.5');
+  dragLine.removeAttribute('opacity');
+  dragLine=null; dragMode=null;
+  svg.style.cursor='crosshair';
+  return;
+ }
+ if(!drawing)return;
+ drawing=false;
+ const pt=svgPoint(e);
+ if(Math.hypot(pt[0]-drawStart[0],pt[1]-drawStart[1])<18){tempLine.remove();}
+ else{
+  userLines.push(tempLine);
+  btnStep.disabled=false;
+  setStatus('Chiziqni ushlab suring, uchidan buring, ikki marta bosib o\'chiring — yoki "Keyingi sham"',true);
+ }
+ tempLine=null;
+});
+svg.addEventListener('dblclick',e=>{
+ if(phase!=='draw')return;
+ const hit=hitTest(svgPoint(e));
+ if(hit){
+  hit.l.remove();
+  userLines=userLines.filter(l=>l!==hit.l);
+  if(userLines.length===0){
+   btnStep.disabled=true;
+   setStatus('Trend chiziqlarini O\'ZINGIZ chizing — sichqoncha bilan torting',true);
+  }
+ }
+});
+document.getElementById('btnClear').onclick=()=>{
+ if(!userG)return;
+ while(userG.firstChild)userG.removeChild(userG.firstChild);
+ userLines=[];
+ if(phase==='draw'){btnStep.disabled=true;setStatus('Trend chiziqlarini O\'ZINGIZ chizing — sichqoncha bilan torting',true);}
+};
+
+// ---------- Savdo (bitim) tizimi: kirish, SL, TP ----------
+let bought=false, confirmed=false, entryV=0, buyIdx=0, slV=0, tpV=0;
+let dragTrade=null, outcome=null, slOk=false, rr=0, entryTiming='';
+let tradeG=null, entryLineEl=null, entTagT=null, slLineEl=null, tpLineEl=null, tpZone=null, slZone=null;
+let tpTagR=null,tpTagP=null,tpTagC=null,slTagR=null,slTagP=null,slTagC=null;
+const tradebar=document.getElementById('tradebar'), btnBuy=document.getElementById('btnBuy'),
+ btnConfirm=document.getElementById('btnConfirm'), tradeInfo=document.getElementById('tradeInfo');
+const MONO="'JetBrains Mono',monospace";
+function drawTradeLines(){
+ tradeG=el('g',{});
+ const x0=Xc(NP+buyIdx-1)-cw*.4, x1=W-padR;
+ tpZone=el('rect',{x:x0,width:x1-x0,y:0,height:0,fill:'rgba(38,166,154,.16)'});
+ tradeG.appendChild(tpZone);
+ slZone=el('rect',{x:x0,width:x1-x0,y:0,height:0,fill:'rgba(239,83,80,.18)'});
+ tradeG.appendChild(slZone);
+ entryLineEl=el('line',{x1:x0,x2:x1,y1:0,y2:0,stroke:'#b6bdca','stroke-width':1.6});
+ tradeG.appendChild(entryLineEl);
+ tpLineEl=el('line',{x1:x0,x2:x1,y1:0,y2:0,stroke:UP,'stroke-width':2.2});
+ tradeG.appendChild(tpLineEl);
+ slLineEl=el('line',{x1:x0,x2:x1,y1:0,y2:0,stroke:DOWN,'stroke-width':2.2});
+ tradeG.appendChild(slLineEl);
+ entTagT=el('text',{x:x1-10,y:0,'font-size':11,fill:'#b6bdca','font-family':MONO,'text-anchor':'end'});
+ tradeG.appendChild(entTagT);
+ tpTagR=el('rect',{x:x1+2,width:74,height:28,rx:4,fill:UP});
+ tradeG.appendChild(tpTagR);
+ tpTagP=el('text',{x:x1+9,y:0,'font-size':11,fill:'#0d1017','font-family':MONO,'font-weight':700});
+ tradeG.appendChild(tpTagP);
+ tpTagC=el('text',{x:x1+9,y:0,'font-size':9.5,fill:'#0d1017','font-family':MONO,opacity:'.85'});
+ tradeG.appendChild(tpTagC);
+ slTagR=el('rect',{x:x1+2,width:74,height:28,rx:4,fill:DOWN});
+ tradeG.appendChild(slTagR);
+ slTagP=el('text',{x:x1+9,y:0,'font-size':11,fill:'#0d1017','font-family':MONO,'font-weight':700});
+ tradeG.appendChild(slTagP);
+ slTagC=el('text',{x:x1+9,y:0,'font-size':9.5,fill:'#0d1017','font-family':MONO,opacity:'.85'});
+ tradeG.appendChild(slTagC);
+ svg.appendChild(tradeG);
+ updateTradeLines();
+}
+function updateTradeLines(){
+ const yE=Y(entryV), yT=Y(tpV), yS=Y(slV);
+ tpZone.setAttribute('y',Math.min(yE,yT));tpZone.setAttribute('height',Math.abs(yE-yT));
+ slZone.setAttribute('y',Math.min(yE,yS));slZone.setAttribute('height',Math.abs(yE-yS));
+ entryLineEl.setAttribute('y1',yE);entryLineEl.setAttribute('y2',yE);
+ tpLineEl.setAttribute('y1',yT);tpLineEl.setAttribute('y2',yT);
+ slLineEl.setAttribute('y1',yS);slLineEl.setAttribute('y2',yS);
+ const pe=PBASE+entryV*PRNGE, pt=PBASE+tpV*PRNGE, ps=PBASE+slV*PRNGE;
+ entTagT.setAttribute('y',yE+(yT<yE?15:-7));entTagT.textContent='KIRISH $'+price(entryV);
+ tpTagR.setAttribute('y',yT-14);
+ tpTagP.setAttribute('y',yT-2);tpTagP.textContent='$'+price(tpV);
+ tpTagC.setAttribute('y',yT+10);tpTagC.textContent='TP '+(pt>=pe?'+':'')+((pt-pe)/pe*100).toFixed(1)+'%';
+ slTagR.setAttribute('y',yS-14);
+ slTagP.setAttribute('y',yS-2);slTagP.textContent='$'+price(slV);
+ slTagC.setAttribute('y',yS+10);slTagC.textContent='SL '+(ps>=pe?'+':'')+((ps-pe)/pe*100).toFixed(1)+'%';
+}
+function openTrade(){
+ if(phase!=='step'||bought||cur.p.dir!=='up')return;
+ bought=true;
+ buyIdx=contIdx;
+ entryV=cont[contIdx-1].c;
+ phase='sltp';
+ btnBuy.style.display='none';
+ btnStep.disabled=true;
+ slV=clamp(entryV-.09,.02,.98);
+ tpV=clamp(entryV+.14,.02,.98);
+ drawTradeLines();
+ btnConfirm.style.display='inline-flex';
+ tradeInfo.textContent='Kirish: $'+price(entryV)+' · SL va TP chiziqlarini o\'zingiz suring';
+ setStatus('Stop Loss (qizil) va Take Profit (yashil) chiziqlarini joylashtiring, keyin "Tasdiqlash"',true);
+}
+function confirmTrade(){
+ if(phase!=='sltp')return;
+ confirmed=true;
+ phase='step';
+ btnConfirm.style.display='none';
+ btnStep.disabled=false;
+ svg.style.cursor='';
+ const lv=lineAt(cur.p.lines[cur.p.brk],NP+buyIdx-1);
+ slOk=slV<entryV&&slV<lv+.02;
+ const risk=Math.abs(entryV-slV), rew=tpV-entryV;
+ rr=(risk>0&&tpV>entryV)?rew/risk:0;
+ entryTiming=buyIdx<=4?'early':(buyIdx<=9?'perfect':'late');
+ tradeInfo.textContent='LONG ochiq: $'+price(entryV)+' · SL $'+price(slV)+' · TP $'+price(tpV);
+ setStatus('"Keyingi sham" bilan davom eting — bitim kuzatilmoqda',true);
+}
+function checkHit(cd,i){
+ let hit=null,v=0;
+ if(cd.l<=slV){hit='sl';v=slV;}else if(cd.h>=tpV){hit='tp';v=tpV;}
+ if(!hit)return;
+ outcome=hit;
+ const col=hit==='tp'?UP:DOWN;
+ svg.appendChild(el('circle',{cx:Xc(NP+i),cy:Y(v),r:6.5,fill:col,stroke:'#0d1017','stroke-width':2.5}));
+ tradeInfo.textContent=hit==='tp'?'✓ TP urildi — bitim FOYDA bilan yopildi':'✗ SL urildi — bitim zarar bilan yopildi';
+ setStatus(hit==='tp'?'Take Profit urildi — foyda!':'Stop Loss urildi — zarar',true);
+}
+function tradePnl(){
+ const exit=outcome==='tp'?tpV:(outcome==='sl'?slV:cont[NC-1].c);
+ const pe=PBASE+entryV*PRNGE, px=PBASE+exit*PRNGE;
+ return (px-pe)/pe*100;
+}
+btnBuy.onclick=openTrade;
+btnConfirm.onclick=confirmTrade;
+
+// ---------- Flow ----------
+function setStatus(txt,ask){statusEl.textContent=txt;statusEl.className='statusbar'+(ask?' ask':'');}
+function startPattern(){
+ clearT(); phase='form';
+ const r=session[idx];
+ PBASE=r.base;
+ PRNGE=Math.round((r.base*.22+6)*100)/100;
+ document.getElementById('symT').textContent=r.tk[0];
+ document.getElementById('symN').textContent='· 4H · '+r.tk[1];
+ drawBase();
+ controls.style.visibility='hidden';
+ hideGhost(); drawing=false; tempLine=null; dragLine=null; dragMode=null;
+ bought=false; confirmed=false; outcome=null; dragTrade=null; entryTiming=''; slOk=false; rr=0; tradeG=null;
+ tradebar.style.display='none';
+ btnBuy.style.display='inline-flex';
+ btnConfirm.style.display='none';
+ tradeInfo.textContent='';
+ svg.style.cursor='';
+ btnUp.disabled=true; btnDown.disabled=true; btnStep.disabled=true;
+ resultEl.style.display='none'; btnNext.style.display='none';
+ pnumEl.textContent='PATTERN '+String(idx+1).padStart(2,'0')+'/'+ROUNDS;
+ progBar.style.width=(idx/ROUNDS*100)+'%';
+ setStatus('Shamlar shakllanmoqda…');
+ const p=roundPattern(r);
+ const candles=buildPattern(p,r.seed);
+ cur={p,candles,seed:r.seed};
+ candles.forEach((cd,i)=>T(()=>drawCandle(cd,i),i*60));
+ const afterCandles=NP*60+400;
+ T(()=>{
+  phase='draw';
+  setStatus('Trend chiziqlarini O\'ZINGIZ chizing — sichqoncha bilan torting',true);
+  controls.style.visibility='visible';
+  btnStep.disabled=true;
+  svg.style.cursor='crosshair';
+  showGhost(NP,cur.candles[NP-1].c);
+  cont=buildBreakout(p,cur.candles[NP-1].c,cur.seed);
+  contIdx=0;
+ },afterCandles);
+}
+let pendingGuess=null, cont=null, contIdx=0;
+const btnStep=document.getElementById('btnStep');
+function answer(guess){
+ if(phase!=='ask')return;
+ phase='step';
+ pendingGuess=guess;
+ btnUp.disabled=true;
+ btnDown.disabled=true;
+ btnStep.disabled=false;
+ hideGhost();
+ const long=cur.p.dir==='up';
+ if(long){
+  tradebar.style.display='flex';
+  btnBuy.style.display='inline-flex';
+  btnBuy.className='long';
+  btnBuy.textContent='▲ Sotib olish';
+  tradeInfo.textContent='Retestni kuting — kirish vaqtini o\'zingiz tanlaysiz';
+  setStatus('"Keyingi sham" bilan davom eting — to\'g\'ri paytda sotib oling!',true);
+ }else{
+  tradebar.style.display='none';
+  setStatus('"Keyingi sham" bilan davom eting — narx harakatini kuzating',true);
+ }
+}
+function step(){
+ if(phase==='draw'){
+  if(userLines.length===0)return;
+  svg.style.cursor='';
+  hideGhost();
+  drawCandle(cont[0],NP);
+  breakMarker(NP,lineAt(cur.p.lines[cur.p.brk],NP));
+  contIdx=1;
+  phase='ask';
+  btnStep.disabled=true;
+  btnUp.disabled=false; btnDown.disabled=false;
+  showGhost(NP+1,cont[0].c);
+  setStatus('Sham chiziqni yorib o\'tdi! Endi narx qayerga ketadi?',true);
+  return;
+ }
+ if(phase!=='step'||contIdx>=NC)return;
+ const cd=cont[contIdx];
+ drawCandle(cd,NP+contIdx);
+ if(bought&&confirmed&&!outcome)checkHit(cd,contIdx);
+ if(!outcome)setStatus('Sham '+(contIdx+1)+' / '+NC);
+ contIdx++;
+ if(contIdx===NC)finishReveal();
+}
+function finishReveal(){
+ btnStep.disabled=true;
+ controls.style.visibility='hidden';
+ setStatus('Haqiqiy trend chiziqlari ochilmoqda — o\'zingizniki bilan solishtiring…',true);
+ const p=cur.p;
+ const ls=Object.values(p.lines);
+ ls.forEach((l,j)=>drawTrendline(l,j*450));
+ T(()=>{
+  const ok=pendingGuess===p.dir;
+  answered++;
+  if(ok)score++;
+  results.push({n:p.n,ok});
+  scoreEl.textContent=score+' / '+answered;
+  progBar.style.width=((idx+1)/ROUNDS*100)+'%';
+  try{ window.parent.postMessage({type:'pattern-trainer-progress',strat:URLSTRAT,score:score,answered:answered},'*'); }catch(e){}
+  let tradeHtml='';
+  if(bought&&confirmed){
+   const timingTxt=entryTiming==='perfect'
+    ?'<span style="color:var(--up)">Mukammal — sinish va retestdan keyin kirdingiz ✓</span>'
+    :(entryTiming==='early'
+     ?'<span style="color:var(--gold)">Erta — retestni kutmadingiz, bu xavfli</span>'
+     :'<span style="color:var(--gold)">Kech — yaxshi narxni o\'tkazib yubordingiz</span>');
+   const slTxt=slOk
+    ?'<span style="color:var(--up)">To\'g\'ri — singan chiziq ortida ✓</span>'
+    :'<span style="color:var(--down)">Noto\'g\'ri — SL singan chiziq ortida turishi kerak ✗</span>';
+   const rrTxt=rr>=1.5
+    ?'<span style="color:var(--up)">1 : '+rr.toFixed(1)+' ✓</span>'
+    :'<span style="color:var(--down)">1 : '+rr.toFixed(1)+' — kamida 1:1.5 tavsiya etiladi</span>';
+   const pnl=tradePnl();
+   const outTxt=outcome==='tp'
+    ?'<span style="color:var(--up)">Take Profit urildi — FOYDA +'+pnl.toFixed(1)+'%</span>'
+    :(outcome==='sl'
+     ?'<span style="color:var(--down)">Stop Loss urildi — zarar '+pnl.toFixed(1)+'%</span>'
+     :'Bitim ochiq qoldi ('+(pnl>=0?'+':'')+pnl.toFixed(1)+'%)');
+   tradeHtml='<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;line-height:2">'
+    +'<b>Bitim tahlili</b><br>'
+    +'Kirish vaqti: '+timingTxt+'<br>'
+    +'Stop Loss joyi: '+slTxt+'<br>'
+    +'Risk / Reward: '+rrTxt+'<br>'
+    +'Natija: '+outTxt+'</div>';
+  }else if(p.dir==='up'){
+   tradeHtml='<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;color:var(--gold)">Sotib olmadingiz — kirish vaqtini tanlashni ham mashq qiling.</div>';
+  }else{
+   tradeHtml='<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;color:var(--muted)">Pastga sinish — bunda sotib olinmaydi, faqat yo\'nalish aniqlanadi.</div>';
+  }
+  resultEl.className='result '+(ok?'ok':'bad');
+  resultEl.style.display='block';
+  resultEl.innerHTML='<h3>'+(ok?'✓ To\'g\'ri topdingiz!':'✗ Noto\'g\'ri — narx '+(p.dir==='up'?'tepaga':'pastga')+' ketdi.')+'</h3>'
+   +'<div>'+p.e+'</div>'
+   +'<div style="margin-top:6px;font-size:13px;opacity:.8">Ko\'k chiziqlar — haqiqiy trend chiziqlari. O\'zingiz chizgan sariq chiziqlar bilan solishtiring.</div>'
+   +tradeHtml
+   +'<span class="pname">'+p.n+' · '+(p.dir==='up'?'Bullish ▲':'Bearish ▼')+'</span>';
+  setStatus(ok?'Ajoyib tahlil!':'Keyingisida omad!');
+  btnNext.style.display='inline-flex';
+  btnNext.textContent=idx<ROUNDS-1?'Keyingi pattern →':'Natijani ko\'rish →';
+  phase='done';
+ },ls.length*450+1100);
+}
+function next(){
+ if(phase!=='done')return;
+ if(idx<ROUNDS-1){idx++;startPattern();}
+ else showFinal();
+}
+function showFinal(){
+ clearT();
+ terminal.style.display='none';controls.style.display='none';
+ resultEl.style.display='none';btnNext.style.display='none';
+ finalEl.style.display='block';
+ const pct=Math.round(score/ROUNDS*100);
+ // React parent'ga natijani yuborish (leaderboard uchun)
+ try{ window.parent.postMessage({type:'pattern-trainer-result',strat:URLSTRAT,score:score,total:ROUNDS,pct:pct},'*'); }catch(e){}
+ document.getElementById('finalScore').textContent=score+' / '+ROUNDS;
+ document.getElementById('finalPct').textContent='Aniqlik: '+pct+'%';
+ document.getElementById('finalVerdict').textContent=
+  pct>=85?'Ajoyib! Siz patternlarni professional darajada o\'qiysiz.':
+  pct>=60?'Yaxshi natija — yana bir necha mashq bilan mukammal bo\'lasiz.':
+  'Boshlanishi shu — har bir pattern izohini o\'qib, qaytadan urinib ko\'ring.';
+ document.getElementById('finalList').innerHTML=
+  results.map((r,i)=>'<div><span class="'+(r.ok?'y':'n')+'">'+(r.ok?'✓':'✗')+'</span>'+String(i+1).padStart(2,'0')+'. '+r.n+'</div>').join('');
+}
+function resetAll(){
+ clearT();
+ buildSession();
+ idx=0;score=0;answered=0;
+ scoreEl.textContent='0 / 0';
+ progBar.style.width='0%';
+ finalEl.style.display='none';terminal.style.display='block';controls.style.display='flex';
+ startPattern();
+}
+document.getElementById('btnRestart').onclick=resetAll;
+document.getElementById('btnReset').onclick=resetAll;
+btnUp.onclick=()=>answer('up');
+btnDown.onclick=()=>answer('down');
+btnNext.onclick=next;
+btnStep.onclick=step;
+document.addEventListener('keydown',e=>{
+ if(e.key==='ArrowUp'){e.preventDefault();answer('up');}
+ else if(e.key==='ArrowDown'){e.preventDefault();answer('down');}
+ else if(e.key===' '){e.preventDefault();step();}
+ else if(e.key==='Enter'){if(phase==='step')step();else next();}
+});
+buildSession();
+startPattern();
+</script>
+</body>
+</html>
