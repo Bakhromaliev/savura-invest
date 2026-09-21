@@ -31,12 +31,14 @@ header{display:flex;justify-content:space-between;align-items:center;margin-bott
 .flist div{font-size:12.5px;color:var(--muted);display:flex;gap:7px;align-items:center}
 .flist .y{color:var(--up);font-weight:600}
 .flist .n{color:var(--down);font-weight:600}
-.terminal{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.terminal{background:linear-gradient(180deg,var(--panel),#10141e);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.4)}
 .tbar{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--panel2)}
 .tbar .sym{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
 .tbar .sym em{font-style:normal;color:var(--muted);font-weight:400}
 .tbar .pnum{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--up);animation:blink 2s infinite}
+.scenario{margin-left:10px;font-size:11px;font-weight:500;color:var(--gold);background:rgba(245,185,66,.1);border:1px solid rgba(245,185,66,.3);border-radius:20px;padding:2px 11px;font-style:normal;display:inline-flex;align-items:center;gap:5px}
+.scenario::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold)}
 @keyframes blink{50%{opacity:.3}}
 #chart{display:block;width:100%;touch-action:none}
 .clr{font-size:12px;padding:5px 12px;color:var(--gold);border-color:rgba(245,185,66,.35);border-radius:6px}
@@ -49,7 +51,7 @@ header{display:flex;justify-content:space-between;align-items:center;margin-bott
 #btnConfirm:hover{background:rgba(79,139,255,.12)}
 #tradeInfo{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:12px}
 .statusbar{padding:12px 16px;border-top:1px solid var(--border);text-align:center;font-size:14px;color:var(--muted);min-height:44px;display:flex;align-items:center;justify-content:center;gap:8px}
-.statusbar.ask{color:var(--text);font-weight:500}
+.statusbar.ask{color:var(--text);font-weight:500;background:linear-gradient(180deg,transparent,rgba(79,139,255,.05))}
 .controls{display:flex;gap:12px;justify-content:center;margin-top:18px;visibility:hidden}
 button{font-family:'Inter',sans-serif;font-size:15px;font-weight:500;border-radius:10px;padding:12px 30px;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text);transition:transform .1s,background .15s,border-color .15s;display:inline-flex;align-items:center;gap:8px}
 button:hover{background:var(--panel2)}
@@ -102,7 +104,9 @@ kbd{background:var(--panel2);border:1px solid var(--border);border-radius:5px;pa
 
 <div class="terminal" id="terminal">
   <div class="tbar">
-    <div class="sym"><span class="dot"></span><span id="symT">AAPL</span> <em id="symN">· 4H · Apple Inc.</em></div>
+    <div class="sym"><span class="dot"></span><span id="symT">AAPL</span> <em id="symN">· 4H · Apple Inc.</em>
+      <span id="scenario" class="scenario">Kuchli trend</span>
+    </div>
     <div style="display:flex;align-items:center;gap:14px">
       <button class="clr" id="btnClear">⌫ Chiziqlarni o'chirish</button>
       <div class="pnum" id="pnum">PATTERN 01/50</div>
@@ -248,7 +252,20 @@ const TICKERS=[
  ['AAPL','Apple Inc.'],['MSFT','Microsoft'],['GOOGL','Alphabet'],['NVDA','NVIDIA'],
  ['TSLA','Tesla, Inc.'],['AMD','Adv. Micro Devices'],['ADBE','Adobe'],['CRM','Salesforce'],
  ['ORCL','Oracle'],['CSCO','Cisco Systems'],['QCOM','Qualcomm'],['INTC','Intel'],
- ['JNJ','Johnson & Johnson'],['PFE','Pfizer'],['NKE','Nike'],['PG','Procter & Gamble']
+ ['JNJ','Johnson & Johnson'],['PFE','Pfizer'],['NKE','Nike'],['PG','Procter & Gamble'],
+ ['AMZN','Amazon'],['META','Meta Platforms'],['AVGO','Broadcom'],['TXN','Texas Instr.'],
+ ['MU','Micron Tech.'],['AMAT','Applied Materials'],['LRCX','Lam Research'],['KLAC','KLA Corp.'],
+ ['NOW','ServiceNow'],['INTU','Intuit'],['SHOP','Shopify'],['UBER','Uber Tech.'],
+ ['ABBV','AbbVie'],['MRK','Merck'],['TMO','Thermo Fisher'],['DHR','Danaher'],
+ ['COST','Costco'],['WMT','Walmart'],['HD','Home Depot'],['MCD',"McDonald's"],
+ ['DIS','Disney'],['CAT','Caterpillar'],['BA','Boeing'],['GE','GE Aerospace']
+];
+// Bozor holati (ssenariy): shamlar shovqini va harakat kuchiga ta'sir qiladi
+const SCENARIOS=[
+ {id:'trend', name:'Kuchli trend', noise:0.018, tf:['1D','1W']},
+ {id:'range', name:'Yon harakat',  noise:0.030, tf:['1H','4H']},
+ {id:'volatile', name:'Yuqori volatillik', noise:0.048, tf:['1H','4H']},
+ {id:'calm', name:'Past volatillik', noise:0.012, tf:['4H','1D']},
 ];
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function lineAt(l,i){const t=(i-l.a[0])/(l.b[0]-l.a[0]);return l.a[1]+(l.b[1]-l.a[1])*t;}
@@ -267,12 +284,17 @@ function buildSession(){
  }
  order.length=ROUNDS;
  for(let i=1;i<ROUNDS;i++)if(order[i]===order[i-1]){const j=(i+2)%ROUNDS;[order[i],order[j]]=[order[j],order[i]];}
- for(let i=0;i<ROUNDS;i++)session.push({
-  t:order[i],
-  seed:Math.floor(Math.random()*1e9)+1,
-  tk:TICKERS[Math.floor(Math.random()*TICKERS.length)],
-  base:Math.round((20+Math.random()*380)*100)/100
- });
+ for(let i=0;i<ROUNDS;i++){
+  const sc=SCENARIOS[Math.floor(Math.random()*SCENARIOS.length)];
+  const tf=sc.tf[Math.floor(Math.random()*sc.tf.length)];
+  session.push({
+   t:order[i],
+   seed:Math.floor(Math.random()*1e9)+1,
+   tk:TICKERS[Math.floor(Math.random()*TICKERS.length)],
+   base:Math.round((20+Math.random()*380)*100)/100,
+   sc:sc, tf:tf
+  });
+ }
 }
 function roundPattern(r){
  const base=PATTERNS[r.t];
@@ -300,13 +322,15 @@ function interp(piv,i){
  }
  return piv[piv.length-1][1];
 }
+let CURNOISE=0.022;
 function buildPattern(p,seed){
  const r=rng(seed), piv=resolvePivots(p), candles=[];
+ const nz=CURNOISE;
  let prev=piv[0][1];
  for(let i=0;i<NP;i++){
   const base=interp(piv,i);
-  let close=base+(r()-.5)*.03;
-  let o=prev, hi=Math.max(o,close)+r()*.022, lo=Math.min(o,close)-r()*.022;
+  let close=base+(r()-.5)*(nz*1.1);
+  let o=prev, hi=Math.max(o,close)+r()*nz, lo=Math.min(o,close)-r()*nz;
   // Chiziqlar ichida qat'iy ushlab turish — shamlar chiziqni oldindan sindirmaydi
   if(p.lines.U && i>=p.lines.U.a[0]){const u=lineAt(p.lines.U,i);close=Math.min(close,u-.012);o=Math.min(o,u-.005);hi=Math.min(hi,u+.002);}
   if(p.lines.L && i>=p.lines.L.a[0]){const lv=lineAt(p.lines.L,i);close=Math.max(close,lv+.012);o=Math.max(o,lv+.005);lo=Math.max(lo,lv-.002);}
@@ -370,18 +394,24 @@ function clearT(){timers.forEach(clearTimeout);timers=[];}
 let lastPriceLine=null,lastPriceTag=null,lastPriceTxt=null;
 function drawBase(){
  svg.innerHTML='';
+ // Vertikal grid (vaqt) — TradingView uslubida
+ for(let gx=6;gx<NT;gx+=6){
+  const x=Xc(gx);
+  svg.appendChild(el('line',{x1:x,x2:x,y1:padT,y2:H-padB,stroke:'#161b28','stroke-width':1}));
+ }
+ // Gorizontal grid (narx)
  for(let g=0;g<=5;g++){
   const v=g/5;
-  svg.appendChild(el('line',{x1:padL,x2:W-padR,y1:Y(v),y2:Y(v),stroke:'#1e2433','stroke-width':1}));
+  svg.appendChild(el('line',{x1:padL,x2:W-padR,y1:Y(v),y2:Y(v),stroke:'#1a2030','stroke-width':1}));
   const t=el('text',{x:W-padR+10,y:Y(v)+4,'font-size':11,fill:'#787b86','font-family':"'JetBrains Mono',monospace"});
   t.textContent=price(v); svg.appendChild(t);
  }
  // joriy narx belgisi
  lastPriceLine=el('line',{x1:padL,x2:W-padR,y1:-99,y2:-99,stroke:'#4c5266','stroke-width':1,'stroke-dasharray':'2 4'});
  svg.appendChild(lastPriceLine);
- lastPriceTag=el('rect',{x:W-padR+2,y:-99,width:70,height:18,rx:4,fill:'#2a3247'});
+ lastPriceTag=el('rect',{x:W-padR+2,y:-99,width:72,height:19,rx:4,fill:'#2962ff'});
  svg.appendChild(lastPriceTag);
- lastPriceTxt=el('text',{x:W-padR+10,y:-99,'font-size':11,fill:'#d1d4dc','font-family':"'JetBrains Mono',monospace"});
+ lastPriceTxt=el('text',{x:W-padR+11,y:-99,'font-size':11,fill:'#fff','font-weight':600,'font-family':"'JetBrains Mono',monospace"});
  svg.appendChild(lastPriceTxt);
  userG=el('g',{});
  svg.appendChild(userG);
@@ -719,8 +749,11 @@ function startPattern(){
  const r=session[idx];
  PBASE=r.base;
  PRNGE=Math.round((r.base*.22+6)*100)/100;
+ CURNOISE=r.sc?r.sc.noise:0.022;
  document.getElementById('symT').textContent=r.tk[0];
- document.getElementById('symN').textContent='· 4H · '+r.tk[1];
+ document.getElementById('symN').textContent='· '+(r.tf||'4H')+' · '+r.tk[1];
+ const scEl=document.getElementById('scenario');
+ if(scEl){ scEl.textContent=r.sc?r.sc.name:''; scEl.style.display=r.sc?'inline-flex':'none'; }
  drawBase();
  controls.style.visibility='hidden';
  hideGhost(); drawing=false; tempLine=null; dragLine=null; dragMode=null;
