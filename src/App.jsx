@@ -4136,7 +4136,7 @@ function PatternPage({lang="uz", setPage, auth}){
           {lb.length===0
             ?<div style={{textAlign:"center",color:C.faint,padding:30,fontSize:14}}>{T.noScore}</div>
             :lb.map(function(row,i){
-              const isMe=myEmail&&row.email===myEmail;
+              const maskMe=myEmail?(myEmail.slice(0,2)+'***@'+myEmail.split('@')[1]):null; const isMe=maskMe&&row.email===maskMe;
               const medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":String(i+1);
               return(
                 <div key={i} style={{display:"flex",alignItems:"center",gap:13,background:isMe?"rgba(47,125,246,0.1)":C.card,
@@ -4633,7 +4633,7 @@ function ExamPage({lang="uz", setPage, auth}){
           {leaderboard.length===0
             ?<div style={{textAlign:"center",color:C.faint,padding:30,fontSize:14}}>{T.noStats}</div>
             :leaderboard.map(function(row,i){
-              const isMe=myEmail&&row.email===myEmail;
+              const maskMe=myEmail?(myEmail.slice(0,2)+'***@'+myEmail.split('@')[1]):null; const isMe=maskMe&&row.email===maskMe;
               const medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":String(i+1);
               return(
                 <div key={i} style={{display:"flex",alignItems:"center",gap:13,background:isMe?"rgba(47,125,246,0.1)":C.card,
