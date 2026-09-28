@@ -64,6 +64,24 @@ function parseRss(xml) {
   return items;
 }
 
+// Dars raqami bo'yicha saralash ("1- DARS", "11 Dars", "Dars 5") va takrorlarni olib tashlash
+function lessonNum(t) {
+  if (!t) return null;
+  const m = String(t).match(/(\d{1,3})\s*[-–—.:)]?\s*dars/i) || String(t).match(/dars\w*\s*[-–—.:#№]?\s*(\d{1,3})\b/i);
+  return m ? parseInt(m[1], 10) : null;
+}
+function orderLessons(list) {
+  const seenId = new Set(); const byNum = {}; const rest = [];
+  for (const v of list || []) {
+    if (!v || !v.id || seenId.has(v.id)) continue;
+    seenId.add(v.id);
+    const n = lessonNum(v.title);
+    if (n != null) { if (!(n in byNum)) byNum[n] = { ...v, lesson: n }; }
+    else rest.push(v);
+  }
+  return Object.keys(byNum).map(Number).sort((a, b) => a - b).map(n => byNum[n]).concat(rest);
+}
+
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   if (req.method === "OPTIONS") return res.status(200).end();
@@ -97,7 +115,9 @@ export default async function handler(req, res) {
     return res.status(200).json({ list, count: 0, items: [], source: null, errors });
   }
 
-  const data = { list, count: items.length, items, source };
+  const rawCount = items.length;
+  items = orderLessons(items);
+  const data = { list, count: items.length, rawCount, items, source };
   CACHE[list] = { data, ts: now };
   res.setHeader("Cache-Control", "s-maxage=1800, stale-while-revalidate=86400");
   return res.status(200).json(data);
