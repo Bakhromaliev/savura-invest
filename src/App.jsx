@@ -843,7 +843,7 @@ function NavBar({page,setPage,lang,setLang,auth}){
   const [scrolled,setScrolled]=useState(false);
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>30);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   const sn=getST(lang).nav;
-  const links=[{id:"halal",label:sn.halal,hot:true},{id:"home",label:sn.home},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"demo",label:sn.demo||"Demo"},{id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,badge:true},{id:"pattern",label:(PT_T[lang]||PT_T.uz).title,chart:true},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
+  const links=[{id:"halal",label:sn.halal,hot:true},{id:"home",label:sn.home},{id:"lessons",label:(LES_T[lang]||LES_T.uz).title,play:true},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"demo",label:sn.demo||"Demo"},{id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,badge:true},{id:"pattern",label:(PT_T[lang]||PT_T.uz).title,chart:true},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
   const go=(id)=>{setPage(id);setOpen(false);setFlagOpen(false);window.scrollTo({top:0,behavior:"smooth"});};
   const LANGS=[{k:"uz",f:"🇺🇿",l:"O'Z"},{k:"en",f:"🇺🇸",l:"EN"},{k:"tr",f:"🇹🇷",l:"TR"},{k:"ru",f:"🇷🇺",l:"RU"},{k:"ar",f:"🇸🇦",l:"AR"}];
   const cur=LANGS.find(function(x){return x.k===lang;})||LANGS[0];
@@ -886,7 +886,7 @@ function NavBar({page,setPage,lang,setLang,auth}){
               <span style={{flex:1}}>{l.label}</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{opacity:.4}}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
-            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:8,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"15px 24px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}>{l.hot&&<span style={{fontSize:15}}>☪️</span>}{l.badge&&<span style={{fontSize:14}}>📝</span>}{l.chart&&<span style={{fontSize:14}}>📈</span>}<span>{l.label}</span></button>;
+            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:8,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"15px 24px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}>{l.hot&&<span style={{fontSize:15}}>☪️</span>}{l.badge&&<span style={{fontSize:14}}>📝</span>}{l.chart&&<span style={{fontSize:14}}>📈</span>}{l.play&&<span style={{fontSize:14}}>🎬</span>}<span>{l.label}</span></button>;
           })}
           <div style={{padding:"10px 24px 6px",borderTop:`1px solid ${C.border}`}}>
             {auth&&auth.user
@@ -3950,6 +3950,155 @@ function AdminPanel({lang,setPage,auth}){
 
 
 // ═══════════════════════════════════════════════════════════════════════════
+// OCHIQ DARSLAR — YouTube playlist (24 ta bepul video), sayt ichida, 1 → 24 tartibda
+// ═══════════════════════════════════════════════════════════════════════════
+const YT_PLAYLIST = "PLDSRKA6X73aE";
+const YT_COUNT = 24;   // playlistdagi darslar soni (server javob bermasa ham shuncha ko'rinadi)
+const LES_T = {
+  uz:{title:"Ochiq darslar",badge:"BEPUL VIDEO DARSLAR",h1:"Treyding kursidan",h2:"bepul darslar",sub:"Halol treyding bo'yicha 24 ta video dars — 1-darsdan boshlab ketma-ket ko'ring",lesson:"dars",now:"Hozir ko'rilmoqda",all:"Darslar ro'yxati",openYT:"YouTube'da ochish",prev:"Oldingi dars",next:"Keyingi dars",watched:"Ko'rildi",progress:"Ko'rilgan",ctaT:"Ko'proq bilim kerakmi?",ctaD:"To'liq kursda amaliy topshiriqlar, imtihon, sertifikat va shaxsiy kabinet bor.",ctaB:"To'liq kurs haqida"},
+  en:{title:"Free lessons",badge:"FREE VIDEO LESSONS",h1:"Free lessons",h2:"from the trading course",sub:"24 video lessons on halal trading — watch them in order, starting from lesson 1",lesson:"lesson",now:"Now playing",all:"Lesson list",openYT:"Open on YouTube",prev:"Previous",next:"Next lesson",watched:"Watched",progress:"Watched",ctaT:"Want to go deeper?",ctaD:"The full course includes practical tasks, exams, a certificate and a personal dashboard.",ctaB:"About the full course"},
+  ru:{title:"Открытые уроки",badge:"БЕСПЛАТНЫЕ ВИДЕОУРОКИ",h1:"Бесплатные уроки",h2:"курса трейдинга",sub:"24 видеоурока по халяльному трейдингу — смотрите по порядку, начиная с 1-го",lesson:"урок",now:"Сейчас смотрите",all:"Список уроков",openYT:"Открыть на YouTube",prev:"Предыдущий",next:"Следующий урок",watched:"Просмотрено",progress:"Просмотрено",ctaT:"Хотите знать больше?",ctaD:"В полном курсе — практика, экзамены, сертификат и личный кабинет.",ctaB:"О полном курсе"},
+  tr:{title:"Açık dersler",badge:"ÜCRETSİZ VİDEO DERSLER",h1:"Trading kursundan",h2:"ücretsiz dersler",sub:"Helal trading üzerine 24 video ders — 1. dersten başlayarak sırayla izleyin",lesson:"ders",now:"Şu an izleniyor",all:"Ders listesi",openYT:"YouTube'da aç",prev:"Önceki ders",next:"Sonraki ders",watched:"İzlendi",progress:"İzlenen",ctaT:"Daha fazlasını mı istiyorsunuz?",ctaD:"Tam kursta uygulamalar, sınavlar, sertifika ve kişisel panel var.",ctaB:"Tam kurs hakkında"},
+  ar:{title:"دروس مجانية",badge:"دروس فيديو مجانية",h1:"دروس مجانية",h2:"من دورة التداول",sub:"24 درس فيديو عن التداول الحلال — شاهدها بالترتيب بدءاً من الدرس الأول",lesson:"درس",now:"يُعرض الآن",all:"قائمة الدروس",openYT:"فتح في YouTube",prev:"الدرس السابق",next:"الدرس التالي",watched:"تمت المشاهدة",progress:"تمت مشاهدة",ctaT:"تريد التعمق أكثر؟",ctaD:"الدورة الكاملة تتضمن تطبيقات عملية وامتحانات وشهادة ولوحة شخصية.",ctaB:"عن الدورة الكاملة"},
+};
+
+function LessonsPage({lang="uz", setPage}){
+  const T = LES_T[lang] || LES_T.uz;
+  const rtl = lang === "ar";
+  const topRef = React.useRef(null);
+  const [items, setItems] = useState(function(){
+    try{ const c = JSON.parse(localStorage.getItem("savura_yt_pl") || "null"); if(c && c.items && c.items.length) return c.items; }catch(e){}
+    return [];
+  });
+  const [cur, setCur] = useState(function(){ try{ return parseInt(localStorage.getItem("savura_yt_cur")) || 0; }catch(e){ return 0; } });
+  const [auto, setAuto] = useState(false);
+  const [watched, setWatched] = useState(function(){ try{ return JSON.parse(localStorage.getItem("savura_yt_watched") || "[]"); }catch(e){ return []; } });
+
+  // Server orqali playlistni tartib bilan olish
+  React.useEffect(function(){
+    let alive = true;
+    fetch("/api/playlist?list=" + YT_PLAYLIST)
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        if(!alive || !j || !j.items || !j.items.length) return;
+        setItems(j.items);
+        try{ localStorage.setItem("savura_yt_pl", JSON.stringify({items:j.items, ts:Date.now()})); }catch(e){}
+      })
+      .catch(function(){});
+    return function(){ alive = false; };
+  }, []);
+
+  const count = items.length || YT_COUNT;
+  const idx = Math.min(cur, count - 1);
+  const it = items[idx];
+
+  function go(i, scroll){
+    if(i < 0 || i >= count) return;
+    setCur(i); setAuto(true);
+    try{ localStorage.setItem("savura_yt_cur", String(i)); }catch(e){}
+    setWatched(function(p){
+      if(p.indexOf(i) >= 0) return p;
+      const n = p.concat([i]);
+      try{ localStorage.setItem("savura_yt_watched", JSON.stringify(n)); }catch(e){}
+      return n;
+    });
+    if(scroll && topRef.current) topRef.current.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+
+  const ap = auto ? "&autoplay=1" : "";
+  const src = it
+    ? "https://www.youtube.com/embed/" + it.id + "?rel=0&modestbranding=1&playsinline=1" + ap
+    : "https://www.youtube.com/embed/videoseries?list=" + YT_PLAYLIST + "&index=" + (idx + 1) + "&rel=0&playsinline=1" + ap;
+  const titleOf = function(i){ return (items[i] && items[i].title) || ((i + 1) + "-" + T.lesson); };
+  const plUrl = "https://www.youtube.com/playlist?list=" + YT_PLAYLIST;
+  const doneN = watched.filter(function(i){ return i < count; }).length;
+
+  const navBtn = function(disabled){ return {flex:"1 1 0",display:"inline-flex",alignItems:"center",justifyContent:"center",gap:8,background:disabled?C.card:"rgba(24,38,66,0.9)",border:`1px solid ${C.border}`,borderRadius:12,color:disabled?C.faint:C.text,fontSize:14,fontWeight:700,padding:"12px 14px",cursor:disabled?"default":"pointer",opacity:disabled?0.5:1,fontFamily:"'Sora',sans-serif"}; };
+
+  return(
+    <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:1100,margin:"0 auto"}}>
+      <div style={{marginBottom:16}}><BackBtn setPage={setPage} lang={lang}/></div>
+
+      <div style={{textAlign:"center",marginBottom:22}}>
+        <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(229,72,77,0.1)",border:"1px solid rgba(229,72,77,0.35)",borderRadius:30,padding:"6px 14px",marginBottom:14}}>
+          <span style={{width:0,height:0,borderTop:"6px solid transparent",borderBottom:"6px solid transparent",borderLeft:`10px solid ${C.red}`}}/>
+          <span style={{fontSize:11,letterSpacing:"2px",color:C.red,fontWeight:700}}>{T.badge}</span>
+        </div>
+        <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(28px,5.5vw,42px)",color:C.text,margin:"0 0 6px",lineHeight:1.15}}>
+          {T.h1} <span style={{color:C.greenLt}}>{T.h2}</span>
+        </h1>
+        <p style={{color:C.dim,fontSize:15,margin:0}}>{T.sub}</p>
+      </div>
+
+      {/* Pleyer */}
+      <div ref={topRef} style={{scrollMarginTop:80}}/>
+      <div style={{position:"relative",width:"100%",paddingTop:"56.25%",background:"#000",borderRadius:18,overflow:"hidden",border:`1px solid ${C.border}`,boxShadow:"0 20px 60px rgba(0,0,0,0.5)"}}>
+        <iframe key={src} title={titleOf(idx)} src={src} style={{position:"absolute",inset:0,width:"100%",height:"100%",border:"none"}}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/>
+      </div>
+
+      {/* Joriy dars */}
+      <div style={{margin:"16px 0 12px"}}>
+        <div style={{fontSize:11,letterSpacing:"1.5px",color:C.greenLt,fontWeight:700,marginBottom:4}}>● {T.now} · {idx + 1} / {count}</div>
+        <div style={{fontSize:18,fontWeight:700,color:C.text,fontFamily:"'Sora',sans-serif",lineHeight:1.35}}>{titleOf(idx)}</div>
+      </div>
+
+      {/* Oldingi / Keyingi */}
+      <div style={{display:"flex",gap:10,marginBottom:12}}>
+        <button onClick={()=>go(idx - 1, false)} disabled={idx === 0} style={navBtn(idx === 0)}>{rtl ? "→" : "←"} {T.prev}</button>
+        <button onClick={()=>go(idx + 1, false)} disabled={idx >= count - 1} style={{...navBtn(idx >= count - 1), background:idx >= count - 1 ? C.card : `linear-gradient(135deg,${C.blue},${C.green})`, border:"none", color:"#fff"}}>{T.next} {rtl ? "←" : "→"}</button>
+      </div>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,flexWrap:"wrap",marginBottom:26}}>
+        <div style={{flex:"1 1 220px"}}>
+          <div style={{fontSize:12,color:C.faint,marginBottom:5}}>{T.progress}: {doneN} / {count}</div>
+          <div style={{height:6,background:"rgba(255,255,255,0.06)",borderRadius:3,overflow:"hidden"}}>
+            <div style={{height:"100%",width:`${doneN / count * 100}%`,background:`linear-gradient(90deg,${C.green},${C.blueLt})`,borderRadius:3}}/>
+          </div>
+        </div>
+        <a href={plUrl} target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(229,72,77,0.12)",border:"1px solid rgba(229,72,77,0.4)",borderRadius:11,color:"#ff6b6f",fontSize:13.5,fontWeight:700,padding:"10px 16px",textDecoration:"none",whiteSpace:"nowrap"}}>▶ {T.openYT}</a>
+      </div>
+
+      {/* 1 → 24 darslar ro'yxati */}
+      <div style={{fontSize:13,letterSpacing:"1.5px",color:C.faint,fontWeight:700,marginBottom:12}}>{T.all.toUpperCase()} · {count}</div>
+      <div style={{display:"flex",flexDirection:"column",gap:10}}>
+        {Array.from({length:count}).map(function(_, i){
+          const active = i === idx;
+          const seen = watched.indexOf(i) >= 0;
+          const v = items[i];
+          return(
+            <button key={i} onClick={()=>go(i, true)}
+              style={{display:"flex",alignItems:"center",gap:14,textAlign:rtl?"right":"left",width:"100%",background:active?"rgba(47,125,246,0.12)":C.card,border:`1px solid ${active?C.blue:C.border}`,borderRadius:14,padding:10,cursor:"pointer",fontFamily:"'Manrope',sans-serif"}}>
+              <div style={{flexShrink:0,width:40,height:40,borderRadius:11,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,fontWeight:800,fontFamily:"'Sora',sans-serif",
+                background:active?`linear-gradient(135deg,${C.blue},${C.green})`:seen?"rgba(55,178,77,0.15)":"rgba(255,255,255,0.05)",color:active?"#fff":seen?C.greenLt:C.dim}}>{i + 1}</div>
+              <div style={{flexShrink:0,position:"relative",width:128,height:72,borderRadius:9,overflow:"hidden",background:"linear-gradient(135deg,#132544,#0e2a22)"}}>
+                {v && <img src={"https://i.ytimg.com/vi/" + v.id + "/mqdefault.jpg"} alt="" loading="lazy" onError={(e)=>{e.currentTarget.style.display="none";}} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>}
+                {!v && <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",color:"rgba(255,255,255,0.5)",fontSize:22}}>▶</div>}
+                {v && v.length && <span style={{position:"absolute",bottom:4,right:4,background:"rgba(0,0,0,0.8)",color:"#fff",fontSize:10.5,fontWeight:700,borderRadius:4,padding:"1px 5px"}}>{v.length}</span>}
+              </div>
+              <div style={{flex:1,minWidth:0}}>
+                <div style={{fontSize:14.5,fontWeight:active?700:600,color:active?C.text:C.dim,lineHeight:1.4,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{titleOf(i)}</div>
+                <div style={{fontSize:11.5,marginTop:4,fontWeight:700,color:active?C.greenLt:seen?C.greenLt:C.faint}}>
+                  {active ? ("▶ " + T.now) : seen ? ("✓ " + T.watched) : ((i + 1) + "-" + T.lesson)}
+                </div>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Kursga chaqiruv */}
+      <div style={{marginTop:34,background:"linear-gradient(135deg,rgba(47,125,246,0.12),rgba(55,178,77,0.1))",border:`1px solid ${C.border}`,borderRadius:18,padding:"22px 24px",display:"flex",alignItems:"center",justifyContent:"space-between",gap:16,flexWrap:"wrap"}}>
+        <div style={{minWidth:0,flex:"1 1 320px"}}>
+          <div style={{fontSize:18,fontWeight:800,color:C.text,fontFamily:"'Sora',sans-serif",marginBottom:4}}>{T.ctaT}</div>
+          <div style={{fontSize:14,color:C.dim,lineHeight:1.6}}>{T.ctaD}</div>
+        </div>
+        <button onClick={()=>setPage("course")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:14.5,padding:"12px 22px",cursor:"pointer",fontFamily:"'Sora',sans-serif",whiteSpace:"nowrap"}}>{T.ctaB} →</button>
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // HALAL PAGE — "Treyding halolmi?" maqolasi (5 til)
 // ═══════════════════════════════════════════════════════════════════════════
 function HalalPage({lang="uz", setPage}){
@@ -4808,6 +4957,7 @@ export default function App(){
       <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang} auth={auth}/>
       {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/><HalalBanner setPage={setPage} lang={lang}/></>}
       {page==="halal"&&<HalalPage lang={lang} setPage={setPage}/>}
+      {page==="lessons"&&<LessonsPage lang={lang} setPage={setPage}/>}
       {page==="auth"&&<AuthScreen lang={lang} onClose={()=>setPage("home")}/>}
       {page==="admin"&&auth.profile?.is_admin&&<AdminPanel lang={lang} setPage={setPage} auth={auth}/>}
       {page==="admin"&&!auth.profile?.is_admin&&<LockGate state="none" lang={lang} setPage={setPage}><div/></LockGate>}
