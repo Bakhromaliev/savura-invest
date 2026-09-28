@@ -2093,11 +2093,18 @@ function ChatWidget({lang}){
         headers:{"Content-Type":"application/json"},
         body: JSON.stringify({messages: newMsgs.slice(-10), lang: lang})
       });
-      if(!res.ok){ const e=await res.json(); throw new Error(e.error||"Server xatosi"); }
-      const data = await res.json();
-      setMsgs(m=>[...m, {role:"assistant", content: data.reply||"Javob topilmadi."}]);
+      const data = await res.json().catch(()=>({}));
+      if(!data.reply) throw new Error("no reply");
+      setMsgs(m=>[...m, {role:"assistant", content: data.reply}]);
     } catch(e) {
-      setMsgs(m=>[...m, {role:"assistant", content:"⚠️ "+e.message+". GEMINI_KEY Vercel Environment Variables da o'rnatilganligini tekshiring."}]);
+      const ERR = {
+        uz:"Hozir aloqa uzildi 😔 Birozdan so'ng qayta urinib ko'ring yoki savolingizni Telegram orqali yuboring: @savura_invest",
+        en:"Connection problem right now 😔 Please try again shortly or send your question on Telegram: @savura_invest",
+        ru:"Сейчас нет связи 😔 Попробуйте чуть позже или напишите в Telegram: @savura_invest",
+        tr:"Şu anda bağlantı sorunu var 😔 Birazdan tekrar deneyin veya Telegram'dan yazın: @savura_invest",
+        ar:"هناك مشكلة في الاتصال الآن 😔 حاول بعد قليل أو أرسل سؤالك عبر تيليجرام: @savura_invest",
+      };
+      setMsgs(m=>[...m, {role:"assistant", content: ERR[lang]||ERR.uz}]);
     }
     setLoading(false);
   }
