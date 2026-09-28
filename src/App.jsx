@@ -642,7 +642,7 @@ const SITE_T={
       mb1:"Savura Invest 2020-yildan buyon O‘zbekistonlik investorlar uchun AQSh aksiya bozorida to‘g‘ri va halol investitsiya qarorlarini qabul qilishda yordam berib kelmoqda.",
       mb2:"Biz professional metodologiyani raqamli vositaga aylantirib, har bir investor uchun qulay va tushunarli qildik.",
       fl:"ASOSCHI",fr:"Asoschi & Aksiya bozori tahlilchisi",
-      fb:["2020-yildan buyon aksiyalar va treyding bilan shugʼullanadi","Turkiyada iqtisod sohasida taʼlim olmoqda","Savura brendi asoschisi","Savuraerp.com ERP sistemasi asoschisi"],
+      fb:["2020-yildan buyon aksiyalar va treyding bilan shugʼullanadi","Turkiyada iqtisod sohasida taʼlim olmoqda","Savura brendi asoschisi","Savura Invest va Savura Edu asoschisi"],
       stats:[["2020","Tashkil etilgan"],["100+","Tahlil aksiyalar"],["4","Til"],["6","Kurs moduli"]]},
     footer:{desc:"AQSh aksiya bozorida fundamental tahlil va halol investitsiya platformasi."},
     course:{label:"OʼQUV KURS",title:"Aksiyalar savdosi kursi",
@@ -663,7 +663,7 @@ const SITE_T={
       mb1:"Since 2020, Savura Invest has been helping Uzbek investors make correct and halal investment decisions in the US stock market.",
       mb2:"We transformed professional methodology into a digital tool for every investor.",
       fl:"FOUNDER",fr:"Founder & Stock Market Analyst",
-      fb:["Trading stocks since 2020","Studying economics in Turkey","Founder of Savura brand","Founder of Savuraerp.com ERP system"],
+      fb:["Trading stocks since 2020","Studying economics in Turkey","Founder of Savura brand","Founder of Savura Invest and Savura Edu"],
       stats:[["2020","Founded"],["100+","Analyzed"],["4","Languages"],["6","Modules"]]},
     footer:{desc:"Platform for fundamental analysis and halal investing in US stock markets."},
     course:{label:"COURSE",title:"Stock Trading Course",
@@ -684,7 +684,7 @@ const SITE_T={
       mb1:"Savura Invest, 2020'den bu yana Özbek yatırımcılara doğru kararlar almalarında yardımcı olmaktadır.",
       mb2:"Profesyonel metodolojiyi dijital araca dönüştürdük.",
       fl:"KURUCUSU",fr:"Kurucu & Hisse Senedi Analisti",
-      fb:["2020'den bu yana hisse senetleri ile deneyimli","Türkiye'de iktisat eğitimi almaktadır","Savura markasının kurucusu","Savuraerp.com ERP sisteminin kurucusu"],
+      fb:["2020'den bu yana hisse senetleri ile deneyimli","Türkiye'de iktisat eğitimi almaktadır","Savura markasının kurucusu","Savura Invest ve Savura Edu'nun kurucusu"],
       stats:[["2020","Kuruluş"],["100+","Analiz"],["4","Dil"],["6","Modül"]]},
     footer:{desc:"ABD hisse senedi piyasasında temel analiz ve helal yatırım platformu."},
     course:{label:"EĞİTİM",title:"Hisse Senedi Ticaret Kursu",
@@ -705,7 +705,7 @@ const SITE_T={
       mb1:"С 2020 года Savura Invest помогает узбекским инвесторам принимать правильные решения.",
       mb2:"Мы превратили профессиональную методологию в цифровой инструмент.",
       fl:"ОСНОВАТЕЛЬ",fr:"Основатель & Аналитик",
-      fb:["Торгует акциями с 2020 года","Учится на экономическом факультете в Турции","Основатель бренда Savura","Основатель Savuraerp.com ERP"],
+      fb:["Торгует акциями с 2020 года","Учится на экономическом факультете в Турции","Основатель бренда Savura","Основатель Savura Invest и Savura Edu"],
       stats:[["2020","Основан"],["100+","Анализ"],["4","Языка"],["6","Модулей"]]},
     footer:{desc:"Платформа для фунд. анализа и халяльного инвестирования."},
     course:{label:"КУРС",title:"Курс торговли акциями",
@@ -722,7 +722,7 @@ const SITE_T={
       ct:["تحليل أساسي","تقييم مخاطر","100+ سهم","دورة","Telegram","Instagram","Savura Edu"]},
     about:{label:"من نحن",title:"Savura Invest",desc:"منصة أوزبكستان للتحليل الحلال.",
       ml:"الرسالة",mt:"استثمار واع",mb1:"منذ 2020 نساعد المستثمرين.",mb2:"حولنا المنهجية إلى أداة رقمية.",
-      fl:"المؤسس",fr:"المؤسس ومحلل",fb:["يتداول منذ 2020","يدرس في تركيا","مؤسس Savura","مؤسس Savuraerp.com"],
+      fl:"المؤسس",fr:"المؤسس ومحلل",fb:["يتداول منذ 2020","يدرس في تركيا","مؤسس Savura","مؤسس Savura Invest و Savura Edu"],
       stats:[["منذ 2020","تأسيس"],["+100","سهم"],["4","لغات"],["6","وحدات"]]},
     footer:{desc:"منصة للتحليل الحلال."},
     course:{label:"الدورة",title:"دورة تداول الأسهم",desc:"تعلم الاستثمار من الصفر.",
@@ -1166,10 +1166,61 @@ function FinanceIllustration(){
   );
 }
 // ─── Hero ───────────────────────────────────────────────────────────────────
+// ─── Mashhur aksiyalar lentasi (bosh sahifa) ────────────────────────────────
+const POPULAR_STOCKS = [
+  ["AAPL","Apple","apple.com"],["MSFT","Microsoft","microsoft.com"],["NVDA","NVIDIA","nvidia.com"],["GOOGL","Alphabet","google.com"],
+  ["AMZN","Amazon","amazon.com"],["META","Meta","meta.com"],["TSLA","Tesla","tesla.com"],["AVGO","Broadcom","broadcom.com"],
+  ["AMD","AMD","amd.com"],["ADBE","Adobe","adobe.com"],["CRM","Salesforce","salesforce.com"],["ORCL","Oracle","oracle.com"],
+  ["COST","Costco","costco.com"],["JNJ","Johnson & Johnson","jnj.com"],["PG","Procter & Gamble","pg.com"],["NKE","Nike","nike.com"],
+  ["QCOM","Qualcomm","qualcomm.com"],["AMAT","Applied Materials","appliedmaterials.com"],["INTC","Intel","intel.com"],["CSCO","Cisco","cisco.com"],
+];
+const STK_HINT = {uz:"Tahlil qilish",en:"Analyze",ru:"Анализировать",tr:"Analiz et",ar:"تحليل"};
+
+function StockLogo({t, domain}){
+  const [stage, setStage] = useState(0);   // 0: FMP logo, 1: sayt belgisi, 2: harf
+  const src = stage === 0 ? "https://financialmodelingprep.com/image-stock/" + t + ".png"
+            : "https://www.google.com/s2/favicons?domain=" + domain + "&sz=64";
+  return (
+    <span style={{flexShrink:0,width:30,height:30,borderRadius:9,background:"#ffffff",border:"1px solid rgba(15,23,42,0.08)",display:"inline-flex",alignItems:"center",justifyContent:"center",overflow:"hidden",boxShadow:"0 1px 3px rgba(0,0,0,0.12)"}}>
+      {stage < 2
+        ? <img src={src} alt="" loading="lazy" onError={()=>setStage(stage + 1)} style={{width:21,height:21,objectFit:"contain",display:"block"}}/>
+        : <span style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:13,color:"#2f7df6"}}>{t[0]}</span>}
+    </span>
+  );
+}
+
+function StockStrip({lang, setPage}){
+  const hint = STK_HINT[lang] || STK_HINT.uz;
+  const open = function(t){
+    try{ sessionStorage.setItem("savura_prefill_ticker", t); }catch(e){}
+    setPage("tool"); window.scrollTo({top:0});
+  };
+  const items = POPULAR_STOCKS.map(function(s){
+    return (
+      <button key={s[0]} onClick={()=>open(s[0])} title={s[0] + " — " + hint}
+        style={{display:"inline-flex",alignItems:"center",gap:9,margin:"0 6px",padding:"6px 14px 6px 6px",background:C.card,border:`1px solid ${C.border}`,borderRadius:14,cursor:"pointer",whiteSpace:"nowrap",fontFamily:"'Manrope',sans-serif",flexShrink:0}}>
+        <StockLogo t={s[0]} domain={s[2]}/>
+        <span style={{display:"flex",flexDirection:"column",alignItems:"flex-start",lineHeight:1.15}}>
+          <span style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:13.5,color:C.text,letterSpacing:".3px"}}>{s[0]}</span>
+          <span style={{fontSize:10.5,color:C.faint,fontWeight:600}}>{s[1]}</span>
+        </span>
+      </button>
+    );
+  });
+  return (
+    <div className="stk-viewport" dir="ltr" style={{width:"100%",overflow:"hidden",padding:"4px 0",WebkitMaskImage:"linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)",maskImage:"linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)"}}>
+      <div className="stk-track" style={{display:"inline-flex",alignItems:"center"}}>
+        {items}{items.map(function(el){ return React.cloneElement(el, {key: el.key + "_b", tabIndex:-1, "aria-hidden":true}); })}
+      </div>
+    </div>
+  );
+}
+
 function HeroSection({setPage,lang}){
   const sh=getST(lang).hero;
   return(
-    <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",textAlign:"center",padding:"80px 24px 40px",position:"relative",overflow:"hidden"}}>
+    <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",textAlign:"center",padding:"142px 24px 64px",position:"relative",overflow:"hidden"}}>
+      <div style={{position:"absolute",top:74,left:0,right:0,zIndex:2}}><StockStrip lang={lang} setPage={setPage}/></div>
       <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 80% 60% at 50% 40%,rgba(47,125,246,0.1),transparent 70%)"}}/>
       <div style={{position:"absolute",top:"15%",left:"0%",width:380,height:380,borderRadius:"50%",background:"rgba(47,125,246,0.05)",filter:"blur(80px)"}}/>
       <div style={{position:"absolute",bottom:"15%",right:"0%",width:320,height:320,borderRadius:"50%",background:"rgba(55,178,77,0.05)",filter:"blur(80px)"}}/>
@@ -1350,10 +1401,10 @@ function FeaturesSection({setPage,lang}){
         <div style={{fontSize:10.5,letterSpacing:"2px",color:C.faint,fontFamily:"'JetBrains Mono',monospace",marginBottom:10}}>{sf.label}</div>
         <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(24px,4vw,38px)",margin:0,color:C.text}}>{sf.title}</h2>
       </div>
-      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(270px,1fr))",gap:16}}>
+      <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:16}}>
         {cards.map(function({Icon,title,desc,color,action},i){return(
           <button key={i} onClick={action}
-            style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:22,textAlign:"left",cursor:"pointer",transition:"all .25s",position:"relative",overflow:"hidden"}}
+            style={{flex:"1 1 270px",maxWidth:356,background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:22,textAlign:"left",cursor:"pointer",transition:"all .25s",position:"relative",overflow:"hidden"}}
             onMouseEnter={e=>{e.currentTarget.style.borderColor=color+"66";e.currentTarget.style.transform="translateY(-2px)";}}
             onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.transform="none";}}>
             <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:color,opacity:.7}}/>
@@ -1735,7 +1786,7 @@ const EMPTY_BOOLS = {profitableTTM:true,operatingCashFlowPositive:true,isDefensi
 function FundamentalTool({lang, setLang, setPage}){
   const t = LANG[lang]||LANG.uz;
   const [step, setStep] = _us(0);
-  const [ticker, setTicker] = _us("");
+  const [ticker, setTicker] = _us(function(){ try{ const t=sessionStorage.getItem("savura_prefill_ticker"); if(t){ sessionStorage.removeItem("savura_prefill_ticker"); return t; } }catch(e){} return ""; });
   const [vals, setVals] = _us({...EMPTY_VALS});
   const [bools, setBools] = _us({...EMPTY_BOOLS});
   const [result, setResult] = _us(null);
@@ -5158,6 +5209,11 @@ export default function App(){
         .mkt-viewport:hover .mkt-track{animation-play-state:paused;}
         @keyframes mktPulse{0%,100%{opacity:1}50%{opacity:.3}}
         .mkt-dot{animation:mktPulse 1.6s ease-in-out infinite;}
+        @keyframes stkScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+        .stk-track{animation:stkScroll 55s linear infinite;will-change:transform;}
+        .stk-viewport:hover .stk-track{animation-play-state:paused;}
+        .stk-track button{transition:transform .2s,border-color .2s;}
+        .stk-track button:hover{transform:translateY(-2px);border-color:rgba(74,163,255,0.5)!important;}
         @media (prefers-reduced-motion: reduce){.mkt-track{animation-duration:200s;}}
         ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--scrollTrack);} ::-webkit-scrollbar-thumb{background:#2f7df6;border-radius:2px;}
       `}</style>
