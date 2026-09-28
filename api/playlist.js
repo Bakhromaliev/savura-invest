@@ -35,19 +35,22 @@ function parseRenderer(html) {
   return items;
 }
 
-// 2-usul: yangi dizayn (lockupViewModel)
+// 2-usul: yangi dizayn (lockupViewModel). DIQQAT: bu formatda nom video ID'sidan OLDIN keladi,
+// shuning uchun har bir video o'z bloki ichida (lockupViewModel'dan keyingisigacha) o'qiladi.
 function parseLockup(html) {
   const items = []; const seen = new Set();
-  const re = /"contentId":"([\w-]{11})","contentType":"LOCKUP_CONTENT_TYPE_VIDEO"/g;
-  let m;
-  while ((m = re.exec(html))) {
-    const id = m[1];
-    if (seen.has(id)) continue;
-    seen.add(id);
-    const chunk = html.slice(m.index, m.index + 12000);
-    const t = chunk.match(/"lockupMetadataViewModel":\{"title":\{"content":"((?:[^"\\]|\\.)*)"/);
-    const l = chunk.match(/"text":"(\d{1,2}:\d{2}(?::\d{2})?)"/);
-    items.push({ id, title: t ? unesc(t[1]) : null, length: l ? l[1] : null });
+  const marker = '"lockupViewModel":';
+  const starts = [];
+  let i = html.indexOf(marker);
+  while (i >= 0) { starts.push(i); i = html.indexOf(marker, i + marker.length); }
+  for (let k = 0; k < starts.length; k++) {
+    const seg = html.slice(starts[k], k + 1 < starts.length ? starts[k + 1] : starts[k] + 20000);
+    const idm = seg.match(/"contentId":"([\w-]{11})","contentType":"LOCKUP_CONTENT_TYPE_VIDEO"/);
+    if (!idm || seen.has(idm[1])) continue;
+    seen.add(idm[1]);
+    const t = seg.match(/"lockupMetadataViewModel":\{"title":\{"content":"((?:[^"\\]|\\.)*)"/);
+    const l = seg.match(/"text":"(\d{1,2}:\d{2}(?::\d{2})?)"/);
+    items.push({ id: idm[1], title: t ? unesc(t[1]) : null, length: l ? l[1] : null });
   }
   return items;
 }
@@ -90,7 +93,7 @@ export default async function handler(req, res) {
   const now = Date.now();
   const c = CACHE[list];
   if (c && now - c.ts < TTL) {
-    res.setHeader("Cache-Control", "s-maxage=1800, stale-while-revalidate=86400");
+    res.setHeader("Cache-Control", "s-maxage=21600, stale-while-revalidate=86400");
     return res.status(200).json({ ...c.data, cached: true });
   }
 
@@ -119,6 +122,6 @@ export default async function handler(req, res) {
   items = orderLessons(items);
   const data = { list, count: items.length, rawCount, items, source };
   CACHE[list] = { data, ts: now };
-  res.setHeader("Cache-Control", "s-maxage=1800, stale-while-revalidate=86400");
+  res.setHeader("Cache-Control", "s-maxage=21600, stale-while-revalidate=86400");
   return res.status(200).json(data);
 }
