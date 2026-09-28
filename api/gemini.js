@@ -22,7 +22,7 @@ Aloqa: Telegram @savura_invest, Instagram savura_invest.
 === SAYT BO'LIMLARI (menyu ☰ orqali) ===
 - "Treyding halolmi?" — forex, CFD, fyuchers, opsion, spot savdo bo'yicha shariat hukmlari (AAOIFI, islommoliyasi.uz fatvosi). Hamma uchun ochiq.
 - "Ochiq darslar" — YouTube'dagi 24 ta bepul video dars, sayt ichida ketma-ket ko'riladi. Hamma uchun ochiq.
-- "Aksiyalar savdosi kursi" — 7 modul: 1) Treydingga kirish, 2) Aksiyalar bilan halol treyding, 3) Fundamental tahlil, 4) Texnik tahlilga kirish, 5) Texnik tahlil va strategiyalar, 6) Risk menejment va psixologiya, 7) Real treydingni boshlash. Kursga yozilish va narx — Telegram @savura_invest orqali.
+- "Aksiyalar savdosi kursi" — 8 ta modul va 100+ video dars. Asosiy mavzular: treydingga kirish, aksiyalar bilan halol treyding, fundamental tahlil, texnik tahlil, strategiyalar, risk menejment va psixologiya, real treydingni boshlash. Kursga yozilish va narx — Telegram @savura_invest orqali.
 - Faqat tasdiqlangan o'quvchilar uchun: Fundamental tahlil vositasi, Kundalik (savdo jurnali, 15 savollik tekshiruv, kuzatuv ro'yxati), Demo treyding (virtual pul, real narxlar, kasr aksiyalar, T+2 belgisi), Imtihon (7 modul × 20 savol, 15 daqiqa, 70% dan o'tsa keyingi modul ochiladi, 7 tasi o'tilsa PDF sertifikat), Pattern Trainer (Breakout, Reversal, Pullback strategiyalari bo'yicha grafik mashqlari, reyting).
 - Kirish tartibi: saytda email va parol bilan ro'yxatdan o'tiladi → administrator tasdiqlaydi va muddat belgilaydi → bo'limlar ochiladi.
 - Sayt tepasida AQSh birjasi ochilish/yopilish vaqti turli shaharlar vaqtida ko'rsatiladi (NYSE: dush–jum, 09:30–16:00 Nyu-York vaqti; Toshkentda yozda 18:30–01:00, qishda 19:30–02:00).
@@ -45,11 +45,11 @@ Savura Invest o'rgatmaydi va tavsiya qilmaydi: Forex, CFD, fyuchers, opsion, mar
 const FAQ = [
   { k: ["kurs", "course", "курс", "modul", "module", "модул", "دورة", "narx", "price", "цена", "fiyat", "سعر"],
     a: {
-      uz: "Aksiyalar savdosi kursi 7 moduldan iborat: treydingga kirish, halol treyding, fundamental tahlil, texnik tahlil, strategiyalar, risk menejment va real treydingni boshlash. Kurs dasturini menyudagi 🎓 bo'limda ko'rasiz. Narx va yozilish uchun Telegram: @savura_invest.",
-      en: "The stock trading course has 7 modules: intro to trading, halal trading, fundamental analysis, technical analysis, strategies, risk management and starting real trading. See the 🎓 course section in the menu. For price and enrollment, message us on Telegram: @savura_invest.",
-      ru: "Курс по торговле акциями состоит из 7 модулей: введение, халяльный трейдинг, фундаментальный и технический анализ, стратегии, риск-менеджмент и старт реальной торговли. Программа — в разделе 🎓 меню. Цена и запись — в Telegram: @savura_invest.",
-      tr: "Hisse ticareti kursu 7 modülden oluşur: giriş, helal trading, temel ve teknik analiz, stratejiler, risk yönetimi ve gerçek işleme başlama. Program menüdeki 🎓 bölümünde. Fiyat ve kayıt için Telegram: @savura_invest.",
-      ar: "تتكون دورة تداول الأسهم من 7 وحدات: مقدمة، التداول الحلال، التحليل الأساسي والفني، الاستراتيجيات، إدارة المخاطر وبدء التداول الحقيقي. البرنامج في قسم 🎓 بالقائمة. للسعر والتسجيل: تيليجرام @savura_invest." } },
+      uz: "Aksiyalar savdosi kursi 8 ta modul va 100+ video darsdan iborat: treydingga kirish, halol treyding, fundamental tahlil, texnik tahlil, strategiyalar, risk menejment va real treydingni boshlash. Kurs dasturini menyudagi 🎓 bo'limda ko'rasiz. Narx va yozilish uchun Telegram: @savura_invest.",
+      en: "The stock trading course has 8 modules and 100+ video lessons: intro to trading, halal trading, fundamental analysis, technical analysis, strategies, risk management and starting real trading. See the 🎓 course section in the menu. For price and enrollment, message us on Telegram: @savura_invest.",
+      ru: "Курс по торговле акциями — 8 модулей и 100+ видеоуроков: введение, халяльный трейдинг, фундаментальный и технический анализ, стратегии, риск-менеджмент и старт реальной торговли. Программа — в разделе 🎓 меню. Цена и запись — в Telegram: @savura_invest.",
+      tr: "Hisse ticareti kursu 8 modül ve 100+ video dersten oluşur: giriş, helal trading, temel ve teknik analiz, stratejiler, risk yönetimi ve gerçek işleme başlama. Program menüdeki 🎓 bölümünde. Fiyat ve kayıt için Telegram: @savura_invest.",
+      ar: "تتكون دورة تداول الأسهم من 8 وحدات وأكثر من 100 درس فيديو: مقدمة، التداول الحلال، التحليل الأساسي والفني، الاستراتيجيات، إدارة المخاطر وبدء التداول الحقيقي. البرنامج في قسم 🎓 بالقائمة. للسعر والتسجيل: تيليجرام @savura_invest." } },
   { k: ["halol", "halal", "халял", "helal", "حلال", "harom", "haram", "forex", "форекс", "cfd", "kripto", "crypto"],
     a: {
       uz: "Savura Invest metodologiyasida faqat real aksiyalarni haqiqiy egalik bilan sotib olish (spot) va kamida T+2 muddat ushlab turish halol deb o'rgatiladi. Forex, CFD, fyuchers, opsion, marja va short savdolar o'rgatilmaydi. Batafsil — menyudagi ☪️ «Treyding halolmi?» bo'limida.",
