@@ -98,7 +98,35 @@ function accessState(profile){
 }
 
 
-const C={bg:"#060a14",bg2:"#0b1628",card:"rgba(13,22,42,0.85)",border:"rgba(74,163,255,0.1)",borderHi:"rgba(74,163,255,0.28)",blue:"#2f7df6",blueLt:"#4aa3ff",green:"#37b24d",greenLt:"#52d869",amber:"#f0a92b",orange:"#e8590c",red:"#e5484d",text:"#edf2ff",dim:"#8ea0c4",faint:"#4a5c82"};
+// ═══ MAVZU (TUN / KUN) ═══════════════════════════════════════════════════════
+const C_DARK={bg:"#060a14",bg2:"#0b1628",card:"rgba(13,22,42,0.85)",border:"rgba(74,163,255,0.1)",borderHi:"rgba(74,163,255,0.28)",blue:"#2f7df6",blueLt:"#4aa3ff",green:"#37b24d",greenLt:"#52d869",amber:"#f0a92b",orange:"#e8590c",red:"#e5484d",text:"#edf2ff",dim:"var(--dimv)",faint:"#4a5c82"};
+const C_LIGHT={bg:"#f3f6fb",bg2:"#ffffff",card:"#ffffff",border:"rgba(15,23,42,0.10)",borderHi:"rgba(47,125,246,0.40)",blue:"#2f7df6",blueLt:"#1b6ee0",green:"#2f9e44",greenLt:"#1c9a3c",amber:"#c47f00",orange:"#d9560c",red:"#dc3e43",text:"#0f172a",dim:"#475569",faint:"#7a889e"};
+const C={...C_DARK};
+const THEME_VARS={
+  dark:{"--bg":"#060a14","--glass":"var(--glass)","--glass2":"var(--glass2)","--nav":"var(--nav)","--navT":"var(--navT)","--menu":"var(--menu)","--modal":"#0b1628","--dimv":"var(--dimv)",
+    "--heroG":"var(--heroG)","--illus":"rgba(13,22,42,0.7)",
+    "--w01":"var(--w01)","--w04":"var(--w04)","--w05":"var(--w05)","--w06":"var(--w06)","--w07":"var(--w07)","--w12":"var(--w12)",
+    "--k20":"var(--k20)","--k25":"var(--k25)","--k30":"var(--k30)","--shadow":"0 8px 32px rgba(0,0,0,0.6)","--scrollTrack":"#060a14"},
+  light:{"--bg":"#f3f6fb","--glass":"rgba(255,255,255,0.92)","--glass2":"#ffffff","--nav":"rgba(255,255,255,0.97)","--navT":"rgba(255,255,255,0.8)","--menu":"#ffffff","--modal":"#ffffff","--dimv":"#475569",
+    "--heroG":"linear-gradient(160deg,#ffffff 0%,#e9f0fb 100%)","--illus":"#0e1a33",
+    "--w01":"rgba(15,23,42,0.015)","--w04":"rgba(15,23,42,0.035)","--w05":"rgba(15,23,42,0.045)","--w06":"rgba(15,23,42,0.06)","--w07":"rgba(15,23,42,0.07)","--w12":"rgba(15,23,42,0.10)",
+    "--k20":"rgba(15,23,42,0.04)","--k25":"rgba(15,23,42,0.05)","--k30":"rgba(15,23,42,0.06)","--shadow":"0 8px 28px rgba(15,23,42,0.12)","--scrollTrack":"#e6ecf5"},
+};
+function applyTheme(t){
+  const th=t==="light"?"light":"dark";
+  Object.assign(C, th==="light"?C_LIGHT:C_DARK);
+  if(typeof document!=="undefined"){
+    const r=document.documentElement; const v=THEME_VARS[th];
+    for(const k in v) r.style.setProperty(k,v[k]);
+    r.setAttribute("data-theme",th); r.style.colorScheme=th;
+    if(document.body) document.body.style.background=C.bg;
+    const mt=document.querySelector('meta[name="theme-color"]'); if(mt) mt.setAttribute("content",C.bg);
+  }
+  try{ localStorage.setItem("savura_theme",th); }catch(e){}
+  return th;
+}
+function initialTheme(){ try{ const t=localStorage.getItem("savura_theme"); if(t==="light"||t==="dark") return t; }catch(e){} return "dark"; }
+applyTheme(initialTheme());
 
 const FOUNDER_PHOTO="data:image/jpeg;base64,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";
 
@@ -837,7 +865,7 @@ const BookIcon=({s=28})=><svg width={s} height={s} viewBox="0 0 24 24" fill="non
 function Logo({size=42}){return(<svg width={size} height={size} viewBox="0 0 100 100" fill="none"><defs><linearGradient id="lgB" x1="20" y1="15" x2="85" y2="60" gradientUnits="userSpaceOnUse"><stop stopColor="#3461d6"/><stop offset="1" stopColor="#4aa3ff"/></linearGradient><linearGradient id="lgG" x1="30" y1="55" x2="80" y2="92" gradientUnits="userSpaceOnUse"><stop stopColor="#5fd36a"/><stop offset="1" stopColor="#2f9e44"/></linearGradient></defs><path d="M70 16 C40 16 24 30 24 47 C24 60 35 66 47 60 C36 62 33 52 41 45 C49 38 64 40 70 30 C73 24 73 18 70 16 Z" fill="url(#lgB)"/><path d="M30 84 C60 84 76 70 76 53 C76 40 65 34 53 40 C64 38 67 48 59 55 C51 62 36 60 30 70 C27 76 27 82 30 84 Z" fill="url(#lgG)"/><path d="M40 62 L62 47 L57 44 L66 40 L67 51 L62 49 L43 66 Z" fill="#4aa3ff"/></svg>);}
 
 // ─── NavBar ─────────────────────────────────────────────────────────────────
-function NavBar({page,setPage,lang,setLang,auth}){
+function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
   const [open,setOpen]=useState(false);
   const [flagOpen,setFlagOpen]=useState(false);
   const [scrolled,setScrolled]=useState(false);
@@ -848,24 +876,30 @@ function NavBar({page,setPage,lang,setLang,auth}){
   const LANGS=[{k:"uz",f:"🇺🇿",l:"O'Z"},{k:"en",f:"🇺🇸",l:"EN"},{k:"tr",f:"🇹🇷",l:"TR"},{k:"ru",f:"🇷🇺",l:"RU"},{k:"ar",f:"🇸🇦",l:"AR"}];
   const cur=LANGS.find(function(x){return x.k===lang;})||LANGS[0];
   return(
-    <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,background:scrolled||open||flagOpen?"rgba(6,10,20,0.97)":"rgba(6,10,20,0.7)",backdropFilter:"blur(16px)",borderBottom:`1px solid ${scrolled?C.border:"transparent"}`,transition:"background .3s"}}>
+    <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,background:scrolled||open||flagOpen?"var(--nav)":"var(--navT)",backdropFilter:"blur(16px)",borderBottom:`1px solid ${scrolled?C.border:"transparent"}`,transition:"background .3s"}}>
       <div style={{maxWidth:1100,margin:"0 auto",padding:"0 20px",display:"flex",alignItems:"center",justifyContent:"space-between",height:60}}>
         <button onClick={()=>go("home")} style={{background:"none",border:"none",cursor:"pointer",display:"flex",alignItems:"center",gap:10}}>
           <Logo size={42}/>
           <div style={{textAlign:"left"}}>
-            <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:19,color:C.text,lineHeight:1}}>SAVURA <span style={{color:C.greenLt}}>INVEST</span></div>
+            <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(15px,4.6vw,19px)",color:C.text,lineHeight:1,whiteSpace:"nowrap"}}>SAVURA <span style={{color:C.greenLt}}>INVEST</span></div>
             <div style={{fontSize:10,color:C.faint,letterSpacing:".5px",marginTop:2}}>AKSIYA TAHLILI</div>
           </div>
         </button>
         <div style={{display:"flex",alignItems:"center",gap:6}}>
-          <a href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{color:C.dim,display:"flex",padding:"6px 8px",borderRadius:8,border:"1px solid transparent",transition:"all .2s"}} onMouseEnter={e=>{e.currentTarget.style.color=C.blueLt;e.currentTarget.style.borderColor="rgba(74,163,255,0.3)";}} onMouseLeave={e=>{e.currentTarget.style.color=C.dim;e.currentTarget.style.borderColor="transparent";}}><TgIcon s={18}/></a>
-          <a href="https://instagram.com/savura_invest" target="_blank" rel="noreferrer" style={{color:C.dim,display:"flex",padding:"6px 8px",borderRadius:8,border:"1px solid transparent",transition:"all .2s"}} onMouseEnter={e=>{e.currentTarget.style.color="#e1306c";e.currentTarget.style.borderColor="rgba(225,48,108,0.3)";}} onMouseLeave={e=>{e.currentTarget.style.color=C.dim;e.currentTarget.style.borderColor="transparent";}}><IgIcon s={18}/></a>
+          <a className="nav-social" href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{color:C.dim,display:"flex",padding:"6px 8px",borderRadius:8,border:"1px solid transparent",transition:"all .2s"}} onMouseEnter={e=>{e.currentTarget.style.color=C.blueLt;e.currentTarget.style.borderColor="rgba(74,163,255,0.3)";}} onMouseLeave={e=>{e.currentTarget.style.color=C.dim;e.currentTarget.style.borderColor="transparent";}}><TgIcon s={18}/></a>
+          <a className="nav-social" href="https://instagram.com/savura_invest" target="_blank" rel="noreferrer" style={{color:C.dim,display:"flex",padding:"6px 8px",borderRadius:8,border:"1px solid transparent",transition:"all .2s"}} onMouseEnter={e=>{e.currentTarget.style.color="#e1306c";e.currentTarget.style.borderColor="rgba(225,48,108,0.3)";}} onMouseLeave={e=>{e.currentTarget.style.color=C.dim;e.currentTarget.style.borderColor="transparent";}}><IgIcon s={18}/></a>
+          <button onClick={toggleTheme} aria-label={theme==="light"?"Tun rejimi":"Kun rejimi"} title={theme==="light"?"Tun rejimi":"Kun rejimi"}
+            style={{width:36,height:36,display:"flex",alignItems:"center",justifyContent:"center",background:"transparent",border:`1px solid ${C.border}`,borderRadius:8,cursor:"pointer",color:theme==="light"?C.blueLt:C.amber,flexShrink:0}}>
+            {theme==="light"
+              ? <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              : <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>}
+          </button>
           <div style={{position:"relative"}}>
             <button onClick={()=>{setFlagOpen(v=>!v);setOpen(false);}} style={{background:flagOpen?"rgba(47,125,246,0.15)":"transparent",border:`1px solid ${flagOpen?C.blueLt:C.border}`,borderRadius:8,padding:"4px 8px",cursor:"pointer",height:36,display:"flex",alignItems:"center",gap:4,fontSize:19,lineHeight:1}}>
               {cur.f}<span style={{fontSize:11,color:flagOpen?C.blueLt:C.faint,fontFamily:"'JetBrains Mono',monospace"}}>{cur.l}</span>
             </button>
             {flagOpen&&(
-              <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,background:"rgba(6,10,20,0.98)",border:`1px solid ${C.border}`,borderRadius:12,overflow:"hidden",minWidth:130,boxShadow:"0 8px 32px rgba(0,0,0,0.6)",zIndex:200}}>
+              <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,background:"var(--menu)",border:`1px solid ${C.border}`,borderRadius:12,overflow:"hidden",minWidth:130,boxShadow:"var(--shadow)",zIndex:200}}>
                 {LANGS.map(function(l){return(
                   <button key={l.k} onClick={()=>{setLang(l.k);setFlagOpen(false);}} style={{display:"flex",alignItems:"center",gap:10,width:"100%",background:lang===l.k?"rgba(47,125,246,0.1)":"transparent",border:"none",borderLeft:`3px solid ${lang===l.k?C.blue:"transparent"}`,padding:"10px 14px",cursor:"pointer",color:lang===l.k?C.blueLt:C.dim,fontFamily:"'Manrope',sans-serif",fontSize:14,fontWeight:lang===l.k?700:400,textAlign:"left"}}>
                     <span style={{fontSize:20}}>{l.f}</span><span>{l.l}</span>
@@ -880,7 +914,7 @@ function NavBar({page,setPage,lang,setLang,auth}){
         </div>
       </div>
       {open&&(
-        <div style={{borderTop:`1px solid ${C.border}`,background:"rgba(6,10,20,0.98)"}}>
+        <div style={{borderTop:`1px solid ${C.border}`,background:"var(--menu)"}}>
           {links.map(function(l){return l.ext
             ?<a key={l.id} href={l.ext} target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"center",width:"100%",background:"transparent",borderLeft:"3px solid transparent",color:C.dim,padding:"15px 24px",fontSize:15,fontWeight:500,fontFamily:"'Manrope',sans-serif",textDecoration:"none",gap:8}}>
               <span style={{flex:1}}>{l.label}</span>
@@ -919,7 +953,7 @@ function NavBar({page,setPage,lang,setLang,auth}){
 function FinanceIllustration(){
   return(
     <div style={{padding:"0 24px 20px",maxWidth:1100,margin:"0 auto"}}>
-      <div style={{background:"rgba(13,22,42,0.7)",border:`1px solid rgba(74,163,255,0.12)`,borderRadius:24,overflow:"hidden",position:"relative",padding:"32px 28px"}}>
+      <div style={{background:"var(--illus)",border:`1px solid rgba(74,163,255,0.12)`,borderRadius:24,overflow:"hidden",position:"relative",padding:"32px 28px"}}>
         <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 60% 80% at 80% 50%,rgba(47,125,246,0.06),transparent 70%)"}}/>
         <svg width="100%" height="220" viewBox="0 0 800 220" style={{position:"relative"}}>
           <defs>
@@ -1268,7 +1302,7 @@ function CoursePage({lang, setPage}){
   const forItems=cr.forItems;
   return(
     <div style={{paddingTop:80,minHeight:"100vh"}}>
-      <div style={{background:"linear-gradient(160deg,rgba(6,10,20,1) 0%,rgba(11,22,40,1) 100%)",padding:"60px 24px 50px",borderBottom:`1px solid ${C.border}`}}>
+      <div style={{background:"var(--heroG)",padding:"60px 24px 50px",borderBottom:`1px solid ${C.border}`}}>
         <div style={{maxWidth:800,margin:"0 auto"}}>
           <div style={{fontSize:10.5,letterSpacing:"2px",color:C.faint,fontFamily:"'JetBrains Mono',monospace",marginBottom:12}}>{sc.label}</div>
           <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(26px,5vw,46px)",color:C.text,margin:"0 0 18px",lineHeight:1.1}}>{sc.title}</h1>
@@ -1448,7 +1482,7 @@ function BoolSection({ticker, bools, setBools, t, lang}){
       </div>
 
       {showP && (
-        <div style={{background:"rgba(0,0,0,0.3)", border:"1px solid rgba(74,163,255,0.2)", borderRadius:10, padding:"12px", marginBottom:14}}>
+        <div style={{background:"var(--k30)", border:"1px solid rgba(74,163,255,0.2)", borderRadius:10, padding:"12px", marginBottom:14}}>
           <div style={{fontSize:11, color:C.blueLt, fontWeight:600, marginBottom:6}}>
             {(t&&t.tf)?t.tf.aiInstr:""}
           </div>
@@ -1462,7 +1496,7 @@ function BoolSection({ticker, bools, setBools, t, lang}){
               chatgpt.com
             </a>
           </div>
-          <div style={{background:"rgba(0,0,0,0.25)", borderRadius:8, padding:"10px", marginBottom:10}}>
+          <div style={{background:"var(--k25)", borderRadius:8, padding:"10px", marginBottom:10}}>
             <div style={{fontFamily:"'JetBrains Mono',monospace", fontSize:10, color:C.dim, lineHeight:1.7, whiteSpace:"pre-wrap", wordBreak:"break-word"}}>
               {buildPrompt()}
             </div>
@@ -1486,7 +1520,7 @@ function BoolSection({ticker, bools, setBools, t, lang}){
             <div key={k}
               onClick={function(){setBools(function(b){var nb=Object.assign({},b); nb[k]=!nb[k]; return nb;});}}
               style={{display:"flex", alignItems:"flex-start", gap:12, padding:"10px 12px",
-                background: bools[k] ? "rgba(55,178,77,0.04)" : "rgba(255,255,255,0.01)",
+                background: bools[k] ? "rgba(55,178,77,0.04)" : "var(--w01)",
                 border: "1px solid " + (bools[k] ? "rgba(55,178,77,0.35)" : C.border),
                 borderRadius:10, cursor:"pointer"}}>
               <div style={{flexShrink:0, width:22, height:22, borderRadius:6,
@@ -1565,7 +1599,7 @@ function FundamentalTool({lang, setLang, setPage}){
   const [result, setResult] = _us(null);
 
   const nv = v => { const x=parseFloat(v); return isNaN(x)?null:x; };
-  const st = {background:"rgba(12,20,38,.85)",border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:"8px 10px",fontSize:13,fontFamily:"'JetBrains Mono',monospace",outline:"none",width:"100%",transition:"border .2s"};
+  const st = {background:"var(--glass2)",border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:"8px 10px",fontSize:13,fontFamily:"'JetBrains Mono',monospace",outline:"none",width:"100%",transition:"border .2s"};
 
   function loadSample(sym){
     const s=SAMPLE[sym]; if(!s)return;
@@ -1621,8 +1655,8 @@ function FundamentalTool({lang, setLang, setPage}){
       </div>
       {/* Ticker input */}
       <div style={{display:"flex",gap:10,maxWidth:540,margin:"0 auto 16px"}}>
-        <input value={ticker} onChange={e=>setTicker(e.target.value.toUpperCase())} onKeyDown={e=>{if(e.key==="Enter"&&ticker.trim()){setStep(1);setCName("");setExchange("");setSector("");setIndustry("");setVals({...EMPTY_VALS});setBools({...EMPTY_BOOLS});} }} placeholder="AAPL, MSFT, NVDA ..." style={{flex:1,background:"rgba(12,20,38,.85)",border:`1px solid ${C.border}`,borderRadius:12,color:C.text,padding:"14px 18px",fontSize:16,fontFamily:"'JetBrains Mono',monospace",letterSpacing:"1px",outline:"none"}}/>
-        <button onClick={()=>{if(ticker.trim()){setStep(1);setCName("");setExchange("");setSector("");setIndustry("");setVals({...EMPTY_VALS});setBools({...EMPTY_BOOLS});}}} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"0 22px",cursor:"pointer",fontFamily:"'Sora',sans-serif",whiteSpace:"nowrap"}}>{t.tf.nextBtn} →</button>
+        <input value={ticker} onChange={e=>setTicker(e.target.value.toUpperCase())} onKeyDown={e=>{if(e.key==="Enter"&&ticker.trim()){setStep(1);setVals({...EMPTY_VALS});setBools({...EMPTY_BOOLS});} }} placeholder="AAPL, MSFT, NVDA ..." style={{flex:1,background:"var(--glass2)",border:`1px solid ${C.border}`,borderRadius:12,color:C.text,padding:"14px 18px",fontSize:16,fontFamily:"'JetBrains Mono',monospace",letterSpacing:"1px",outline:"none"}}/>
+        <button onClick={()=>{if(ticker.trim()){setStep(1);setVals({...EMPTY_VALS});setBools({...EMPTY_BOOLS});}}} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"0 22px",cursor:"pointer",fontFamily:"'Sora',sans-serif",whiteSpace:"nowrap"}}>{t.tf.nextBtn} →</button>
       </div>
       {/* Quick samples */}
       <div style={{display:"flex",gap:7,justifyContent:"center",flexWrap:"wrap",marginBottom:20}}>
@@ -1678,14 +1712,14 @@ function FundamentalTool({lang, setLang, setPage}){
         <div key={grpT} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:"16px 18px",marginBottom:14}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12,flexWrap:"wrap",gap:6}}>
             <div style={{fontSize:12.5,fontWeight:700,color:C.text}}>{grpT}</div>
-            <div style={{fontSize:10.5,color:C.faint,fontFamily:"'JetBrains Mono',monospace",background:"rgba(255,255,255,.04)",border:`1px solid ${C.border}`,borderRadius:6,padding:"2px 8px"}}>{hint}</div>
+            <div style={{fontSize:10.5,color:C.faint,fontFamily:"'JetBrains Mono',monospace",background:"var(--w04)",border:`1px solid ${C.border}`,borderRadius:6,padding:"2px 8px"}}>{hint}</div>
           </div>
           <div style={{display:"grid",gridTemplateColumns:`repeat(auto-fit,minmax(${cols>=4?"145px":"200px"},1fr))`,gap:10}}>
             {fields.map(({k,lbl,suf,ph})=>(
               <div key={k}>
                 <div style={{display:"flex",gap:4,alignItems:"center",marginBottom:4}}>
                   <span style={{fontSize:10.5,color:C.dim}}>{lbl}</span>
-                  {suf&&<span style={{fontSize:9.5,color:C.faint,background:"rgba(255,255,255,.05)",borderRadius:4,padding:"1px 5px"}}>{suf}</span>}
+                  {suf&&<span style={{fontSize:9.5,color:C.faint,background:"var(--w05)",borderRadius:4,padding:"1px 5px"}}>{suf}</span>}
                 </div>
                 <input
                   value={vals[k]}
@@ -2009,8 +2043,8 @@ function BackBtn({setPage, lang}){
   return(
     <div style={{marginBottom:14}}>
       <button onClick={()=>setPage('home')}
-        style={{background:'rgba(8,14,30,0.85)',
-          border:'1px solid rgba(74,163,255,0.2)',borderRadius:10,color:'#8ea0c4',
+        style={{background:'var(--glass)',
+          border:'1px solid rgba(74,163,255,0.2)',borderRadius:10,color:'var(--dimv)',
           fontSize:12.5,padding:'7px 13px',cursor:'pointer',
           display:'inline-flex',alignItems:'center',gap:6,fontFamily:"'Sora',sans-serif"}}>
         {labels[lang]||labels.uz}
@@ -2353,7 +2387,7 @@ function JournalTab({lang="uz"}){
   const inp = (field,type='text',ph='')=>(
     <input type={type} value={form[field]} placeholder={ph}
       onChange={e=>setForm(f=>({...f,[field]:e.target.value}))}
-      style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
+      style={{background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
   );
 
   const filtered = filter==='ALL'?entries:entries.filter(e=>e.result===filter);
@@ -2405,7 +2439,7 @@ function JournalTab({lang="uz"}){
             <div>
               <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Harakat</div>
               <select value={form.action} onChange={e=>setForm(f=>({...f,action:e.target.value}))}
-                style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%'}}>
+                style={{background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%'}}>
                 <option value="BUY">BUY — {J.fBuy}</option>
                 <option value="SELL">SELL — {J.fSell}</option>
               </select>
@@ -2416,7 +2450,7 @@ function JournalTab({lang="uz"}){
             <div>
               <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Natija</div>
               <select value={form.result} onChange={e=>setForm(f=>({...f,result:e.target.value}))}
-                style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%'}}>
+                style={{background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%'}}>
                 <option value="OPEN">Ochiq (hali davom etmoqda)</option>
                 <option value="PROFIT">{J.fProfitable} ✓</option>
                 <option value="LOSS">{J.fLoss} ✗</option>
@@ -2427,13 +2461,13 @@ function JournalTab({lang="uz"}){
             <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Sabab (nima uchun bu savdo?)</div>
             <textarea value={form.reason} onChange={e=>setForm(f=>({...f,reason:e.target.value}))} rows={2}
               placeholder="Masalan: ROIC 33%, P/E bozor o'rtachasiga yaqin, sektor yetakchisi..."
-              style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
+              style={{background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
           </div>
           <div style={{marginBottom:14}}>
             <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Qo'shimcha eslatma</div>
             <textarea value={form.notes} onChange={e=>setForm(f=>({...f,notes:e.target.value}))} rows={2}
               placeholder="Qo'shimcha fikrlar..."
-              style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
+              style={{background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
           </div>
           <button onClick={save}
             style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'10px 28px',cursor:'pointer'}}>
@@ -2459,7 +2493,7 @@ function JournalTab({lang="uz"}){
                 {e.price&&<span style={{fontSize:12,color:C.dim}}>${e.price}</span>}
                 {e.shares&&<span style={{fontSize:12,color:C.dim}}>×{e.shares}</span>}
                 {e.pnl&&<span style={{fontWeight:700,fontSize:13,color:pnlN>=0?C.green:C.red}}>{pnlN>=0?'+':''}{e.pnl}$</span>}
-                <span style={{background:`rgba(0,0,0,0.3)`,border:`1px solid ${col}`,borderRadius:6,padding:'2px 8px',fontSize:10.5,color:col}}>{e.result==='PROFIT'?J.stProfit+' ✓':e.result==='LOSS'?J.stLoss+' ✗':J.stOpen+' ○'}</span>
+                <span style={{background:`var(--k30)`,border:`1px solid ${col}`,borderRadius:6,padding:'2px 8px',fontSize:10.5,color:col}}>{e.result==='PROFIT'?J.stProfit+' ✓':e.result==='LOSS'?J.stLoss+' ✗':J.stOpen+' ○'}</span>
               </div>
               {e.reason&&<div style={{flex:1,fontSize:12,color:C.dim,minWidth:200}}>{e.reason}</div>}
               <button onClick={()=>del(e.id)} style={{background:'transparent',border:'none',color:C.faint,cursor:'pointer',fontSize:16,marginLeft:'auto'}}>🗑</button>
@@ -2631,8 +2665,8 @@ function ChecklistTab({lang="uz"}){
           {/* Ticker + risk badge */}
           <div style={{display:'flex',gap:12,alignItems:'center',marginBottom:20,flexWrap:'wrap'}}>
             <input value={ticker} onChange={e=>setTicker(e.target.value.toUpperCase())} placeholder="Ticker: AAPL"
-              style={{background:'rgba(12,20,38,.85)',border:`1px solid ${C.border}`,borderRadius:10,color:C.text,padding:'10px 16px',fontSize:18,fontFamily:"'JetBrains Mono',monospace",fontWeight:700,width:140,outline:'none'}}/>
-            <div style={{background:`rgba(0,0,0,0.3)`,border:`2px solid ${risk.color}`,borderRadius:12,padding:'8px 16px',textAlign:'center'}}>
+              style={{background:'var(--glass2)',border:`1px solid ${C.border}`,borderRadius:10,color:C.text,padding:'10px 16px',fontSize:18,fontFamily:"'JetBrains Mono',monospace",fontWeight:700,width:140,outline:'none'}}/>
+            <div style={{background:`var(--k30)`,border:`2px solid ${risk.color}`,borderRadius:12,padding:'8px 16px',textAlign:'center'}}>
               <div style={{fontSize:10,color:C.faint,marginBottom:2}}>RISK DARAJASI</div>
               <div style={{fontWeight:800,fontSize:18,color:risk.color,fontFamily:"'JetBrains Mono',monospace"}}>{risk.level}</div>
               <div style={{fontSize:11,color:C.faint}}>{noCount}/15 {J.noAns}</div>
@@ -2668,10 +2702,10 @@ function ChecklistTab({lang="uz"}){
           <div style={{marginBottom:14}}>
             <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Qo'shimcha eslatmalar</div>
             <textarea value={notes} onChange={e=>setNotes(e.target.value)} rows={2} placeholder="Nima uchun bu aksiyani tekshirdim..."
-              style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'9px 12px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
+              style={{background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'9px 12px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
           </div>
           <button onClick={saveCheck} disabled={!ticker.trim()}
-            style={{background:ticker.trim()?`linear-gradient(135deg,${C.blue},${C.green})`:'rgba(255,255,255,0.05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'11px 28px',cursor:ticker.trim()?'pointer':'default'}}>
+            style={{background:ticker.trim()?`linear-gradient(135deg,${C.blue},${C.green})`:'var(--w05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'11px 28px',cursor:ticker.trim()?'pointer':'default'}}>
             {J.saveBtn} — {risk.level}
           </button>
         </div>
@@ -2774,7 +2808,7 @@ function WatchlistTab({lang="uz"}){
   const STATUS_LBL = {watching:J.watchStatuses.watching+' 👁', bought:J.watchStatuses.bought+' ✓', passed:J.watchStatuses.passed+' ✗'};
   const inp = (f,ph='')=>(
     <input value={form[f]} onChange={e=>setForm(x=>({...x,[f]:e.target.value}))} placeholder={ph}
-      style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
+      style={{background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
   );
 
   return(
@@ -2809,26 +2843,26 @@ function WatchlistTab({lang="uz"}){
                 onBlur={function(e){if(e.target.value.trim()) lookupTicker(e.target.value);}}
                 onKeyDown={function(e){if(e.key==='Enter'&&form.ticker.trim()) lookupTicker(form.ticker);}}
                 placeholder="AAPL"
-                style={{background:'rgba(255,255,255,0.05)',border:'1px solid '+C.border,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
+                style={{background:'var(--w05)',border:'1px solid '+C.border,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
             </div>
             <div>
               <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Kompaniya nomi</div>
               <input value={form.company} onChange={function(e){setForm(function(f){return{...f,company:e.target.value};});}}
                 placeholder="Avtomatik to'ldiriladi"
-                style={{background:'rgba(255,255,255,0.05)',border:'1px solid '+C.border,borderRadius:8,color:lookupState==='done'?C.greenLt:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
+                style={{background:'var(--w05)',border:'1px solid '+C.border,borderRadius:8,color:lookupState==='done'?C.greenLt:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
             </div>
             <div>
               <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Narx / Maqsad narx ($)</div>
               <input value={form.targetPrice} onChange={function(e){setForm(function(f){return{...f,targetPrice:e.target.value};});}}
                 placeholder="Avtomatik yoki o'zing yoz"
-                style={{background:'rgba(255,255,255,0.05)',border:'1px solid '+C.border,borderRadius:8,color:lookupState==='done'?C.greenLt:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
+                style={{background:'var(--w05)',border:'1px solid '+C.border,borderRadius:8,color:lookupState==='done'?C.greenLt:C.text,padding:'8px 11px',fontSize:13,outline:'none',width:'100%',fontFamily:"'JetBrains Mono',monospace"}}/>
             </div>
           </div>
           <div style={{marginBottom:12}}>
             <div style={{fontSize:10.5,color:C.faint,marginBottom:4}}>Eslatma</div>
             <textarea value={form.notes} onChange={e=>setForm(f=>({...f,notes:e.target.value}))} rows={2}
               placeholder="Nima uchun kuzatyapman, qachon kiraman..."
-              style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
+              style={{background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 11px',fontSize:12.5,outline:'none',width:'100%',resize:'vertical',fontFamily:"'Sora',sans-serif"}}/>
           </div>
           <button onClick={save}
             style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'10px 28px',cursor:'pointer'}}>
@@ -2895,7 +2929,7 @@ function JournalPage({lang="uz", setPage}){
           <input value={nameInput} onChange={e=>setNameInput(e.target.value)}
             onKeyDown={e=>{if(e.key==='Enter'&&nameInput.trim()){localStorage.setItem(U_KEY,nameInput.trim());setUser(nameInput.trim());}}}
             placeholder="Ismingiz (masalan: Muhammadyusuf)"
-            style={{flex:1,background:'rgba(12,20,38,.85)',border:`1px solid ${C.border}`,borderRadius:12,color:C.text,padding:'13px 16px',fontSize:14,outline:'none',fontFamily:"'Sora',sans-serif"}}/>
+            style={{flex:1,background:'var(--glass2)',border:`1px solid ${C.border}`,borderRadius:12,color:C.text,padding:'13px 16px',fontSize:14,outline:'none',fontFamily:"'Sora',sans-serif"}}/>
           <button onClick={()=>{if(nameInput.trim()){localStorage.setItem(U_KEY,nameInput.trim());setUser(nameInput.trim());}}}
             style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:12,color:'#fff',fontWeight:700,padding:'0 22px',cursor:'pointer',fontSize:14,whiteSpace:'nowrap'}}>
             Kirish →
@@ -2965,7 +2999,7 @@ function EquityChart({history, startBal}){
   xLabels.push({i:history.length-1,label:history[history.length-1].d});
   return(
     <svg viewBox={'0 0 '+W+' '+H} style={{width:'100%',height:170,display:'block'}}>
-      <line x1={PX} y1={sy} x2={W-PX} y2={sy} stroke="rgba(255,255,255,0.12)" strokeDasharray="5,4"/>
+      <line x1={PX} y1={sy} x2={W-PX} y2={sy} stroke="var(--w12)" strokeDasharray="5,4"/>
       <text x={PX+3} y={sy-5} fontSize="9" fill="rgba(255,255,255,0.25)">Start</text>
       {history.length>1&&<polygon points={area} fill={col+'15'}/>}
       {history.length>1&&<polyline points={pts} fill="none" stroke={col} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>}
@@ -3254,7 +3288,7 @@ function DemoPage({lang="uz", setPage}){
         <p style={{color:C.dim,fontSize:13,marginBottom:8,lineHeight:1.6}}>Haqiqiy pul yo'q — real narxlarda mashq qiling.</p>
         <p style={{color:C.faint,fontSize:11,marginBottom:24}}>{D.browserSave}</p>
         <input value={newName} onChange={e=>setNewName(e.target.value)} placeholder={D.accName}
-          style={{width:'100%',background:'rgba(12,20,38,.85)',border:`1px solid ${C.border}`,borderRadius:10,color:C.text,padding:'11px 14px',fontSize:13,outline:'none',marginBottom:14,boxSizing:'border-box',fontFamily:"'Sora',sans-serif"}}/>
+          style={{width:'100%',background:'var(--glass2)',border:`1px solid ${C.border}`,borderRadius:10,color:C.text,padding:'11px 14px',fontSize:13,outline:'none',marginBottom:14,boxSizing:'border-box',fontFamily:"'Sora',sans-serif"}}/>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
           {[1000,3000,5000,10000].map((amt,idx)=>(
             <button key={amt} onClick={()=>createAcc(amt)}
@@ -3291,7 +3325,7 @@ function DemoPage({lang="uz", setPage}){
         }[lang]||{title:'Sotish',full:"To'liq",qty:'Dona',amt:'Summa $',own:'Sizda',cur:'Joriy narx',sellQ:'Sotiladi',get:'Olinadi',pnl:'P&L'};
         return(
           <div onClick={()=>setSellModal(null)} style={{position:'fixed',inset:0,zIndex:1000,background:'rgba(0,0,0,0.6)',backdropFilter:'blur(4px)',display:'flex',alignItems:'center',justifyContent:'center',padding:16}}>
-            <div onClick={e=>e.stopPropagation()} style={{background:'#0b1628',border:`1px solid ${C.border}`,borderRadius:18,padding:'22px 20px',width:'100%',maxWidth:380,boxShadow:'0 20px 60px rgba(0,0,0,0.7)'}}>
+            <div onClick={e=>e.stopPropagation()} style={{background:'var(--modal)',border:`1px solid ${C.border}`,borderRadius:18,padding:'22px 20px',width:'100%',maxWidth:380,boxShadow:'0 20px 60px rgba(0,0,0,0.7)'}}>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:14}}>
                 <div style={{fontSize:15,fontWeight:800,color:C.text,fontFamily:"'Sora',sans-serif"}}>
                   <span style={{color:C.red}}>▼</span> {L.title}: <span style={{color:C.blueLt,fontFamily:"'JetBrains Mono',monospace"}}>{m.pos.ticker}</span>
@@ -3304,7 +3338,7 @@ function DemoPage({lang="uz", setPage}){
                 <span>{L.cur}: <b style={{color:C.blueLt,fontFamily:"'JetBrains Mono',monospace"}}>${cp.toFixed(2)}</b></span>
               </div>
 
-              <div style={{display:'flex',gap:4,marginBottom:12,background:'rgba(0,0,0,0.3)',borderRadius:9,padding:3}}>
+              <div style={{display:'flex',gap:4,marginBottom:12,background:'var(--k30)',borderRadius:9,padding:3}}>
                 {[['full',L.full],['qty',L.qty],['amt',L.amt]].map(function(t){
                   return(
                     <button key={t[0]} onClick={()=>setSellModal({...m,mode:t[0]})}
@@ -3317,11 +3351,11 @@ function DemoPage({lang="uz", setPage}){
 
               {m.mode==='qty'&&(
                 <input type="number" autoFocus value={m.qty} onChange={e=>setSellModal({...m,qty:e.target.value})} placeholder={String(m.pos.shares)} min="0.0001" max={m.pos.shares} step="any"
-                  style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'9px 11px',fontSize:14,outline:'none',boxSizing:'border-box',marginBottom:12,fontFamily:"'JetBrains Mono',monospace"}}/>
+                  style={{width:'100%',background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'9px 11px',fontSize:14,outline:'none',boxSizing:'border-box',marginBottom:12,fontFamily:"'JetBrains Mono',monospace"}}/>
               )}
               {m.mode==='amt'&&(
                 <input type="number" autoFocus value={m.amt} onChange={e=>setSellModal({...m,amt:e.target.value})} placeholder={(cp*m.pos.shares).toFixed(0)} min="1" max={cp*m.pos.shares} step="any"
-                  style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'9px 11px',fontSize:14,outline:'none',boxSizing:'border-box',marginBottom:12,fontFamily:"'JetBrains Mono',monospace"}}/>
+                  style={{width:'100%',background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'9px 11px',fontSize:14,outline:'none',boxSizing:'border-box',marginBottom:12,fontFamily:"'JetBrains Mono',monospace"}}/>
               )}
 
               {(m.mode==='qty'||m.mode==='amt')&&(
@@ -3333,7 +3367,7 @@ function DemoPage({lang="uz", setPage}){
                 </button>
               )}
               {shr>0&&(
-                <div style={{background:'rgba(0,0,0,0.25)',borderRadius:10,padding:'10px 12px',marginBottom:14,fontSize:12,color:C.dim,lineHeight:1.8}}>
+                <div style={{background:'var(--k25)',borderRadius:10,padding:'10px 12px',marginBottom:14,fontSize:12,color:C.dim,lineHeight:1.8}}>
                   {L.sellQ}: <b style={{color:C.text}}>{shr}</b> / {m.pos.shares}
                   <br/>{L.get}: <b style={{color:C.blueLt,fontFamily:"'JetBrains Mono',monospace"}}>${proceeds.toFixed(2)}</b>
                   {'   '}{L.pnl}: <b style={{color:pnl>=0?C.green:C.red,fontFamily:"'JetBrains Mono',monospace"}}>{pnl>=0?'+':''}{pnl.toFixed(2)}$</b>
@@ -3342,7 +3376,7 @@ function DemoPage({lang="uz", setPage}){
 
               <div style={{display:'flex',gap:8}}>
                 <button onClick={doSell} disabled={shr<=0}
-                  style={{flex:1,background:shr>0?`linear-gradient(135deg,${C.red},#f0762b)`:'rgba(255,255,255,0.05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:13.5,padding:'11px',cursor:shr>0?'pointer':'default',fontFamily:"'Sora',sans-serif"}}>
+                  style={{flex:1,background:shr>0?`linear-gradient(135deg,${C.red},#f0762b)`:'var(--w05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:13.5,padding:'11px',cursor:shr>0?'pointer':'default',fontFamily:"'Sora',sans-serif"}}>
                   {D.confirm}
                 </button>
                 <button onClick={()=>setSellModal(null)}
@@ -3391,7 +3425,7 @@ function DemoPage({lang="uz", setPage}){
         {showNew&&(
           <div style={{display:'flex',gap:7,alignItems:'center',flexWrap:'wrap',padding:'8px 12px',background:C.card,border:`1px solid ${C.border}`,borderRadius:12}}>
             <input value={newName} onChange={e=>setNewName(e.target.value)} placeholder={D.accName}
-              style={{background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'6px 10px',fontSize:12,outline:'none',width:130,fontFamily:"'Sora',sans-serif"}}/>
+              style={{background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'6px 10px',fontSize:12,outline:'none',width:130,fontFamily:"'Sora',sans-serif"}}/>
             {[1000,3000,5000,10000].map(function(amt){
               return(
                 <button key={amt} onClick={()=>createAcc(amt)}
@@ -3441,7 +3475,7 @@ function DemoPage({lang="uz", setPage}){
             </div>
           </div>
         </div>
-        <div style={{background:'rgba(0,0,0,0.2)',borderRadius:12,padding:'10px 8px 4px'}}>
+        <div style={{background:'var(--k20)',borderRadius:12,padding:'10px 8px 4px'}}>
           <EquityChart history={demo.history} startBal={demo.startBal}/>
         </div>
       </div>
@@ -3461,7 +3495,7 @@ function DemoPage({lang="uz", setPage}){
                 onChange={e=>setBuyForm(f=>({...f,ticker:e.target.value.toUpperCase(),price:null,err:''}))}
                 onKeyDown={e=>e.key==='Enter'&&fetchBuyPrice()}
                 placeholder="AAPL"
-                style={{flex:1,background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:15,fontFamily:"'JetBrains Mono',monospace",fontWeight:700,outline:'none'}}/>
+                style={{flex:1,background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:15,fontFamily:"'JetBrains Mono',monospace",fontWeight:700,outline:'none'}}/>
               <button onClick={fetchBuyPrice} disabled={buyForm.fetching||!buyForm.ticker}
                 style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:'none',borderRadius:8,color:'#fff',fontSize:12,fontWeight:700,padding:'0 14px',cursor:'pointer'}}>
                 {buyForm.fetching?'...':(D.fetchBtn||'Narx')}
@@ -3476,7 +3510,7 @@ function DemoPage({lang="uz", setPage}){
             </div>
           )}
           <div style={{marginBottom:10}}>
-            <div style={{display:'flex',gap:4,marginBottom:6,background:'rgba(0,0,0,0.25)',borderRadius:8,padding:3,width:'fit-content'}}>
+            <div style={{display:'flex',gap:4,marginBottom:6,background:'var(--k25)',borderRadius:8,padding:3,width:'fit-content'}}>
               {[['qty',{uz:'Dona',en:'Shares',tr:'Adet',ru:'Шт',ar:'عدد'}[lang]||'Dona'],['amt',{uz:'Summa $',en:'Amount $',tr:'Tutar $',ru:'Сумма $',ar:'مبلغ $'}[lang]||'Summa $']].map(function(m){
                 return(
                   <button key={m[0]} onClick={()=>setBuyMode(m[0])}
@@ -3488,9 +3522,9 @@ function DemoPage({lang="uz", setPage}){
             </div>
             {buyMode==='qty'
               ?<input type="number" value={buyForm.shares} onChange={e=>setBuyForm(f=>({...f,shares:e.target.value}))} placeholder="10" min="0.0001" step="any"
-                style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+                style={{width:'100%',background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
               :<input type="number" value={buyAmt} onChange={e=>setBuyAmt(e.target.value)} placeholder="100" min="1" step="any"
-                style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
+                style={{width:'100%',background:'var(--w05)',border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none',boxSizing:'border-box'}}/>
             }
             {buyForm.price&&(
               <button onClick={()=>{
@@ -3526,14 +3560,14 @@ function DemoPage({lang="uz", setPage}){
             </div>
           </div>
           {buyForm.price&&buyForm.sl&&buyForm.tp&&(
-            <div style={{background:'rgba(0,0,0,0.2)',borderRadius:8,padding:'8px 10px',marginBottom:12,fontSize:11.5,color:C.dim}}>
+            <div style={{background:'var(--k20)',borderRadius:8,padding:'8px 10px',marginBottom:12,fontSize:11.5,color:C.dim}}>
               {D.rr}: <b style={{color:C.text}}>{(((parseFloat(buyForm.tp)-buyForm.price)/(buyForm.price-parseFloat(buyForm.sl)))||0).toFixed(1)}x</b>
               {'  '}
               <span style={{color:C.red}}>{D.maxLoss}: -{((buyForm.price-parseFloat(buyForm.sl))*effShares()).toFixed(2)}$</span>
             </div>
           )}
           <button onClick={executeBuy} disabled={!buyForm.price||effShares()<=0}
-            style={{width:'100%',background:buyForm.price&&effShares()>0?`linear-gradient(135deg,${C.blue},${C.green})`:'rgba(255,255,255,0.05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'12px',cursor:buyForm.price&&effShares()>0?'pointer':'default',boxSizing:'border-box'}}>
+            style={{width:'100%',background:buyForm.price&&effShares()>0?`linear-gradient(135deg,${C.blue},${C.green})`:'var(--w05)',border:'none',borderRadius:10,color:'#fff',fontWeight:700,fontSize:14,padding:'12px',cursor:buyForm.price&&effShares()>0?'pointer':'default',boxSizing:'border-box'}}>
             {D.buyBtn}
           </button>
           <div style={{fontSize:10.5,color:C.faint,textAlign:'center',marginTop:8}}>{D.disclaimer}</div>
@@ -3541,7 +3575,7 @@ function DemoPage({lang="uz", setPage}){
 
         {/* Assets */}
         <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:'18px'}}>
-          <div style={{display:'flex',gap:6,marginBottom:14,background:'rgba(0,0,0,0.2)',borderRadius:10,padding:4,width:'fit-content'}}>
+          <div style={{display:'flex',gap:6,marginBottom:14,background:'var(--k20)',borderRadius:10,padding:4,width:'fit-content'}}>
             {[['positions',D.assets+' ('+(demo.positions||[]).length+')'],['history',D.histTab+' ('+(demo.history_trades||[]).length+')']].map(function(item){
               const k=item[0]; const l=item[1];
               return(
@@ -3574,7 +3608,7 @@ function DemoPage({lang="uz", setPage}){
                       const fl=flash[pos.ticker];
                       const flBg=fl==='up'?'rgba(55,178,77,0.12)':fl==='down'?'rgba(229,72,77,0.12)':'transparent';
                       return(
-                        <tr key={pos.id} style={{borderBottom:`1px solid rgba(255,255,255,0.04)`,background:flBg,transition:'background .5s ease'}}>
+                        <tr key={pos.id} style={{borderBottom:`1px solid var(--w04)`,background:flBg,transition:'background .5s ease'}}>
                           <td style={{padding:'8px 6px',fontFamily:"'JetBrains Mono',monospace",fontWeight:700,color:C.blueLt}}>{pos.ticker}</td>
                           <td style={{padding:'8px 6px',color:C.text}}>{pos.shares}</td>
                           <td style={{padding:'8px 6px',color:C.dim,fontSize:11}}>${pos.buyPrice.toFixed(2)}</td>
@@ -3615,7 +3649,7 @@ function DemoPage({lang="uz", setPage}){
                   <tbody>
                     {[...(demo.history_trades||[])].reverse().map(function(t){
                       return(
-                        <tr key={t.id} style={{borderBottom:`1px solid rgba(255,255,255,0.04)`}}>
+                        <tr key={t.id} style={{borderBottom:`1px solid var(--w04)`}}>
                           <td style={{padding:'7px 6px',fontFamily:"'JetBrains Mono',monospace",fontWeight:700,color:C.blueLt}}>{t.ticker}</td>
                           <td style={{padding:'7px 6px',color:C.faint,fontSize:10.5}}>{t.closeDate}</td>
                           <td style={{padding:'7px 6px',color:C.dim,fontSize:10.5}}>${t.buyPrice.toFixed(2)}</td>
@@ -3752,7 +3786,7 @@ function AuthScreen({lang, onClose}){
     </div>
   );
 }
-function inpStyle(){ return {width:"100%",background:"rgba(255,255,255,0.05)",border:`1px solid ${C.border}`,borderRadius:9,color:C.text,padding:"10px 12px",fontSize:14,outline:"none",boxSizing:"border-box",fontFamily:"'Manrope',sans-serif"}; }
+function inpStyle(){ return {width:"100%",background:"var(--w05)",border:`1px solid ${C.border}`,borderRadius:9,color:C.text,padding:"10px 12px",fontSize:14,outline:"none",boxSizing:"border-box",fontFamily:"'Manrope',sans-serif"}; }
 
 // LockGate — himoyalangan sahifalarni o'rab turadi
 function LockGate({state, lang, setPage, children}){
@@ -3862,7 +3896,7 @@ function AdminPanel({lang,setPage,auth}){
       <div style={{display:"flex",gap:6,marginBottom:16,flexWrap:"wrap"}}>
         {[["all",T.adminAll,counts.all],["pending",T.adminPending,counts.pending],["active",T.adminActive,counts.active],["expired",T.adminExpired,counts.expired]].map(f=>(
           <button key={f[0]} onClick={()=>setFilter(f[0])}
-            style={{background:filter===f[0]?`linear-gradient(135deg,${C.blue},${C.green})`:"rgba(255,255,255,0.04)",border:`1px solid ${filter===f[0]?"transparent":C.border}`,borderRadius:9,color:filter===f[0]?"#fff":C.dim,fontWeight:filter===f[0]?700:500,padding:"7px 13px",cursor:"pointer",fontSize:12.5,fontFamily:"'Sora',sans-serif"}}>
+            style={{background:filter===f[0]?`linear-gradient(135deg,${C.blue},${C.green})`:"var(--w04)",border:`1px solid ${filter===f[0]?"transparent":C.border}`,borderRadius:9,color:filter===f[0]?"#fff":C.dim,fontWeight:filter===f[0]?700:500,padding:"7px 13px",cursor:"pointer",fontSize:12.5,fontFamily:"'Sora',sans-serif"}}>
             {f[1]} <span style={{opacity:0.7}}>({f[2]})</span>
           </button>
         ))}
@@ -3927,8 +3961,8 @@ function AdminPanel({lang,setPage,auth}){
                               const done=pct!=null;
                               const passed=done&&pct>=70;
                               return(
-                                <div key={m} style={{display:"flex",alignItems:"center",gap:7,background:"rgba(0,0,0,0.2)",borderRadius:8,padding:"6px 9px"}}>
-                                  <span style={{flexShrink:0,width:20,height:20,borderRadius:6,background:passed?C.green:done?"rgba(240,169,43,0.2)":"rgba(255,255,255,0.05)",color:passed?"#fff":done?C.amber:C.faint,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10.5,fontWeight:700}}>{passed?"✓":m}</span>
+                                <div key={m} style={{display:"flex",alignItems:"center",gap:7,background:"var(--k20)",borderRadius:8,padding:"6px 9px"}}>
+                                  <span style={{flexShrink:0,width:20,height:20,borderRadius:6,background:passed?C.green:done?"rgba(240,169,43,0.2)":"var(--w05)",color:passed?"#fff":done?C.amber:C.faint,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10.5,fontWeight:700}}>{passed?"✓":m}</span>
                                   <span style={{fontSize:10.5,color:C.faint}}>M{m}:</span>
                                   <span style={{fontSize:11.5,fontWeight:700,color:done?(passed?C.greenLt:C.amber):C.faint,marginLeft:"auto"}}>{done?pct+"%":"—"}</span>
                                 </div>
@@ -4051,7 +4085,7 @@ function LessonsPage({lang="uz", setPage}){
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,flexWrap:"wrap",marginBottom:26}}>
         <div style={{flex:"1 1 220px"}}>
           <div style={{fontSize:12,color:C.faint,marginBottom:5}}>{T.progress}: {doneN} / {count}</div>
-          <div style={{height:6,background:"rgba(255,255,255,0.06)",borderRadius:3,overflow:"hidden"}}>
+          <div style={{height:6,background:"var(--w06)",borderRadius:3,overflow:"hidden"}}>
             <div style={{height:"100%",width:`${doneN / count * 100}%`,background:`linear-gradient(90deg,${C.green},${C.blueLt})`,borderRadius:3}}/>
           </div>
         </div>
@@ -4069,7 +4103,7 @@ function LessonsPage({lang="uz", setPage}){
             <button key={i} onClick={()=>go(i, true)}
               style={{display:"flex",alignItems:"center",gap:14,textAlign:rtl?"right":"left",width:"100%",background:active?"rgba(47,125,246,0.12)":C.card,border:`1px solid ${active?C.blue:C.border}`,borderRadius:14,padding:10,cursor:"pointer",fontFamily:"'Manrope',sans-serif"}}>
               <div style={{flexShrink:0,width:40,height:40,borderRadius:11,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,fontWeight:800,fontFamily:"'Sora',sans-serif",
-                background:active?`linear-gradient(135deg,${C.blue},${C.green})`:seen?"rgba(55,178,77,0.15)":"rgba(255,255,255,0.05)",color:active?"#fff":seen?C.greenLt:C.dim}}>{i + 1}</div>
+                background:active?`linear-gradient(135deg,${C.blue},${C.green})`:seen?"rgba(55,178,77,0.15)":"var(--w05)",color:active?"#fff":seen?C.greenLt:C.dim}}>{i + 1}</div>
               <div style={{flexShrink:0,position:"relative",width:128,height:72,borderRadius:9,overflow:"hidden",background:"linear-gradient(135deg,#132544,#0e2a22)"}}>
                 {v && <img src={"https://i.ytimg.com/vi/" + v.id + "/mqdefault.jpg"} alt="" loading="lazy" onError={(e)=>{e.currentTarget.style.display="none";}} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>}
                 {!v && <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",color:"rgba(255,255,255,0.5)",fontSize:22}}>▶</div>}
@@ -4263,7 +4297,7 @@ function PatternPage({lang="uz", setPage, auth}){
     return(
       <div style={{padding:"70px 0 0",maxWidth:1000,margin:"0 auto"}}>
         <div style={{padding:"0 16px 10px"}}>
-          <button onClick={()=>setView("pick")} style={{background:"rgba(8,14,30,0.85)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"#8ea0c4",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.back}</button>
+          <button onClick={()=>setView("pick")} style={{background:"var(--glass)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.back}</button>
         </div>
         <iframe title="Pattern Trainer" src={"/pattern-trainer.html?strat="+strat}
           style={{width:"100%",height:"820px",border:"none",borderRadius:0,background:"#060a14"}}/>
@@ -4276,7 +4310,7 @@ function PatternPage({lang="uz", setPage, auth}){
     const myEmail=(auth&&auth.user&&auth.user.email)||null;
     return(
       <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:720,margin:"0 auto"}}>
-        <div style={{marginBottom:18}}><button onClick={()=>setView("pick")} style={{background:"rgba(8,14,30,0.85)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"#8ea0c4",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.back}</button></div>
+        <div style={{marginBottom:18}}><button onClick={()=>setView("pick")} style={{background:"var(--glass)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.back}</button></div>
         <div style={{textAlign:"center",marginBottom:24}}>
           <div style={{fontSize:40,marginBottom:8}}>🏆</div>
           <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:24,color:C.text,margin:0}}>{T.lbTitle}</h1>
@@ -4695,7 +4729,7 @@ function ExamPage({lang="uz", setPage, auth}){
                   <div style={{fontSize:12.5,color:C.greenLt,marginBottom:8,display:"flex",gap:6,alignItems:"flex-start"}}>
                     <span>✓</span><span><b>{T.correctAns}:</b> {q.opts[q.correct]}</span>
                   </div>
-                  <div style={{fontSize:12,color:C.dim,lineHeight:1.6,background:"rgba(0,0,0,0.2)",borderRadius:8,padding:"8px 11px"}}>💡 {q.expl}</div>
+                  <div style={{fontSize:12,color:C.dim,lineHeight:1.6,background:"var(--k20)",borderRadius:8,padding:"8px 11px"}}>💡 {q.expl}</div>
                 </div>
               );
             })}
@@ -4726,11 +4760,11 @@ function ExamPage({lang="uz", setPage, auth}){
             <span style={{fontSize:12.5,color:C.dim,fontWeight:600}}>{T.mod} {activeMod} · {T.q} {curQ+1} {T.of} {questions.length}</span>
             <span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:13,fontWeight:700,fontFamily:"'JetBrains Mono',monospace",
               color:timeLeft<=60?C.red:timeLeft<=180?C.amber:C.greenLt,
-              background:timeLeft<=60?"rgba(229,72,77,0.12)":"rgba(255,255,255,0.05)",borderRadius:8,padding:"4px 10px"}}>
+              background:timeLeft<=60?"rgba(229,72,77,0.12)":"var(--w05)",borderRadius:8,padding:"4px 10px"}}>
               ⏱ {fmtTime(timeLeft)}
             </span>
           </div>
-          <div style={{height:6,background:"rgba(255,255,255,0.06)",borderRadius:3,overflow:"hidden"}}>
+          <div style={{height:6,background:"var(--w06)",borderRadius:3,overflow:"hidden"}}>
             <div style={{height:"100%",width:`${((curQ+ (answered?1:0))/questions.length)*100}%`,background:`linear-gradient(90deg,${C.blue},${C.green})`,borderRadius:3,transition:"width .3s"}}/>
           </div>
         </div>
@@ -4750,7 +4784,7 @@ function ExamPage({lang="uz", setPage, auth}){
                 style={{display:"flex",alignItems:"center",gap:13,textAlign:rtl?"right":"left",
                   background:sel?"rgba(47,125,246,0.12)":C.card,
                   border:`1.5px solid ${sel?C.blue:C.border}`,borderRadius:13,padding:"14px 16px",cursor:"pointer",transition:"all .15s"}}>
-                <span style={{flexShrink:0,width:30,height:30,borderRadius:"50%",background:sel?`linear-gradient(135deg,${C.blue},${C.green})`:"rgba(255,255,255,0.05)",
+                <span style={{flexShrink:0,width:30,height:30,borderRadius:"50%",background:sel?`linear-gradient(135deg,${C.blue},${C.green})`:"var(--w05)",
                   color:sel?"#fff":C.dim,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,fontSize:13.5,fontFamily:"'Sora',sans-serif"}}>{letter}</span>
                 <span style={{fontSize:14.5,color:sel?C.text:C.dim,lineHeight:1.4,fontWeight:sel?600:400}}>{opt}</span>
               </button>
@@ -4759,7 +4793,7 @@ function ExamPage({lang="uz", setPage, auth}){
         </div>
 
         <button onClick={nextQ} disabled={!answered}
-          style={{width:"100%",background:answered?`linear-gradient(135deg,${C.blue},${C.green})`:"rgba(255,255,255,0.05)",
+          style={{width:"100%",background:answered?`linear-gradient(135deg,${C.blue},${C.green})`:"var(--w05)",
             border:"none",borderRadius:13,color:answered?"#fff":C.faint,fontWeight:700,fontSize:15,padding:"14px",
             cursor:answered?"pointer":"default",fontFamily:"'Sora',sans-serif"}}>
           {curQ<questions.length-1?T.next+" →":T.finish+" ✓"}
@@ -4773,7 +4807,7 @@ function ExamPage({lang="uz", setPage, auth}){
     const myEmail=(auth&&auth.user&&auth.user.email)||null;
     return(
       <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:720,margin:"0 auto"}}>
-        <div style={{marginBottom:18}}><button onClick={()=>setView("list")} style={{background:"rgba(8,14,30,0.85)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"#8ea0c4",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>← {T.backToList}</button></div>
+        <div style={{marginBottom:18}}><button onClick={()=>setView("list")} style={{background:"var(--glass)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>← {T.backToList}</button></div>
         <div style={{textAlign:"center",marginBottom:24}}>
           <div style={{fontSize:40,marginBottom:8}}>🏆</div>
           <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:0}}>{T.leaderboard}</h1>
@@ -4812,7 +4846,7 @@ function ExamPage({lang="uz", setPage, auth}){
     const passedAll=examFull.filter(r=>r.best_percent>=PASS).length;
     return(
       <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:720,margin:"0 auto"}}>
-        <div style={{marginBottom:18}}><button onClick={()=>setView("list")} style={{background:"rgba(8,14,30,0.85)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"#8ea0c4",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>← {T.backToList}</button></div>
+        <div style={{marginBottom:18}}><button onClick={()=>setView("list")} style={{background:"var(--glass)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>← {T.backToList}</button></div>
         <div style={{textAlign:"center",marginBottom:24}}>
           <div style={{fontSize:40,marginBottom:8}}>📊</div>
           <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:0}}>{T.statsTitle}</h1>
@@ -4844,7 +4878,7 @@ function ExamPage({lang="uz", setPage, auth}){
                       <span style={{fontSize:14,fontWeight:800,color:pct==null?C.faint:passed?C.greenLt:C.amber,fontFamily:"'Sora',sans-serif"}}>{pct!=null?pct+"%":"—"}</span>
                     </div>
                     {pct!=null&&(
-                      <div style={{height:6,background:"rgba(255,255,255,0.06)",borderRadius:3,overflow:"hidden"}}>
+                      <div style={{height:6,background:"var(--w06)",borderRadius:3,overflow:"hidden"}}>
                         <div style={{height:"100%",width:pct+"%",background:passed?`linear-gradient(90deg,${C.green},${C.blueLt})`:C.amber,borderRadius:3}}/>
                       </div>
                     )}
@@ -4872,7 +4906,7 @@ function ExamPage({lang="uz", setPage, auth}){
           <div style={{display:"flex",justifyContent:"space-between",fontSize:11.5,color:C.faint,marginBottom:5}}>
             <span>{T.progress}</span><span>{passedCount}/7</span>
           </div>
-          <div style={{height:8,background:"rgba(255,255,255,0.06)",borderRadius:4,overflow:"hidden"}}>
+          <div style={{height:8,background:"var(--w06)",borderRadius:4,overflow:"hidden"}}>
             <div style={{height:"100%",width:`${passedCount/7*100}%`,background:`linear-gradient(90deg,${C.green},${C.blueLt})`,borderRadius:4,transition:"width .4s"}}/>
           </div>
         </div>
@@ -4901,7 +4935,7 @@ function ExamPage({lang="uz", setPage, auth}){
               opacity:unlocked?1:0.55,position:"relative"}}>
               <div style={{display:"flex",alignItems:"center",gap:14}}>
                 <div style={{flexShrink:0,width:46,height:46,borderRadius:13,
-                  background:passed?`linear-gradient(135deg,${C.green},${C.blue})`:unlocked?"rgba(47,125,246,0.12)":"rgba(255,255,255,0.04)",
+                  background:passed?`linear-gradient(135deg,${C.green},${C.blue})`:unlocked?"rgba(47,125,246,0.12)":"var(--w04)",
                   display:"flex",alignItems:"center",justifyContent:"center",fontSize:19,fontWeight:800,
                   color:passed?"#fff":unlocked?C.blueLt:C.faint,fontFamily:"'Sora',sans-serif"}}>
                   {passed?"✓":unlocked?mod:"🔒"}
@@ -4942,19 +4976,22 @@ export default function App(){
     return ()=>window.removeEventListener("popstate",onPop);
   },[]);
   const [lang,setLang]=useState("uz");
+  const [theme,setTheme]=useState(initialTheme);
+  const toggleTheme=React.useCallback(()=>{ setTheme(t=>applyTheme(t==="light"?"dark":"light")); },[]);
   const auth=useAuth();
   const aState=accessState(auth.profile);
   // Login bo'lgach auth sahifasidan home ga qaytar
   useEffect(()=>{ if(auth.user && page==="auth") setPage("home"); },[auth.user]);
   return(
-    <div style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'Manrope',system-ui,sans-serif"}}>
+    <div data-theme={theme} style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'Manrope',system-ui,sans-serif",transition:"background .25s,color .25s"}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
         *{box-sizing:border-box;margin:0;padding:0;} ::selection{background:#2f7df6;color:#fff;} a{text-decoration:none;} button{font-family:inherit;}
         @keyframes spin{to{transform:rotate(360deg);}}\n        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-        ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:#060a14;} ::-webkit-scrollbar-thumb{background:#2f7df6;border-radius:2px;}
+        @media(max-width:480px){.nav-social{display:none!important;}}
+        ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--scrollTrack);} ::-webkit-scrollbar-thumb{background:#2f7df6;border-radius:2px;}
       `}</style>
-      <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang} auth={auth}/>
+      <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang} auth={auth} theme={theme} toggleTheme={toggleTheme}/>
       {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/><HalalBanner setPage={setPage} lang={lang}/></>}
       {page==="halal"&&<HalalPage lang={lang} setPage={setPage}/>}
       {page==="lessons"&&<LessonsPage lang={lang} setPage={setPage}/>}
