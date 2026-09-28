@@ -106,11 +106,11 @@ const THEME_VARS={
   dark:{"--bg":"#060a14","--glass":"rgba(8,14,30,0.85)","--glass2":"rgba(12,20,38,.85)","--nav":"rgba(6,10,20,0.97)","--navT":"rgba(6,10,20,0.7)","--menu":"rgba(6,10,20,0.98)","--modal":"#0b1628","--dimv":"#8ea0c4",
     "--heroG":"linear-gradient(160deg,rgba(6,10,20,1) 0%,rgba(11,22,40,1) 100%)","--illus":"rgba(13,22,42,0.7)",
     "--w01":"rgba(255,255,255,0.01)","--w04":"rgba(255,255,255,0.04)","--w05":"rgba(255,255,255,0.05)","--w06":"rgba(255,255,255,0.06)","--w07":"rgba(255,255,255,0.07)","--w12":"rgba(255,255,255,0.12)",
-    "--k20":"rgba(0,0,0,0.2)","--k25":"rgba(0,0,0,0.25)","--k30":"rgba(0,0,0,0.3)","--shadow":"0 8px 32px rgba(0,0,0,0.6)","--scrollTrack":"#060a14","--tick":"#03060d","--tickLabel":"#070d1c"},
+    "--k20":"rgba(0,0,0,0.2)","--k25":"rgba(0,0,0,0.25)","--k30":"rgba(0,0,0,0.3)","--shadow":"0 8px 32px rgba(0,0,0,0.6)","--scrollTrack":"#060a14","--tick":"#03060d","--tickLabel":"#070d1c","--halalBg":"linear-gradient(135deg,#0a2a1d 0%,#0b1f38 100%)","--halalBorder":"rgba(55,178,77,0.3)","--halalPat":"rgba(82,216,105,0.14)","--cardShadow":"0 16px 50px rgba(0,0,0,0.35)"},
   light:{"--bg":"#f3f6fb","--glass":"rgba(255,255,255,0.92)","--glass2":"#ffffff","--nav":"rgba(255,255,255,0.97)","--navT":"rgba(255,255,255,0.8)","--menu":"#ffffff","--modal":"#ffffff","--dimv":"#475569",
-    "--heroG":"linear-gradient(160deg,#ffffff 0%,#e9f0fb 100%)","--illus":"#0e1a33",
+    "--heroG":"linear-gradient(160deg,#ffffff 0%,#e9f0fb 100%)","--illus":"#ffffff",
     "--w01":"rgba(15,23,42,0.015)","--w04":"rgba(15,23,42,0.035)","--w05":"rgba(15,23,42,0.045)","--w06":"rgba(15,23,42,0.06)","--w07":"rgba(15,23,42,0.07)","--w12":"rgba(15,23,42,0.10)",
-    "--k20":"rgba(15,23,42,0.04)","--k25":"rgba(15,23,42,0.05)","--k30":"rgba(15,23,42,0.06)","--shadow":"0 8px 28px rgba(15,23,42,0.12)","--scrollTrack":"#e6ecf5","--tick":"#ffffff","--tickLabel":"#eef3fb"},
+    "--k20":"rgba(15,23,42,0.04)","--k25":"rgba(15,23,42,0.05)","--k30":"rgba(15,23,42,0.06)","--shadow":"0 8px 28px rgba(15,23,42,0.12)","--scrollTrack":"#e6ecf5","--tick":"#ffffff","--tickLabel":"#eef3fb","--halalBg":"linear-gradient(135deg,#ecfbf1 0%,#eef5ff 100%)","--halalBorder":"rgba(34,160,80,0.25)","--halalPat":"rgba(22,120,60,0.10)","--cardShadow":"0 12px 36px rgba(15,23,42,0.08)"},
 };
 function applyTheme(t){
   const th=t==="light"?"light":"dark";
@@ -882,15 +882,15 @@ const MKT_T = {
 // AQSh birjasi: dush–jum, 09:30–16:00 Nyu-York vaqti. Bayram kunlari hisobga olinmaydi.
 const US_MKT = {tz:"America/New_York", s:[[570,960]], open:[9,30], close:[16,0]};
 const CITIES = [
-  {k:"ny",  tz:"America/New_York", flag:"🇺🇸"},
-  {k:"tas", tz:"Asia/Tashkent",    flag:"🇺🇿"},
-  {k:"ist", tz:"Europe/Istanbul",  flag:"🇹🇷"},
-  {k:"msk", tz:"Europe/Moscow",    flag:"🇷🇺"},
-  {k:"lon", tz:"Europe/London",    flag:"🇬🇧"},
-  {k:"fra", tz:"Europe/Berlin",    flag:"🇩🇪"},
-  {k:"dxb", tz:"Asia/Dubai",       flag:"🇦🇪"},
-  {k:"tyo", tz:"Asia/Tokyo",       flag:"🇯🇵"},
-  {k:"hkg", tz:"Asia/Hong_Kong",   flag:"🇭🇰"},
+  {k:"ny",  tz:"America/New_York", code:"us", flag:"🇺🇸"},
+  {k:"tas", tz:"Asia/Tashkent",    code:"uz", flag:"🇺🇿"},
+  {k:"ist", tz:"Europe/Istanbul",  code:"tr", flag:"🇹🇷"},
+  {k:"msk", tz:"Europe/Moscow",    code:"ru", flag:"🇷🇺"},
+  {k:"lon", tz:"Europe/London",    code:"gb", flag:"🇬🇧"},
+  {k:"fra", tz:"Europe/Berlin",    code:"de", flag:"🇩🇪"},
+  {k:"dxb", tz:"Asia/Dubai",       code:"ae", flag:"🇦🇪"},
+  {k:"tyo", tz:"Asia/Tokyo",       code:"jp", flag:"🇯🇵"},
+  {k:"hkg", tz:"Asia/Hong_Kong",   code:"hk", flag:"🇭🇰"},
 ];
 const _TZF = {};
 function tzParts(tz, now){
@@ -965,11 +965,11 @@ function MarketTicker({lang="uz"}){
     const range = ses ? (hm(ses.open, c.tz) + "–" + hm(ses.close, c.tz)) : "";
     return (
       <div key={c.k} style={{display:"inline-flex",alignItems:"center",gap:7,padding:"0 16px",borderRight:`1px solid ${C.border}`,whiteSpace:"nowrap",height:"100%"}}>
-        <span style={{fontSize:14,lineHeight:1}}>{c.flag}</span>
+        <Flag code={c.code} size={16} emoji={c.flag}/>
         <span style={{fontSize:12,fontWeight:700,color:C.text}}>{T.city[c.k]}</span>
         <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:12,fontWeight:700,color:C.blueLt}}>{p.text}</span>
         <span title="NYSE / NASDAQ" style={{display:"inline-flex",alignItems:"center",gap:4,fontSize:11,fontWeight:700,color:st.open?C.green:C.dim,background:st.open?"rgba(55,178,77,0.12)":"var(--w05)",border:`1px solid ${st.open?"rgba(55,178,77,0.35)":C.border}`,borderRadius:20,padding:"2px 8px"}}>
-          🇺🇸 <span style={{fontFamily:"'JetBrains Mono',monospace"}}>{range}</span>
+          <Flag code="us" size={12} emoji="🇺🇸"/> <span style={{fontFamily:"'JetBrains Mono',monospace"}}>{range}</span>
         </span>
       </div>
     );
@@ -977,7 +977,7 @@ function MarketTicker({lang="uz"}){
   return (
     <div dir="ltr" style={{position:"fixed",top:0,left:0,right:0,height:34,zIndex:101,background:"var(--tick)",borderBottom:`1px solid ${C.border}`,display:"flex",alignItems:"center",overflow:"hidden"}}>
       <div style={{flexShrink:0,height:"100%",display:"flex",alignItems:"center",gap:7,padding:"0 10px",background:"var(--tickLabel)",borderRight:`1px solid ${C.border}`,zIndex:2}}>
-        <span style={{fontSize:13}}>🇺🇸</span>
+        <Flag code="us" size={17} emoji="🇺🇸"/>
         <span className="mkt-long" style={{fontSize:10.5,fontWeight:800,letterSpacing:"1px",color:C.blueLt}}>{T.label}</span>
         <span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:11,fontWeight:700,color:col,background:st.open?"rgba(55,178,77,0.12)":"rgba(229,72,77,0.1)",border:`1px solid ${st.open?"rgba(55,178,77,0.35)":"rgba(229,72,77,0.3)"}`,borderRadius:20,padding:"2px 8px",whiteSpace:"nowrap"}}>
           <span className={st.open?"mkt-dot":""} style={{width:6,height:6,borderRadius:"50%",background:col,display:"inline-block"}}/>
@@ -994,6 +994,54 @@ function MarketTicker({lang="uz"}){
   );
 }
 
+// ═══ UI TO'PLAMI: bayroqlar, chiziqli ikonkalar, halol muhri ═════════════════
+function Flag({code, size=18, emoji}){
+  const [err, setErr] = useState(false);
+  if(err || !code) return <span style={{fontSize:Math.round(size*0.9),lineHeight:1}}>{emoji||""}</span>;
+  return <img src={"https://flagcdn.com/" + code + ".svg"} alt={code.toUpperCase()} width={size} height={size} loading="lazy" onError={()=>setErr(true)}
+    style={{width:size,height:size,borderRadius:"50%",objectFit:"cover",display:"inline-block",flexShrink:0,verticalAlign:"middle",boxShadow:"0 0 0 1.5px rgba(255,255,255,0.85), 0 1px 4px rgba(0,0,0,0.3)"}}/>;
+}
+const LINE_ICONS = {
+  halal:  <><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/><path d="m17 4 .7 1.6 1.6.7-1.6.7L17 8.6l-.7-1.6-1.6-.7 1.6-.7z"/></>,
+  home:   <><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></>,
+  lessons:<><rect x="3" y="4" width="18" height="16" rx="4"/><path d="m10 9 5 3-5 3z"/></>,
+  tool:   <><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.3-4.3"/><path d="M8.5 13.5v-2M11 13.5V9M13.5 13.5v-3.5"/></>,
+  course: <><path d="M22 9 12 4 2 9l10 5 10-5z"/><path d="M6 11.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-4.5"/><path d="M22 9v6"/></>,
+  journal:<><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3v18"/><path d="M10 8h5M10 12h5M10 16h3"/></>,
+  demo:   <><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/><path d="M15 8h4v4"/></>,
+  exam:   <><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="m9 13 2 2 4-4"/></>,
+  pattern:<><path d="M7 3v4M7 17v4M17 3v3M17 14v7"/><rect x="5" y="7" width="4" height="10" rx="1"/><rect x="15" y="6" width="4" height="8" rx="1"/></>,
+  about:  <><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M21.5 20a6.5 6.5 0 0 0-4-6"/></>,
+  edu:    <><path d="M2 5h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 5h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/></>,
+};
+function LineIcon({name, size=18, stroke=2}){
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,display:"block"}}>{LINE_ICONS[name]}</svg>;
+}
+function NavIcon({name, color}){
+  return <span style={{width:32,height:32,borderRadius:10,display:"inline-flex",alignItems:"center",justifyContent:"center",flexShrink:0,color:color,background:`linear-gradient(135deg,${color}2e,${color}12)`,border:`1px solid ${color}45`}}><LineIcon name={name} size={17}/></span>;
+}
+function HalalSeal({size=190}){
+  return (
+    <svg width={size} height={size} viewBox="0 0 200 200" role="img" aria-label="Halal" style={{display:"block",flexShrink:0}}>
+      <defs>
+        <linearGradient id="hsG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#22c55e"/><stop offset="100%" stopColor="#0f7a3a"/></linearGradient>
+        <linearGradient id="hsRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#4ade80"/><stop offset="100%" stopColor="#2f7df6"/></linearGradient>
+      </defs>
+      <g className="hs-spin" style={{transformOrigin:"100px 100px"}}>
+        <circle cx="100" cy="100" r="95" fill="none" stroke="url(#hsRing)" strokeWidth="2" strokeDasharray="3 7" strokeLinecap="round"/>
+      </g>
+      <circle cx="100" cy="100" r="84" fill="url(#hsG)"/>
+      <circle cx="100" cy="100" r="76" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5"/>
+      <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1" strokeDasharray="2 4"/>
+      {[0,45,90,135,180,225,270,315].map(function(a){ const r=a*Math.PI/180; return <circle key={a} cx={100+80*Math.cos(r)} cy={100+80*Math.sin(r)} r="1.8" fill="#ffffff" opacity="0.8"/>; })}
+      <text x="100" y="98" textAnchor="middle" fontSize="44" fontWeight="700" fill="#ffffff" fontFamily="'Amiri','Noto Naskh Arabic','Traditional Arabic','Arial',serif">حلال</text>
+      <text x="100" y="128" textAnchor="middle" fontSize="15" fontWeight="800" letterSpacing="4" fill="#ffffff" fontFamily="'Sora','Manrope',Arial,sans-serif">HALAL</text>
+      <text x="100" y="145" textAnchor="middle" fontSize="7.5" fontWeight="700" letterSpacing="2.5" fill="rgba(255,255,255,0.85)" fontFamily="'Sora','Manrope',Arial,sans-serif">CERTIFIED · AAOIFI</text>
+      <path d="M78 58 L100 50 L122 58" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
 // ─── NavBar ─────────────────────────────────────────────────────────────────
 function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
   const [open,setOpen]=useState(false);
@@ -1002,19 +1050,19 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>30);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   const sn=getST(lang).nav;
   const links=[
-    {id:"halal",label:sn.halal,hot:true,icon:"☪️"},
-    {id:"home",label:sn.home,icon:"🏠"},
-    {id:"lessons",label:(LES_T[lang]||LES_T.uz).title,icon:"🎬"},
-    {id:"tool",label:sn.tool,icon:"🔬"},
-    {id:"course",label:sn.course,icon:"🎓"},
-    {id:"journal",label:sn.journal||"Kundalik",icon:"📒"},
-    {id:"demo",label:sn.demo||"Demo",icon:"💹"},
-    {id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,icon:"📝"},
-    {id:"pattern",label:(PT_T[lang]||PT_T.uz).title,icon:"🕯️"},
-    {id:"about",label:sn.about,icon:"🤝"},
-    {id:"edu",label:"Savura Edu",icon:"📚",ext:"https://savuraedu.com"}];
+    {id:"halal",label:sn.halal,hot:true,icon:"halal",ic:"#22a55a"},
+    {id:"home",label:sn.home,icon:"home",ic:"#3b82f6"},
+    {id:"lessons",label:(LES_T[lang]||LES_T.uz).title,icon:"lessons",ic:"#ef4444"},
+    {id:"tool",label:sn.tool,icon:"tool",ic:"#06b6d4"},
+    {id:"course",label:sn.course,icon:"course",ic:"#8b5cf6"},
+    {id:"journal",label:sn.journal||"Kundalik",icon:"journal",ic:"#f59e0b"},
+    {id:"demo",label:sn.demo||"Demo",icon:"demo",ic:"#10b981"},
+    {id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,icon:"exam",ic:"#6366f1"},
+    {id:"pattern",label:(PT_T[lang]||PT_T.uz).title,icon:"pattern",ic:"#f97316"},
+    {id:"about",label:sn.about,icon:"about",ic:"#ec4899"},
+    {id:"edu",label:"Savura Edu",icon:"edu",ic:"#14b8a6",ext:"https://savuraedu.com"}];
   const go=(id)=>{setPage(id);setOpen(false);setFlagOpen(false);window.scrollTo({top:0,behavior:"smooth"});};
-  const LANGS=[{k:"uz",f:"🇺🇿",l:"O'Z"},{k:"en",f:"🇺🇸",l:"EN"},{k:"tr",f:"🇹🇷",l:"TR"},{k:"ru",f:"🇷🇺",l:"RU"},{k:"ar",f:"🇸🇦",l:"AR"}];
+  const LANGS=[{k:"uz",c:"uz",f:"🇺🇿",l:"O'Z"},{k:"en",c:"us",f:"🇺🇸",l:"EN"},{k:"tr",c:"tr",f:"🇹🇷",l:"TR"},{k:"ru",c:"ru",f:"🇷🇺",l:"RU"},{k:"ar",c:"sa",f:"🇸🇦",l:"AR"}];
   const cur=LANGS.find(function(x){return x.k===lang;})||LANGS[0];
   return(
     <nav style={{position:"fixed",top:34,left:0,right:0,zIndex:100,background:scrolled||open||flagOpen?"var(--nav)":"var(--navT)",backdropFilter:"blur(16px)",borderBottom:`1px solid ${scrolled?C.border:"transparent"}`,transition:"background .3s"}}>
@@ -1037,13 +1085,13 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
           </button>
           <div style={{position:"relative"}}>
             <button onClick={()=>{setFlagOpen(v=>!v);setOpen(false);}} style={{background:flagOpen?"rgba(47,125,246,0.15)":"transparent",border:`1px solid ${flagOpen?C.blueLt:C.border}`,borderRadius:8,padding:"4px 8px",cursor:"pointer",height:36,display:"flex",alignItems:"center",gap:4,fontSize:19,lineHeight:1}}>
-              {cur.f}<span style={{fontSize:11,color:flagOpen?C.blueLt:C.faint,fontFamily:"'JetBrains Mono',monospace"}}>{cur.l}</span>
+              <Flag code={cur.c} size={19} emoji={cur.f}/><span style={{fontSize:11,color:flagOpen?C.blueLt:C.faint,fontFamily:"'JetBrains Mono',monospace"}}>{cur.l}</span>
             </button>
             {flagOpen&&(
               <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,background:"var(--menu)",border:`1px solid ${C.border}`,borderRadius:12,overflow:"hidden",minWidth:130,boxShadow:"var(--shadow)",zIndex:200}}>
                 {LANGS.map(function(l){return(
                   <button key={l.k} onClick={()=>{setLang(l.k);setFlagOpen(false);}} style={{display:"flex",alignItems:"center",gap:10,width:"100%",background:lang===l.k?"rgba(47,125,246,0.1)":"transparent",border:"none",borderLeft:`3px solid ${lang===l.k?C.blue:"transparent"}`,padding:"10px 14px",cursor:"pointer",color:lang===l.k?C.blueLt:C.dim,fontFamily:"'Manrope',sans-serif",fontSize:14,fontWeight:lang===l.k?700:400,textAlign:"left"}}>
-                    <span style={{fontSize:20}}>{l.f}</span><span>{l.l}</span>
+                    <Flag code={l.c} size={20} emoji={l.f}/><span>{l.l}</span>
                   </button>
                 );})}
               </div>
@@ -1057,12 +1105,12 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
       {open&&(
         <div style={{borderTop:`1px solid ${C.border}`,background:"var(--menu)"}}>
           {links.map(function(l){return l.ext
-            ?<a key={l.id} href={l.ext} target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"center",width:"100%",background:"transparent",borderLeft:"3px solid transparent",color:C.dim,padding:"15px 24px",fontSize:15,fontWeight:500,fontFamily:"'Manrope',sans-serif",textDecoration:"none",gap:10}}>
-              <span style={{width:24,textAlign:"center",fontSize:17,lineHeight:1,flexShrink:0}}>{l.icon}</span>
+            ?<a key={l.id} href={l.ext} target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"center",width:"100%",background:"transparent",borderLeft:"3px solid transparent",color:C.dim,padding:"11px 22px",fontSize:15,fontWeight:500,fontFamily:"'Manrope',sans-serif",textDecoration:"none",gap:12}}>
+              <NavIcon name={l.icon} color={l.ic}/>
               <span style={{flex:1}}>{l.label}</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{opacity:.4}}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
-            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:10,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"15px 24px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}><span style={{width:24,textAlign:"center",fontSize:17,lineHeight:1,flexShrink:0}}>{l.icon}</span><span>{l.label}</span></button>;
+            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:12,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"11px 22px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}><NavIcon name={l.icon} color={l.ic}/><span>{l.label}</span></button>;
           })}
           <div style={{padding:"10px 24px 6px",borderTop:`1px solid ${C.border}`}}>
             {auth&&auth.user
@@ -1093,23 +1141,20 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
 
 // ─── Finance Illustration ────────────────────────────────────────────────────
 function FinanceIllustration(){
+  const box = C.bg2, txt = C.text, grid = C.border, lab = C.faint;
   return(
     <div style={{padding:"0 24px 20px",maxWidth:1100,margin:"0 auto"}}>
-      <div style={{background:"var(--illus)",border:`1px solid rgba(74,163,255,0.12)`,borderRadius:24,overflow:"hidden",position:"relative",padding:"32px 28px"}}>
-        <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 60% 80% at 80% 50%,rgba(47,125,246,0.06),transparent 70%)"}}/>
+      <div style={{background:"var(--illus)",border:`1px solid ${C.border}`,borderRadius:24,overflow:"hidden",position:"relative",padding:"32px 28px",boxShadow:"var(--cardShadow)"}}>
+        <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 60% 80% at 80% 50%,rgba(47,125,246,0.07),transparent 70%)"}}/>
         <svg width="100%" height="220" viewBox="0 0 800 220" style={{position:"relative"}}>
           <defs>
             <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#4aa3ff" stopOpacity="0.3"/>
+              <stop offset="0%" stopColor="#4aa3ff" stopOpacity="0.28"/>
               <stop offset="100%" stopColor="#4aa3ff" stopOpacity="0"/>
-            </linearGradient>
-            <linearGradient id="greenGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#52d869" stopOpacity="0.3"/>
-              <stop offset="100%" stopColor="#52d869" stopOpacity="0"/>
             </linearGradient>
             <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="#2f7df6"/>
-              <stop offset="100%" stopColor="#52d869"/>
+              <stop offset="100%" stopColor="#37b24d"/>
             </linearGradient>
           </defs>
           <style>{`
@@ -1120,44 +1165,30 @@ function FinanceIllustration(){
             .fade-card{animation:fadeUp .6s ease forwards;}
             .pulse{animation:pulse 2s ease infinite;}
           `}</style>
+          {[80,200,320,440,560,680].map(function(x,i){return(<line key={i} x1={x} y1="20" x2={x} y2="200" stroke={grid} strokeWidth="1"/>);})}
+          {[40,80,120,160].map(function(y,i){return(<line key={i} x1="20" y1={y} x2="780" y2={y} stroke={grid} strokeWidth="1" opacity="0.6"/>);})}
+          <polygon points="20,160 80,140 140,120 200,135 260,90 320,70 380,85 440,55 500,40 560,60 620,45 680,30 740,50 780,38 780,200 20,200" fill="url(#chartGrad)"/>
           <polyline className="chart-line" points="20,160 80,140 140,120 200,135 260,90 320,70 380,85 440,55 500,40 560,60 620,45 680,30 740,50 780,38"
-            fill="none" stroke="url(#lineGrad)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-          <polygon points="20,160 80,140 140,120 200,135 260,90 320,70 380,85 440,55 500,40 560,60 620,45 680,30 740,50 780,38 780,200 20,200"
-            fill="url(#chartGrad)" opacity="0.5"/>
-          <rect x="20" y="195" width="760" height="1" fill="rgba(74,163,255,0.15)"/>
-          {[80,200,320,440,560,680].map(function(x,i){return(
-            <line key={i} x1={x} y1="20" x2={x} y2="200" stroke="rgba(74,163,255,0.06)" strokeWidth="1"/>
+            fill="none" stroke="url(#lineGrad)" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"/>
+          <rect x="20" y="195" width="760" height="1" fill={grid}/>
+          <circle cx="780" cy="38" r="10" fill="rgba(55,178,77,0.2)" className="pulse"/>
+          <circle cx="780" cy="38" r="5" fill="#37b24d" className="pulse"/>
+          {[{x:260,y:90},{x:440,y:55},{x:620,y:45}].map(function(p,i){return(<circle key={i} cx={p.x} cy={p.y} r="3.5" fill="#2f7df6"/>);})}
+          {[["AAPL","$189.25",null,20,8,"#2f7df6"],["MSFT","$415.30","+2.1%",280,30,"#2f7df6"],["NVDA","$875.40","+4.2%",580,8,"#37b24d"]].map(function(b,i){return(
+            <g key={b[0]} className="fade-card" style={{animationDelay:(i*0.25)+"s"}}>
+              <rect x={b[3]} y={b[4]} width="112" height="42" rx="9" fill={box} stroke={b[5]} strokeOpacity="0.35" strokeWidth="1"/>
+              <text x={b[3]+12} y={b[4]+15} fill={b[5]} fontSize="9.5" fontFamily="JetBrains Mono,monospace" fontWeight="700">{b[0]}</text>
+              <text x={b[3]+12} y={b[4]+32} fill={txt} fontSize="12.5" fontFamily="JetBrains Mono,monospace" fontWeight="700">{b[1]}</text>
+              {b[2] && <text x={b[3]+74} y={b[4]+15} fill="#37b24d" fontSize="8.5" fontFamily="JetBrains Mono,monospace" fontWeight="700">{b[2]}</text>}
+            </g>
           );})}
-          {[40,80,120,160].map(function(y,i){return(
-            <line key={i} x1="20" y1={y} x2="780" y2={y} stroke="rgba(74,163,255,0.04)" strokeWidth="1"/>
-          );})}
-          <circle cx="780" cy="38" r="5" fill="#52d869" className="pulse"/>
-          <circle cx="780" cy="38" r="10" fill="rgba(82,216,105,0.2)" className="pulse"/>
-          <rect x="580" y="8" width="110" height="40" rx="8" fill="rgba(13,22,42,0.95)" stroke="rgba(82,216,105,0.3)" strokeWidth="1" className="fade-card" style={{animationDelay:".5s"}}/>
-          <text x="592" y="22" fill="#52d869" fontSize="9" fontFamily="JetBrains Mono,monospace" fontWeight="700">NVDA</text>
-          <text x="592" y="38" fill="#edf2ff" fontSize="12" fontFamily="JetBrains Mono,monospace" fontWeight="700">$875.40</text>
-          <text x="660" y="22" fill="#52d869" fontSize="8" fontFamily="JetBrains Mono,monospace">+4.2%</text>
-          <rect x="20" y="8" width="100" height="40" rx="8" fill="rgba(13,22,42,0.95)" stroke="rgba(74,163,255,0.3)" strokeWidth="1" className="fade-card"/>
-          <text x="32" y="22" fill="#4aa3ff" fontSize="9" fontFamily="JetBrains Mono,monospace" fontWeight="700">AAPL</text>
-          <text x="32" y="38" fill="#edf2ff" fontSize="12" fontFamily="JetBrains Mono,monospace" fontWeight="700">$189.25</text>
-          <rect x="280" y="30" width="100" height="40" rx="8" fill="rgba(13,22,42,0.95)" stroke="rgba(82,216,105,0.25)" strokeWidth="1" className="fade-card" style={{animationDelay:".3s"}}/>
-          <text x="292" y="44" fill="#4aa3ff" fontSize="9" fontFamily="JetBrains Mono,monospace" fontWeight="700">MSFT</text>
-          <text x="292" y="60" fill="#edf2ff" fontSize="12" fontFamily="JetBrains Mono,monospace" fontWeight="700">$415.30</text>
-          <text x="358" y="44" fill="#52d869" fontSize="8" fontFamily="JetBrains Mono,monospace">+2.1%</text>
-          <text x="30" y="185" fill="rgba(74,163,255,0.3)" fontSize="9" fontFamily="JetBrains Mono,monospace">JAN</text>
-          <text x="190" y="185" fill="rgba(74,163,255,0.3)" fontSize="9" fontFamily="JetBrains Mono,monospace">MAR</text>
-          <text x="360" y="185" fill="rgba(74,163,255,0.3)" fontSize="9" fontFamily="JetBrains Mono,monospace">MAY</text>
-          <text x="530" y="185" fill="rgba(74,163,255,0.3)" fontSize="9" fontFamily="JetBrains Mono,monospace">AUG</text>
-          <text x="690" y="185" fill="rgba(74,163,255,0.3)" fontSize="9" fontFamily="JetBrains Mono,monospace">NOV</text>
-          {[{x:260,y:90},{x:440,y:55},{x:620,y:45}].map(function(p,i){return(
-            <circle key={i} cx={p.x} cy={p.y} r="3.5" fill="#4aa3ff" opacity="0.8"/>
-          );})}
+          {[["JAN",30],["MAR",190],["MAY",360],["AUG",530],["NOV",690]].map(function(m){return(<text key={m[0]} x={m[1]} y="185" fill={lab} fontSize="9.5" fontFamily="JetBrains Mono,monospace">{m[0]}</text>);})}
         </svg>
-        <div style={{display:"flex",gap:16,marginTop:16,flexWrap:"wrap",justifyContent:"center"}}>
-          {[["P/E","18.4x","Baholanish"],["EPS Growth","+24%","O'sish"],["Gross Margin","74%","Rentabellik"],["Beta","1.12","Risk"],["ROE","38%","Samaradorlik"]].map(function(it){return(
-            <div key={it[0]} style={{background:"rgba(7,11,22,0.6)",border:"1px solid rgba(74,163,255,0.1)",borderRadius:10,padding:"8px 14px",textAlign:"center",minWidth:80}}>
-              <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:14,color:"#4aa3ff"}}>{it[1]}</div>
-              <div style={{fontSize:10,color:"rgba(141,160,196,0.7)",marginTop:2}}>{it[0]}</div>
+        <div style={{display:"flex",gap:12,marginTop:16,flexWrap:"wrap",justifyContent:"center",position:"relative"}}>
+          {[["P/E","18.4x"],["EPS Growth","+24%"],["Gross Margin","74%"],["Beta","1.12"],["ROE","38%"]].map(function(it){return(
+            <div key={it[0]} style={{background:"var(--w04)",border:`1px solid ${C.border}`,borderRadius:12,padding:"9px 16px",textAlign:"center",minWidth:84}}>
+              <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:14.5,color:C.blueLt}}>{it[1]}</div>
+              <div style={{fontSize:10.5,color:C.faint,marginTop:2,fontWeight:600}}>{it[0]}</div>
             </div>
           );})}
         </div>
@@ -1232,11 +1263,9 @@ function HeroSection({setPage,lang}){
         </h1>
         <p style={{fontSize:"clamp(14px,2.5vw,17px)",color:C.dim,maxWidth:500,margin:"0 auto 36px",lineHeight:1.7}}>{sh.desc}</p>
         <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
-          <button onClick={()=>setPage("tool")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 28px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 28px rgba(47,125,246,0.28)"}}>{sh.btn1}</button>
-          <button onClick={()=>setPage("course")} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:12,color:C.dim,fontWeight:600,fontSize:15,padding:"13px 28px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{sh.btn2}</button>
-          <button onClick={()=>setPage("demo")} style={{background:"transparent",border:"1px solid rgba(82,216,105,0.4)",borderRadius:12,color:C.greenLt,fontWeight:600,fontSize:15,padding:"13px 28px",cursor:"pointer",fontFamily:"'Sora',sans-serif",display:"flex",alignItems:"center",gap:8}}>
-            <span style={{fontSize:18}}>📈</span> Demo Treyding
-          </button>
+          <button className="hero-btn" onClick={()=>setPage("tool")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 24px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(47,125,246,0.26)",display:"inline-flex",alignItems:"center",gap:9}}><LineIcon name="tool" size={18}/>{sh.btn1}</button>
+          <button className="hero-btn" onClick={()=>setPage("course")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 24px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(47,125,246,0.26)",display:"inline-flex",alignItems:"center",gap:9}}><LineIcon name="course" size={18}/>{sh.btn2}</button>
+          <button className="hero-btn" onClick={()=>setPage("demo")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 24px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(47,125,246,0.26)",display:"inline-flex",alignItems:"center",gap:9}}><LineIcon name="demo" size={18}/>Demo Treyding</button>
         </div>
         <div style={{display:"flex",justifyContent:"center",gap:32,marginTop:48,flexWrap:"wrap"}}>
           {sh.stats.map(function(it){return(
@@ -1309,71 +1338,51 @@ function HalalBanner({setPage, lang}){
   const rtl = lang==="ar";
   return(
     <div style={{padding:"10px 24px 70px",maxWidth:1100,margin:"0 auto"}}>
-      <div onClick={()=>setPage("halal")}
-        role="button" tabIndex={0}
+      <div onClick={()=>setPage("halal")} role="button" tabIndex={0}
         onKeyDown={(e)=>{ if(e.key==="Enter"||e.key===" ") setPage("halal"); }}
-        style={{position:"relative",overflow:"hidden",cursor:"pointer",borderRadius:24,
-          background:"linear-gradient(135deg,#0a2e1f 0%,#0d2137 55%,#0a1f3a 100%)",
-          border:"1px solid rgba(55,178,77,0.3)",
-          boxShadow:"0 16px 50px rgba(0,0,0,0.4)",
-          transition:"transform .25s ease, box-shadow .25s ease"}}
-        onMouseEnter={(e)=>{e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 22px 60px rgba(55,178,77,0.18)";}}
-        onMouseLeave={(e)=>{e.currentTarget.style.transform="translateY(0)";e.currentTarget.style.boxShadow="0 16px 50px rgba(0,0,0,0.4)";}}>
-
-        {/* Islomiy geometrik naqsh (SVG fon) */}
-        <svg width="100%" height="100%" viewBox="0 0 800 320" preserveAspectRatio="xMidYMid slice"
-          style={{position:"absolute",inset:0,opacity:0.13,pointerEvents:"none"}}>
+        className="halal-card"
+        style={{position:"relative",overflow:"hidden",cursor:"pointer",borderRadius:26,background:"var(--halalBg)",border:"1px solid var(--halalBorder)",boxShadow:"var(--cardShadow)",transition:"transform .25s ease, box-shadow .25s ease"}}>
+        {/* Islomiy geometrik naqsh */}
+        <svg width="100%" height="100%" viewBox="0 0 800 320" preserveAspectRatio="xMidYMid slice" style={{position:"absolute",inset:0,opacity:0.5,pointerEvents:"none"}}>
           <defs>
-            <pattern id="islamicStar" width="80" height="80" patternUnits="userSpaceOnUse" patternTransform="rotate(0)">
-              <g fill="none" stroke="#52d869" strokeWidth="1.1">
+            <pattern id="halalStar" width="80" height="80" patternUnits="userSpaceOnUse">
+              <g fill="none" style={{stroke:"var(--halalPat)"}} strokeWidth="1">
                 <path d="M40 8 L52 28 L74 28 L57 44 L64 66 L40 53 L16 66 L23 44 L6 28 L28 28 Z"/>
                 <circle cx="40" cy="40" r="30"/>
                 <rect x="22" y="22" width="36" height="36" transform="rotate(45 40 40)"/>
               </g>
             </pattern>
-            <radialGradient id="bnGlow" cx="78%" cy="30%" r="60%">
-              <stop offset="0%" stopColor="#37b24d" stopOpacity="0.35"/>
-              <stop offset="100%" stopColor="#37b24d" stopOpacity="0"/>
-            </radialGradient>
           </defs>
-          <rect width="800" height="320" fill="url(#islamicStar)"/>
-          <rect width="800" height="320" fill="url(#bnGlow)"/>
+          <rect width="800" height="320" fill="url(#halalStar)"/>
         </svg>
+        <div style={{position:"absolute",right:"-80px",top:"-80px",width:360,height:360,borderRadius:"50%",background:"radial-gradient(circle,rgba(55,178,77,0.22),transparent 65%)",pointerEvents:"none"}}/>
 
-        {/* Kontent */}
-        <div dir={rtl?"rtl":"ltr"} style={{position:"relative",padding:"clamp(28px,5vw,48px) clamp(24px,5vw,52px)",textAlign:rtl?"right":"left"}}>
-          <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16,justifyContent:rtl?"flex-end":"flex-start"}}>
-            <span style={{fontSize:34,lineHeight:1}}>☪️</span>
-            <span style={{fontSize:11,letterSpacing:"2.5px",color:"#52d869",fontWeight:600,fontFamily:"'JetBrains Mono',monospace"}}>{H.badge}</span>
+        <div dir={rtl?"rtl":"ltr"} style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"space-between",gap:28,flexWrap:"wrap",padding:"clamp(26px,5vw,46px) clamp(22px,5vw,50px)"}}>
+          <div style={{flex:"1 1 340px",minWidth:0,textAlign:rtl?"right":"left"}}>
+            <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(55,178,77,0.12)",border:"1px solid rgba(55,178,77,0.35)",borderRadius:30,padding:"6px 14px",marginBottom:16}}>
+              <span style={{color:C.greenLt,display:"flex"}}><LineIcon name="halal" size={15}/></span>
+              <span style={{fontSize:11,letterSpacing:"2px",color:C.greenLt,fontWeight:700}}>{H.badge}</span>
+            </div>
+            <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(28px,5vw,44px)",color:C.text,margin:"0 0 12px",lineHeight:1.08,letterSpacing:"0.3px"}}>{H.title}</h2>
+            <p style={{color:C.dim,fontSize:"clamp(14px,2vw,16px)",lineHeight:1.65,maxWidth:520,margin:rtl?"0 0 20px auto":"0 0 20px"}}>{H.bnSub}</p>
+            <div style={{display:"flex",flexWrap:"wrap",gap:9,marginBottom:24,justifyContent:rtl?"flex-end":"flex-start"}}>
+              {[H.bnTag1,H.bnTag2,H.bnTag3].map(function(tag,i){
+                return(
+                  <span key={i} style={{display:"inline-flex",alignItems:"center",gap:7,background:"var(--w04)",border:`1px solid ${C.border}`,borderRadius:30,padding:"7px 14px",fontSize:12.5,fontWeight:700,color:C.text}}>
+                    <span style={{width:18,height:18,borderRadius:"50%",background:"linear-gradient(135deg,#22c55e,#15803d)",display:"inline-flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 5 5 9-10"/></svg>
+                    </span>
+                    {tag}
+                  </span>
+                );
+              })}
+            </div>
+            <div style={{display:"inline-flex",alignItems:"center",gap:9,background:`linear-gradient(135deg,${C.blue},${C.green})`,borderRadius:13,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 26px",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(55,178,77,0.3)"}}>
+              {H.bnCta} {rtl?"←":"→"}
+            </div>
           </div>
-
-          <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(28px,5.5vw,46px)",color:"#edf2ff",margin:"0 0 12px",lineHeight:1.08,letterSpacing:"0.5px"}}>
-            {H.title}
-          </h2>
-          <p style={{color:"#a8c0e8",fontSize:"clamp(13px,2vw,16px)",lineHeight:1.6,maxWidth:560,margin:rtl?"0 0 22px auto":"0 0 22px"}}>
-            {H.bnSub}
-          </p>
-
-          {/* 3 nishon */}
-          <div style={{display:"flex",flexWrap:"wrap",gap:10,marginBottom:26,justifyContent:rtl?"flex-end":"flex-start"}}>
-            {[H.bnTag1,H.bnTag2,H.bnTag3].map(function(tag,i){
-              return(
-                <span key={i} style={{display:"inline-flex",alignItems:"center",gap:7,
-                  background:"rgba(55,178,77,0.1)",border:"1px solid rgba(55,178,77,0.35)",
-                  borderRadius:30,padding:"7px 15px",fontSize:12.5,fontWeight:600,color:"#7ee89a"}}>
-                  <span style={{width:6,height:6,borderRadius:"50%",background:"#52d869",display:"inline-block"}}/>
-                  {tag}
-                </span>
-              );
-            })}
-          </div>
-
-          {/* CTA tugma */}
-          <div style={{display:"inline-flex",alignItems:"center",gap:9,
-            background:"linear-gradient(135deg,#37b24d,#2f7df6)",borderRadius:13,
-            color:"#fff",fontWeight:700,fontSize:15,padding:"13px 26px",
-            fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(55,178,77,0.32)"}}>
-            {H.bnCta} {rtl?"←":"→"}
+          <div className="halal-seal" style={{flex:"0 0 auto",margin:"0 auto",filter:"drop-shadow(0 14px 30px rgba(22,163,74,0.35))"}}>
+            <HalalSeal size={200}/>
           </div>
         </div>
       </div>
@@ -1501,7 +1510,7 @@ function CoursePage({lang, setPage}){
           <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(26px,5vw,46px)",color:C.text,margin:"0 0 18px",lineHeight:1.1}}>{sc.title}</h1>
           <p style={{fontSize:16,color:C.dim,lineHeight:1.7,maxWidth:580,marginBottom:28}}>{sc.desc}</p>
           <div style={{display:"flex",gap:16,flexWrap:"wrap",marginBottom:32}}>
-            {[["6",sc.sl],["30+",cr.statLessons],["100+",cr.statStock],["Video",cr.statVideo]].map(function(it){return(
+            {[["8",({uz:"Modul",en:"Modules",ru:"Модулей",tr:"Modül",ar:"وحدات"})[lang]||"Modul"],["100+",cr.statLessons],["100+",cr.statStock],["Video",cr.statVideo]].map(function(it){return(
               <div key={it[1]} style={{background:"rgba(47,125,246,0.08)",border:"1px solid rgba(47,125,246,0.18)",borderRadius:10,padding:"10px 16px",textAlign:"center"}}>
                 <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:18,color:C.blueLt}}>{it[0]}</div>
                 <div style={{fontSize:11,color:C.faint,marginTop:2}}>{it[1]}</div>
@@ -4221,12 +4230,21 @@ function LessonsPage({lang="uz", setPage}){
   const rtl = lang === "ar";
   const topRef = React.useRef(null);
   const [items, setItems] = useState(function(){
-    try{ const c = JSON.parse(localStorage.getItem("savura_yt_pl2") || "null"); if(c && c.items && c.items.length) return orderLessons(c.items); }catch(e){}
+    try{ const c = JSON.parse(localStorage.getItem("savura_yt_pl3") || "null"); if(c && c.items && c.items.length) return orderLessons(c.items); }catch(e){}
     return [];
   });
-  const [cur, setCur] = useState(function(){ try{ return parseInt(localStorage.getItem("savura_yt_cur2")) || 0; }catch(e){ return 0; } });
-  const [auto, setAuto] = useState(false);
-  const [watched, setWatched] = useState(function(){ try{ return JSON.parse(localStorage.getItem("savura_yt_watched2") || "[]"); }catch(e){ return []; } });
+  const [cur, setCur] = useState(function(){ try{ return parseInt(localStorage.getItem("savura_yt_cur3")) || 0; }catch(e){ return 0; } });
+  const [playing, setPlaying] = useState(false);
+  const [status, setStatus] = useState(function(){ try{ const c = JSON.parse(localStorage.getItem("savura_yt_pl3") || "null"); return (c && c.items && c.items.length) ? "ok" : "loading"; }catch(e){ return "loading"; } });
+
+  // YouTube serverlari bilan aloqani oldindan ochish (video tezroq ochiladi)
+  React.useEffect(function(){
+    ["https://www.youtube.com","https://i.ytimg.com","https://www.google.com","https://yt3.ggpht.com"].forEach(function(h){
+      if(document.querySelector('link[rel="preconnect"][href="'+h+'"]')) return;
+      const l = document.createElement("link"); l.rel = "preconnect"; l.href = h; l.crossOrigin = "anonymous"; document.head.appendChild(l);
+    });
+  }, []);
+  const [watched, setWatched] = useState(function(){ try{ return JSON.parse(localStorage.getItem("savura_yt_watched3") || "[]"); }catch(e){ return []; } });
 
   // Server orqali playlistni tartib bilan olish
   React.useEffect(function(){
@@ -4234,12 +4252,13 @@ function LessonsPage({lang="uz", setPage}){
     fetch("/api/playlist?list=" + YT_PLAYLIST)
       .then(function(r){ return r.json(); })
       .then(function(j){
-        if(!alive || !j || !j.items || !j.items.length) return;
+        if(!alive) return;
+        if(!j || !j.items || !j.items.length){ setStatus(function(st){ return st === "ok" ? "ok" : "fail"; }); return; }
         const ord = orderLessons(j.items);
-        setItems(ord);
-        try{ localStorage.setItem("savura_yt_pl2", JSON.stringify({items:ord, ts:Date.now()})); }catch(e){}
+        setItems(ord); setStatus("ok");
+        try{ localStorage.setItem("savura_yt_pl3", JSON.stringify({items:ord, ts:Date.now()})); }catch(e){}
       })
-      .catch(function(){});
+      .catch(function(){ if(alive) setStatus(function(st){ return st === "ok" ? "ok" : "fail"; }); });
     return function(){ alive = false; };
   }, []);
 
@@ -4249,21 +4268,22 @@ function LessonsPage({lang="uz", setPage}){
 
   function go(i, scroll){
     if(i < 0 || i >= count) return;
-    setCur(i); setAuto(true);
-    try{ localStorage.setItem("savura_yt_cur2", String(i)); }catch(e){}
+    setCur(i); setPlaying(true);
+    try{ localStorage.setItem("savura_yt_cur3", String(i)); }catch(e){}
     setWatched(function(p){
       if(p.indexOf(i) >= 0) return p;
       const n = p.concat([i]);
-      try{ localStorage.setItem("savura_yt_watched2", JSON.stringify(n)); }catch(e){}
+      try{ localStorage.setItem("savura_yt_watched3", JSON.stringify(n)); }catch(e){}
       return n;
     });
     if(scroll && topRef.current) topRef.current.scrollIntoView({behavior:"smooth", block:"start"});
   }
 
-  const ap = auto ? "&autoplay=1" : "";
+  const ap = playing ? "&autoplay=1" : "";
   const src = it
     ? "https://www.youtube.com/embed/" + it.id + "?rel=0&modestbranding=1&playsinline=1" + ap
     : "https://www.youtube.com/embed/videoseries?list=" + YT_PLAYLIST + "&index=" + (idx + 1) + "&rel=0&playsinline=1" + ap;
+  const startPlay = function(){ go(idx, false); };
   const titleOf = function(i){ return (items[i] && items[i].title) || ((i + 1) + "-" + T.lesson); };
   const plUrl = "https://www.youtube.com/playlist?list=" + YT_PLAYLIST;
   const doneN = watched.filter(function(i){ return i < count; }).length;
@@ -4288,8 +4308,21 @@ function LessonsPage({lang="uz", setPage}){
       {/* Pleyer */}
       <div ref={topRef} style={{scrollMarginTop:112}}/>
       <div style={{position:"relative",width:"100%",paddingTop:"56.25%",background:"#000",borderRadius:18,overflow:"hidden",border:`1px solid ${C.border}`,boxShadow:"0 20px 60px rgba(0,0,0,0.5)"}}>
-        <iframe key={src} title={titleOf(idx)} src={src} style={{position:"absolute",inset:0,width:"100%",height:"100%",border:"none"}}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/>
+        {(playing || status === "fail")
+          ? <iframe key={src} title={titleOf(idx)} src={src} style={{position:"absolute",inset:0,width:"100%",height:"100%",border:"none"}}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/>
+          : it
+            ? <button onClick={startPlay} aria-label={titleOf(idx)} style={{position:"absolute",inset:0,width:"100%",height:"100%",padding:0,border:"none",cursor:"pointer",background:"#000"}}>
+                <img src={"https://i.ytimg.com/vi/" + it.id + "/hqdefault.jpg"} alt="" style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover"}}/>
+                <span style={{position:"absolute",inset:0,background:"linear-gradient(180deg,rgba(0,0,0,0.05) 40%,rgba(0,0,0,0.65) 100%)"}}/>
+                <span className="yt-play" style={{position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)",width:78,height:78,borderRadius:"50%",background:`linear-gradient(135deg,${C.blue},${C.green})`,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 10px 34px rgba(0,0,0,0.45)"}}>
+                  <span style={{width:0,height:0,borderTop:"14px solid transparent",borderBottom:"14px solid transparent",borderLeft:"23px solid #fff",marginLeft:6}}/>
+                </span>
+                <span style={{position:"absolute",left:18,right:18,bottom:16,color:"#fff",fontSize:"clamp(14px,2.4vw,19px)",fontWeight:700,textAlign:"left",fontFamily:"'Sora',sans-serif",textShadow:"0 2px 10px rgba(0,0,0,0.6)"}}>{titleOf(idx)}</span>
+              </button>
+            : <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",background:"linear-gradient(135deg,#0d1b33,#0c2a22)"}}>
+                <div style={{width:40,height:40,border:"3px solid rgba(255,255,255,0.15)",borderTopColor:"#4aa3ff",borderRadius:"50%",animation:"spin 0.8s linear infinite"}}/>
+              </div>}
       </div>
 
       {/* Joriy dars */}
@@ -5221,6 +5254,15 @@ export default function App(){
         .stk-viewport:hover .stk-track{animation-play-state:paused;}
         .stk-track button{transition:transform .2s,border-color .2s;}
         .stk-track button:hover{transform:translateY(-2px);border-color:rgba(74,163,255,0.5)!important;}
+        @keyframes hsSpin{to{transform:rotate(360deg)}}
+        .hs-spin{animation:hsSpin 40s linear infinite;}
+        .halal-card:hover{transform:translateY(-3px);}
+        .halal-card:hover .halal-seal{transform:rotate(-6deg) scale(1.04);}
+        .halal-seal{transition:transform .4s ease;}
+        .hero-btn{transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;}
+        .hero-btn:hover{transform:translateY(-2px);filter:brightness(1.07);box-shadow:0 12px 32px rgba(47,125,246,0.35)!important;}
+        @media (prefers-reduced-motion: reduce){.hs-spin{animation:none;}}
+        .yt-play{transition:transform .2s;} button:hover > .yt-play{transform:translate(-50%,-50%) scale(1.08)!important;}
         @media (prefers-reduced-motion: reduce){.mkt-track{animation-duration:200s;}}
         ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--scrollTrack);} ::-webkit-scrollbar-thumb{background:#2f7df6;border-radius:2px;}
       `}</style>
