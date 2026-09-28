@@ -99,18 +99,18 @@ function accessState(profile){
 
 
 // ═══ MAVZU (TUN / KUN) ═══════════════════════════════════════════════════════
-const C_DARK={bg:"#060a14",bg2:"#0b1628",card:"rgba(13,22,42,0.85)",border:"rgba(74,163,255,0.1)",borderHi:"rgba(74,163,255,0.28)",blue:"#2f7df6",blueLt:"#4aa3ff",green:"#37b24d",greenLt:"#52d869",amber:"#f0a92b",orange:"#e8590c",red:"#e5484d",text:"#edf2ff",dim:"var(--dimv)",faint:"#4a5c82"};
+const C_DARK={bg:"#060a14",bg2:"#0b1628",card:"rgba(13,22,42,0.85)",border:"rgba(74,163,255,0.1)",borderHi:"rgba(74,163,255,0.28)",blue:"#2f7df6",blueLt:"#4aa3ff",green:"#37b24d",greenLt:"#52d869",amber:"#f0a92b",orange:"#e8590c",red:"#e5484d",text:"#edf2ff",dim:"#8ea0c4",faint:"#4a5c82"};
 const C_LIGHT={bg:"#f3f6fb",bg2:"#ffffff",card:"#ffffff",border:"rgba(15,23,42,0.10)",borderHi:"rgba(47,125,246,0.40)",blue:"#2f7df6",blueLt:"#1b6ee0",green:"#2f9e44",greenLt:"#1c9a3c",amber:"#c47f00",orange:"#d9560c",red:"#dc3e43",text:"#0f172a",dim:"#475569",faint:"#7a889e"};
 const C={...C_DARK};
 const THEME_VARS={
-  dark:{"--bg":"#060a14","--glass":"var(--glass)","--glass2":"var(--glass2)","--nav":"var(--nav)","--navT":"var(--navT)","--menu":"var(--menu)","--modal":"#0b1628","--dimv":"var(--dimv)",
-    "--heroG":"var(--heroG)","--illus":"rgba(13,22,42,0.7)",
-    "--w01":"var(--w01)","--w04":"var(--w04)","--w05":"var(--w05)","--w06":"var(--w06)","--w07":"var(--w07)","--w12":"var(--w12)",
-    "--k20":"var(--k20)","--k25":"var(--k25)","--k30":"var(--k30)","--shadow":"0 8px 32px rgba(0,0,0,0.6)","--scrollTrack":"#060a14"},
+  dark:{"--bg":"#060a14","--glass":"rgba(8,14,30,0.85)","--glass2":"rgba(12,20,38,.85)","--nav":"rgba(6,10,20,0.97)","--navT":"rgba(6,10,20,0.7)","--menu":"rgba(6,10,20,0.98)","--modal":"#0b1628","--dimv":"#8ea0c4",
+    "--heroG":"linear-gradient(160deg,rgba(6,10,20,1) 0%,rgba(11,22,40,1) 100%)","--illus":"rgba(13,22,42,0.7)",
+    "--w01":"rgba(255,255,255,0.01)","--w04":"rgba(255,255,255,0.04)","--w05":"rgba(255,255,255,0.05)","--w06":"rgba(255,255,255,0.06)","--w07":"rgba(255,255,255,0.07)","--w12":"rgba(255,255,255,0.12)",
+    "--k20":"rgba(0,0,0,0.2)","--k25":"rgba(0,0,0,0.25)","--k30":"rgba(0,0,0,0.3)","--shadow":"0 8px 32px rgba(0,0,0,0.6)","--scrollTrack":"#060a14","--tick":"#03060d","--tickLabel":"#070d1c"},
   light:{"--bg":"#f3f6fb","--glass":"rgba(255,255,255,0.92)","--glass2":"#ffffff","--nav":"rgba(255,255,255,0.97)","--navT":"rgba(255,255,255,0.8)","--menu":"#ffffff","--modal":"#ffffff","--dimv":"#475569",
     "--heroG":"linear-gradient(160deg,#ffffff 0%,#e9f0fb 100%)","--illus":"#0e1a33",
     "--w01":"rgba(15,23,42,0.015)","--w04":"rgba(15,23,42,0.035)","--w05":"rgba(15,23,42,0.045)","--w06":"rgba(15,23,42,0.06)","--w07":"rgba(15,23,42,0.07)","--w12":"rgba(15,23,42,0.10)",
-    "--k20":"rgba(15,23,42,0.04)","--k25":"rgba(15,23,42,0.05)","--k30":"rgba(15,23,42,0.06)","--shadow":"0 8px 28px rgba(15,23,42,0.12)","--scrollTrack":"#e6ecf5"},
+    "--k20":"rgba(15,23,42,0.04)","--k25":"rgba(15,23,42,0.05)","--k30":"rgba(15,23,42,0.06)","--shadow":"0 8px 28px rgba(15,23,42,0.12)","--scrollTrack":"#e6ecf5","--tick":"#ffffff","--tickLabel":"#eef3fb"},
 };
 function applyTheme(t){
   const th=t==="light"?"light":"dark";
@@ -629,13 +629,13 @@ const EXAM_MOD_NAMES = {
 
 
 const SITE_T={
-  uz:{nav:{halal:"TREYDING HALOLMI?",home:"Bosh sahifa",tool:"Fundamental Tahlil",course:"Aksiyalar savdosi kursi",journal:"Kundalik",demo:"Demo",about:"Biz haqimizda",erp:"Savura ERP"},
+  uz:{nav:{halal:"TREYDING HALOLMI?",home:"Bosh sahifa",tool:"Fundamental Tahlil",course:"Aksiyalar savdosi kursi",journal:"Kundalik",demo:"Demo",about:"Biz haqimizda",erp:"Savura Edu"},
     hero:{badge:"AQSh BIRJASI · FUNDAMENTAL TAHLIL",h1:"Aksiya bozorida",h2:"ongli investitsiya",
       desc:"AQSh aksiya bozorida fundamental tahlil va halol investitsiya bo’yicha O‘zbekistonning yetakchi platformasi.",
       btn1:"Tahlilni boshlash →",btn2:"Kursni ko‘rish",
       stats:[["100+","AQSh aksiyasi"],["5","Tahlil toifasi"],["15","Savol risk modeli"],["2020","Yildan buyon"]]},
     feat:{label:"XIZMATLAR",title:"Savura Invest imkoniyatlari",
-      ct:["Fundamental Tahlil","Risk Darajasi","100+ AQSh Aksiyasi","Aksiyalar savdosi kursi","Telegram Kanal","Instagram","Savura ERP"]},
+      ct:["Fundamental Tahlil","Risk Darajasi","100+ AQSh Aksiyasi","Aksiyalar savdosi kursi","Telegram Kanal","Instagram","Savura Edu"]},
     about:{label:"BIZ HAQIMIZDA",title:"Savura Invest",
       desc:"AQSh aksiya bozorida fundamental tahlil va halol investitsiya bo’yicha O‘zbekistonning yetakchi platformasi.",
       ml:"MISSIYA",mt:"Ongli investitsiya",
@@ -650,13 +650,13 @@ const SITE_T={
       ft:"Bu kurs siz uchun, agar...",ol:"Kurs egasi",sl:"Kurs dasturi",
       ct:"Kursga qoʻshilishga tayormisiz?",cd:"Telegram orqali murojaat qiling.",cb:"Murojaat qilish",
       mt:["Investitsiya asoslari","Aksiyalarni tanlash","Halol investitsiya","Fundamental tahlil","Risk boshqaruvi","Real amaliyot"]}},
-  en:{nav:{halal:"IS TRADING HALAL?",home:"Home",tool:"Fundamental Analysis",course:"Stock Trading Course",journal:"My Space",demo:"Demo",about:"About Us",erp:"Savura ERP"},
+  en:{nav:{halal:"IS TRADING HALAL?",home:"Home",tool:"Fundamental Analysis",course:"Stock Trading Course",journal:"My Space",demo:"Demo",about:"About Us",erp:"Savura Edu"},
     hero:{badge:"US MARKETS · FUNDAMENTAL ANALYSIS",h1:"Smart investing",h2:"in the stock market",
       desc:"Uzbekistan's leading platform for fundamental analysis and halal investing in US stock markets.",
       btn1:"Start Analysis →",btn2:"View Course",
       stats:[["100+","US Stocks"],["5","Categories"],["15","Risk Questions"],["2020","Since"]]},
     feat:{label:"SERVICES",title:"Savura Invest Features",
-      ct:["Fundamental Analysis","Risk Assessment","100+ US Stocks","Stock Trading Course","Telegram Channel","Instagram","Savura ERP"]},
+      ct:["Fundamental Analysis","Risk Assessment","100+ US Stocks","Stock Trading Course","Telegram Channel","Instagram","Savura Edu"]},
     about:{label:"ABOUT US",title:"Savura Invest",
       desc:"Uzbekistan's leading platform for fundamental analysis and halal investing in US stock markets.",
       ml:"MISSION",mt:"Conscious Investing",
@@ -671,13 +671,13 @@ const SITE_T={
       ft:"This course is for you if...",ol:"Instructor",sl:"Curriculum",
       ct:"Ready to join?",cd:"Contact us via Telegram.",cb:"Contact Us",
       mt:["Investment Basics","Selecting Stocks","Halal Investing","Fundamental Analysis","Risk Management","Real Practice"]}},
-  tr:{nav:{halal:"TRADING HELAL Mİ?",home:"Ana Sayfa",tool:"Temel Analiz",course:"Hisse Senedi Kursu",journal:"Günlüğüm",demo:"Demo",about:"Hakkımızda",erp:"Savura ERP"},
+  tr:{nav:{halal:"TRADING HELAL Mİ?",home:"Ana Sayfa",tool:"Temel Analiz",course:"Hisse Senedi Kursu",journal:"Günlüğüm",demo:"Demo",about:"Hakkımızda",erp:"Savura Edu"},
     hero:{badge:"ABD PİYASALARI · TEMEL ANALİZ",h1:"Borsada",h2:"biliçli yatırım",
       desc:"ABD hisse senedi piyasasında temel analiz ve helal yatırım için Özbekistan’in lider platformu.",
       btn1:"Analize Başla →",btn2:"Kursu Gör",
       stats:[["100+","ABD Hissesi"],["5","Kategori"],["15","Soru"],["2020","Yılından Beri"]]},
     feat:{label:"HİZMETLER",title:"Savura Invest Özellikleri",
-      ct:["Temel Analiz","Risk Değlendirmesi","100+ ABD Hissesi","Hisse Kursu","Telegram","Instagram","Savura ERP"]},
+      ct:["Temel Analiz","Risk Değlendirmesi","100+ ABD Hissesi","Hisse Kursu","Telegram","Instagram","Savura Edu"]},
     about:{label:"HAKKIMIZDA",title:"Savura Invest",
       desc:"ABD hisse senedi piyasasında temel analiz ve helal yatırım için Özbekistan’in lider platformu.",
       ml:"MİSYON",mt:"Biliçli Yatırım",
@@ -692,13 +692,13 @@ const SITE_T={
       ft:"Bu kurs şunlar için...",ol:"Eğitmen",sl:"Program",
       ct:"Hazır mısınız?",cd:"Telegram üzerinden iletişime geçin.",cb:"İletişime Geç",
       mt:["Yatırım Temelleri","Hisse Seçimi","Helal Yatırım","Temel Analiz","Risk Yönetimi","Gerçek Uygulama"]}},
-  ru:{nav:{halal:"ХАЛЯЛЬ ЛИ ТРЕЙДИНГ?",home:"Главная",tool:"Фунд. анализ",course:"Курс торговли",journal:"Журнал",demo:"Демо",about:"О нас",erp:"Savura ERP"},
+  ru:{nav:{halal:"ХАЛЯЛЬ ЛИ ТРЕЙДИНГ?",home:"Главная",tool:"Фунд. анализ",course:"Курс торговли",journal:"Журнал",demo:"Демо",about:"О нас",erp:"Savura Edu"},
     hero:{badge:"РЫНОК США · ФУНД. АНАЛИЗ",h1:"Осознанное инвестирование",h2:"на фондовом рынке",
       desc:"Ведущая платформа Узбекистана для фундаментального анализа и халяльного инвестирования.",
       btn1:"Начать анализ →",btn2:"Смотреть курс",
       stats:[["от 100","Акций"],["5","Категорий"],["15","Вопросов"],["2020","С года"]]},
     feat:{label:"УСЛУГИ",title:"Возможности Savura Invest",
-      ct:["Фунд. анализ","Оценка рисков","100+ акций","Курс","Telegram","Instagram","Savura ERP"]},
+      ct:["Фунд. анализ","Оценка рисков","100+ акций","Курс","Telegram","Instagram","Savura Edu"]},
     about:{label:"О НАС",title:"Savura Invest",
       desc:"Ведущая платформа Узбекистана для фунд. анализа.",
       ml:"МИССИЯ",mt:"Осознанное инвестирование",
@@ -713,13 +713,13 @@ const SITE_T={
       ft:"Этот курс для вас, если...",ol:"Ведущий",sl:"Программа",
       ct:"Готовы?",cd:"Свяжитесь через Telegram.",cb:"Связаться",
       mt:["Основы","Выбор акций","Халяльное","Фунд. анализ","Управление риском","Практика"]}},
-  ar:{nav:{halal:"هل التداول حلال؟",home:"الرئيسية",tool:"التحليل الأساسي",course:"دورة تداول",journal:"مفكرتي",demo:"تجريبي",about:"من نحن",erp:"Savura ERP"},
+  ar:{nav:{halal:"هل التداول حلال؟",home:"الرئيسية",tool:"التحليل الأساسي",course:"دورة تداول",journal:"مفكرتي",demo:"تجريبي",about:"من نحن",erp:"Savura Edu"},
     hero:{badge:"أسواق أمريكا",h1:"استثمار واع",h2:"في سوق الأسهم",
       desc:"منصة أوزبكستان للتحليل الحلال.",
       btn1:"ابدأ التحليل",btn2:"عرض الدورة",
       stats:[["+100","سهم"],["5","فئات"],["15","سؤالا"],["2020","منذ عام"]]},
     feat:{label:"الخدمات",title:"إمكانيات Savura Invest",
-      ct:["تحليل أساسي","تقييم مخاطر","100+ سهم","دورة","Telegram","Instagram","Savura ERP"]},
+      ct:["تحليل أساسي","تقييم مخاطر","100+ سهم","دورة","Telegram","Instagram","Savura Edu"]},
     about:{label:"من نحن",title:"Savura Invest",desc:"منصة أوزبكستان للتحليل الحلال.",
       ml:"الرسالة",mt:"استثمار واع",mb1:"منذ 2020 نساعد المستثمرين.",mb2:"حولنا المنهجية إلى أداة رقمية.",
       fl:"المؤسس",fr:"المؤسس ومحلل",fb:["يتداول منذ 2020","يدرس في تركيا","مؤسس Savura","مؤسس Savuraerp.com"],
@@ -864,6 +864,136 @@ const GlobeIcon=({s=28})=><svg width={s} height={s} viewBox="0 0 24 24" fill="no
 const BookIcon=({s=28})=><svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>;
 function Logo({size=42}){return(<svg width={size} height={size} viewBox="0 0 100 100" fill="none"><defs><linearGradient id="lgB" x1="20" y1="15" x2="85" y2="60" gradientUnits="userSpaceOnUse"><stop stopColor="#3461d6"/><stop offset="1" stopColor="#4aa3ff"/></linearGradient><linearGradient id="lgG" x1="30" y1="55" x2="80" y2="92" gradientUnits="userSpaceOnUse"><stop stopColor="#5fd36a"/><stop offset="1" stopColor="#2f9e44"/></linearGradient></defs><path d="M70 16 C40 16 24 30 24 47 C24 60 35 66 47 60 C36 62 33 52 41 45 C49 38 64 40 70 30 C73 24 73 18 70 16 Z" fill="url(#lgB)"/><path d="M30 84 C60 84 76 70 76 53 C76 40 65 34 53 40 C64 38 67 48 59 55 C51 62 36 60 30 70 C27 76 27 82 30 84 Z" fill="url(#lgG)"/><path d="M40 62 L62 47 L57 44 L66 40 L67 51 L62 49 L43 66 Z" fill="#4aa3ff"/></svg>);}
 
+// ═══════════════════════════════════════════════════════════════════════════
+// BOZOR SOATLARI LENTASI — shaharlar soati va AQSh birjasi (NYSE/NASDAQ) shu shahar vaqtida
+// ═══════════════════════════════════════════════════════════════════════════
+const MKT_T = {
+  uz:{label:"AQSH BIRJASI",open:"Ochiq",closed:"Yopiq",toClose:"yopilishiga",toOpen:"ochilishiga",d:"k",h:"s",m:"d",
+      city:{ny:"Nyu-York",tas:"Toshkent",ist:"Istanbul",msk:"Moskva",lon:"London",fra:"Frankfurt",dxb:"Dubay",tyo:"Tokio",hkg:"Gonkong"}},
+  en:{label:"US MARKET",open:"Open",closed:"Closed",toClose:"closes in",toOpen:"opens in",d:"d",h:"h",m:"m",
+      city:{ny:"New York",tas:"Tashkent",ist:"Istanbul",msk:"Moscow",lon:"London",fra:"Frankfurt",dxb:"Dubai",tyo:"Tokyo",hkg:"Hong Kong"}},
+  ru:{label:"БИРЖА США",open:"Открыта",closed:"Закрыта",toClose:"до закрытия",toOpen:"до открытия",d:"д",h:"ч",m:"м",
+      city:{ny:"Нью-Йорк",tas:"Ташкент",ist:"Стамбул",msk:"Москва",lon:"Лондон",fra:"Франкфурт",dxb:"Дубай",tyo:"Токио",hkg:"Гонконг"}},
+  tr:{label:"ABD BORSASI",open:"Açık",closed:"Kapalı",toClose:"kapanışa",toOpen:"açılışa",d:"g",h:"sa",m:"dk",
+      city:{ny:"New York",tas:"Taşkent",ist:"İstanbul",msk:"Moskova",lon:"Londra",fra:"Frankfurt",dxb:"Dubai",tyo:"Tokyo",hkg:"Hong Kong"}},
+  ar:{label:"السوق الأمريكية",open:"مفتوح",closed:"مغلق",toClose:"للإغلاق",toOpen:"للافتتاح",d:"ي",h:"س",m:"د",
+      city:{ny:"نيويورك",tas:"طشقند",ist:"إسطنبول",msk:"موسكو",lon:"لندن",fra:"فرانكفورت",dxb:"دبي",tyo:"طوكيو",hkg:"هونغ كونغ"}},
+};
+// AQSh birjasi: dush–jum, 09:30–16:00 Nyu-York vaqti. Bayram kunlari hisobga olinmaydi.
+const US_MKT = {tz:"America/New_York", s:[[570,960]], open:[9,30], close:[16,0]};
+const CITIES = [
+  {k:"ny",  tz:"America/New_York", flag:"🇺🇸"},
+  {k:"tas", tz:"Asia/Tashkent",    flag:"🇺🇿"},
+  {k:"ist", tz:"Europe/Istanbul",  flag:"🇹🇷"},
+  {k:"msk", tz:"Europe/Moscow",    flag:"🇷🇺"},
+  {k:"lon", tz:"Europe/London",    flag:"🇬🇧"},
+  {k:"fra", tz:"Europe/Berlin",    flag:"🇩🇪"},
+  {k:"dxb", tz:"Asia/Dubai",       flag:"🇦🇪"},
+  {k:"tyo", tz:"Asia/Tokyo",       flag:"🇯🇵"},
+  {k:"hkg", tz:"Asia/Hong_Kong",   flag:"🇭🇰"},
+];
+const _TZF = {};
+function tzParts(tz, now){
+  if(!_TZF[tz]) _TZF[tz] = new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit"});
+  const o = {}; _TZF[tz].formatToParts(now).forEach(function(p){ o[p.type] = p.value; });
+  const days = {Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6,Sun:7};
+  const h = parseInt(o.hour,10) % 24, m = parseInt(o.minute,10), sec = parseInt(o.second,10);
+  return {y:+o.year, mo:+o.month, d:+o.day, dow: days[o.weekday] || 1, h:h, m:m, sec:sec, text: String(h).padStart(2,"0")+":"+o.minute+":"+o.second};
+}
+function marketStatus(mk, now){
+  const p = tzParts(mk.tz, now);
+  const cur = p.h*60 + p.m + p.sec/60;
+  const weekday = function(d){ return d>=1 && d<=5; };
+  if(weekday(p.dow)){
+    for(const [a,b] of mk.s){ if(cur >= a && cur < b) return {open:true, mins:b-cur}; }
+  }
+  for(let d=0; d<8; d++){
+    const dow = ((p.dow - 1 + d) % 7) + 1;
+    if(!weekday(dow)) continue;
+    for(const [a] of mk.s){
+      if(d===0 && a <= cur) continue;
+      return {open:false, mins: d*1440 + a - cur};
+    }
+  }
+  return {open:false, mins:0};
+}
+// Mahalliy (tz) vaqtni UTC lahzaga aylantirish
+function zonedToDate(y, mo, d, h, mi, tz){
+  const guess = Date.UTC(y, mo-1, d, h, mi);
+  const p = tzParts(tz, new Date(guess));
+  const asUTC = Date.UTC(p.y, p.mo-1, p.d, p.h, p.m, p.sec);
+  return new Date(guess - (asUTC - guess));
+}
+// Joriy yoki navbatdagi AQSh savdo sessiyasi (ochilish va yopilish lahzalari)
+function usSession(now){
+  const p = tzParts(US_MKT.tz, now);
+  for(let k=0; k<8; k++){
+    const dt = new Date(Date.UTC(p.y, p.mo-1, p.d + k));
+    const dow = dt.getUTCDay(); if(dow===0 || dow===6) continue;
+    const Y = dt.getUTCFullYear(), M = dt.getUTCMonth()+1, D = dt.getUTCDate();
+    const open = zonedToDate(Y, M, D, US_MKT.open[0], US_MKT.open[1], US_MKT.tz);
+    const close = zonedToDate(Y, M, D, US_MKT.close[0], US_MKT.close[1], US_MKT.tz);
+    if(close > now) return {open:open, close:close};
+  }
+  return null;
+}
+const _HMF = {};
+function hm(date, tz){
+  if(!_HMF[tz]) _HMF[tz] = new Intl.DateTimeFormat("en-GB",{timeZone:tz,hour:"2-digit",minute:"2-digit",hour12:false});
+  return _HMF[tz].format(date).replace(/^24/,"00");
+}
+function fmtLeft(mins, T){
+  const total = Math.max(0, Math.floor(mins));
+  const d = Math.floor(total/1440), h = Math.floor((total%1440)/60), m = total%60;
+  if(d > 0) return d+T.d+" "+h+T.h;
+  if(h > 0) return h+T.h+" "+String(m).padStart(2,"0")+T.m;
+  return m+T.m;
+}
+
+function MarketTicker({lang="uz"}){
+  const T = MKT_T[lang] || MKT_T.uz;
+  const [now, setNow] = useState(function(){ return new Date(); });
+  React.useEffect(function(){
+    const id = setInterval(function(){ setNow(new Date()); }, 1000);
+    return function(){ clearInterval(id); };
+  }, []);
+  const st = marketStatus(US_MKT, now);
+  const ses = usSession(now);
+  const col = st.open ? C.green : C.red;
+  const items = CITIES.map(function(c){
+    const p = tzParts(c.tz, now);
+    const range = ses ? (hm(ses.open, c.tz) + "–" + hm(ses.close, c.tz)) : "";
+    return (
+      <div key={c.k} style={{display:"inline-flex",alignItems:"center",gap:7,padding:"0 16px",borderRight:`1px solid ${C.border}`,whiteSpace:"nowrap",height:"100%"}}>
+        <span style={{fontSize:14,lineHeight:1}}>{c.flag}</span>
+        <span style={{fontSize:12,fontWeight:700,color:C.text}}>{T.city[c.k]}</span>
+        <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:12,fontWeight:700,color:C.blueLt}}>{p.text}</span>
+        <span title="NYSE / NASDAQ" style={{display:"inline-flex",alignItems:"center",gap:4,fontSize:11,fontWeight:700,color:st.open?C.green:C.dim,background:st.open?"rgba(55,178,77,0.12)":"var(--w05)",border:`1px solid ${st.open?"rgba(55,178,77,0.35)":C.border}`,borderRadius:20,padding:"2px 8px"}}>
+          🇺🇸 <span style={{fontFamily:"'JetBrains Mono',monospace"}}>{range}</span>
+        </span>
+      </div>
+    );
+  });
+  return (
+    <div dir="ltr" style={{position:"fixed",top:0,left:0,right:0,height:34,zIndex:101,background:"var(--tick)",borderBottom:`1px solid ${C.border}`,display:"flex",alignItems:"center",overflow:"hidden"}}>
+      <div style={{flexShrink:0,height:"100%",display:"flex",alignItems:"center",gap:7,padding:"0 10px",background:"var(--tickLabel)",borderRight:`1px solid ${C.border}`,zIndex:2}}>
+        <span style={{fontSize:13}}>🇺🇸</span>
+        <span className="mkt-long" style={{fontSize:10.5,fontWeight:800,letterSpacing:"1px",color:C.blueLt}}>{T.label}</span>
+        <span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:11,fontWeight:700,color:col,background:st.open?"rgba(55,178,77,0.12)":"rgba(229,72,77,0.1)",border:`1px solid ${st.open?"rgba(55,178,77,0.35)":"rgba(229,72,77,0.3)"}`,borderRadius:20,padding:"2px 8px",whiteSpace:"nowrap"}}>
+          <span className={st.open?"mkt-dot":""} style={{width:6,height:6,borderRadius:"50%",background:col,display:"inline-block"}}/>
+          {st.open ? T.open : T.closed}
+          <span style={{fontWeight:600,opacity:0.85}}>· <span className="mkt-long">{st.open ? T.toClose : T.toOpen} </span>{fmtLeft(st.mins, T)}</span>
+        </span>
+      </div>
+      <div className="mkt-viewport" style={{flex:1,overflow:"hidden",height:"100%"}}>
+        <div className="mkt-track" style={{display:"inline-flex",height:"100%",alignItems:"center"}}>
+          {items}{items.map(function(el){ return React.cloneElement(el, {key: el.key+"_b"}); })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── NavBar ─────────────────────────────────────────────────────────────────
 function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
   const [open,setOpen]=useState(false);
@@ -871,12 +1001,23 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
   const [scrolled,setScrolled]=useState(false);
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>30);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   const sn=getST(lang).nav;
-  const links=[{id:"halal",label:sn.halal,hot:true},{id:"home",label:sn.home},{id:"lessons",label:(LES_T[lang]||LES_T.uz).title,play:true},{id:"tool",label:sn.tool},{id:"course",label:sn.course},{id:"journal",label:sn.journal||"Kundalik"},{id:"demo",label:sn.demo||"Demo"},{id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,badge:true},{id:"pattern",label:(PT_T[lang]||PT_T.uz).title,chart:true},{id:"about",label:sn.about},{id:"erp",label:sn.erp,ext:"https://savuraerp.com"}];
+  const links=[
+    {id:"halal",label:sn.halal,hot:true,icon:"☪️"},
+    {id:"home",label:sn.home,icon:"🏠"},
+    {id:"lessons",label:(LES_T[lang]||LES_T.uz).title,icon:"🎬"},
+    {id:"tool",label:sn.tool,icon:"🔬"},
+    {id:"course",label:sn.course,icon:"🎓"},
+    {id:"journal",label:sn.journal||"Kundalik",icon:"📒"},
+    {id:"demo",label:sn.demo||"Demo",icon:"💹"},
+    {id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,icon:"📝"},
+    {id:"pattern",label:(PT_T[lang]||PT_T.uz).title,icon:"🕯️"},
+    {id:"about",label:sn.about,icon:"🤝"},
+    {id:"edu",label:"Savura Edu",icon:"📚",ext:"https://savuraedu.com"}];
   const go=(id)=>{setPage(id);setOpen(false);setFlagOpen(false);window.scrollTo({top:0,behavior:"smooth"});};
   const LANGS=[{k:"uz",f:"🇺🇿",l:"O'Z"},{k:"en",f:"🇺🇸",l:"EN"},{k:"tr",f:"🇹🇷",l:"TR"},{k:"ru",f:"🇷🇺",l:"RU"},{k:"ar",f:"🇸🇦",l:"AR"}];
   const cur=LANGS.find(function(x){return x.k===lang;})||LANGS[0];
   return(
-    <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,background:scrolled||open||flagOpen?"var(--nav)":"var(--navT)",backdropFilter:"blur(16px)",borderBottom:`1px solid ${scrolled?C.border:"transparent"}`,transition:"background .3s"}}>
+    <nav style={{position:"fixed",top:34,left:0,right:0,zIndex:100,background:scrolled||open||flagOpen?"var(--nav)":"var(--navT)",backdropFilter:"blur(16px)",borderBottom:`1px solid ${scrolled?C.border:"transparent"}`,transition:"background .3s"}}>
       <div style={{maxWidth:1100,margin:"0 auto",padding:"0 20px",display:"flex",alignItems:"center",justifyContent:"space-between",height:60}}>
         <button onClick={()=>go("home")} style={{background:"none",border:"none",cursor:"pointer",display:"flex",alignItems:"center",gap:10}}>
           <Logo size={42}/>
@@ -916,11 +1057,12 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
       {open&&(
         <div style={{borderTop:`1px solid ${C.border}`,background:"var(--menu)"}}>
           {links.map(function(l){return l.ext
-            ?<a key={l.id} href={l.ext} target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"center",width:"100%",background:"transparent",borderLeft:"3px solid transparent",color:C.dim,padding:"15px 24px",fontSize:15,fontWeight:500,fontFamily:"'Manrope',sans-serif",textDecoration:"none",gap:8}}>
+            ?<a key={l.id} href={l.ext} target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"center",width:"100%",background:"transparent",borderLeft:"3px solid transparent",color:C.dim,padding:"15px 24px",fontSize:15,fontWeight:500,fontFamily:"'Manrope',sans-serif",textDecoration:"none",gap:10}}>
+              <span style={{width:24,textAlign:"center",fontSize:17,lineHeight:1,flexShrink:0}}>{l.icon}</span>
               <span style={{flex:1}}>{l.label}</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{opacity:.4}}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
-            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:8,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"15px 24px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}>{l.hot&&<span style={{fontSize:15}}>☪️</span>}{l.badge&&<span style={{fontSize:14}}>📝</span>}{l.chart&&<span style={{fontSize:14}}>📈</span>}{l.play&&<span style={{fontSize:14}}>🎬</span>}<span>{l.label}</span></button>;
+            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:10,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"15px 24px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}><span style={{width:24,textAlign:"center",fontSize:17,lineHeight:1,flexShrink:0}}>{l.icon}</span><span>{l.label}</span></button>;
           })}
           <div style={{padding:"10px 24px 6px",borderTop:`1px solid ${C.border}`}}>
             {auth&&auth.user
@@ -1067,7 +1209,7 @@ const FEAT_T = {
     {title:"Aksiyalar savdosi kursi",desc:"Noldan boshlash uchun to'liq amaliy kurs. Halol investitsiya, fundamental tahlil va risk boshqaruvi."},
     {title:"Telegram Kanal",desc:"Savura Invest kanalida yangiliklar, tahlillar va investitsiya bo'yicha dolzarb ma'lumotlar."},
     {title:"Instagram",desc:"Visual tahlillar, grafiklar va investitsiya bo'yicha foydali educational kontentlar."},
-    {title:"Savura ERP",desc:"Savura brendi tomonidan ishlab chiqilgan ERP tizimi — korxona resurslarini boshqarish platformasi."},
+    {title:"Savura Edu",desc:"Savura brendining ta'lim platformasi — kurslar va foydali o'quv materiallari bir joyda."},
   ],
   en: [
     {title:"Fundamental Analysis",desc:"5 categories: Growth, Valuation, Profitability, Financial health, Efficiency. Based on professional methodology."},
@@ -1076,7 +1218,7 @@ const FEAT_T = {
     {title:"Stock Trading Course",desc:"A complete hands-on course to start from zero. Halal investing, fundamental analysis and risk management."},
     {title:"Telegram Channel",desc:"News, analyses and timely investment insights on the Savura Invest channel."},
     {title:"Instagram",desc:"Visual analyses, charts and useful educational content on investing."},
-    {title:"Savura ERP",desc:"An ERP system developed by the Savura brand — an enterprise resource management platform."},
+    {title:"Savura Edu",desc:"The Savura brand's education platform — courses and useful learning materials in one place."},
   ],
   ru: [
     {title:"Фундаментальный анализ",desc:"5 категорий: Рост, Оценка, Рентабельность, Финансовое здоровье, Эффективность. На основе профессиональной методологии."},
@@ -1085,7 +1227,7 @@ const FEAT_T = {
     {title:"Курс торговли акциями",desc:"Полный практический курс для старта с нуля. Халяльное инвестирование, фундаментальный анализ и управление рисками."},
     {title:"Telegram-канал",desc:"Новости, аналитика и актуальные инвестиционные материалы на канале Savura Invest."},
     {title:"Instagram",desc:"Визуальная аналитика, графики и полезный образовательный контент об инвестициях."},
-    {title:"Savura ERP",desc:"ERP-система, разработанная брендом Savura — платформа управления ресурсами предприятия."},
+    {title:"Savura Edu",desc:"Образовательная платформа бренда Savura — курсы и полезные учебные материалы в одном месте."},
   ],
   tr: [
     {title:"Temel Analiz",desc:"5 kategori: Büyüme, Değerleme, Kârlılık, Finansal sağlık, Verimlilik. Profesyonel metodolojiye dayalı."},
@@ -1094,7 +1236,7 @@ const FEAT_T = {
     {title:"Hisse Ticareti Kursu",desc:"Sıfırdan başlamak için tam uygulamalı kurs. Helal yatırım, temel analiz ve risk yönetimi."},
     {title:"Telegram Kanalı",desc:"Savura Invest kanalında haberler, analizler ve güncel yatırım bilgileri."},
     {title:"Instagram",desc:"Görsel analizler, grafikler ve yatırım hakkında faydalı eğitim içerikleri."},
-    {title:"Savura ERP",desc:"Savura markası tarafından geliştirilen ERP sistemi — kurumsal kaynak yönetim platformu."},
+    {title:"Savura Edu",desc:"Savura markasının eğitim platformu — kurslar ve faydalı eğitim materyalleri tek yerde."},
   ],
   ar: [
     {title:"التحليل الأساسي",desc:"5 فئات: النمو، التقييم، الربحية، الصحة المالية، الكفاءة. وفق منهجية احترافية."},
@@ -1103,7 +1245,7 @@ const FEAT_T = {
     {title:"دورة تداول الأسهم",desc:"دورة عملية كاملة للبدء من الصفر. الاستثمار الحلال والتحليل الأساسي وإدارة المخاطر."},
     {title:"قناة تليجرام",desc:"أخبار وتحليلات ومعلومات استثمارية محدّثة على قناة Savura Invest."},
     {title:"Instagram",desc:"تحليلات مرئية ورسوم بيانية ومحتوى تعليمي مفيد عن الاستثمار."},
-    {title:"Savura ERP",desc:"نظام ERP طوّرته علامة Savura — منصة لإدارة موارد المؤسسات."},
+    {title:"Savura Edu",desc:"منصة Savura التعليمية — دورات ومواد تعليمية مفيدة في مكان واحد."},
   ],
 };
 
@@ -1199,7 +1341,7 @@ function FeaturesSection({setPage,lang}){
     {Icon:BookIcon,color:"#8b5cf6",action:()=>setPage("course")},
     {Icon:TgIcon,color:C.blueLt,action:()=>window.open("https://t.me/savura_invest","_blank")},
     {Icon:IgIcon,color:"#e1306c",action:()=>window.open("https://instagram.com/savura_invest","_blank")},
-    {Icon:GlobeIcon,color:C.greenLt,action:()=>window.open("https://savuraerp.com","_blank")},
+    {Icon:BookIcon,color:C.greenLt,action:()=>window.open("https://savuraedu.com","_blank")},
   ];
   const cards=meta.map((m,i)=>({...m,title:ft[i].title,desc:ft[i].desc}));
   return(
@@ -1350,7 +1492,7 @@ function CoursePage({lang, setPage}){
             <div style={{display:"flex",gap:10,marginTop:16,flexWrap:"wrap"}}>
               <a href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(47,125,246,0.1)",border:"1px solid rgba(47,125,246,0.2)",borderRadius:8,padding:"7px 12px",color:C.blueLt,fontSize:12.5,textDecoration:"none",fontWeight:600}}><TgIcon s={14}/> Telegram</a>
               <a href="https://instagram.com/savura_invest" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(225,48,108,0.08)",border:"1px solid rgba(225,48,108,0.2)",borderRadius:8,padding:"7px 12px",color:"#e1306c",fontSize:12.5,textDecoration:"none",fontWeight:600}}><IgIcon s={14}/> Instagram</a>
-              <a href="https://savuraerp.com" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(55,178,77,0.08)",border:"1px solid rgba(55,178,77,0.2)",borderRadius:8,padding:"7px 12px",color:C.greenLt,fontSize:12.5,textDecoration:"none",fontWeight:600}}><GlobeIcon s={14}/> savuraerp.com</a>
+              <a href="https://savuraedu.com" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(55,178,77,0.08)",border:"1px solid rgba(55,178,77,0.2)",borderRadius:8,padding:"7px 12px",color:C.greenLt,fontSize:12.5,textDecoration:"none",fontWeight:600}}><GlobeIcon s={14}/> savuraedu.com</a>
             </div>
           </div>
         </div>
@@ -2999,7 +3141,7 @@ function EquityChart({history, startBal}){
   xLabels.push({i:history.length-1,label:history[history.length-1].d});
   return(
     <svg viewBox={'0 0 '+W+' '+H} style={{width:'100%',height:170,display:'block'}}>
-      <line x1={PX} y1={sy} x2={W-PX} y2={sy} stroke="var(--w12)" strokeDasharray="5,4"/>
+      <line x1={PX} y1={sy} x2={W-PX} y2={sy} style={{stroke:"var(--w12)"}} strokeDasharray="5,4"/>
       <text x={PX+3} y={sy-5} fontSize="9" fill="rgba(255,255,255,0.25)">Start</text>
       {history.length>1&&<polygon points={area} fill={col+'15'}/>}
       {history.length>1&&<polyline points={pts} fill="none" stroke={col} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>}
@@ -3996,17 +4138,37 @@ const LES_T = {
   ar:{title:"دروس مجانية",badge:"دروس فيديو مجانية",h1:"دروس مجانية",h2:"من دورة التداول",sub:"24 درس فيديو عن التداول الحلال — شاهدها بالترتيب بدءاً من الدرس الأول",lesson:"درس",now:"يُعرض الآن",all:"قائمة الدروس",openYT:"فتح في YouTube",prev:"الدرس السابق",next:"الدرس التالي",watched:"تمت المشاهدة",progress:"تمت مشاهدة",ctaT:"تريد التعمق أكثر؟",ctaD:"الدورة الكاملة تتضمن تطبيقات عملية وامتحانات وشهادة ولوحة شخصية.",ctaB:"عن الدورة الكاملة"},
 };
 
+// Dars raqamini nomdan aniqlash: "1- DARS", "11 Dars", "Dars 5", "3-dars"
+function lessonNum(t){
+  if(!t) return null;
+  const m = String(t).match(/(\d{1,3})\s*[-–—.:)]?\s*dars/i) || String(t).match(/dars\w*\s*[-–—.:#№]?\s*(\d{1,3})\b/i);
+  return m ? parseInt(m[1],10) : null;
+}
+// Darslarni 1 → N tartibda saralash, takrorlarni olib tashlash
+function orderLessons(list){
+  const seenId = new Set(); const byNum = {}; const rest = [];
+  (list||[]).forEach(function(v, i){
+    if(!v || !v.id || seenId.has(v.id)) return;
+    seenId.add(v.id);
+    const n = lessonNum(v.title);
+    if(n != null){ if(!(n in byNum)) byNum[n] = v; }
+    else rest.push(v);
+  });
+  const nums = Object.keys(byNum).map(Number).sort(function(a,b){ return a-b; });
+  return nums.map(function(n){ return byNum[n]; }).concat(rest);
+}
+
 function LessonsPage({lang="uz", setPage}){
   const T = LES_T[lang] || LES_T.uz;
   const rtl = lang === "ar";
   const topRef = React.useRef(null);
   const [items, setItems] = useState(function(){
-    try{ const c = JSON.parse(localStorage.getItem("savura_yt_pl") || "null"); if(c && c.items && c.items.length) return c.items; }catch(e){}
+    try{ const c = JSON.parse(localStorage.getItem("savura_yt_pl2") || "null"); if(c && c.items && c.items.length) return orderLessons(c.items); }catch(e){}
     return [];
   });
-  const [cur, setCur] = useState(function(){ try{ return parseInt(localStorage.getItem("savura_yt_cur")) || 0; }catch(e){ return 0; } });
+  const [cur, setCur] = useState(function(){ try{ return parseInt(localStorage.getItem("savura_yt_cur2")) || 0; }catch(e){ return 0; } });
   const [auto, setAuto] = useState(false);
-  const [watched, setWatched] = useState(function(){ try{ return JSON.parse(localStorage.getItem("savura_yt_watched") || "[]"); }catch(e){ return []; } });
+  const [watched, setWatched] = useState(function(){ try{ return JSON.parse(localStorage.getItem("savura_yt_watched2") || "[]"); }catch(e){ return []; } });
 
   // Server orqali playlistni tartib bilan olish
   React.useEffect(function(){
@@ -4015,8 +4177,9 @@ function LessonsPage({lang="uz", setPage}){
       .then(function(r){ return r.json(); })
       .then(function(j){
         if(!alive || !j || !j.items || !j.items.length) return;
-        setItems(j.items);
-        try{ localStorage.setItem("savura_yt_pl", JSON.stringify({items:j.items, ts:Date.now()})); }catch(e){}
+        const ord = orderLessons(j.items);
+        setItems(ord);
+        try{ localStorage.setItem("savura_yt_pl2", JSON.stringify({items:ord, ts:Date.now()})); }catch(e){}
       })
       .catch(function(){});
     return function(){ alive = false; };
@@ -4029,11 +4192,11 @@ function LessonsPage({lang="uz", setPage}){
   function go(i, scroll){
     if(i < 0 || i >= count) return;
     setCur(i); setAuto(true);
-    try{ localStorage.setItem("savura_yt_cur", String(i)); }catch(e){}
+    try{ localStorage.setItem("savura_yt_cur2", String(i)); }catch(e){}
     setWatched(function(p){
       if(p.indexOf(i) >= 0) return p;
       const n = p.concat([i]);
-      try{ localStorage.setItem("savura_yt_watched", JSON.stringify(n)); }catch(e){}
+      try{ localStorage.setItem("savura_yt_watched2", JSON.stringify(n)); }catch(e){}
       return n;
     });
     if(scroll && topRef.current) topRef.current.scrollIntoView({behavior:"smooth", block:"start"});
@@ -4065,7 +4228,7 @@ function LessonsPage({lang="uz", setPage}){
       </div>
 
       {/* Pleyer */}
-      <div ref={topRef} style={{scrollMarginTop:80}}/>
+      <div ref={topRef} style={{scrollMarginTop:112}}/>
       <div style={{position:"relative",width:"100%",paddingTop:"56.25%",background:"#000",borderRadius:18,overflow:"hidden",border:`1px solid ${C.border}`,boxShadow:"0 20px 60px rgba(0,0,0,0.5)"}}>
         <iframe key={src} title={titleOf(idx)} src={src} style={{position:"absolute",inset:0,width:"100%",height:"100%",border:"none"}}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/>
@@ -4099,11 +4262,12 @@ function LessonsPage({lang="uz", setPage}){
           const active = i === idx;
           const seen = watched.indexOf(i) >= 0;
           const v = items[i];
+          const ln = (v && lessonNum(v.title)) || (i + 1);
           return(
             <button key={i} onClick={()=>go(i, true)}
               style={{display:"flex",alignItems:"center",gap:14,textAlign:rtl?"right":"left",width:"100%",background:active?"rgba(47,125,246,0.12)":C.card,border:`1px solid ${active?C.blue:C.border}`,borderRadius:14,padding:10,cursor:"pointer",fontFamily:"'Manrope',sans-serif"}}>
               <div style={{flexShrink:0,width:40,height:40,borderRadius:11,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,fontWeight:800,fontFamily:"'Sora',sans-serif",
-                background:active?`linear-gradient(135deg,${C.blue},${C.green})`:seen?"rgba(55,178,77,0.15)":"var(--w05)",color:active?"#fff":seen?C.greenLt:C.dim}}>{i + 1}</div>
+                background:active?`linear-gradient(135deg,${C.blue},${C.green})`:seen?"rgba(55,178,77,0.15)":"var(--w05)",color:active?"#fff":seen?C.greenLt:C.dim}}>{ln}</div>
               <div style={{flexShrink:0,position:"relative",width:128,height:72,borderRadius:9,overflow:"hidden",background:"linear-gradient(135deg,#132544,#0e2a22)"}}>
                 {v && <img src={"https://i.ytimg.com/vi/" + v.id + "/mqdefault.jpg"} alt="" loading="lazy" onError={(e)=>{e.currentTarget.style.display="none";}} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>}
                 {!v && <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",color:"rgba(255,255,255,0.5)",fontSize:22}}>▶</div>}
@@ -4112,7 +4276,7 @@ function LessonsPage({lang="uz", setPage}){
               <div style={{flex:1,minWidth:0}}>
                 <div style={{fontSize:14.5,fontWeight:active?700:600,color:active?C.text:C.dim,lineHeight:1.4,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{titleOf(i)}</div>
                 <div style={{fontSize:11.5,marginTop:4,fontWeight:700,color:active?C.greenLt:seen?C.greenLt:C.faint}}>
-                  {active ? ("▶ " + T.now) : seen ? ("✓ " + T.watched) : ((i + 1) + "-" + T.lesson)}
+                  {active ? ("▶ " + T.now) : seen ? ("✓ " + T.watched) : (ln + "-" + T.lesson)}
                 </div>
               </div>
             </button>
@@ -4988,10 +5152,18 @@ export default function App(){
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
         *{box-sizing:border-box;margin:0;padding:0;} ::selection{background:#2f7df6;color:#fff;} a{text-decoration:none;} button{font-family:inherit;}
         @keyframes spin{to{transform:rotate(360deg);}}\n        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-        @media(max-width:480px){.nav-social{display:none!important;}}
+        @media(max-width:480px){.nav-social{display:none!important;}.mkt-long{display:none!important;}}
+        @keyframes mktScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+        .mkt-track{animation:mktScroll 70s linear infinite;will-change:transform;}
+        .mkt-viewport:hover .mkt-track{animation-play-state:paused;}
+        @keyframes mktPulse{0%,100%{opacity:1}50%{opacity:.3}}
+        .mkt-dot{animation:mktPulse 1.6s ease-in-out infinite;}
+        @media (prefers-reduced-motion: reduce){.mkt-track{animation-duration:200s;}}
         ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--scrollTrack);} ::-webkit-scrollbar-thumb{background:#2f7df6;border-radius:2px;}
       `}</style>
+      <MarketTicker lang={lang}/>
       <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang} auth={auth} theme={theme} toggleTheme={toggleTheme}/>
+      <div style={{height:34}}/>
       {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/><HalalBanner setPage={setPage} lang={lang}/></>}
       {page==="halal"&&<HalalPage lang={lang} setPage={setPage}/>}
       {page==="lessons"&&<LessonsPage lang={lang} setPage={setPage}/>}
