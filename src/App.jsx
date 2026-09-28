@@ -1433,12 +1433,15 @@ const CRS_T = {
     statLessons:"Dars", statStock:"Aksiya", statVideo:"Darslik",
     forTitle:"Bu kurs siz uchun, agar...",
     modules: [
-      {title:"Investitsiya asoslari",desc:"Aksiya bozori nima, qanday ishlaydi. AQSh birjasi, kompaniyalar, aksiyalar turlari.",lessons:["Aksiya bozorga kirish","Qancha daromad ko'rish mumkin","Bozor mexanizmlari","Asosiy investitsion strategiyalar","Moliyaviy mustaqillikka yo'l"]},
-      {title:"Aksiyalarni tanlash",desc:"Qaysi aksiyani sotib olish kerak. Kompaniyani qanday baholash kerak. Sektor va sanoat tahlili.",lessons:["Kompaniya tahlili usullari","Sektor tahlili (GICS)","Himoyachi vs davriy sektorlar","Raqobatchilar tahlili","Top aksiyalar qanday topiladi"]},
-      {title:"Halol investitsiya",desc:"Shariat mezonlariga mos aksiyalarni aniqlash. AAOIFI standartlari. Halol skrining metodologiyasi.",lessons:["Shariat skriningi nima","Biznes faoliyati tekshiruvi","Moliyaviy nisbatlar","Nopok daromad tozalash","Amaliy misollar"]},
-      {title:"Fundamental tahlil",desc:"5 toifa bo'yicha chuqur tahlil: O'sish, Baholanish, Rentabellik, Moliyaviy sog'lomlik, Samaradorlik.",lessons:["O'sish: Daromad va EPS o'sishi","Baholanish: P/E, P/S, P/B, PEG","Rentabellik: Gross, Oper, Net marja","Moliyaviy sog'lomlik: Nisbatlar","Samaradorlik: ROA, ROE, ROIC"]},
-      {title:"Risk boshqaruvi",desc:"15 savolli risk modeli. Portfelni diversifikatsiya qilish. Beta, volatillik va xavfni baholash.",lessons:["15 savolli risk modeli","PAST/O'RTA/YUQORI/JUDA YUQORI","Portfel diversifikatsiyasi","Beta va volatillik","Stop-loss strategiyalari"]},
-      {title:"Real amaliyot",desc:"Haqiqiy akkauntni ochish. Birinchi aksiyani sotib olish. Portfelni monitoring qilish.",lessons:["Broker tanlash va akkaunt ochish","Birinchi aksiyani sotib olish","Portfelni monitoring","Hisobot o'qish","Uzoq muddatli strategiya"]},
+      {"title": "Muqaddima", "desc": "Kurs tuzilishi, Savura Invest yondashuvi va o'qishni qanday tashkil qilish kerakligi.", "lessons": ["Kurs dasturi va o'qish tartibi", "Savura Invest metodologiyasi", "Halol investitsiya falsafasi", "Platforma va vositalardan foydalanish"]},
+      {"title": "Treydingga kirish va asosiy tushunchalar", "desc": "Treyding nima, uning turlari va muvaffaqiyatli treyderning asosiy ustunlari.", "lessons": ["Treyding va moliyaviy instrumentlar", "Scalping, day, swing va positional treyding", "Broker tanlash va hisob ochish", "Muvaffaqiyatning 5 ustuni"]},
+      {"title": "Aksiyalar bilan halol treyding", "desc": "Aksiyaga egalik, AAOIFI standartlari va halol aksiyani aniqlash metodologiyasi.", "lessons": ["Aksiyaga egalik — kompaniyaga sheriklik", "AAOIFI 21-standarti", "3 bosqichli halol filtr", "10-K, 10-Q hisobotlari va SEC EDGAR"]},
+      {"title": "Fundamental tahlil", "desc": "Kompaniyaning haqiqiy qiymatini moliyaviy ko'rsatkichlar orqali aniqlash.", "lessons": ["Top-down va bottom-up yondashuvlar", "5 guruh ko'rsatkichlari", "P/E, P/S, P/B, PEG va marjalar", "Makroiqtisodiy omillar ta'siri"]},
+      {"title": "Texnik tahlilga kirish", "desc": "Narx grafigi, trend va asosiy indikatorlarni o'qishni o'rganish.", "lessons": ["Yapon shamlari va grafik turlari", "Trend, qo'llab-quvvatlash va qarshilik", "Fibonacci va savdo hajmi", "EMA, RSI, MACD, Bollinger Bands"]},
+      {"title": "Texnik tahlil va strategiyalar", "desc": "Swing treyding, price action va asosiy savdo strategiyalari.", "lessons": ["Fundamental + texnik tahlil birgalikda", "Price action va taymfreymlar", "Breakout, Reversal, Pullback", "Tutash zonalar va kuzatuv ro'yxati"]},
+      {"title": "Risk menejment va psixologiya", "desc": "Kapitalni himoya qilish, risk va mukofot nisbati, treyder psixologiyasi.", "lessons": ["Risk / Reward nisbati", "Stop Loss, Take Profit va ATR", "Diversifikatsiya va riskka bardoshlik", "Ochko'zlik va qo'rquvni boshqarish"]},
+      {"title": "Real treydingni boshlash", "desc": "Treyding rejasi, jurnal yuritish va demodan real hisobga o'tish.", "lessons": ["Treyding rejasini tuzish", "Kunlik, haftalik va oylik tahlil", "Treyding jurnali", "Demo va real hisob farqi"]},
+      {"title": "Intizom va moliyaviy savodxonlik", "desc": "Barqaror natija uchun intizom, odatlar va shaxsiy moliyani boshqarish.", "lessons": ["Treyder intizomi va kundalik odatlar", "Shaxsiy byudjet va jamg'arma", "Uzoq muddatli boylik strategiyasi", "Xatolardan o'rganish va o'sish"]},
     ],
     forItems:["Halol aksiyalarga investitsiya qilib, boylik orttirishni xohlasangiz","Moliyaviy savodxonligingizni oshirib, aksiya bozorini mukammal o'rganmoqchi bo'lsangiz","Oylik maoshga bog'lanmagan passiv daromad manbaiga ega bo'lishni istasangiz","Pulingiz siz uchun ishlashini xohlasangiz","Muvaffaqiyatli va ongli investitsiya strategiyalarini o'rganishni xohlasangiz"],
   },
@@ -1446,12 +1449,15 @@ const CRS_T = {
     statLessons:"Lessons", statStock:"Stocks", statVideo:"Video",
     forTitle:"This course is for you if...",
     modules: [
-      {title:"Investment basics",desc:"What the stock market is and how it works. US exchanges, companies, types of shares.",lessons:["Introduction to the stock market","How much you can earn","Market mechanisms","Core investment strategies","The path to financial freedom"]},
-      {title:"Choosing stocks",desc:"Which stock to buy. How to evaluate a company. Sector and industry analysis.",lessons:["Company analysis methods","Sector analysis (GICS)","Defensive vs cyclical sectors","Competitor analysis","How to find top stocks"]},
-      {title:"Halal investing",desc:"Identifying Shariah-compliant stocks. AAOIFI standards. Halal screening methodology.",lessons:["What is Shariah screening","Business activity check","Financial ratios","Purifying impure income","Practical examples"]},
-      {title:"Fundamental analysis",desc:"In-depth analysis across 5 categories: Growth, Valuation, Profitability, Financial health, Efficiency.",lessons:["Growth: Revenue and EPS growth","Valuation: P/E, P/S, P/B, PEG","Profitability: Gross, Oper, Net margin","Financial health: Ratios","Efficiency: ROA, ROE, ROIC"]},
-      {title:"Risk management",desc:"15-question risk model. Portfolio diversification. Beta, volatility and risk assessment.",lessons:["15-question risk model","LOW/MEDIUM/HIGH/VERY HIGH","Portfolio diversification","Beta and volatility","Stop-loss strategies"]},
-      {title:"Real practice",desc:"Opening a real account. Buying your first stock. Monitoring your portfolio.",lessons:["Choosing a broker and opening an account","Buying your first stock","Monitoring your portfolio","Reading reports","Long-term strategy"]},
+      {"title": "Introduction", "desc": "Course structure, the Savura Invest approach and how to organize your learning.", "lessons": ["Course program and study plan", "Savura Invest methodology", "Halal investing philosophy", "Using the platform and tools"]},
+      {"title": "Introduction to trading and key concepts", "desc": "What trading is, its types and the core pillars of a successful trader.", "lessons": ["Trading and financial instruments", "Scalping, day, swing and positional trading", "Choosing a broker and opening an account", "The 5 pillars of success"]},
+      {"title": "Halal trading with stocks", "desc": "Share ownership, AAOIFI standards and the method for identifying halal stocks.", "lessons": ["Owning shares — partnership in a company", "AAOIFI Standard 21", "3-step halal screening", "10-K, 10-Q reports and SEC EDGAR"]},
+      {"title": "Fundamental analysis", "desc": "Determining a company's true value through financial metrics.", "lessons": ["Top-down and bottom-up approaches", "5 groups of metrics", "P/E, P/S, P/B, PEG and margins", "Impact of macroeconomic factors"]},
+      {"title": "Introduction to technical analysis", "desc": "Learning to read price charts, trends and key indicators.", "lessons": ["Candlesticks and chart types", "Trend, support and resistance", "Fibonacci and trading volume", "EMA, RSI, MACD, Bollinger Bands"]},
+      {"title": "Technical analysis and strategies", "desc": "Swing trading, price action and the core trading strategies.", "lessons": ["Combining fundamental and technical analysis", "Price action and timeframes", "Breakout, Reversal, Pullback", "Confluence zones and watchlists"]},
+      {"title": "Risk management and psychology", "desc": "Protecting capital, the risk/reward ratio and trader psychology.", "lessons": ["Risk / Reward ratio", "Stop Loss, Take Profit and ATR", "Diversification and risk tolerance", "Managing greed and fear"]},
+      {"title": "Starting real trading", "desc": "Building a trading plan, keeping a journal and moving from demo to a real account.", "lessons": ["Creating a trading plan", "Daily, weekly and monthly analysis", "The trading journal", "Demo vs real account"]},
+      {"title": "Discipline and financial literacy", "desc": "Discipline, habits and personal finance management for consistent results.", "lessons": ["Trader discipline and daily habits", "Personal budget and savings", "Long-term wealth strategy", "Learning from mistakes and growing"]},
     ],
     forItems:["You want to build wealth by investing in halal stocks","You want to improve your financial literacy and master the stock market","You want a source of passive income not tied to a monthly salary","You want your money to work for you","You want to learn successful, conscious investment strategies"],
   },
@@ -1459,12 +1465,15 @@ const CRS_T = {
     statLessons:"Уроков", statStock:"Акций", statVideo:"Видео",
     forTitle:"Этот курс для вас, если...",
     modules: [
-      {title:"Основы инвестирования",desc:"Что такое фондовый рынок и как он работает. Биржи США, компании, виды акций.",lessons:["Введение в фондовый рынок","Сколько можно заработать","Механизмы рынка","Основные инвестиционные стратегии","Путь к финансовой свободе"]},
-      {title:"Выбор акций",desc:"Какую акцию покупать. Как оценить компанию. Анализ сектора и отрасли.",lessons:["Методы анализа компании","Анализ сектора (GICS)","Защитные vs циклические секторы","Анализ конкурентов","Как найти лучшие акции"]},
-      {title:"Халяльное инвестирование",desc:"Определение акций, соответствующих Шариату. Стандарты AAOIFI. Методология халяльного скрининга.",lessons:["Что такое шариатский скрининг","Проверка деятельности бизнеса","Финансовые коэффициенты","Очищение нечистого дохода","Практические примеры"]},
-      {title:"Фундаментальный анализ",desc:"Глубокий анализ по 5 категориям: Рост, Оценка, Рентабельность, Финансовое здоровье, Эффективность.",lessons:["Рост: Выручка и рост EPS","Оценка: P/E, P/S, P/B, PEG","Рентабельность: Валовая, Опер, Чистая маржа","Финансовое здоровье: Коэффициенты","Эффективность: ROA, ROE, ROIC"]},
-      {title:"Управление рисками",desc:"Модель риска из 15 вопросов. Диверсификация портфеля. Бета, волатильность и оценка риска.",lessons:["Модель риска из 15 вопросов","НИЗКИЙ/СРЕДНИЙ/ВЫСОКИЙ/ОЧЕНЬ ВЫСОКИЙ","Диверсификация портфеля","Бета и волатильность","Стратегии стоп-лосс"]},
-      {title:"Реальная практика",desc:"Открытие реального счёта. Покупка первой акции. Мониторинг портфеля.",lessons:["Выбор брокера и открытие счёта","Покупка первой акции","Мониторинг портфеля","Чтение отчётности","Долгосрочная стратегия"]},
+      {"title": "Вступление", "desc": "Структура курса, подход Savura Invest и как организовать обучение.", "lessons": ["Программа курса и порядок обучения", "Методология Savura Invest", "Философия халяльных инвестиций", "Работа с платформой и инструментами"]},
+      {"title": "Введение в трейдинг и основные понятия", "desc": "Что такое трейдинг, его виды и основные опоры успешного трейдера.", "lessons": ["Трейдинг и финансовые инструменты", "Скальпинг, дейтрейдинг, свинг и позиционная торговля", "Выбор брокера и открытие счёта", "5 опор успеха"]},
+      {"title": "Халяльный трейдинг акциями", "desc": "Владение акциями, стандарты AAOIFI и методика определения халяльных акций.", "lessons": ["Акция — партнёрство в компании", "Стандарт AAOIFI № 21", "3-ступенчатый халяль-фильтр", "Отчёты 10-K, 10-Q и SEC EDGAR"]},
+      {"title": "Фундаментальный анализ", "desc": "Определение реальной стоимости компании по финансовым показателям.", "lessons": ["Подходы top-down и bottom-up", "5 групп показателей", "P/E, P/S, P/B, PEG и маржи", "Влияние макроэкономических факторов"]},
+      {"title": "Введение в технический анализ", "desc": "Учимся читать графики цены, тренды и ключевые индикаторы.", "lessons": ["Японские свечи и типы графиков", "Тренд, поддержка и сопротивление", "Фибоначчи и объём торгов", "EMA, RSI, MACD, Bollinger Bands"]},
+      {"title": "Технический анализ и стратегии", "desc": "Свинг-трейдинг, price action и основные торговые стратегии.", "lessons": ["Фундаментальный и технический анализ вместе", "Price action и таймфреймы", "Breakout, Reversal, Pullback", "Зоны конфлюэнса и список наблюдения"]},
+      {"title": "Риск-менеджмент и психология", "desc": "Защита капитала, соотношение риска и прибыли, психология трейдера.", "lessons": ["Соотношение Risk / Reward", "Stop Loss, Take Profit и ATR", "Диверсификация и толерантность к риску", "Управление жадностью и страхом"]},
+      {"title": "Начало реальной торговли", "desc": "Торговый план, ведение журнала и переход с демо на реальный счёт.", "lessons": ["Составление торгового плана", "Ежедневный, недельный и месячный анализ", "Торговый журнал", "Демо и реальный счёт"]},
+      {"title": "Дисциплина и финансовая грамотность", "desc": "Дисциплина, привычки и управление личными финансами для стабильных результатов.", "lessons": ["Дисциплина трейдера и ежедневные привычки", "Личный бюджет и накопления", "Долгосрочная стратегия капитала", "Учиться на ошибках и расти"]},
     ],
     forItems:["Вы хотите создать капитал, инвестируя в халяльные акции","Вы хотите повысить финансовую грамотность и освоить фондовый рынок","Вы хотите источник пассивного дохода, не привязанный к зарплате","Вы хотите, чтобы ваши деньги работали на вас","Вы хотите изучить успешные, осознанные инвестиционные стратегии"],
   },
@@ -1472,12 +1481,15 @@ const CRS_T = {
     statLessons:"Ders", statStock:"Hisse", statVideo:"Video",
     forTitle:"Bu kurs sizin için, eğer...",
     modules: [
-      {title:"Yatırım temelleri",desc:"Borsa nedir ve nasıl çalışır. ABD borsaları, şirketler, hisse türleri.",lessons:["Borsaya giriş","Ne kadar kazanabilirsiniz","Piyasa mekanizmaları","Temel yatırım stratejileri","Finansal özgürlüğe giden yol"]},
-      {title:"Hisse seçimi",desc:"Hangi hisseyi almalı. Bir şirket nasıl değerlendirilir. Sektör ve endüstri analizi.",lessons:["Şirket analiz yöntemleri","Sektör analizi (GICS)","Savunmacı vs döngüsel sektörler","Rakip analizi","En iyi hisseler nasıl bulunur"]},
-      {title:"Helal yatırım",desc:"Şeriata uygun hisseleri belirleme. AAOIFI standartları. Helal tarama metodolojisi.",lessons:["Şeriat taraması nedir","İş faaliyeti kontrolü","Finansal oranlar","Helal olmayan geliri arındırma","Pratik örnekler"]},
-      {title:"Temel analiz",desc:"5 kategoride derin analiz: Büyüme, Değerleme, Kârlılık, Finansal sağlık, Verimlilik.",lessons:["Büyüme: Gelir ve EPS büyümesi","Değerleme: P/E, P/S, P/B, PEG","Kârlılık: Brüt, Faaliyet, Net marj","Finansal sağlık: Oranlar","Verimlilik: ROA, ROE, ROIC"]},
-      {title:"Risk yönetimi",desc:"15 soruluk risk modeli. Portföy çeşitlendirmesi. Beta, volatilite ve risk değerlendirmesi.",lessons:["15 soruluk risk modeli","DÜŞÜK/ORTA/YÜKSEK/ÇOK YÜKSEK","Portföy çeşitlendirmesi","Beta ve volatilite","Stop-loss stratejileri"]},
-      {title:"Gerçek uygulama",desc:"Gerçek hesap açma. İlk hissenizi alma. Portföyünüzü izleme.",lessons:["Aracı seçimi ve hesap açma","İlk hissenizi alma","Portföy izleme","Rapor okuma","Uzun vadeli strateji"]},
+      {"title": "Giriş", "desc": "Kursun yapısı, Savura Invest yaklaşımı ve öğrenmenin nasıl düzenleneceği.", "lessons": ["Kurs programı ve çalışma planı", "Savura Invest metodolojisi", "Helal yatırım felsefesi", "Platform ve araçların kullanımı"]},
+      {"title": "Tradinge giriş ve temel kavramlar", "desc": "Trading nedir, türleri ve başarılı bir yatırımcının temel sütunları.", "lessons": ["Trading ve finansal araçlar", "Scalping, günlük, swing ve pozisyon trading", "Aracı kurum seçimi ve hesap açma", "Başarının 5 sütunu"]},
+      {"title": "Hisselerle helal trading", "desc": "Hisse sahipliği, AAOIFI standartları ve helal hisseyi belirleme yöntemi.", "lessons": ["Hisse sahipliği — şirkete ortaklık", "AAOIFI 21 numaralı standart", "3 aşamalı helal filtre", "10-K, 10-Q raporları ve SEC EDGAR"]},
+      {"title": "Temel analiz", "desc": "Şirketin gerçek değerini finansal göstergelerle belirlemek.", "lessons": ["Top-down ve bottom-up yaklaşımlar", "5 grup gösterge", "F/K, F/S, PD/DD, PEG ve marjlar", "Makroekonomik faktörlerin etkisi"]},
+      {"title": "Teknik analize giriş", "desc": "Fiyat grafiklerini, trendleri ve temel göstergeleri okumayı öğrenmek.", "lessons": ["Japon mumları ve grafik türleri", "Trend, destek ve direnç", "Fibonacci ve işlem hacmi", "EMA, RSI, MACD, Bollinger Bands"]},
+      {"title": "Teknik analiz ve stratejiler", "desc": "Swing trading, price action ve temel işlem stratejileri.", "lessons": ["Temel ve teknik analiz birlikte", "Price action ve zaman dilimleri", "Breakout, Reversal, Pullback", "Kesişim bölgeleri ve izleme listesi"]},
+      {"title": "Risk yönetimi ve psikoloji", "desc": "Sermayeyi korumak, risk/ödül oranı ve yatırımcı psikolojisi.", "lessons": ["Risk / Ödül oranı", "Stop Loss, Take Profit ve ATR", "Çeşitlendirme ve risk toleransı", "Açgözlülük ve korkuyu yönetmek"]},
+      {"title": "Gerçek tradinge başlama", "desc": "İşlem planı, günlük tutma ve demodan gerçek hesaba geçiş.", "lessons": ["İşlem planı oluşturma", "Günlük, haftalık ve aylık analiz", "Trading günlüğü", "Demo ve gerçek hesap farkı"]},
+      {"title": "Disiplin ve finansal okuryazarlık", "desc": "İstikrarlı sonuçlar için disiplin, alışkanlıklar ve kişisel finans yönetimi.", "lessons": ["Yatırımcı disiplini ve günlük alışkanlıklar", "Kişisel bütçe ve birikim", "Uzun vadeli servet stratejisi", "Hatalardan öğrenmek ve gelişmek"]},
     ],
     forItems:["Helal hisselere yatırım yaparak servet oluşturmak istiyorsanız","Finansal okuryazarlığınızı artırıp borsayı tam öğrenmek istiyorsanız","Maaşa bağlı olmayan pasif gelir kaynağı istiyorsanız","Paranızın sizin için çalışmasını istiyorsanız","Başarılı ve bilinçli yatırım stratejileri öğrenmek istiyorsanız"],
   },
@@ -1485,12 +1497,15 @@ const CRS_T = {
     statLessons:"درس", statStock:"سهم", statVideo:"فيديو",
     forTitle:"هذه الدورة لك إذا...",
     modules: [
-      {title:"أساسيات الاستثمار",desc:"ما هو سوق الأسهم وكيف يعمل. بورصات أمريكا، الشركات، أنواع الأسهم.",lessons:["مقدمة في سوق الأسهم","كم يمكنك أن تربح","آليات السوق","استراتيجيات الاستثمار الأساسية","الطريق إلى الحرية المالية"]},
-      {title:"اختيار الأسهم",desc:"أي سهم تشتري. كيف تقيّم شركة. تحليل القطاع والصناعة.",lessons:["طرق تحليل الشركة","تحليل القطاع (GICS)","القطاعات الدفاعية مقابل الدورية","تحليل المنافسين","كيف تجد أفضل الأسهم"]},
-      {title:"الاستثمار الحلال",desc:"تحديد الأسهم المتوافقة مع الشريعة. معايير AAOIFI. منهجية الفحص الحلال.",lessons:["ما هو الفحص الشرعي","فحص نشاط العمل","النسب المالية","تطهير الدخل غير الحلال","أمثلة عملية"]},
-      {title:"التحليل الأساسي",desc:"تحليل معمّق في 5 فئات: النمو، التقييم، الربحية، الصحة المالية، الكفاءة.",lessons:["النمو: نمو الإيرادات وEPS","التقييم: P/E, P/S, P/B, PEG","الربحية: الإجمالي، التشغيلي، الصافي","الصحة المالية: النسب","الكفاءة: ROA, ROE, ROIC"]},
-      {title:"إدارة المخاطر",desc:"نموذج مخاطر من 15 سؤالاً. تنويع المحفظة. بيتا والتقلب وتقييم المخاطر.",lessons:["نموذج المخاطر من 15 سؤالاً","منخفض/متوسط/مرتفع/مرتفع جداً","تنويع المحفظة","بيتا والتقلب","استراتيجيات وقف الخسارة"]},
-      {title:"التطبيق العملي",desc:"فتح حساب حقيقي. شراء أول سهم. مراقبة المحفظة.",lessons:["اختيار الوسيط وفتح حساب","شراء أول سهم","مراقبة المحفظة","قراءة التقارير","استراتيجية طويلة الأمد"]},
+      {"title": "المقدمة", "desc": "هيكل الدورة ونهج Savura Invest وكيفية تنظيم التعلّم.", "lessons": ["برنامج الدورة وخطة الدراسة", "منهجية Savura Invest", "فلسفة الاستثمار الحلال", "استخدام المنصة والأدوات"]},
+      {"title": "مدخل إلى التداول والمفاهيم الأساسية", "desc": "ما هو التداول وأنواعه والركائز الأساسية للمتداول الناجح.", "lessons": ["التداول والأدوات المالية", "المضاربة السريعة واليومية والمتأرجحة وطويلة المدى", "اختيار الوسيط وفتح الحساب", "ركائز النجاح الخمس"]},
+      {"title": "التداول الحلال بالأسهم", "desc": "ملكية الأسهم ومعايير AAOIFI ومنهجية تحديد الأسهم الحلال.", "lessons": ["ملكية السهم — شراكة في الشركة", "معيار AAOIFI رقم 21", "الفلتر الحلال من 3 مراحل", "تقارير 10-K و10-Q وSEC EDGAR"]},
+      {"title": "التحليل الأساسي", "desc": "تحديد القيمة الحقيقية للشركة من خلال المؤشرات المالية.", "lessons": ["نهجا من الأعلى للأسفل ومن الأسفل للأعلى", "5 مجموعات من المؤشرات", "P/E وP/S وP/B وPEG والهوامش", "تأثير العوامل الاقتصادية الكلية"]},
+      {"title": "مدخل إلى التحليل الفني", "desc": "تعلّم قراءة الرسوم البيانية والاتجاهات والمؤشرات الرئيسية.", "lessons": ["الشموع اليابانية وأنواع الرسوم", "الاتجاه والدعم والمقاومة", "فيبوناتشي وحجم التداول", "EMA وRSI وMACD وBollinger Bands"]},
+      {"title": "التحليل الفني والاستراتيجيات", "desc": "التداول المتأرجح وحركة السعر واستراتيجيات التداول الأساسية.", "lessons": ["الجمع بين التحليل الأساسي والفني", "حركة السعر والأطر الزمنية", "الاختراق والانعكاس والارتداد", "مناطق التلاقي وقائمة المراقبة"]},
+      {"title": "إدارة المخاطر والنفسية", "desc": "حماية رأس المال ونسبة المخاطرة إلى العائد ونفسية المتداول.", "lessons": ["نسبة المخاطرة / العائد", "وقف الخسارة وجني الربح وATR", "التنويع وتحمّل المخاطر", "التحكم في الطمع والخوف"]},
+      {"title": "بدء التداول الحقيقي", "desc": "إعداد خطة التداول وتدوين المفكرة والانتقال من التجريبي إلى الحقيقي.", "lessons": ["إعداد خطة التداول", "التحليل اليومي والأسبوعي والشهري", "مفكرة التداول", "الفرق بين الحساب التجريبي والحقيقي"]},
+      {"title": "الانضباط والثقافة المالية", "desc": "الانضباط والعادات وإدارة المال الشخصي لتحقيق نتائج مستقرة.", "lessons": ["انضباط المتداول والعادات اليومية", "الميزانية الشخصية والادخار", "استراتيجية الثروة طويلة المدى", "التعلّم من الأخطاء والنمو"]},
     ],
     forItems:["تريد بناء الثروة عبر الاستثمار في الأسهم الحلال","تريد تحسين ثقافتك المالية وإتقان سوق الأسهم","تريد مصدر دخل سلبي غير مرتبط بالراتب الشهري","تريد أن يعمل مالك من أجلك","تريد تعلّم استراتيجيات استثمار ناجحة وواعية"],
   },
@@ -1503,7 +1518,7 @@ function CoursePage({lang, setPage}){
   const modules=cr.modules;
   const forItems=cr.forItems;
   return(
-    <div style={{paddingTop:80,minHeight:"100vh"}}>
+    <div dir={lang==="ar"?"rtl":"ltr"} style={{paddingTop:80,minHeight:"100vh",textAlign:lang==="ar"?"right":"left"}}>
       <div style={{background:"var(--heroG)",padding:"60px 24px 50px",borderBottom:`1px solid ${C.border}`}}>
         <div style={{maxWidth:800,margin:"0 auto"}}>
           <div style={{fontSize:10.5,letterSpacing:"2px",color:C.faint,fontFamily:"'JetBrains Mono',monospace",marginBottom:12}}>{sc.label}</div>
@@ -1561,9 +1576,12 @@ function CoursePage({lang, setPage}){
           {modules.map(function(m,i){return(
             <div key={i} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,overflow:"hidden"}}>
               <div style={{display:"flex",alignItems:"flex-start",gap:14,padding:"16px 18px"}}>
-                <div style={{flexShrink:0,width:28,display:"flex",alignItems:"center",justifyContent:"center",marginTop:2,opacity:.55}}><Logo size={20}/></div>
+                <div style={{flexShrink:0,width:40,height:40,borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",background:`linear-gradient(135deg,${C.blue},${C.green})`,color:"#fff",fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:17,boxShadow:"0 6px 18px rgba(47,125,246,0.25)"}}>{i}</div>
                 <div style={{flex:1}}>
-                  <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:15,color:C.text,marginBottom:6}}>{(sc.mt&&sc.mt[i])||m.title}</div>
+                  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:10,flexWrap:"wrap",marginBottom:6}}>
+                    <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:15.5,color:C.text}}>{m.title}</div>
+                    <span style={{fontSize:11,fontWeight:700,color:C.greenLt,background:"rgba(55,178,77,0.1)",border:"1px solid rgba(55,178,77,0.3)",borderRadius:20,padding:"3px 10px",whiteSpace:"nowrap"}}>{({uz:"10+ dars",en:"10+ lessons",ru:"10+ уроков",tr:"10+ ders",ar:"+10 دروس"})[lang]||"10+ dars"}</span>
+                  </div>
                   <div style={{fontSize:12.5,color:C.dim,lineHeight:1.6,marginBottom:10}}>{m.desc}</div>
                   <div style={{display:"flex",flexDirection:"column",gap:4}}>
                     {m.lessons.map(function(l,j){return(
