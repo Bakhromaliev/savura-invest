@@ -134,7 +134,7 @@ const LANG = {
   uz:{
     tagline:"FUNDAMENTAL TAHLIL \u00b7 AQSH BIRJASI",
     h1:"Aksiyaning", h2:"fundamental holati qanday?",
-    sub:"Aksiya belgisini yozing \u2014 kurs metodologiyasi bo'yicha to'liq tahlil.",
+    sub:"Aksiya belgisini yozing \u2014 Savura Invest metodologiyasi bo'yicha to'liq tahlil.",
     ph:"Masalan: AAPL, TSLA, KO...", btn:"Tekshirish", btnL:"Tahlil...",
     loading:"Finnhub dan real vaqt ma'lumot olinmoqda\u2026",
     errNF:"Aksiya topilmadi.",
@@ -142,7 +142,7 @@ const LANG = {
     riskT:"RISK DARAJASI", riskTag:"15 savol",
     noQ:(n)=>`${n} ta "yo'q"`, showQ:"15 savolni ko'ring \u25bc", hideQ:"Yopish \u25b2",
     fundT:"FUNDAMENTAL \u2014 5 TOIFA", sample:"namuna",
-    note:"Ma'lumot: stockanalysis.com \u00b7 Savura Invest kurs metodologiyasi \u00b7 Investitsiya tavsiyasi emas.",
+    note:"Ma'lumot: stockanalysis.com \u00b7 Savura Invest metodologiyasi \u00b7 Investitsiya tavsiyasi emas.",
     rI:"Ijobiy", rO:"O'tacha", rS:"Salbiy",
     lL:"PAST", lM:"O'RTA", lH:"YUQORI", lVH:"JUDA YUQORI",
     qa:"Ha", qn:"Yo'q",
@@ -167,7 +167,7 @@ const LANG = {
   en:{
     tagline:"FUNDAMENTAL ANALYSIS \u00b7 US MARKETS",
     h1:"What is the stock's", h2:"fundamental status?",
-    sub:"Enter a ticker \u2014 full fundamental analysis per course methodology.",
+    sub:"Enter a ticker \u2014 full fundamental analysis per Savura Invest methodology.",
     ph:"e.g. AAPL, TSLA, KO...", btn:"Analyze", btnL:"Analyzing...",
     loading:"Fetching real-time data from Finnhub\u2026",
     errNF:"Stock not found.",
@@ -175,7 +175,7 @@ const LANG = {
     riskT:"RISK LEVEL", riskTag:"15-question model",
     noQ:(n)=>`${n} "No" answers`, showQ:"Show 15 questions \u25bc", hideQ:"Hide \u25b2",
     fundT:"FUNDAMENTALS \u2014 5 CATEGORIES", sample:"sample",
-    note:"Data: stockanalysis.com \u00b7 Savura Invest course methodology \u00b7 Not investment advice.",
+    note:"Data: stockanalysis.com \u00b7 Savura Invest methodology \u00b7 Not investment advice.",
     rI:"Positive", rO:"Average", rS:"Negative",
     lL:"LOW", lM:"MEDIUM", lH:"HIGH", lVH:"VERY HIGH",
     qa:"Yes", qn:"No",
@@ -200,7 +200,7 @@ const LANG = {
   tr:{
     tagline:"TEMEL ANALİZ \u00b7 ABD PİYASALARI",
     h1:"Hissenin", h2:"temel durumu nedir?",
-    sub:"Hisse sembolü girin \u2014 kurs metodolojisine göre tam temel analiz.",
+    sub:"Hisse sembolü girin \u2014 Savura Invest metodolojisine göre tam temel analiz.",
     ph:"ör. AAPL, TSLA, KO...", btn:"Analiz Et", btnL:"Analiz...",
     loading:"Finnhub'dan gerçek zamanlı veri alınıyor\u2026",
     errNF:"Hisse bulunamadı.",
@@ -208,7 +208,7 @@ const LANG = {
     riskT:"RİSK SEVİYESİ", riskTag:"15 sorulu model",
     noQ:(n)=>`${n} "Hayır" cevabı`, showQ:"15 soruyu gör \u25bc", hideQ:"Gizle \u25b2",
     fundT:"TEMEL ANALİZ \u2014 5 KATEGORİ", sample:"örnek",
-    note:"Veri: stockanalysis.com \u00b7 Savura Invest kursu metodolojisi \u00b7 Yatırım tavsiyesi değildir.",
+    note:"Veri: stockanalysis.com \u00b7 Savura Invest metodolojisi \u00b7 Yatırım tavsiyesi değildir.",
     rI:"Olumlu", rO:"Ortalama", rS:"Olumsuz",
     lL:"DÜŞDÜK", lM:"ORTA", lH:"YÜKSEK", lVH:"ÇOK YÜKSEK",
     qa:"Evet", qn:"Hayır",
@@ -458,8 +458,8 @@ const EXAM_BANK = {
     {q:"Day trading nima?",opts:["1 kun ichida savdo, pozitsiya o'sha kuni yopiladi","1 yil ushlab turish","Faqat kechqurun savdo","Bir haftalik savdo"],correct:0,expl:"Day trading — 1 kun ichida savdo qilish; ochilgan pozitsiyalar keyingi kunga o'tmasdan o'sha kuni yopiladi."},
     {q:"Swing treyding qancha muddatga mo'ljallangan?",opts:["Bir necha kun yoki hafta","Bir necha sekund","10 yildan ortiq","Faqat 1 soat"],correct:0,expl:"Swing treyding — bir necha kun yoki hafta davomida instrumentlarni ushlab turib savdo qilish."},
     {q:"Positional treyding qanday muddatli savdo?",opts:["Bir necha oy yoki yil","Bir necha minut","Bir necha sekund","Yarim kun"],correct:0,expl:"Positional treyding — bir necha oy yoki yil davomida instrumentlarni ushlab turib savdo qilish."},
-    {q:"Savura Invest kursida qanday treyding o'rgatiladi?",opts:["Shariatga muvofiq real aksiyalar bilan","Forex va kripto","CFD va optsionlar","Margin va short-selling"],correct:0,expl:"Savura Invest kursida faqat shariatga muvofiq (halol) real aksiyalar bilan savdo o'rgatiladi."},
-    {q:"Quyidagilardan qaysi biri Savura Invest kursida O'RGATILMAYDI?",opts:["Kriptovalyuta","Real aksiyalar","Swing treyding","Uzoq muddatli investitsiya"],correct:0,expl:"Forex, kripto, CFD, optsion, futures, margin va short-selling o'rgatilmaydi. Faqat halol real aksiyalar o'rgatiladi."},
+    {q:"Savura Invest shogirdlik dasturida qanday treyding o'rgatiladi?",opts:["Shariatga muvofiq real aksiyalar bilan","Forex va kripto","CFD va optsionlar","Margin va short-selling"],correct:0,expl:"Savura Invest shogirdlik dasturida faqat shariatga muvofiq (halol) real aksiyalar bilan savdo o'rgatiladi."},
+    {q:"Quyidagilardan qaysi biri Savura Invest shogirdlik dasturida O'RGATILMAYDI?",opts:["Kriptovalyuta","Real aksiyalar","Swing treyding","Uzoq muddatli investitsiya"],correct:0,expl:"Forex, kripto, CFD, optsion, futures, margin va short-selling o'rgatilmaydi. Faqat halol real aksiyalar o'rgatiladi."},
     {q:"Muvaffaqiyatli treydingning 5 ustuni qaysilar?",opts:["Bilim, Psixologiya, Risk menejment, Treyding reja, Intizom","Faqat omad va sabr","Pul va vaqt","Kompyuter va internet"],correct:0,expl:"5 ustun: Bilim, Psixologiya, Risk menejment, Treyding reja va Intizom."},
     {q:"Aksiyalar bilan treyd qilishning 1-bosqichi nima?",opts:["Broker tanlash va hisob raqam ochish","Aksiyani darhol sotish","Kredit olish","Soliq to'lash"],correct:0,expl:"1-bosqich — ishonchli broker tanlash va hisob raqam ochish."},
     {q:"Broker hisobiga depozit qilish nimani anglatadi?",opts:["Bank hisobingizdan broker hisobiga pul yuborish","Aksiyani sotish","Kredit olish","Dividend olish"],correct:0,expl:"Depozit — bank hisob raqamingizdan broker hisob raqamingizga pul yuborish."},
@@ -611,11 +611,11 @@ const EXAM_BANK = {
 // IMTIHON — tarjimalar va savollar banki
 // ═══════════════════════════════════════════════════════════════════════════
 const EXAM_T = {
-  uz:{title:"IMTIHON",sub:"Har modul bo'yicha bilimingizni sinang",mod:"Modul",locked:"Qulflangan",passed:"O'tdingiz",start:"Boshlash",retake:"Qayta topshirish",q:"Savol",of:"dan",next:"Keyingi",finish:"Yakunlash",result:"Natija",correct:"To'g'ri",wrong:"Xato",yourScore:"Sizning natijangiz",passZone:"70% dan yuqori — a'lo!",failZone:"70% kerak — yana urinib ko'ring",reviewTitle:"Xatolaringiz ustida ishlang",yourAns:"Sizning javobingiz",correctAns:"To'g'ri javob",backToList:"Modullarga qaytish",screenshot:"Bu natijani skrinshot qilib guruhga yuboring ✅",passMsg:"Tabriklaymiz! Keyingi modul ochildi 🎉",locked2:"Avvalgi modulni 70% ga topshiring",unlockNext:"Keyingi modul ochildi!",examOf:"7 modullik imtihon",progress:"Jarayon",certBtn:"🎓 Sertifikatni olish",certLocked:"Sertifikat uchun 7 modulni ham 70% ga to'ldiring",certTitle:"SERTIFIKAT",certName:"Ism va familiyangiz",certNamePh:"Masalan: Alisher Karimov",certGen:"Sertifikat yaratish",certText:"Savura Invest \"Halol aksiyalarga investitsiya kiritish\" kursining 7 ta modulini muvaffaqiyatli tamomlaganligi uchun ushbu sertifikat bilan taqdirlanadi",certAwarded:"Ushbu sertifikat quyidagi shaxsga berildi:",certDir:"Direktor",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Berilgan sana",certDownload:"⬇ PDF yuklab olish",certShare:"Sertifikatni skrinshot qilib ijtimoiy tarmoqlarda ulashing! 🎉",certBack:"Orqaga",certNameReq:"Iltimos ism va familiyangizni kiriting",wrongOnly:"❌ Faqat xatolarni takrorlash",practiceMode:"MASHQ REJIMI (natija saqlanmaydi)",timeUp:"Vaqt tugadi!",statsTitle:"Statistika",statsBest:"Eng yaxshi",statsAttempts:"Urinishlar",statsAvg:"O'rtacha",noStats:"Hali imtihon topshirmadingiz",statsBtn:"📊 Statistika",leaderboard:"Reyting jadvali",leaderboardBtn:"🏆 Reyting",you:"Siz"},
-  en:{title:"EXAM",sub:"Test your knowledge for each module",mod:"Module",locked:"Locked",passed:"Passed",start:"Start",retake:"Retake",q:"Question",of:"of",next:"Next",finish:"Finish",result:"Result",correct:"Correct",wrong:"Wrong",yourScore:"Your score",passZone:"Above 70% — excellent!",failZone:"70% needed — try again",reviewTitle:"Review your mistakes",yourAns:"Your answer",correctAns:"Correct answer",backToList:"Back to modules",screenshot:"Screenshot this result and send it to the group ✅",passMsg:"Congratulations! Next module unlocked 🎉",locked2:"Pass the previous module with 70%",unlockNext:"Next module unlocked!",examOf:"7-module exam",progress:"Progress",certBtn:"🎓 Get certificate",certLocked:"Complete all 7 modules with 70% to earn the certificate",certTitle:"CERTIFICATE",certName:"Your full name",certNamePh:"e.g. Alisher Karimov",certGen:"Generate certificate",certText:"is hereby awarded this certificate for successfully completing all 7 modules of the Savura Invest \"Halal Stock Investing\" course",certAwarded:"This certificate is proudly awarded to:",certDir:"Director",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Date issued",certDownload:"⬇ Download PDF",certShare:"Screenshot your certificate and share it on social media! 🎉",certBack:"Back",certNameReq:"Please enter your full name",wrongOnly:"❌ Practice wrong answers only",practiceMode:"PRACTICE MODE (result not saved)",timeUp:"Time is up!",statsTitle:"Statistics",statsBest:"Best",statsAttempts:"Attempts",statsAvg:"Average",noStats:"You have not taken any exams yet",statsBtn:"📊 Statistics",leaderboard:"Leaderboard",leaderboardBtn:"🏆 Leaderboard",you:"You"},
-  ru:{title:"ЭКЗАМЕН",sub:"Проверьте знания по каждому модулю",mod:"Модуль",locked:"Заблокировано",passed:"Сдано",start:"Начать",retake:"Пересдать",q:"Вопрос",of:"из",next:"Далее",finish:"Завершить",result:"Результат",correct:"Верно",wrong:"Неверно",yourScore:"Ваш результат",passZone:"Выше 70% — отлично!",failZone:"Нужно 70% — попробуйте снова",reviewTitle:"Работа над ошибками",yourAns:"Ваш ответ",correctAns:"Правильный ответ",backToList:"К модулям",screenshot:"Сделайте скриншот результата и отправьте в группу ✅",passMsg:"Поздравляем! Следующий модуль открыт 🎉",locked2:"Сдайте предыдущий модуль на 70%",unlockNext:"Следующий модуль открыт!",examOf:"Экзамен из 7 модулей",progress:"Прогресс",certBtn:"🎓 Получить сертификат",certLocked:"Сдайте все 7 модулей на 70% для получения сертификата",certTitle:"СЕРТИФИКАТ",certName:"Ваше имя и фамилия",certNamePh:"Например: Алишер Каримов",certGen:"Создать сертификат",certText:"награждается настоящим сертификатом за успешное завершение всех 7 модулей курса Savura Invest \"Халяльное инвестирование в акции\"",certAwarded:"Настоящий сертификат выдан:",certDir:"Директор",certDirName:"Бахромалиев Мухаммадюсуф",certDate:"Дата выдачи",certDownload:"⬇ Скачать PDF",certShare:"Сделайте скриншот сертификата и поделитесь в соцсетях! 🎉",certBack:"Назад",certNameReq:"Пожалуйста, введите имя и фамилию",wrongOnly:"❌ Повторить только ошибки",practiceMode:"РЕЖИМ ТРЕНИРОВКИ (не сохраняется)",timeUp:"Время вышло!",statsTitle:"Статистика",statsBest:"Лучший",statsAttempts:"Попытки",statsAvg:"Средний",noStats:"Вы ещё не сдавали экзамены",statsBtn:"📊 Статистика",leaderboard:"Рейтинг",leaderboardBtn:"🏆 Рейтинг",you:"Вы"},
-  tr:{title:"SINAV",sub:"Her modül için bilginizi test edin",mod:"Modül",locked:"Kilitli",passed:"Geçti",start:"Başla",retake:"Tekrar",q:"Soru",of:"/",next:"İleri",finish:"Bitir",result:"Sonuç",correct:"Doğru",wrong:"Yanlış",yourScore:"Puanınız",passZone:"70% üzeri — mükemmel!",failZone:"70% gerekli — tekrar deneyin",reviewTitle:"Hatalarınızı gözden geçirin",yourAns:"Cevabınız",correctAns:"Doğru cevap",backToList:"Modüllere dön",screenshot:"Bu sonucun ekran görüntüsünü alıp gruba gönderin ✅",passMsg:"Tebrikler! Sonraki modül açıldı 🎉",locked2:"Önceki modülü 70% ile geçin",unlockNext:"Sonraki modül açıldı!",examOf:"7 modüllük sınav",progress:"İlerleme",certBtn:"🎓 Sertifika al",certLocked:"Sertifika için 7 modülü de 70% ile tamamlayın",certTitle:"SERTİFİKA",certName:"Ad ve soyadınız",certNamePh:"Örn: Alisher Karimov",certGen:"Sertifika oluştur",certText:"Savura Invest \"Helal Hisse Yatırımı\" kursunun 7 modülünü başarıyla tamamladığı için bu sertifika ile ödüllendirilir",certAwarded:"Bu sertifika aşağıdaki kişiye verilmiştir:",certDir:"Direktör",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Veriliş tarihi",certDownload:"⬇ PDF indir",certShare:"Sertifikanızın ekran görüntüsünü alıp sosyal medyada paylaşın! 🎉",certBack:"Geri",certNameReq:"Lütfen ad ve soyadınızı girin",wrongOnly:"❌ Sadece yanlışları tekrarla",practiceMode:"ALIŞTIRMA MODU (kaydedilmez)",timeUp:"Süre doldu!",statsTitle:"İstatistik",statsBest:"En iyi",statsAttempts:"Deneme",statsAvg:"Ortalama",noStats:"Henüz sınav vermediniz",statsBtn:"📊 İstatistik",leaderboard:"Sıralama",leaderboardBtn:"🏆 Sıralama",you:"Siz"},
-  ar:{title:"الامتحان",sub:"اختبر معرفتك في كل وحدة",mod:"الوحدة",locked:"مقفل",passed:"ناجح",start:"ابدأ",retake:"إعادة",q:"سؤال",of:"من",next:"التالي",finish:"إنهاء",result:"النتيجة",correct:"صحيح",wrong:"خطأ",yourScore:"نتيجتك",passZone:"أكثر من 70% — ممتاز!",failZone:"مطلوب 70% — حاول مجدداً",reviewTitle:"راجع أخطاءك",yourAns:"إجابتك",correctAns:"الإجابة الصحيحة",backToList:"إلى الوحدات",screenshot:"التقط صورة للنتيجة وأرسلها إلى المجموعة ✅",passMsg:"تهانينا! فُتحت الوحدة التالية 🎉",locked2:"اجتز الوحدة السابقة بنسبة 70%",unlockNext:"فُتحت الوحدة التالية!",examOf:"امتحان من 7 وحدات",progress:"التقدم",certBtn:"🎓 احصل على الشهادة",certLocked:"أكمل جميع الوحدات السبع بنسبة 70% للحصول على الشهادة",certTitle:"شهادة",certName:"اسمك الكامل",certNamePh:"مثال: علیشیر كریموف",certGen:"إنشاء الشهادة",certText:"يُمنح هذه الشهادة لإكماله بنجاح جميع الوحدات السبع من دورة Savura Invest \"الاستثمار الحلال في الأسهم\"",certAwarded:"تُمنح هذه الشهادة بفخر إلى:",certDir:"المدير",certDirName:"بهرملييف محمد يوسف",certDate:"تاريخ الإصدار",certDownload:"⬇ تحميل PDF",certShare:"التقط صورة لشهادتك وشاركها على وسائل التواصل! 🎉",certBack:"رجوع",certNameReq:"الرجاء إدخال اسمك الكامل",wrongOnly:"❌ تكرار الأخطاء فقط",practiceMode:"وضع التدريب (لا يُحفظ)",timeUp:"انتهى الوقت!",statsTitle:"الإحصائيات",statsBest:"الأفضل",statsAttempts:"المحاولات",statsAvg:"المتوسط",noStats:"لم تُجرِ أي امتحان بعد",statsBtn:"📊 الإحصائيات",leaderboard:"لوحة المتصدرين",leaderboardBtn:"🏆 المتصدرون",you:"أنت"},
+  uz:{title:"IMTIHON",sub:"Har modul bo'yicha bilimingizni sinang",mod:"Modul",locked:"Qulflangan",passed:"O'tdingiz",start:"Boshlash",retake:"Qayta topshirish",q:"Savol",of:"dan",next:"Keyingi",finish:"Yakunlash",result:"Natija",correct:"To'g'ri",wrong:"Xato",yourScore:"Sizning natijangiz",passZone:"70% dan yuqori — a'lo!",failZone:"70% kerak — yana urinib ko'ring",reviewTitle:"Xatolaringiz ustida ishlang",yourAns:"Sizning javobingiz",correctAns:"To'g'ri javob",backToList:"Modullarga qaytish",screenshot:"Bu natijani skrinshot qilib guruhga yuboring ✅",passMsg:"Tabriklaymiz! Keyingi modul ochildi 🎉",locked2:"Avvalgi modulni 70% ga topshiring",unlockNext:"Keyingi modul ochildi!",examOf:"7 modullik imtihon",progress:"Jarayon",certBtn:"🎓 Sertifikatni olish",certLocked:"Sertifikat uchun 7 modulni ham 70% ga to'ldiring",certTitle:"SERTIFIKAT",certName:"Ism va familiyangiz",certNamePh:"Masalan: Alisher Karimov",certGen:"Sertifikat yaratish",certText:"Savura Invest \"Halol aksiyalarga investitsiya kiritish\" shogirdlik dasturining 7 ta modulini muvaffaqiyatli tamomlaganligi uchun ushbu sertifikat bilan taqdirlanadi",certAwarded:"Ushbu sertifikat quyidagi shaxsga berildi:",certDir:"Direktor",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Berilgan sana",certDownload:"⬇ PDF yuklab olish",certShare:"Sertifikatni skrinshot qilib ijtimoiy tarmoqlarda ulashing! 🎉",certBack:"Orqaga",certNameReq:"Iltimos ism va familiyangizni kiriting",wrongOnly:"❌ Faqat xatolarni takrorlash",practiceMode:"MASHQ REJIMI (natija saqlanmaydi)",timeUp:"Vaqt tugadi!",statsTitle:"Statistika",statsBest:"Eng yaxshi",statsAttempts:"Urinishlar",statsAvg:"O'rtacha",noStats:"Hali imtihon topshirmadingiz",statsBtn:"📊 Statistika",leaderboard:"Reyting jadvali",leaderboardBtn:"🏆 Reyting",you:"Siz"},
+  en:{title:"EXAM",sub:"Test your knowledge for each module",mod:"Module",locked:"Locked",passed:"Passed",start:"Start",retake:"Retake",q:"Question",of:"of",next:"Next",finish:"Finish",result:"Result",correct:"Correct",wrong:"Wrong",yourScore:"Your score",passZone:"Above 70% — excellent!",failZone:"70% needed — try again",reviewTitle:"Review your mistakes",yourAns:"Your answer",correctAns:"Correct answer",backToList:"Back to modules",screenshot:"Screenshot this result and send it to the group ✅",passMsg:"Congratulations! Next module unlocked 🎉",locked2:"Pass the previous module with 70%",unlockNext:"Next module unlocked!",examOf:"7-module exam",progress:"Progress",certBtn:"🎓 Get certificate",certLocked:"Complete all 7 modules with 70% to earn the certificate",certTitle:"CERTIFICATE",certName:"Your full name",certNamePh:"e.g. Alisher Karimov",certGen:"Generate certificate",certText:"is hereby awarded this certificate for successfully completing all 7 modules of the Savura Invest \"Halal Stock Investing\" mentorship program",certAwarded:"This certificate is proudly awarded to:",certDir:"Director",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Date issued",certDownload:"⬇ Download PDF",certShare:"Screenshot your certificate and share it on social media! 🎉",certBack:"Back",certNameReq:"Please enter your full name",wrongOnly:"❌ Practice wrong answers only",practiceMode:"PRACTICE MODE (result not saved)",timeUp:"Time is up!",statsTitle:"Statistics",statsBest:"Best",statsAttempts:"Attempts",statsAvg:"Average",noStats:"You have not taken any exams yet",statsBtn:"📊 Statistics",leaderboard:"Leaderboard",leaderboardBtn:"🏆 Leaderboard",you:"You"},
+  ru:{title:"ЭКЗАМЕН",sub:"Проверьте знания по каждому модулю",mod:"Модуль",locked:"Заблокировано",passed:"Сдано",start:"Начать",retake:"Пересдать",q:"Вопрос",of:"из",next:"Далее",finish:"Завершить",result:"Результат",correct:"Верно",wrong:"Неверно",yourScore:"Ваш результат",passZone:"Выше 70% — отлично!",failZone:"Нужно 70% — попробуйте снова",reviewTitle:"Работа над ошибками",yourAns:"Ваш ответ",correctAns:"Правильный ответ",backToList:"К модулям",screenshot:"Сделайте скриншот результата и отправьте в группу ✅",passMsg:"Поздравляем! Следующий модуль открыт 🎉",locked2:"Сдайте предыдущий модуль на 70%",unlockNext:"Следующий модуль открыт!",examOf:"Экзамен из 7 модулей",progress:"Прогресс",certBtn:"🎓 Получить сертификат",certLocked:"Сдайте все 7 модулей на 70% для получения сертификата",certTitle:"СЕРТИФИКАТ",certName:"Ваше имя и фамилия",certNamePh:"Например: Алишер Каримов",certGen:"Создать сертификат",certText:"награждается настоящим сертификатом за успешное завершение всех 7 модулей программы наставничества Savura Invest \"Халяльное инвестирование в акции\"",certAwarded:"Настоящий сертификат выдан:",certDir:"Директор",certDirName:"Бахромалиев Мухаммадюсуф",certDate:"Дата выдачи",certDownload:"⬇ Скачать PDF",certShare:"Сделайте скриншот сертификата и поделитесь в соцсетях! 🎉",certBack:"Назад",certNameReq:"Пожалуйста, введите имя и фамилию",wrongOnly:"❌ Повторить только ошибки",practiceMode:"РЕЖИМ ТРЕНИРОВКИ (не сохраняется)",timeUp:"Время вышло!",statsTitle:"Статистика",statsBest:"Лучший",statsAttempts:"Попытки",statsAvg:"Средний",noStats:"Вы ещё не сдавали экзамены",statsBtn:"📊 Статистика",leaderboard:"Рейтинг",leaderboardBtn:"🏆 Рейтинг",you:"Вы"},
+  tr:{title:"SINAV",sub:"Her modül için bilginizi test edin",mod:"Modül",locked:"Kilitli",passed:"Geçti",start:"Başla",retake:"Tekrar",q:"Soru",of:"/",next:"İleri",finish:"Bitir",result:"Sonuç",correct:"Doğru",wrong:"Yanlış",yourScore:"Puanınız",passZone:"70% üzeri — mükemmel!",failZone:"70% gerekli — tekrar deneyin",reviewTitle:"Hatalarınızı gözden geçirin",yourAns:"Cevabınız",correctAns:"Doğru cevap",backToList:"Modüllere dön",screenshot:"Bu sonucun ekran görüntüsünü alıp gruba gönderin ✅",passMsg:"Tebrikler! Sonraki modül açıldı 🎉",locked2:"Önceki modülü 70% ile geçin",unlockNext:"Sonraki modül açıldı!",examOf:"7 modüllük sınav",progress:"İlerleme",certBtn:"🎓 Sertifika al",certLocked:"Sertifika için 7 modülü de 70% ile tamamlayın",certTitle:"SERTİFİKA",certName:"Ad ve soyadınız",certNamePh:"Örn: Alisher Karimov",certGen:"Sertifika oluştur",certText:"Savura Invest \"Helal Hisse Yatırımı\" mentorluk programının 7 modülünü başarıyla tamamladığı için bu sertifika ile ödüllendirilir",certAwarded:"Bu sertifika aşağıdaki kişiye verilmiştir:",certDir:"Direktör",certDirName:"Bahromaliyev Muhammadyusuf",certDate:"Veriliş tarihi",certDownload:"⬇ PDF indir",certShare:"Sertifikanızın ekran görüntüsünü alıp sosyal medyada paylaşın! 🎉",certBack:"Geri",certNameReq:"Lütfen ad ve soyadınızı girin",wrongOnly:"❌ Sadece yanlışları tekrarla",practiceMode:"ALIŞTIRMA MODU (kaydedilmez)",timeUp:"Süre doldu!",statsTitle:"İstatistik",statsBest:"En iyi",statsAttempts:"Deneme",statsAvg:"Ortalama",noStats:"Henüz sınav vermediniz",statsBtn:"📊 İstatistik",leaderboard:"Sıralama",leaderboardBtn:"🏆 Sıralama",you:"Siz"},
+  ar:{title:"الامتحان",sub:"اختبر معرفتك في كل وحدة",mod:"الوحدة",locked:"مقفل",passed:"ناجح",start:"ابدأ",retake:"إعادة",q:"سؤال",of:"من",next:"التالي",finish:"إنهاء",result:"النتيجة",correct:"صحيح",wrong:"خطأ",yourScore:"نتيجتك",passZone:"أكثر من 70% — ممتاز!",failZone:"مطلوب 70% — حاول مجدداً",reviewTitle:"راجع أخطاءك",yourAns:"إجابتك",correctAns:"الإجابة الصحيحة",backToList:"إلى الوحدات",screenshot:"التقط صورة للنتيجة وأرسلها إلى المجموعة ✅",passMsg:"تهانينا! فُتحت الوحدة التالية 🎉",locked2:"اجتز الوحدة السابقة بنسبة 70%",unlockNext:"فُتحت الوحدة التالية!",examOf:"امتحان من 7 وحدات",progress:"التقدم",certBtn:"🎓 احصل على الشهادة",certLocked:"أكمل جميع الوحدات السبع بنسبة 70% للحصول على الشهادة",certTitle:"شهادة",certName:"اسمك الكامل",certNamePh:"مثال: علیشیر كریموف",certGen:"إنشاء الشهادة",certText:"يُمنح هذه الشهادة لإكماله بنجاح جميع الوحدات السبع من برنامج الإرشاد Savura Invest \"الاستثمار الحلال في الأسهم\"",certAwarded:"تُمنح هذه الشهادة بفخر إلى:",certDir:"المدير",certDirName:"بهرملييف محمد يوسف",certDate:"تاريخ الإصدار",certDownload:"⬇ تحميل PDF",certShare:"التقط صورة لشهادتك وشاركها على وسائل التواصل! 🎉",certBack:"رجوع",certNameReq:"الرجاء إدخال اسمك الكامل",wrongOnly:"❌ تكرار الأخطاء فقط",practiceMode:"وضع التدريب (لا يُحفظ)",timeUp:"انتهى الوقت!",statsTitle:"الإحصائيات",statsBest:"الأفضل",statsAttempts:"المحاولات",statsAvg:"المتوسط",noStats:"لم تُجرِ أي امتحان بعد",statsBtn:"📊 الإحصائيات",leaderboard:"لوحة المتصدرين",leaderboardBtn:"🏆 المتصدرون",you:"أنت"},
 };
 
 // Modul nomlari (5 til) — CRS_T dagi modul sarlavhalaridan foydalanamiz
@@ -629,13 +629,13 @@ const EXAM_MOD_NAMES = {
 
 
 const SITE_T={
-  uz:{nav:{halal:"TREYDING HALOLMI?",home:"Bosh sahifa",tool:"Fundamental Tahlil",course:"Aksiyalar savdosi kursi",journal:"Kundalik",demo:"Demo",about:"Biz haqimizda",erp:"Savura Edu"},
+  uz:{nav:{halal:"TREYDING HALOLMI?",home:"Bosh sahifa",tool:"Fundamental Tahlil",course:"Aksiyalar savdosi shogirdlik dasturi",journal:"Kundalik",demo:"Demo",about:"Biz haqimizda",erp:"Savura Edu"},
     hero:{badge:"AQSh BIRJASI · FUNDAMENTAL TAHLIL",h1:"Aksiya bozorida",h2:"ongli investitsiya",
       desc:"AQSh aksiya bozorida fundamental tahlil va halol investitsiya bo’yicha O‘zbekistonning yetakchi platformasi.",
-      btn1:"Tahlilni boshlash →",btn2:"Kursni ko‘rish",
+      btn1:"Tahlilni boshlash →",btn2:"Shogirdlik dasturini ko‘rish",
       stats:[["100+","AQSh aksiyasi"],["5","Tahlil toifasi"],["15","Savol risk modeli"],["2020","Yildan buyon"]]},
     feat:{label:"XIZMATLAR",title:"Savura Invest imkoniyatlari",
-      ct:["Fundamental Tahlil","Risk Darajasi","100+ AQSh Aksiyasi","Aksiyalar savdosi kursi","Telegram Kanal","Instagram","Savura Edu"]},
+      ct:["Fundamental Tahlil","Risk Darajasi","100+ AQSh Aksiyasi","Aksiyalar savdosi shogirdlik dasturi","Telegram Kanal","Instagram","Savura Edu"]},
     about:{label:"BIZ HAQIMIZDA",title:"Savura Invest",
       desc:"AQSh aksiya bozorida fundamental tahlil va halol investitsiya bo’yicha O‘zbekistonning yetakchi platformasi.",
       ml:"MISSIYA",mt:"Ongli investitsiya",
@@ -643,20 +643,20 @@ const SITE_T={
       mb2:"Biz professional metodologiyani raqamli vositaga aylantirib, har bir investor uchun qulay va tushunarli qildik.",
       fl:"ASOSCHI",fr:"Asoschi & Aksiya bozori tahlilchisi",
       fb:["2020-yildan buyon aksiyalar va treyding bilan shugʼullanadi","Turkiyada iqtisod sohasida taʼlim olmoqda","Savura brendi asoschisi","Savura Invest va Savura Edu asoschisi"],
-      stats:[["2020","Tashkil etilgan"],["100+","Tahlil aksiyalar"],["4","Til"],["6","Kurs moduli"]]},
+      stats:[["2020","Tashkil etilgan"],["100+","Tahlil aksiyalar"],["5","Til"],["8","Dastur moduli"]]},
     footer:{desc:"AQSh aksiya bozorida fundamental tahlil va halol investitsiya platformasi."},
-    course:{label:"OʼQUV KURS",title:"Aksiyalar savdosi kursi",
+    course:{label:"SHOGIRDLIK DASTURI",title:"Aksiyalar savdosi shogirdlik dasturi",
       desc:"AQSh aksiya bozorida noldan sarmoya kiritishni oʼrgan. Halol investitsiya, fundamental tahlil.",
-      ft:"Bu kurs siz uchun, agar...",ol:"Kurs egasi",sl:"Kurs dasturi",
-      ct:"Kursga qoʻshilishga tayormisiz?",cd:"Telegram orqali murojaat qiling.",cb:"Murojaat qilish",
+      ft:"Bu dastur siz uchun, agar...",ol:"Shogirdlik dasturi egasi",sl:"Shogirdlik dasturi",
+      ct:"Shogirdlik dasturiga qoʻshilishga tayyormisiz?",cd:"Quyidagi formani toʻldiring yoki Telegram orqali yozing.",cb:"Murojaat qilish",
       mt:["Investitsiya asoslari","Aksiyalarni tanlash","Halol investitsiya","Fundamental tahlil","Risk boshqaruvi","Real amaliyot"]}},
-  en:{nav:{halal:"IS TRADING HALAL?",home:"Home",tool:"Fundamental Analysis",course:"Stock Trading Course",journal:"My Space",demo:"Demo",about:"About Us",erp:"Savura Edu"},
+  en:{nav:{halal:"IS TRADING HALAL?",home:"Home",tool:"Fundamental Analysis",course:"Stock Trading Mentorship Program",journal:"My Space",demo:"Demo",about:"About Us",erp:"Savura Edu"},
     hero:{badge:"US MARKETS · FUNDAMENTAL ANALYSIS",h1:"Smart investing",h2:"in the stock market",
       desc:"Uzbekistan's leading platform for fundamental analysis and halal investing in US stock markets.",
-      btn1:"Start Analysis →",btn2:"View Course",
+      btn1:"Start Analysis →",btn2:"View Mentorship Program",
       stats:[["100+","US Stocks"],["5","Categories"],["15","Risk Questions"],["2020","Since"]]},
     feat:{label:"SERVICES",title:"Savura Invest Features",
-      ct:["Fundamental Analysis","Risk Assessment","100+ US Stocks","Stock Trading Course","Telegram Channel","Instagram","Savura Edu"]},
+      ct:["Fundamental Analysis","Risk Assessment","100+ US Stocks","Stock Trading Mentorship Program","Telegram Channel","Instagram","Savura Edu"]},
     about:{label:"ABOUT US",title:"Savura Invest",
       desc:"Uzbekistan's leading platform for fundamental analysis and halal investing in US stock markets.",
       ml:"MISSION",mt:"Conscious Investing",
@@ -664,20 +664,20 @@ const SITE_T={
       mb2:"We transformed professional methodology into a digital tool for every investor.",
       fl:"FOUNDER",fr:"Founder & Stock Market Analyst",
       fb:["Trading stocks since 2020","Studying economics in Turkey","Founder of Savura brand","Founder of Savura Invest and Savura Edu"],
-      stats:[["2020","Founded"],["100+","Analyzed"],["4","Languages"],["6","Modules"]]},
+      stats:[["2020","Founded"],["100+","Analyzed"],["5","Languages"],["8","Modules"]]},
     footer:{desc:"Platform for fundamental analysis and halal investing in US stock markets."},
-    course:{label:"COURSE",title:"Stock Trading Course",
+    course:{label:"MENTORSHIP PROGRAM",title:"Stock Trading Mentorship Program",
       desc:"Learn to invest in US stocks from scratch. Halal investing and fundamental analysis.",
-      ft:"This course is for you if...",ol:"Instructor",sl:"Curriculum",
-      ct:"Ready to join?",cd:"Contact us via Telegram.",cb:"Contact Us",
+      ft:"This program is for you if...",ol:"Program mentor",sl:"Curriculum",
+      ct:"Ready to join?",cd:"Fill in the form below or message us on Telegram.",cb:"Contact Us",
       mt:["Investment Basics","Selecting Stocks","Halal Investing","Fundamental Analysis","Risk Management","Real Practice"]}},
-  tr:{nav:{halal:"TRADING HELAL Mİ?",home:"Ana Sayfa",tool:"Temel Analiz",course:"Hisse Senedi Kursu",journal:"Günlüğüm",demo:"Demo",about:"Hakkımızda",erp:"Savura Edu"},
+  tr:{nav:{halal:"TRADING HELAL Mİ?",home:"Ana Sayfa",tool:"Temel Analiz",course:"Hisse Ticareti Mentorluk Programı",journal:"Günlüğüm",demo:"Demo",about:"Hakkımızda",erp:"Savura Edu"},
     hero:{badge:"ABD PİYASALARI · TEMEL ANALİZ",h1:"Borsada",h2:"biliçli yatırım",
       desc:"ABD hisse senedi piyasasında temel analiz ve helal yatırım için Özbekistan’in lider platformu.",
-      btn1:"Analize Başla →",btn2:"Kursu Gör",
+      btn1:"Analize Başla →",btn2:"Programı Gör",
       stats:[["100+","ABD Hissesi"],["5","Kategori"],["15","Soru"],["2020","Yılından Beri"]]},
     feat:{label:"HİZMETLER",title:"Savura Invest Özellikleri",
-      ct:["Temel Analiz","Risk Değlendirmesi","100+ ABD Hissesi","Hisse Kursu","Telegram","Instagram","Savura Edu"]},
+      ct:["Temel Analiz","Risk Değlendirmesi","100+ ABD Hissesi","Mentorluk Programı","Telegram","Instagram","Savura Edu"]},
     about:{label:"HAKKIMIZDA",title:"Savura Invest",
       desc:"ABD hisse senedi piyasasında temel analiz ve helal yatırım için Özbekistan’in lider platformu.",
       ml:"MİSYON",mt:"Biliçli Yatırım",
@@ -685,20 +685,20 @@ const SITE_T={
       mb2:"Profesyonel metodolojiyi dijital araca dönüştürdük.",
       fl:"KURUCUSU",fr:"Kurucu & Hisse Senedi Analisti",
       fb:["2020'den bu yana hisse senetleri ile deneyimli","Türkiye'de iktisat eğitimi almaktadır","Savura markasının kurucusu","Savura Invest ve Savura Edu'nun kurucusu"],
-      stats:[["2020","Kuruluş"],["100+","Analiz"],["4","Dil"],["6","Modül"]]},
+      stats:[["2020","Kuruluş"],["100+","Analiz"],["5","Dil"],["8","Modül"]]},
     footer:{desc:"ABD hisse senedi piyasasında temel analiz ve helal yatırım platformu."},
-    course:{label:"EĞİTİM",title:"Hisse Senedi Ticaret Kursu",
+    course:{label:"MENTORLUK PROGRAMI",title:"Hisse Ticareti Mentorluk Programı",
       desc:"ABD hisse senedi piyasasına sıfırdan yatırım yapmayı öğrenin.",
-      ft:"Bu kurs şunlar için...",ol:"Eğitmen",sl:"Program",
-      ct:"Hazır mısınız?",cd:"Telegram üzerinden iletişime geçin.",cb:"İletişime Geç",
+      ft:"Bu program şunlar için...",ol:"Program mentoru",sl:"Program",
+      ct:"Hazır mısınız?",cd:"Aşağıdaki formu doldurun veya Telegram'dan yazın.",cb:"İletişime Geç",
       mt:["Yatırım Temelleri","Hisse Seçimi","Helal Yatırım","Temel Analiz","Risk Yönetimi","Gerçek Uygulama"]}},
-  ru:{nav:{halal:"ХАЛЯЛЬ ЛИ ТРЕЙДИНГ?",home:"Главная",tool:"Фунд. анализ",course:"Курс торговли",journal:"Журнал",demo:"Демо",about:"О нас",erp:"Savura Edu"},
+  ru:{nav:{halal:"ХАЛЯЛЬ ЛИ ТРЕЙДИНГ?",home:"Главная",tool:"Фунд. анализ",course:"Программа наставничества",journal:"Журнал",demo:"Демо",about:"О нас",erp:"Savura Edu"},
     hero:{badge:"РЫНОК США · ФУНД. АНАЛИЗ",h1:"Осознанное инвестирование",h2:"на фондовом рынке",
       desc:"Ведущая платформа Узбекистана для фундаментального анализа и халяльного инвестирования.",
-      btn1:"Начать анализ →",btn2:"Смотреть курс",
+      btn1:"Начать анализ →",btn2:"Смотреть программу",
       stats:[["от 100","Акций"],["5","Категорий"],["15","Вопросов"],["2020","С года"]]},
     feat:{label:"УСЛУГИ",title:"Возможности Savura Invest",
-      ct:["Фунд. анализ","Оценка рисков","100+ акций","Курс","Telegram","Instagram","Savura Edu"]},
+      ct:["Фунд. анализ","Оценка рисков","100+ акций","Наставничество","Telegram","Instagram","Savura Edu"]},
     about:{label:"О НАС",title:"Savura Invest",
       desc:"Ведущая платформа Узбекистана для фунд. анализа.",
       ml:"МИССИЯ",mt:"Осознанное инвестирование",
@@ -706,28 +706,28 @@ const SITE_T={
       mb2:"Мы превратили профессиональную методологию в цифровой инструмент.",
       fl:"ОСНОВАТЕЛЬ",fr:"Основатель & Аналитик",
       fb:["Торгует акциями с 2020 года","Учится на экономическом факультете в Турции","Основатель бренда Savura","Основатель Savura Invest и Savura Edu"],
-      stats:[["2020","Основан"],["100+","Анализ"],["4","Языка"],["6","Модулей"]]},
+      stats:[["2020","Основан"],["100+","Анализ"],["5","Языков"],["8","Модулей"]]},
     footer:{desc:"Платформа для фунд. анализа и халяльного инвестирования."},
-    course:{label:"КУРС",title:"Курс торговли акциями",
+    course:{label:"ПРОГРАММА НАСТАВНИЧЕСТВА",title:"Программа наставничества по торговле акциями",
       desc:"Научитесь инвестировать в акции США с нуля.",
-      ft:"Этот курс для вас, если...",ol:"Ведущий",sl:"Программа",
-      ct:"Готовы?",cd:"Свяжитесь через Telegram.",cb:"Связаться",
+      ft:"Эта программа для вас, если...",ol:"Наставник",sl:"Программа",
+      ct:"Готовы?",cd:"Заполните форму ниже или напишите в Telegram.",cb:"Связаться",
       mt:["Основы","Выбор акций","Халяльное","Фунд. анализ","Управление риском","Практика"]}},
-  ar:{nav:{halal:"هل التداول حلال؟",home:"الرئيسية",tool:"التحليل الأساسي",course:"دورة تداول",journal:"مفكرتي",demo:"تجريبي",about:"من نحن",erp:"Savura Edu"},
+  ar:{nav:{halal:"هل التداول حلال؟",home:"الرئيسية",tool:"التحليل الأساسي",course:"برنامج الإرشاد",journal:"مفكرتي",demo:"تجريبي",about:"من نحن",erp:"Savura Edu"},
     hero:{badge:"أسواق أمريكا",h1:"استثمار واع",h2:"في سوق الأسهم",
       desc:"منصة أوزبكستان للتحليل الحلال.",
-      btn1:"ابدأ التحليل",btn2:"عرض الدورة",
+      btn1:"ابدأ التحليل",btn2:"عرض البرنامج",
       stats:[["+100","سهم"],["5","فئات"],["15","سؤالا"],["2020","منذ عام"]]},
     feat:{label:"الخدمات",title:"إمكانيات Savura Invest",
-      ct:["تحليل أساسي","تقييم مخاطر","100+ سهم","دورة","Telegram","Instagram","Savura Edu"]},
+      ct:["تحليل أساسي","تقييم مخاطر","100+ سهم","برنامج الإرشاد","Telegram","Instagram","Savura Edu"]},
     about:{label:"من نحن",title:"Savura Invest",desc:"منصة أوزبكستان للتحليل الحلال.",
       ml:"الرسالة",mt:"استثمار واع",mb1:"منذ 2020 نساعد المستثمرين.",mb2:"حولنا المنهجية إلى أداة رقمية.",
       fl:"المؤسس",fr:"المؤسس ومحلل",fb:["يتداول منذ 2020","يدرس في تركيا","مؤسس Savura","مؤسس Savura Invest و Savura Edu"],
-      stats:[["منذ 2020","تأسيس"],["+100","سهم"],["4","لغات"],["6","وحدات"]]},
+      stats:[["منذ 2020","تأسيس"],["+100","سهم"],["5","لغات"],["8","وحدات"]]},
     footer:{desc:"منصة للتحليل الحلال."},
-    course:{label:"الدورة",title:"دورة تداول الأسهم",desc:"تعلم الاستثمار من الصفر.",
-      ft:"هذه الدورة لك",ol:"مدرب",sl:"المنهج",
-      ct:"هل أنت مستعد؟",cd:"تواصل عبر Telegram.",cb:"تواصل",
+    course:{label:"برنامج الإرشاد",title:"برنامج الإرشاد في تداول الأسهم",desc:"تعلم الاستثمار من الصفر.",
+      ft:"هذا البرنامج لك إذا...",ol:"مرشد البرنامج",sl:"المنهج",
+      ct:"هل أنت مستعد؟",cd:"املأ النموذج أدناه أو راسلنا عبر تيليجرام.",cb:"تواصل",
       mt:["أساسيات","اختيار الأسهم","التحليل الحلال","التحليل الأساسي","إدارة المخاطر","التطبيق العملي"]}}
 };
 function getST(lang){return SITE_T[lang]||SITE_T.uz;}
@@ -1286,7 +1286,7 @@ const FEAT_T = {
     {title:"Fundamental Tahlil",desc:"5 toifa: O'sish, Baholanish, Rentabellik, Moliyaviy sog'lomlik, Samaradorlik. Professional metodologiya asosida."},
     {title:"Risk Darajasi",desc:"15 savollik professional risk modeli. PAST dan JUDA YUQORI gacha aniq baho. Har bir savol izohlanadi."},
     {title:"100+ AQSh Aksiyasi",desc:"AQSh birjasining asosiy kompaniyalari — AAPL, NVDA, TSLA va ko'plab boshqalar. Real vaqt ma'lumot."},
-    {title:"Aksiyalar savdosi kursi",desc:"Noldan boshlash uchun to'liq amaliy kurs. Halol investitsiya, fundamental tahlil va risk boshqaruvi."},
+    {title:"Aksiyalar savdosi shogirdlik dasturi",desc:"Noldan boshlash uchun to'liq amaliy shogirdlik dasturi. Halol investitsiya, fundamental tahlil va risk boshqaruvi."},
     {title:"Telegram Kanal",desc:"Savura Invest kanalida yangiliklar, tahlillar va investitsiya bo'yicha dolzarb ma'lumotlar."},
     {title:"Instagram",desc:"Visual tahlillar, grafiklar va investitsiya bo'yicha foydali educational kontentlar."},
     {title:"Savura Edu",desc:"Savura brendining ta'lim platformasi — kurslar va foydali o'quv materiallari bir joyda."},
@@ -1295,7 +1295,7 @@ const FEAT_T = {
     {title:"Fundamental Analysis",desc:"5 categories: Growth, Valuation, Profitability, Financial health, Efficiency. Based on professional methodology."},
     {title:"Risk Assessment",desc:"A 15-question professional risk model. Clear rating from LOW to VERY HIGH. Each question is explained."},
     {title:"100+ US Stocks",desc:"Major companies of the US market — AAPL, NVDA, TSLA and many more. Real-time data."},
-    {title:"Stock Trading Course",desc:"A complete hands-on course to start from zero. Halal investing, fundamental analysis and risk management."},
+    {title:"Stock Trading Mentorship Program",desc:"A complete hands-on mentorship program to start from zero. Halal investing, fundamental analysis and risk management."},
     {title:"Telegram Channel",desc:"News, analyses and timely investment insights on the Savura Invest channel."},
     {title:"Instagram",desc:"Visual analyses, charts and useful educational content on investing."},
     {title:"Savura Edu",desc:"The Savura brand's education platform — courses and useful learning materials in one place."},
@@ -1304,7 +1304,7 @@ const FEAT_T = {
     {title:"Фундаментальный анализ",desc:"5 категорий: Рост, Оценка, Рентабельность, Финансовое здоровье, Эффективность. На основе профессиональной методологии."},
     {title:"Оценка риска",desc:"Профессиональная модель риска из 15 вопросов. Чёткая оценка от НИЗКОГО до ОЧЕНЬ ВЫСОКОГО. Каждый вопрос пояснён."},
     {title:"100+ акций США",desc:"Основные компании рынка США — AAPL, NVDA, TSLA и многие другие. Данные в реальном времени."},
-    {title:"Курс торговли акциями",desc:"Полный практический курс для старта с нуля. Халяльное инвестирование, фундаментальный анализ и управление рисками."},
+    {title:"Программа наставничества по торговле акциями",desc:"Полная практическая программа наставничества для старта с нуля. Халяльное инвестирование, фундаментальный анализ и управление рисками."},
     {title:"Telegram-канал",desc:"Новости, аналитика и актуальные инвестиционные материалы на канале Savura Invest."},
     {title:"Instagram",desc:"Визуальная аналитика, графики и полезный образовательный контент об инвестициях."},
     {title:"Savura Edu",desc:"Образовательная платформа бренда Savura — курсы и полезные учебные материалы в одном месте."},
@@ -1313,7 +1313,7 @@ const FEAT_T = {
     {title:"Temel Analiz",desc:"5 kategori: Büyüme, Değerleme, Kârlılık, Finansal sağlık, Verimlilik. Profesyonel metodolojiye dayalı."},
     {title:"Risk Değerlendirmesi",desc:"15 soruluk profesyonel risk modeli. DÜŞÜK'ten ÇOK YÜKSEK'e net puan. Her soru açıklanır."},
     {title:"100+ ABD Hissesi",desc:"ABD piyasasının başlıca şirketleri — AAPL, NVDA, TSLA ve daha fazlası. Gerçek zamanlı veri."},
-    {title:"Hisse Ticareti Kursu",desc:"Sıfırdan başlamak için tam uygulamalı kurs. Helal yatırım, temel analiz ve risk yönetimi."},
+    {title:"Hisse Ticareti Mentorluk Programı",desc:"Sıfırdan başlamak için tam uygulamalı mentorluk programı. Helal yatırım, temel analiz ve risk yönetimi."},
     {title:"Telegram Kanalı",desc:"Savura Invest kanalında haberler, analizler ve güncel yatırım bilgileri."},
     {title:"Instagram",desc:"Görsel analizler, grafikler ve yatırım hakkında faydalı eğitim içerikleri."},
     {title:"Savura Edu",desc:"Savura markasının eğitim platformu — kurslar ve faydalı eğitim materyalleri tek yerde."},
@@ -1322,7 +1322,7 @@ const FEAT_T = {
     {title:"التحليل الأساسي",desc:"5 فئات: النمو، التقييم، الربحية، الصحة المالية، الكفاءة. وفق منهجية احترافية."},
     {title:"تقييم المخاطر",desc:"نموذج مخاطر احترافي من 15 سؤالاً. تقييم واضح من منخفض إلى مرتفع جداً. كل سؤال موضّح."},
     {title:"100+ سهم أمريكي",desc:"كبرى شركات السوق الأمريكي — AAPL وNVDA وTSLA وغيرها الكثير. بيانات فورية."},
-    {title:"دورة تداول الأسهم",desc:"دورة عملية كاملة للبدء من الصفر. الاستثمار الحلال والتحليل الأساسي وإدارة المخاطر."},
+    {title:"برنامج الإرشاد في تداول الأسهم",desc:"برنامج إرشاد عملي كامل للبدء من الصفر. الاستثمار الحلال والتحليل الأساسي وإدارة المخاطر."},
     {title:"قناة تليجرام",desc:"أخبار وتحليلات ومعلومات استثمارية محدّثة على قناة Savura Invest."},
     {title:"Instagram",desc:"تحليلات مرئية ورسوم بيانية ومحتوى تعليمي مفيد عن الاستثمار."},
     {title:"Savura Edu",desc:"منصة Savura التعليمية — دورات ومواد تعليمية مفيدة في مكان واحد."},
@@ -1427,13 +1427,165 @@ function FeaturesSection({setPage,lang}){
   );
 }
 
+// ═══ SHOGIRDLIK DASTURI — ARIZA FORMASI (Telegram guruhiga yuboriladi) ═══════
+const AF_T = {
+  uz:{badge:"SHOGIRDLIK DASTURI",title:"Shogirdlik dasturi haqida ma'lumot oling",sub:"Ariza qoldiring — siz bilan bog'lanib, dastur tarkibi, jadvali va shartlari haqida batafsil ma'lumot beramiz.",
+      points:["8 modul va 100+ video dars","Imtihon va shaxsiy sertifikat","Amaliy vositalar: tahlil, demo, kundalik"],
+      name:"Ismingiz",namePh:"Masalan: Aziz",phone:"Telefon raqamingiz",phonePh:"+998 90 123 45 67",how:"Qanday bog'lanishimizni xohlaysiz?",call:"Qo'ng'iroq",tg:"Telegram",
+      tgUser:"Telegram username (ixtiyoriy)",tgPh:"@username",msg:"Xabar (ixtiyoriy)",msgPh:"Savolingiz yoki qo'shimcha ma'lumot...",send:"Ariza yuborish",sending:"Yuborilmoqda...",
+      okT:"Arizangiz qabul qilindi!",okD:"Tez orada siz bilan bog'lanamiz. Rahmat!",again:"Yana ariza yuborish",errName:"Ismingizni kiriting",errPhone:"Telefon raqamini to'g'ri kiriting",
+      errRate:"Juda ko'p urinish. Birozdan so'ng qayta urinib ko'ring.",errGen:"Yuborishda xatolik yuz berdi. Iltimos, Telegram orqali yozing: @savura_invest",privacy:"Ma'lumotlaringiz faqat siz bilan bog'lanish uchun ishlatiladi.",alt:"yoki to'g'ridan Telegram:"},
+  en:{badge:"MENTORSHIP PROGRAM",title:"Get details about the mentorship program",sub:"Leave a request — we will contact you with full details on the program content, schedule and terms.",
+      points:["8 modules and 100+ video lessons","Exams and a personal certificate","Practical tools: analysis, demo, journal"],
+      name:"Your name",namePh:"e.g. Aziz",phone:"Phone number",phonePh:"+998 90 123 45 67",how:"How should we contact you?",call:"Phone call",tg:"Telegram",
+      tgUser:"Telegram username (optional)",tgPh:"@username",msg:"Message (optional)",msgPh:"Your question or any details...",send:"Send request",sending:"Sending...",
+      okT:"Your request has been received!",okD:"We will contact you soon. Thank you!",again:"Send another request",errName:"Please enter your name",errPhone:"Please enter a valid phone number",
+      errRate:"Too many attempts. Please try again a bit later.",errGen:"Something went wrong. Please message us on Telegram: @savura_invest",privacy:"Your details are used only to contact you.",alt:"or message us on Telegram:"},
+  ru:{badge:"ПРОГРАММА НАСТАВНИЧЕСТВА",title:"Узнайте о программе наставничества",sub:"Оставьте заявку — мы свяжемся с вами и подробно расскажем о составе программы, графике и условиях.",
+      points:["8 модулей и 100+ видеоуроков","Экзамены и именной сертификат","Практические инструменты: анализ, демо, журнал"],
+      name:"Ваше имя",namePh:"Например: Азиз",phone:"Номер телефона",phonePh:"+998 90 123 45 67",how:"Как с вами связаться?",call:"Звонок",tg:"Telegram",
+      tgUser:"Telegram username (необязательно)",tgPh:"@username",msg:"Сообщение (необязательно)",msgPh:"Ваш вопрос или дополнительная информация...",send:"Отправить заявку",sending:"Отправка...",
+      okT:"Заявка принята!",okD:"Скоро мы с вами свяжемся. Спасибо!",again:"Отправить ещё одну заявку",errName:"Введите ваше имя",errPhone:"Введите корректный номер телефона",
+      errRate:"Слишком много попыток. Попробуйте чуть позже.",errGen:"Не удалось отправить. Напишите нам в Telegram: @savura_invest",privacy:"Ваши данные используются только для связи с вами.",alt:"или напишите в Telegram:"},
+  tr:{badge:"MENTORLUK PROGRAMI",title:"Mentorluk programı hakkında bilgi alın",sub:"Başvuru bırakın — sizinle iletişime geçip program içeriği, takvimi ve koşulları hakkında ayrıntılı bilgi verelim.",
+      points:["8 modül ve 100+ video ders","Sınavlar ve kişisel sertifika","Uygulamalı araçlar: analiz, demo, günlük"],
+      name:"Adınız",namePh:"Örn: Aziz",phone:"Telefon numaranız",phonePh:"+90 5xx xxx xx xx",how:"Size nasıl ulaşalım?",call:"Telefon",tg:"Telegram",
+      tgUser:"Telegram kullanıcı adı (isteğe bağlı)",tgPh:"@username",msg:"Mesaj (isteğe bağlı)",msgPh:"Sorunuz veya ek bilgi...",send:"Başvuru gönder",sending:"Gönderiliyor...",
+      okT:"Başvurunuz alındı!",okD:"En kısa sürede sizinle iletişime geçeceğiz. Teşekkürler!",again:"Yeni başvuru gönder",errName:"Lütfen adınızı girin",errPhone:"Lütfen geçerli bir telefon numarası girin",
+      errRate:"Çok fazla deneme. Biraz sonra tekrar deneyin.",errGen:"Gönderilemedi. Lütfen Telegram'dan yazın: @savura_invest",privacy:"Bilgileriniz yalnızca sizinle iletişim için kullanılır.",alt:"veya doğrudan Telegram:"},
+  ar:{badge:"برنامج الإرشاد",title:"احصل على معلومات عن برنامج الإرشاد",sub:"اترك طلبك — سنتواصل معك ونقدّم تفاصيل محتوى البرنامج وجدوله وشروطه.",
+      points:["8 وحدات وأكثر من 100 درس فيديو","امتحانات وشهادة شخصية","أدوات عملية: التحليل، التجريبي، المفكرة"],
+      name:"اسمك",namePh:"مثال: عزيز",phone:"رقم الهاتف",phonePh:"+998 90 123 45 67",how:"كيف تفضّل أن نتواصل معك؟",call:"مكالمة",tg:"تيليجرام",
+      tgUser:"اسم المستخدم في تيليجرام (اختياري)",tgPh:"@username",msg:"رسالة (اختياري)",msgPh:"سؤالك أو أي تفاصيل إضافية...",send:"إرسال الطلب",sending:"جارٍ الإرسال...",
+      okT:"تم استلام طلبك!",okD:"سنتواصل معك قريباً. شكراً لك!",again:"إرسال طلب آخر",errName:"يرجى إدخال اسمك",errPhone:"يرجى إدخال رقم هاتف صحيح",
+      errRate:"محاولات كثيرة. حاول بعد قليل.",errGen:"تعذّر الإرسال. راسلنا عبر تيليجرام: @savura_invest",privacy:"تُستخدم بياناتك فقط للتواصل معك.",alt:"أو مباشرة عبر تيليجرام:"},
+};
+
+function ApplyForm({lang="uz", source="home"}){
+  const T = AF_T[lang] || AF_T.uz;
+  const rtl = lang === "ar";
+  const [f, setF] = useState({name:"", phone:"", contact:"call", tg:"", message:"", website:""});
+  const [state, setState] = useState("idle");   // idle | sending | ok
+  const [err, setErr] = useState("");
+  const set = function(k){ return function(e){ const v = e.target.value; setF(function(p){ const n = Object.assign({}, p); n[k] = v; return n; }); setErr(""); }; };
+
+  async function submit(e){
+    if(e && e.preventDefault) e.preventDefault();
+    const name = f.name.trim(), phone = f.phone.trim(), digits = phone.replace(/\D/g, "");
+    if(name.length < 2){ setErr(T.errName); return; }
+    const badPhone = !/^[+\d\s()\-]+$/.test(phone) || (digits.indexOf("998")===0 ? digits.length !== 12 : (digits.length < 9 || digits.length > 15));
+    if(badPhone){ setErr(T.errPhone); return; }
+    setState("sending"); setErr("");
+    try{
+      const r = await fetch("/api/lead", {method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({name:name, phone:phone, contact:f.contact, tg:f.tg, message:f.message, website:f.website, lang:lang, source:source})});
+      const j = await r.json().catch(function(){ return {}; });
+      if(r.ok && j.ok){ setState("ok"); return; }
+      setState("idle");
+      setErr(j.error === "rate" ? T.errRate : j.error === "phone" ? T.errPhone : j.error === "name" ? T.errName : T.errGen);
+    }catch(x){ setState("idle"); setErr(T.errGen); }
+  }
+
+  const inp = {width:"100%",boxSizing:"border-box",background:"var(--w04)",border:`1px solid ${C.border}`,borderRadius:12,color:C.text,padding:"12px 14px",fontSize:15,outline:"none",fontFamily:"'Manrope',sans-serif"};
+  const lab = {display:"block",fontSize:12.5,fontWeight:700,color:C.dim,marginBottom:7};
+  const opt = function(on){ return {flex:1,display:"inline-flex",alignItems:"center",justifyContent:"center",gap:8,padding:"11px 12px",borderRadius:12,cursor:"pointer",fontSize:14,fontWeight:700,fontFamily:"'Sora',sans-serif",
+    background:on?`linear-gradient(135deg,${C.blue},${C.green})`:"var(--w04)",color:on?"#fff":C.dim,border:on?"1px solid transparent":`1px solid ${C.border}`}; };
+
+  return(
+    <div dir={rtl?"rtl":"ltr"} style={{maxWidth:1100,margin:"0 auto",padding:"10px 24px 60px"}}>
+      <div style={{position:"relative",overflow:"hidden",borderRadius:26,background:C.card,border:`1px solid ${C.border}`,boxShadow:"var(--cardShadow)"}}>
+        <div style={{position:"absolute",top:-120,left:-120,width:340,height:340,borderRadius:"50%",background:"radial-gradient(circle,rgba(47,125,246,0.14),transparent 65%)",pointerEvents:"none"}}/>
+        <div style={{position:"absolute",bottom:-140,right:-100,width:360,height:360,borderRadius:"50%",background:"radial-gradient(circle,rgba(55,178,77,0.12),transparent 65%)",pointerEvents:"none"}}/>
+        <div style={{position:"relative",display:"flex",flexWrap:"wrap",gap:32,padding:"clamp(24px,4.5vw,44px)",textAlign:rtl?"right":"left"}}>
+          {/* Chap: ma'lumot */}
+          <div style={{flex:"1 1 300px",minWidth:0}}>
+            <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(47,125,246,0.1)",border:"1px solid rgba(47,125,246,0.3)",borderRadius:30,padding:"6px 14px",marginBottom:16}}>
+              <span style={{color:C.blueLt,display:"flex"}}><LineIcon name="course" size={15}/></span>
+              <span style={{fontSize:11,letterSpacing:"1.8px",color:C.blueLt,fontWeight:800}}>{T.badge}</span>
+            </div>
+            <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(24px,3.6vw,34px)",color:C.text,margin:"0 0 12px",lineHeight:1.15}}>{T.title}</h2>
+            <p style={{color:C.dim,fontSize:15,lineHeight:1.7,margin:"0 0 20px"}}>{T.sub}</p>
+            <div style={{display:"flex",flexDirection:"column",gap:11,marginBottom:22}}>
+              {T.points.map(function(p,i){ return(
+                <div key={i} style={{display:"flex",alignItems:"center",gap:10,fontSize:14.5,fontWeight:600,color:C.text}}>
+                  <span style={{width:24,height:24,borderRadius:8,flexShrink:0,display:"inline-flex",alignItems:"center",justifyContent:"center",background:"linear-gradient(135deg,#22c55e,#15803d)"}}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 5 5 9-10"/></svg>
+                  </span>{p}
+                </div>); })}
+            </div>
+            <div style={{fontSize:13,color:C.faint,display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
+              {T.alt}
+              <a href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,color:C.blueLt,fontWeight:700,textDecoration:"none"}}><TgIcon s={16}/> @savura_invest</a>
+            </div>
+          </div>
+
+          {/* O'ng: forma */}
+          <div style={{flex:"1 1 340px",minWidth:0}}>
+            {state === "ok" ? (
+              <div style={{height:"100%",minHeight:320,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",gap:12,background:"rgba(55,178,77,0.07)",border:"1px solid rgba(55,178,77,0.3)",borderRadius:20,padding:28}}>
+                <div style={{width:64,height:64,borderRadius:"50%",background:"linear-gradient(135deg,#22c55e,#15803d)",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 10px 30px rgba(34,197,94,0.35)"}}>
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 5 5 9-10"/></svg>
+                </div>
+                <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:21,color:C.text}}>{T.okT}</div>
+                <div style={{fontSize:14.5,color:C.dim}}>{T.okD}</div>
+                <button onClick={function(){ setF({name:"",phone:"",contact:"call",tg:"",message:"",website:""}); setState("idle"); }} style={{marginTop:6,background:"transparent",border:`1px solid ${C.border}`,borderRadius:10,color:C.dim,fontSize:13,fontWeight:700,padding:"9px 16px",cursor:"pointer"}}>{T.again}</button>
+              </div>
+            ) : (
+              <form onSubmit={submit} noValidate style={{display:"flex",flexDirection:"column",gap:14}}>
+                <input name="website" value={f.website} onChange={set("website")} tabIndex={-1} autoComplete="off" aria-hidden="true" style={{position:"absolute",left:"-9999px",width:1,height:1,opacity:0}}/>
+                <div>
+                  <label style={lab}>{T.name}</label>
+                  <input value={f.name} onChange={set("name")} placeholder={T.namePh} autoComplete="name" maxLength={60} style={inp}/>
+                </div>
+                <div>
+                  <label style={lab}>{T.phone}</label>
+                  <input value={f.phone} onChange={set("phone")} placeholder={T.phonePh} type="tel" inputMode="tel" autoComplete="tel" maxLength={24} dir="ltr" style={{...inp,textAlign:rtl?"right":"left"}}/>
+                </div>
+                <div>
+                  <label style={lab}>{T.how}</label>
+                  <div style={{display:"flex",gap:10}}>
+                    <button type="button" onClick={function(){ setF(function(p){ return Object.assign({}, p, {contact:"call"}); }); }} style={opt(f.contact==="call")}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+                      {T.call}
+                    </button>
+                    <button type="button" onClick={function(){ setF(function(p){ return Object.assign({}, p, {contact:"telegram"}); }); }} style={opt(f.contact==="telegram")}>
+                      <TgIcon s={16}/>{T.tg}
+                    </button>
+                  </div>
+                </div>
+                {f.contact === "telegram" && (
+                  <div>
+                    <label style={lab}>{T.tgUser}</label>
+                    <input value={f.tg} onChange={set("tg")} placeholder={T.tgPh} maxLength={40} dir="ltr" style={{...inp,textAlign:rtl?"right":"left"}}/>
+                  </div>
+                )}
+                <div>
+                  <label style={lab}>{T.msg}</label>
+                  <textarea value={f.message} onChange={set("message")} placeholder={T.msgPh} rows={3} maxLength={1000} style={{...inp,resize:"vertical",minHeight:90,lineHeight:1.5}}/>
+                </div>
+                {err && <div role="alert" style={{fontSize:13.5,fontWeight:600,color:C.red,background:"rgba(229,72,77,0.08)",border:"1px solid rgba(229,72,77,0.3)",borderRadius:10,padding:"10px 12px"}}>{err}</div>}
+                <button type="submit" disabled={state==="sending"} className="hero-btn"
+                  style={{width:"100%",background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:13,color:"#fff",fontWeight:800,fontSize:16,padding:"14px",cursor:state==="sending"?"default":"pointer",opacity:state==="sending"?0.75:1,fontFamily:"'Sora',sans-serif",boxShadow:"0 10px 28px rgba(47,125,246,0.28)",display:"inline-flex",alignItems:"center",justifyContent:"center",gap:9}}>
+                  {state==="sending" ? T.sending : T.send}
+                  {state!=="sending" && <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{transform:rtl?"scaleX(-1)":"none"}}><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>}
+                </button>
+                <div style={{fontSize:12,color:C.faint,textAlign:"center"}}>🔒 {T.privacy}</div>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── CoursePage ─────────────────────────────────────────────────────────────
 const CRS_T = {
   uz: {
     statLessons:"Dars", statStock:"Aksiya", statVideo:"Darslik",
-    forTitle:"Bu kurs siz uchun, agar...",
+    forTitle:"Bu dastur siz uchun, agar...",
     modules: [
-      {"title": "Muqaddima", "desc": "Kurs tuzilishi, Savura Invest yondashuvi va o'qishni qanday tashkil qilish kerakligi.", "lessons": ["Kurs dasturi va o'qish tartibi", "Savura Invest metodologiyasi", "Halol investitsiya falsafasi", "Platforma va vositalardan foydalanish"]},
+      {"title": "Muqaddima", "desc": "Dastur tuzilishi, Savura Invest yondashuvi va o'qishni qanday tashkil qilish kerakligi.", "lessons": ["Dastur tarkibi va o'qish tartibi", "Savura Invest metodologiyasi", "Halol investitsiya falsafasi", "Platforma va vositalardan foydalanish"]},
       {"title": "Treydingga kirish va asosiy tushunchalar", "desc": "Treyding nima, uning turlari va muvaffaqiyatli treyderning asosiy ustunlari.", "lessons": ["Treyding va moliyaviy instrumentlar", "Scalping, day, swing va positional treyding", "Broker tanlash va hisob ochish", "Muvaffaqiyatning 5 ustuni"]},
       {"title": "Aksiyalar bilan halol treyding", "desc": "Aksiyaga egalik, AAOIFI standartlari va halol aksiyani aniqlash metodologiyasi.", "lessons": ["Aksiyaga egalik — kompaniyaga sheriklik", "AAOIFI 21-standarti", "3 bosqichli halol filtr", "10-K, 10-Q hisobotlari va SEC EDGAR"]},
       {"title": "Fundamental tahlil", "desc": "Kompaniyaning haqiqiy qiymatini moliyaviy ko'rsatkichlar orqali aniqlash.", "lessons": ["Top-down va bottom-up yondashuvlar", "5 guruh ko'rsatkichlari", "P/E, P/S, P/B, PEG va marjalar", "Makroiqtisodiy omillar ta'siri"]},
@@ -1447,9 +1599,9 @@ const CRS_T = {
   },
   en: {
     statLessons:"Lessons", statStock:"Stocks", statVideo:"Video",
-    forTitle:"This course is for you if...",
+    forTitle:"This program is for you if...",
     modules: [
-      {"title": "Introduction", "desc": "Course structure, the Savura Invest approach and how to organize your learning.", "lessons": ["Course program and study plan", "Savura Invest methodology", "Halal investing philosophy", "Using the platform and tools"]},
+      {"title": "Introduction", "desc": "Program structure, the Savura Invest approach and how to organize your learning.", "lessons": ["Program outline and study plan", "Savura Invest methodology", "Halal investing philosophy", "Using the platform and tools"]},
       {"title": "Introduction to trading and key concepts", "desc": "What trading is, its types and the core pillars of a successful trader.", "lessons": ["Trading and financial instruments", "Scalping, day, swing and positional trading", "Choosing a broker and opening an account", "The 5 pillars of success"]},
       {"title": "Halal trading with stocks", "desc": "Share ownership, AAOIFI standards and the method for identifying halal stocks.", "lessons": ["Owning shares — partnership in a company", "AAOIFI Standard 21", "3-step halal screening", "10-K, 10-Q reports and SEC EDGAR"]},
       {"title": "Fundamental analysis", "desc": "Determining a company's true value through financial metrics.", "lessons": ["Top-down and bottom-up approaches", "5 groups of metrics", "P/E, P/S, P/B, PEG and margins", "Impact of macroeconomic factors"]},
@@ -1463,9 +1615,9 @@ const CRS_T = {
   },
   ru: {
     statLessons:"Уроков", statStock:"Акций", statVideo:"Видео",
-    forTitle:"Этот курс для вас, если...",
+    forTitle:"Эта программа для вас, если...",
     modules: [
-      {"title": "Вступление", "desc": "Структура курса, подход Savura Invest и как организовать обучение.", "lessons": ["Программа курса и порядок обучения", "Методология Savura Invest", "Философия халяльных инвестиций", "Работа с платформой и инструментами"]},
+      {"title": "Вступление", "desc": "Структура программы, подход Savura Invest и как организовать обучение.", "lessons": ["Состав программы и порядок обучения", "Методология Savura Invest", "Философия халяльных инвестиций", "Работа с платформой и инструментами"]},
       {"title": "Введение в трейдинг и основные понятия", "desc": "Что такое трейдинг, его виды и основные опоры успешного трейдера.", "lessons": ["Трейдинг и финансовые инструменты", "Скальпинг, дейтрейдинг, свинг и позиционная торговля", "Выбор брокера и открытие счёта", "5 опор успеха"]},
       {"title": "Халяльный трейдинг акциями", "desc": "Владение акциями, стандарты AAOIFI и методика определения халяльных акций.", "lessons": ["Акция — партнёрство в компании", "Стандарт AAOIFI № 21", "3-ступенчатый халяль-фильтр", "Отчёты 10-K, 10-Q и SEC EDGAR"]},
       {"title": "Фундаментальный анализ", "desc": "Определение реальной стоимости компании по финансовым показателям.", "lessons": ["Подходы top-down и bottom-up", "5 групп показателей", "P/E, P/S, P/B, PEG и маржи", "Влияние макроэкономических факторов"]},
@@ -1479,9 +1631,9 @@ const CRS_T = {
   },
   tr: {
     statLessons:"Ders", statStock:"Hisse", statVideo:"Video",
-    forTitle:"Bu kurs sizin için, eğer...",
+    forTitle:"Bu program sizin için, eğer...",
     modules: [
-      {"title": "Giriş", "desc": "Kursun yapısı, Savura Invest yaklaşımı ve öğrenmenin nasıl düzenleneceği.", "lessons": ["Kurs programı ve çalışma planı", "Savura Invest metodolojisi", "Helal yatırım felsefesi", "Platform ve araçların kullanımı"]},
+      {"title": "Giriş", "desc": "Programın yapısı, Savura Invest yaklaşımı ve öğrenmenin nasıl düzenleneceği.", "lessons": ["Program içeriği ve çalışma planı", "Savura Invest metodolojisi", "Helal yatırım felsefesi", "Platform ve araçların kullanımı"]},
       {"title": "Tradinge giriş ve temel kavramlar", "desc": "Trading nedir, türleri ve başarılı bir yatırımcının temel sütunları.", "lessons": ["Trading ve finansal araçlar", "Scalping, günlük, swing ve pozisyon trading", "Aracı kurum seçimi ve hesap açma", "Başarının 5 sütunu"]},
       {"title": "Hisselerle helal trading", "desc": "Hisse sahipliği, AAOIFI standartları ve helal hisseyi belirleme yöntemi.", "lessons": ["Hisse sahipliği — şirkete ortaklık", "AAOIFI 21 numaralı standart", "3 aşamalı helal filtre", "10-K, 10-Q raporları ve SEC EDGAR"]},
       {"title": "Temel analiz", "desc": "Şirketin gerçek değerini finansal göstergelerle belirlemek.", "lessons": ["Top-down ve bottom-up yaklaşımlar", "5 grup gösterge", "F/K, F/S, PD/DD, PEG ve marjlar", "Makroekonomik faktörlerin etkisi"]},
@@ -1495,9 +1647,9 @@ const CRS_T = {
   },
   ar: {
     statLessons:"درس", statStock:"سهم", statVideo:"فيديو",
-    forTitle:"هذه الدورة لك إذا...",
+    forTitle:"هذا البرنامج لك إذا...",
     modules: [
-      {"title": "المقدمة", "desc": "هيكل الدورة ونهج Savura Invest وكيفية تنظيم التعلّم.", "lessons": ["برنامج الدورة وخطة الدراسة", "منهجية Savura Invest", "فلسفة الاستثمار الحلال", "استخدام المنصة والأدوات"]},
+      {"title": "المقدمة", "desc": "هيكل البرنامج ونهج Savura Invest وكيفية تنظيم التعلّم.", "lessons": ["محتوى البرنامج وخطة الدراسة", "منهجية Savura Invest", "فلسفة الاستثمار الحلال", "استخدام المنصة والأدوات"]},
       {"title": "مدخل إلى التداول والمفاهيم الأساسية", "desc": "ما هو التداول وأنواعه والركائز الأساسية للمتداول الناجح.", "lessons": ["التداول والأدوات المالية", "المضاربة السريعة واليومية والمتأرجحة وطويلة المدى", "اختيار الوسيط وفتح الحساب", "ركائز النجاح الخمس"]},
       {"title": "التداول الحلال بالأسهم", "desc": "ملكية الأسهم ومعايير AAOIFI ومنهجية تحديد الأسهم الحلال.", "lessons": ["ملكية السهم — شراكة في الشركة", "معيار AAOIFI رقم 21", "الفلتر الحلال من 3 مراحل", "تقارير 10-K و10-Q وSEC EDGAR"]},
       {"title": "التحليل الأساسي", "desc": "تحديد القيمة الحقيقية للشركة من خلال المؤشرات المالية.", "lessons": ["نهجا من الأعلى للأسفل ومن الأسفل للأعلى", "5 مجموعات من المؤشرات", "P/E وP/S وP/B وPEG والهوامش", "تأثير العوامل الاقتصادية الكلية"]},
@@ -1596,13 +1748,7 @@ function CoursePage({lang, setPage}){
             </div>
           );})}
         </div>
-        <div style={{marginTop:40,textAlign:"center",background:`linear-gradient(135deg,rgba(47,125,246,0.08),rgba(55,178,77,0.08))`,border:`1px solid ${C.border}`,borderRadius:18,padding:"32px 24px"}}>
-          <h3 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:22,color:C.text,marginBottom:8}}>{sc.ct}</h3>
-          <p style={{color:C.dim,fontSize:14,marginBottom:22}}>{sc.cd}</p>
-          <a href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:8,background:`linear-gradient(135deg,${C.blue},${C.green})`,borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 26px",textDecoration:"none",boxShadow:"0 8px 28px rgba(47,125,246,0.28)"}}>
-            <TgIcon s={18}/> {sc.cb}
-          </a>
-        </div>
+        <div style={{marginTop:40,marginLeft:-24,marginRight:-24}}><ApplyForm lang={lang} source="program"/></div>
       </div>
     </div>
   );
@@ -2086,11 +2232,11 @@ function ChatWidget({lang}){
   const [open, setOpen] = useState(false);
   const [msgs, setMsgs] = useState([
     {role:"assistant", content:{
-    uz:"Salom! Men Savura Invest AI yordamchisiman.\nFundamental tahlil, kurs va halol investitsiya haqida savol bering.",
-    en:"Hello! I'm the Savura Invest AI assistant.\nAsk me about fundamental analysis, the course, or halal investing.",
-    tr:"Merhaba! Ben Savura Invest AI asistanıyım.\nTemel analiz, kurs veya helal yatırım hakkında sorular sorabilirsiniz.",
-    ru:"Привет! Я AI-помощник Savura Invest.\nЗадайте вопрос о фундаментальном анализе, курсе или халяльных инвестициях.",
-    ar:"مرحباً! أنا مساعد Savura Invest الذكي.\nاسألني عن التحليل الأساسي أو الدورة أو الاستثمار الحلال.",
+    uz:"Salom! Men Savura Invest AI yordamchisiman.\nFundamental tahlil, shogirdlik dasturi va halol investitsiya haqida savol bering.",
+    en:"Hello! I'm the Savura Invest AI assistant.\nAsk me about fundamental analysis, the mentorship program, or halal investing.",
+    tr:"Merhaba! Ben Savura Invest AI asistanıyım.\nTemel analiz, mentorluk programı veya helal yatırım hakkında sorular sorabilirsiniz.",
+    ru:"Привет! Я AI-помощник Savura Invest.\nЗадайте вопрос о фундаментальном анализе, программе наставничества или халяльных инвестициях.",
+    ar:"مرحباً! أنا مساعد Savura Invest الذكي.\nاسألني عن التحليل الأساسي أو برنامج الإرشاد أو الاستثمار الحلال.",
   }[lang]||"Salom! Savura Invest AI yordamchisi."}
   ]);
   const [input, setInput] = useState("");
@@ -2137,11 +2283,11 @@ function ChatWidget({lang}){
   }
 
   const SUGGESTIONS = {
-    uz:["P/E nisbati nima?","Kurs haqida ayt","Halol aksiya qanday?","Muhammadyusuf kim?"],
-    en:["What is P/E ratio?","Tell me about the course","How to find halal stocks?","Who is Muhammadyusuf?"],
-    tr:["P/E oranı nedir?","Kurs hakkında bilgi","Helal hisse nasıl bulunur?","Muhammadyusuf kimdir?"],
-    ru:["Что такое P/E?","Расскажи о курсе","Как найти халяльные акции?","Кто такой Мухаммадюсуф?"],
-    ar:["ما هو مؤشر P/E؟","أخبرني عن الدورة","كيف أجد أسهماً حلالاً؟","من هو محمدیوسف؟"],
+    uz:["P/E nisbati nima?","Shogirdlik dasturi haqida ayt","Halol aksiya qanday?","Muhammadyusuf kim?"],
+    en:["What is P/E ratio?","Tell me about the mentorship program","How to find halal stocks?","Who is Muhammadyusuf?"],
+    tr:["P/E oranı nedir?","Mentorluk programı hakkında bilgi","Helal hisse nasıl bulunur?","Muhammadyusuf kimdir?"],
+    ru:["Что такое P/E?","Расскажи о программе наставничества","Как найти халяльные акции?","Кто такой Мухаммадюсуф?"],
+    ar:["ما هو مؤشر P/E؟","أخبرني عن برنامج الإرشاد","كيف أجد أسهماً حلالاً؟","من هو محمدیوسف؟"],
   };
   const sugg = SUGGESTIONS[lang]||SUGGESTIONS.uz;
 
@@ -4216,11 +4362,11 @@ function AdminPanel({lang,setPage,auth}){
 const YT_PLAYLIST = "PLDSRKA6X73aE";
 const YT_COUNT = 24;   // playlistdagi darslar soni (server javob bermasa ham shuncha ko'rinadi)
 const LES_T = {
-  uz:{title:"Ochiq darslar",badge:"BEPUL VIDEO DARSLAR",h1:"Treyding kursidan",h2:"bepul darslar",sub:"Halol treyding bo'yicha 24 ta video dars — 1-darsdan boshlab ketma-ket ko'ring",lesson:"dars",now:"Hozir ko'rilmoqda",all:"Darslar ro'yxati",openYT:"YouTube'da ochish",prev:"Oldingi dars",next:"Keyingi dars",watched:"Ko'rildi",progress:"Ko'rilgan",ctaT:"Ko'proq bilim kerakmi?",ctaD:"To'liq kursda amaliy topshiriqlar, imtihon, sertifikat va shaxsiy kabinet bor.",ctaB:"To'liq kurs haqida"},
-  en:{title:"Free lessons",badge:"FREE VIDEO LESSONS",h1:"Free lessons",h2:"from the trading course",sub:"24 video lessons on halal trading — watch them in order, starting from lesson 1",lesson:"lesson",now:"Now playing",all:"Lesson list",openYT:"Open on YouTube",prev:"Previous",next:"Next lesson",watched:"Watched",progress:"Watched",ctaT:"Want to go deeper?",ctaD:"The full course includes practical tasks, exams, a certificate and a personal dashboard.",ctaB:"About the full course"},
-  ru:{title:"Открытые уроки",badge:"БЕСПЛАТНЫЕ ВИДЕОУРОКИ",h1:"Бесплатные уроки",h2:"курса трейдинга",sub:"24 видеоурока по халяльному трейдингу — смотрите по порядку, начиная с 1-го",lesson:"урок",now:"Сейчас смотрите",all:"Список уроков",openYT:"Открыть на YouTube",prev:"Предыдущий",next:"Следующий урок",watched:"Просмотрено",progress:"Просмотрено",ctaT:"Хотите знать больше?",ctaD:"В полном курсе — практика, экзамены, сертификат и личный кабинет.",ctaB:"О полном курсе"},
-  tr:{title:"Açık dersler",badge:"ÜCRETSİZ VİDEO DERSLER",h1:"Trading kursundan",h2:"ücretsiz dersler",sub:"Helal trading üzerine 24 video ders — 1. dersten başlayarak sırayla izleyin",lesson:"ders",now:"Şu an izleniyor",all:"Ders listesi",openYT:"YouTube'da aç",prev:"Önceki ders",next:"Sonraki ders",watched:"İzlendi",progress:"İzlenen",ctaT:"Daha fazlasını mı istiyorsunuz?",ctaD:"Tam kursta uygulamalar, sınavlar, sertifika ve kişisel panel var.",ctaB:"Tam kurs hakkında"},
-  ar:{title:"دروس مجانية",badge:"دروس فيديو مجانية",h1:"دروس مجانية",h2:"من دورة التداول",sub:"24 درس فيديو عن التداول الحلال — شاهدها بالترتيب بدءاً من الدرس الأول",lesson:"درس",now:"يُعرض الآن",all:"قائمة الدروس",openYT:"فتح في YouTube",prev:"الدرس السابق",next:"الدرس التالي",watched:"تمت المشاهدة",progress:"تمت مشاهدة",ctaT:"تريد التعمق أكثر؟",ctaD:"الدورة الكاملة تتضمن تطبيقات عملية وامتحانات وشهادة ولوحة شخصية.",ctaB:"عن الدورة الكاملة"},
+  uz:{title:"Ochiq darslar",badge:"BEPUL VIDEO DARSLAR",h1:"Shogirdlik dasturidan",h2:"bepul darslar",sub:"Halol treyding bo'yicha 24 ta video dars — 1-darsdan boshlab ketma-ket ko'ring",lesson:"dars",now:"Hozir ko'rilmoqda",all:"Darslar ro'yxati",openYT:"YouTube'da ochish",prev:"Oldingi dars",next:"Keyingi dars",watched:"Ko'rildi",progress:"Ko'rilgan",ctaT:"Ko'proq bilim kerakmi?",ctaD:"To'liq shogirdlik dasturida amaliy topshiriqlar, imtihon, sertifikat va shaxsiy kabinet bor.",ctaB:"Shogirdlik dasturi haqida"},
+  en:{title:"Free lessons",badge:"FREE VIDEO LESSONS",h1:"Free lessons",h2:"from the mentorship program",sub:"24 video lessons on halal trading — watch them in order, starting from lesson 1",lesson:"lesson",now:"Now playing",all:"Lesson list",openYT:"Open on YouTube",prev:"Previous",next:"Next lesson",watched:"Watched",progress:"Watched",ctaT:"Want to go deeper?",ctaD:"The full mentorship program includes practical tasks, exams, a certificate and a personal dashboard.",ctaB:"About the mentorship program"},
+  ru:{title:"Открытые уроки",badge:"БЕСПЛАТНЫЕ ВИДЕОУРОКИ",h1:"Бесплатные уроки",h2:"программы наставничества",sub:"24 видеоурока по халяльному трейдингу — смотрите по порядку, начиная с 1-го",lesson:"урок",now:"Сейчас смотрите",all:"Список уроков",openYT:"Открыть на YouTube",prev:"Предыдущий",next:"Следующий урок",watched:"Просмотрено",progress:"Просмотрено",ctaT:"Хотите знать больше?",ctaD:"В полной программе наставничества — практика, экзамены, сертификат и личный кабинет.",ctaB:"О программе наставничества"},
+  tr:{title:"Açık dersler",badge:"ÜCRETSİZ VİDEO DERSLER",h1:"Mentorluk programından",h2:"ücretsiz dersler",sub:"Helal trading üzerine 24 video ders — 1. dersten başlayarak sırayla izleyin",lesson:"ders",now:"Şu an izleniyor",all:"Ders listesi",openYT:"YouTube'da aç",prev:"Önceki ders",next:"Sonraki ders",watched:"İzlendi",progress:"İzlenen",ctaT:"Daha fazlasını mı istiyorsunuz?",ctaD:"Tam mentorluk programında uygulamalar, sınavlar, sertifika ve kişisel panel var.",ctaB:"Mentorluk programı hakkında"},
+  ar:{title:"دروس مجانية",badge:"دروس فيديو مجانية",h1:"دروس مجانية",h2:"من برنامج الإرشاد",sub:"24 درس فيديو عن التداول الحلال — شاهدها بالترتيب بدءاً من الدرس الأول",lesson:"درس",now:"يُعرض الآن",all:"قائمة الدروس",openYT:"فتح في YouTube",prev:"الدرس السابق",next:"الدرس التالي",watched:"تمت المشاهدة",progress:"تمت مشاهدة",ctaT:"تريد التعمق أكثر؟",ctaD:"برنامج الإرشاد الكامل يتضمن تطبيقات عملية وامتحانات وشهادة ولوحة شخصية.",ctaB:"عن برنامج الإرشاد"},
 };
 
 // Dars raqamini nomdan aniqlash: "1- DARS", "11 Dars", "Dars 5", "3-dars"
@@ -5287,7 +5433,7 @@ export default function App(){
       <MarketTicker lang={lang}/>
       <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang} auth={auth} theme={theme} toggleTheme={toggleTheme}/>
       <div style={{height:34}}/>
-      {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/><HalalBanner setPage={setPage} lang={lang}/></>}
+      {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/><ApplyForm lang={lang} source="home"/><HalalBanner setPage={setPage} lang={lang}/></>}
       {page==="halal"&&<HalalPage lang={lang} setPage={setPage}/>}
       {page==="lessons"&&<LessonsPage lang={lang} setPage={setPage}/>}
       {page==="auth"&&<AuthScreen lang={lang} onClose={()=>setPage("home")}/>}
