@@ -2032,13 +2032,25 @@ const BOOL_FIELDS = [
 const EMPTY_VALS = {revenueGrowth:"",epsGrowth:"",pe:"",ps:"",pb:"",peg:"",grossMargin:"",operatingMargin:"",netMargin:"",currentRatio:"",quickRatio:"",debtToEquity:"",interestCoverage:"",roa:"",roe:"",roic:"",beta:"",marketCapB:""};
 const EMPTY_BOOLS = {profitableTTM:true,operatingCashFlowPositive:true,isDefensiveSector:false,isIndustryLeader:false,freeFromLegalIssues:true,outperformedSP500_5y:false};
 
+const FA_T = {
+  uz:{q:"Tahlil usulini tanlang",manual:"Qo'lda kiritish",manualD:"Ko'rsatkichlarni o'zingiz kiritasiz — stockanalysis.com dan. Darslarda o'rgatilgan usul.",auto:"Avtomatik tahlil",autoD:"Ma'lumotlarni sayt o'zi tortadi va 15 savol bo'yicha strategiyamizga tushiradi.",load:"Ma'lumotlar yuklanmoqda…",err:"Avtomatik ma'lumot olinmadi. Qo'lda kiritishdan foydalaning.",nf:"Bu ticker topilmadi. Tickerni tekshiring yoki qo'lda kiriting.",rate:"So'rovlar ko'p. Bir oz kutib qayta urinib ko'ring.",back:"Orqaga",badge:"avtomatik",est:"Taxminiy (tekshiring)",estNote:"Quyidagi savollar avtomatik taxmin qilindi — qo'lda tekshiring:",edit:"Qo'lda tuzatish",warn:"Avtomatik ma'lumot ochiq manbadan olinadi va kechikishi yoki noaniq bo'lishi mumkin. Qaror oldidan tekshiring.",q1:"Himoyalangan sohami",q2:"Soha yetakchisimi",q3:"Sud muammolaridan xolimi",q4:"5 yilda S&P 500 dan oldindami"},
+  en:{q:"Choose the analysis method",manual:"Manual entry",manualD:"Enter the metrics yourself from stockanalysis.com — the method taught in the lessons.",auto:"Automatic analysis",autoD:"The site pulls the data and runs it through our 15-question strategy.",load:"Loading data…",err:"Could not fetch data automatically. Please use manual entry.",nf:"Ticker not found. Check it or enter manually.",rate:"Too many requests. Please try again shortly.",back:"Back",badge:"automatic",est:"Estimated (verify)",estNote:"These questions were estimated automatically — please verify:",edit:"Edit manually",warn:"Automatic data comes from a public source and may be delayed or imprecise. Verify before deciding.",q1:"Defensive sector",q2:"Industry leader",q3:"Free of legal issues",q4:"Beat S&P 500 over 5 years"},
+  ru:{q:"Выберите способ анализа",manual:"Ручной ввод",manualD:"Вы вводите показатели сами со stockanalysis.com — метод из уроков.",auto:"Автоматический анализ",autoD:"Сайт сам загружает данные и прогоняет их через нашу стратегию из 15 вопросов.",load:"Загрузка данных…",err:"Не удалось получить данные автоматически. Используйте ручной ввод.",nf:"Тикер не найден. Проверьте его или введите вручную.",rate:"Слишком много запросов. Повторите чуть позже.",back:"Назад",badge:"авто",est:"Оценка (проверьте)",estNote:"Эти вопросы оценены автоматически — проверьте вручную:",edit:"Исправить вручную",warn:"Автоданные берутся из открытого источника и могут запаздывать или быть неточными. Проверяйте перед решением.",q1:"Защитный сектор",q2:"Лидер отрасли",q3:"Нет судебных проблем",q4:"Опередил S&P 500 за 5 лет"},
+  tr:{q:"Analiz yöntemini seçin",manual:"Elle giriş",manualD:"Göstergeleri stockanalysis.com'dan kendiniz girersiniz — derslerde öğretilen yöntem.",auto:"Otomatik analiz",autoD:"Site verileri kendisi çeker ve 15 soruluk stratejimizden geçirir.",load:"Veriler yükleniyor…",err:"Veri otomatik alınamadı. Elle girişi kullanın.",nf:"Sembol bulunamadı. Kontrol edin veya elle girin.",rate:"Çok fazla istek. Biraz sonra tekrar deneyin.",back:"Geri",badge:"otomatik",est:"Tahmini (kontrol edin)",estNote:"Bu sorular otomatik tahmin edildi — elle kontrol edin:",edit:"Elle düzelt",warn:"Otomatik veri açık bir kaynaktan gelir; gecikmeli veya hatalı olabilir. Karardan önce doğrulayın.",q1:"Defansif sektör",q2:"Sektör lideri",q3:"Hukuki sorunu yok",q4:"5 yılda S&P 500'ü geçti"},
+  ar:{q:"اختر طريقة التحليل",manual:"إدخال يدوي",manualD:"تُدخل المؤشرات بنفسك من stockanalysis.com — الطريقة المشروحة في الدروس.",auto:"تحليل تلقائي",autoD:"يجلب الموقع البيانات ويمررها عبر استراتيجيتنا ذات الـ15 سؤالاً.",load:"جارٍ تحميل البيانات…",err:"تعذر جلب البيانات تلقائياً. استخدم الإدخال اليدوي.",nf:"الرمز غير موجود. تحقق منه أو أدخل يدوياً.",rate:"طلبات كثيرة. حاول لاحقاً.",back:"رجوع",badge:"تلقائي",est:"تقديري (تحقق)",estNote:"هذه الأسئلة قُدّرت تلقائياً — تحقق منها يدوياً:",edit:"تعديل يدوي",warn:"البيانات التلقائية من مصدر عام وقد تتأخر أو تكون غير دقيقة. تحقق قبل القرار.",q1:"قطاع دفاعي",q2:"رائد القطاع",q3:"خالٍ من المشاكل القانونية",q4:"تفوق على S&P 500 خلال 5 سنوات"}
+};
+
 function FundamentalTool({lang, setLang, setPage}){
   const t = LANG[lang]||LANG.uz;
   const [step, setStep] = _us(0);
   const [ticker, setTicker] = _us(function(){ try{ const t=sessionStorage.getItem("savura_prefill_ticker"); if(t){ sessionStorage.removeItem("savura_prefill_ticker"); return t; } }catch(e){} return ""; });
   const [vals, setVals] = _us({...EMPTY_VALS});
   const [bools, setBools] = _us({...EMPTY_BOOLS});
+  const _vals=vals, _bools=bools;
   const [result, setResult] = _us(null);
+  const [askMode, setAskMode] = _us(false);
+  const [autoState, setAutoState] = _us({loading:false,err:""});
+  const FA = FA_T[lang]||FA_T.uz;
 
   const nv = v => { const x=parseFloat(v); return isNaN(x)?null:x; };
   const st = {background:"var(--glass2)",border:`1px solid ${C.border}`,borderRadius:8,color:C.text,padding:"8px 10px",fontSize:13,fontFamily:"'JetBrains Mono',monospace",outline:"none",width:"100%",transition:"border .2s"};
@@ -2053,14 +2065,60 @@ function FundamentalTool({lang, setLang, setPage}){
     setStep(1);
   }
 
-  function handleAnalyze(){
+  function handleAnalyze(vIn,bIn,meta){
+    const vals=vIn||_vals, bools=bIn||_bools; meta=meta||{};
     const tk=ticker.trim().toUpperCase();
     const nm=nv(vals.netMargin), om=nv(vals.operatingMargin);
-    const s=SAMPLE[tk]||{}; const d={ticker:tk,companyName:s.companyName||tk,exchange:s.exchange||"",sector:s.sector||"",industry:s.industry||"",price:null,dataAsOf:new Date().toISOString().split("T")[0],_manual:true,
+    const s=SAMPLE[tk]||{}; const d={ticker:tk,companyName:meta.companyName||s.companyName||tk,exchange:meta.exchange||s.exchange||"",sector:meta.sector||s.sector||"",industry:meta.industry||s.industry||"",price:meta.price!=null?meta.price:null,dataAsOf:new Date().toISOString().split("T")[0],_manual:!meta._auto,_auto:!!meta._auto,_est:meta.estimated||null,
       fundamentals:{revenueGrowth:nv(vals.revenueGrowth),epsGrowth:nv(vals.epsGrowth),pe:nv(vals.pe),ps:nv(vals.ps),pb:nv(vals.pb),pcf:null,peg:nv(vals.peg),grossMargin:nv(vals.grossMargin),operatingMargin:om,netMargin:nm,currentRatio:nv(vals.currentRatio),quickRatio:nv(vals.quickRatio),cashRatio:null,debtToEquity:nv(vals.debtToEquity),debtToAssets:null,interestCoverage:nv(vals.interestCoverage),roa:nv(vals.roa),roe:nv(vals.roe),roic:nv(vals.roic)},
       risk:{beta:nv(vals.beta),marketCap:nv(vals.marketCapB)?nv(vals.marketCapB)*1000:null,profitableTTM:nm!=null?nm>0:bools.profitableTTM,operatingCashFlowPositive:om!=null?om>0:bools.operatingCashFlowPositive,isDefensiveSector:bools.isDefensiveSector,isIndustryLeader:bools.isIndustryLeader,freeFromLegalIssues:bools.freeFromLegalIssues,outperformedSP500_5y:bools.outperformedSP500_5y}};
     setResult(d); setStep(2);
   }
+
+  function goManual(){ setAskMode(false); setVals({...EMPTY_VALS}); setBools({...EMPTY_BOOLS}); setStep(1); }
+
+  async function runAuto(){
+    const tk=ticker.trim().toUpperCase();
+    setAutoState({loading:true,err:""});
+    try{
+      const r=await fetch("/api/fundamentals?sym="+encodeURIComponent(tk));
+      if(r.status===429){ setAutoState({loading:false,err:FA.rate}); return; }
+      const d=await r.json().catch(()=>null);
+      if(!r.ok||!d){ setAutoState({loading:false,err:FA.err}); return; }
+      if(!d.found){ setAutoState({loading:false,err:FA.nf}); return; }
+      const f=d.fundamentals||{}, k=d.risk||{};
+      const mv=x=>(f[x]!=null?String(f[x]):"");
+      const nv2={revenueGrowth:mv("revenueGrowth"),epsGrowth:mv("epsGrowth"),pe:mv("pe"),ps:mv("ps"),pb:mv("pb"),peg:mv("peg"),grossMargin:mv("grossMargin"),operatingMargin:mv("operatingMargin"),netMargin:mv("netMargin"),currentRatio:mv("currentRatio"),quickRatio:mv("quickRatio"),debtToEquity:mv("debtToEquity"),interestCoverage:mv("interestCoverage"),roa:mv("roa"),roe:mv("roe"),roic:mv("roic"),beta:k.beta!=null?String(k.beta):"",marketCapB:k.marketCap!=null?String((k.marketCap/1000).toFixed(2)):""};
+      const nb={profitableTTM:k.profitableTTM!==false,operatingCashFlowPositive:k.operatingCashFlowPositive!==false,isDefensiveSector:!!k.isDefensiveSector,isIndustryLeader:!!k.isIndustryLeader,freeFromLegalIssues:k.freeFromLegalIssues!==false,outperformedSP500_5y:!!k.outperformedSP500_5y};
+      setVals(nv2); setBools(nb); setAskMode(false); setAutoState({loading:false,err:""});
+      handleAnalyze(nv2,nb,{_auto:true,companyName:d.companyName,exchange:d.exchange,sector:d.sector,industry:d.industry,price:d.price,estimated:d.estimated||null});
+    }catch(e){ setAutoState({loading:false,err:FA.err}); }
+  }
+
+  // ── STEP 0b: usulni tanlash (qo'lda / avtomatik) ───────────────────
+  if(step===0&&askMode) return(
+    <div style={{padding:"85px 24px 60px",maxWidth:720,margin:"0 auto"}} dir={lang==="ar"?"rtl":"ltr"}>
+      <button onClick={()=>setAskMode(false)} style={{background:"transparent",border:`1px solid ${C.border}`,color:C.dim,borderRadius:8,padding:"7px 13px",fontSize:12.5,cursor:"pointer",marginBottom:18}}>← {FA.back}</button>
+      <div style={{textAlign:"center",marginBottom:22}}>
+        <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:800,fontSize:28,color:C.blueLt}}>{ticker.trim().toUpperCase()}</div>
+        <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(20px,3.6vw,28px)",margin:"8px 0 0",color:C.text}}>{FA.q}</h2>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(260px,1fr))",gap:14}}>
+        <button onClick={goManual} disabled={autoState.loading} style={{textAlign:"start",background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:"20px 18px",cursor:"pointer",color:C.text,fontFamily:"inherit"}}>
+          <div style={{fontSize:26,marginBottom:8}}>✍️</div>
+          <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:16,marginBottom:6}}>{FA.manual}</div>
+          <div style={{fontSize:12.5,color:C.dim,lineHeight:1.6}}>{FA.manualD}</div>
+        </button>
+        <button onClick={runAuto} disabled={autoState.loading} style={{textAlign:"start",background:`linear-gradient(135deg,rgba(47,125,246,.14),rgba(55,178,77,.14))`,border:`1px solid rgba(47,125,246,.45)`,borderRadius:16,padding:"20px 18px",cursor:autoState.loading?"wait":"pointer",color:C.text,fontFamily:"inherit",opacity:autoState.loading?.7:1}}>
+          <div style={{fontSize:26,marginBottom:8}}>⚡</div>
+          <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:16,marginBottom:6}}>{autoState.loading?FA.load:FA.auto}</div>
+          <div style={{fontSize:12.5,color:C.dim,lineHeight:1.6}}>{FA.autoD}</div>
+        </button>
+      </div>
+      {autoState.err&&<div style={{marginTop:16,background:"rgba(240,169,43,.1)",border:"1px solid rgba(240,169,43,.4)",borderRadius:12,padding:"12px 14px",fontSize:13,color:C.amber,lineHeight:1.6}}>{autoState.err}</div>}
+      <div style={{marginTop:14,fontSize:11.5,color:C.faint,lineHeight:1.6,textAlign:"center"}}>{FA.warn}</div>
+    </div>
+  );
 
   // ── STEP 2: Results ─────────────────────────────────────────────
   if(step===2&&result) return(
@@ -2068,7 +2126,7 @@ function FundamentalTool({lang, setLang, setPage}){
       <button onClick={()=>{setResult(null);setStep(1);}} style={{background:`rgba(47,125,246,0.1)`,border:`1px solid ${C.border}`,color:C.blueLt,borderRadius:9,padding:"8px 16px",fontSize:13,cursor:"pointer",marginBottom:20,display:"inline-flex",alignItems:"center",gap:7}}>
         ← {t.tf.reEnter}
       </button>
-      <ToolResult d={result} t={t}/>
+      <ToolResult d={result} t={t} FA={FA}/>
     </div>
   );
 
@@ -2097,8 +2155,8 @@ function FundamentalTool({lang, setLang, setPage}){
       </div>
       {/* Ticker input */}
       <div style={{display:"flex",gap:10,maxWidth:540,margin:"0 auto 16px"}}>
-        <input value={ticker} onChange={e=>setTicker(e.target.value.toUpperCase())} onKeyDown={e=>{if(e.key==="Enter"&&ticker.trim()){setStep(1);setVals({...EMPTY_VALS});setBools({...EMPTY_BOOLS});} }} placeholder="AAPL, MSFT, NVDA ..." style={{flex:1,background:"var(--glass2)",border:`1px solid ${C.border}`,borderRadius:12,color:C.text,padding:"14px 18px",fontSize:16,fontFamily:"'JetBrains Mono',monospace",letterSpacing:"1px",outline:"none"}}/>
-        <button onClick={()=>{if(ticker.trim()){setStep(1);setVals({...EMPTY_VALS});setBools({...EMPTY_BOOLS});}}} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"0 22px",cursor:"pointer",fontFamily:"'Sora',sans-serif",whiteSpace:"nowrap"}}>{t.tf.nextBtn} →</button>
+        <input value={ticker} onChange={e=>setTicker(e.target.value.toUpperCase())} onKeyDown={e=>{if(e.key==="Enter"&&ticker.trim()){setAutoState({loading:false,err:""});setAskMode(true);} }} placeholder="AAPL, MSFT, NVDA ..." style={{flex:1,background:"var(--glass2)",border:`1px solid ${C.border}`,borderRadius:12,color:C.text,padding:"14px 18px",fontSize:16,fontFamily:"'JetBrains Mono',monospace",letterSpacing:"1px",outline:"none"}}/>
+        <button onClick={()=>{if(ticker.trim()){setAutoState({loading:false,err:""});setAskMode(true);}}} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"0 22px",cursor:"pointer",fontFamily:"'Sora',sans-serif",whiteSpace:"nowrap"}}>{t.tf.nextBtn} →</button>
       </div>
       {/* Quick samples */}
       <div style={{display:"flex",gap:7,justifyContent:"center",flexWrap:"wrap",marginBottom:20}}>
@@ -2182,7 +2240,7 @@ function FundamentalTool({lang, setLang, setPage}){
 
       {/* Analyze button */}
       <div style={{textAlign:"center"}}>
-        <button onClick={handleAnalyze} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:14,color:"#fff",fontWeight:700,fontSize:17,padding:"16px 48px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:`0 8px 28px rgba(47,125,246,0.28)`,letterSpacing:".5px"}}>
+        <button onClick={()=>handleAnalyze()} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:14,color:"#fff",fontWeight:700,fontSize:17,padding:"16px 48px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:`0 8px 28px rgba(47,125,246,0.28)`,letterSpacing:".5px"}}>
           Tahlil Qilish — 15 Savol →
         </button>
         <div style={{fontSize:11,color:C.faint,marginTop:10}}>Kiritilgan ma'lumotlar asosida 15 savolga avtomatik javob beriladi va risk darajasi aniqlanadi</div>
@@ -2191,7 +2249,8 @@ function FundamentalTool({lang, setLang, setPage}){
   );
 }
 
-function ToolResult({d,t}){
+function ToolResult({d,t,FA}){
+  FA=FA||FA_T.uz;
   const cats=evalFund(d,t);
   const risk=evalRisk(d,cats,t);
   const [showQ,setShowQ]=useState(false);
@@ -2206,6 +2265,7 @@ function ToolResult({d,t}){
             {d.exchange&&<span style={{fontSize:11,color:C.dim,border:`1px solid ${C.border}`,borderRadius:6,padding:"2px 7px"}}>{d.exchange}</span>}
             {d._live&&<span style={{fontSize:10.5,color:C.greenLt,border:"1px solid rgba(82,216,105,.4)",borderRadius:6,padding:"2px 7px"}}>live</span>}
             {d._manual&&<span style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(240,169,43,.4)",borderRadius:6,padding:"2px 7px"}}>qo'lda kiritilgan</span>}
+            {d._auto&&<span style={{fontSize:10.5,color:C.blueLt,border:"1px solid rgba(74,163,255,.45)",borderRadius:6,padding:"2px 7px"}}>⚡ {FA.badge}</span>}
             {d._sample&&!d._live&&<span style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(240,169,43,.4)",borderRadius:6,padding:"2px 7px"}}>{t.sample}</span>}
           </div>
           <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:16,marginTop:5,color:C.text}}>{d.companyName}</div>
@@ -2213,6 +2273,11 @@ function ToolResult({d,t}){
         </div>
         {d.price!=null&&<div style={{textAlign:"right"}}><div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:22,color:C.text}}>${Number(d.price).toFixed(2)}</div><div style={{fontSize:11,color:C.faint}}>{d.dataAsOf||""}</div></div>}
       </div>
+      {d._auto&&<div style={{background:"rgba(240,169,43,.08)",border:"1px solid rgba(240,169,43,.35)",borderRadius:12,padding:"10px 14px",marginBottom:14,fontSize:12.5,color:C.dim,lineHeight:1.7}}>
+        <div style={{color:C.amber,fontWeight:700,marginBottom:3}}>{FA.estNote}</div>
+        <div>{["isDefensiveSector:q1","isIndustryLeader:q2","freeFromLegalIssues:q3","outperformedSP500_5y:q4"].map(x=>FA[x.split(":")[1]]).join(" · ")}</div>
+        <div style={{marginTop:6,color:C.faint,fontSize:11.5}}>{FA.warn}</div>
+      </div>}
       <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:16,marginBottom:14,position:"relative",overflow:"hidden"}}>
         <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:risk.color,opacity:.85}}/>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
