@@ -2075,7 +2075,7 @@ function FundamentalTool({lang, setLang, setPage}){
     setResult(d); setStep(2);
   }
 
-  function goManual(){ setAskMode(false); setVals({...EMPTY_VALS}); setBools({...EMPTY_BOOLS}); setStep(1); }
+  function goManual(){ setAskMode(false); const tk=ticker.trim().toUpperCase(); if(SAMPLE[tk]){ loadSample(tk); return; } setVals({...EMPTY_VALS}); setBools({...EMPTY_BOOLS}); setStep(1); }
 
   async function runAuto(){
     const tk=ticker.trim().toUpperCase();
@@ -2160,7 +2160,7 @@ function FundamentalTool({lang, setLang, setPage}){
       </div>
       {/* Quick samples */}
       <div style={{display:"flex",gap:7,justifyContent:"center",flexWrap:"wrap",marginBottom:20}}>
-        {EX.map(x=><button key={x} onClick={()=>loadSample(x)} style={{background:"transparent",border:`1px solid ${C.border}`,color:C.dim,borderRadius:20,padding:"5px 12px",fontSize:12,cursor:"pointer",fontFamily:"'JetBrains Mono',monospace"}} title={t.tf.sample||""}>{x}</button>)}
+        {EX.map(x=><button key={x} onClick={()=>{setTicker(x);setAutoState({loading:false,err:""});setAskMode(true);}} style={{background:"transparent",border:`1px solid ${C.border}`,color:C.dim,borderRadius:20,padding:"5px 12px",fontSize:12,cursor:"pointer",fontFamily:"'JetBrains Mono',monospace"}} title={t.tf.sample||""}>{x}</button>)}
       </div>
       <div style={{textAlign:"center",fontSize:11,color:C.faint,maxWidth:500,margin:"0 auto",lineHeight:1.7}}>
         {t.tf.sampleNote}
