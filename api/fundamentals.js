@@ -23,6 +23,39 @@ async function yahooReturn(sym) {
   return { stock: a, sp: b };
 }
 
+const GEM_MODELS = ["gemini-2.5-flash", "gemini-3-flash-preview", "gemini-2.5-flash-lite", "gemini-2.0-flash"];
+async function geminiJudge(key, c) {
+  const prompt = `Siz moliyaviy tahlilchisiz. Aksiya: ${c.name} (${c.ticker}), soha: ${c.industry || "noma'lum"}, bozor qiymati: $${c.capB ? c.capB.toFixed(1) + " mlrd" : "noma'lum"}.
+Bugungi sana: ${new Date().toISOString().split("T")[0]}. Eng so'nggi ochiq ma'lumotlarga tayanib 4 savolga javob bering:
+1) defensive: himoyalangan (defensiv) sohami (sog'liqni saqlash, kommunal, kundalik iste'mol tovarlari, energetika)?
+2) leader: o'z sohasida/industriyada yetakchi (top-3 yoki eng yirik) kompaniyami?
+3) legalClean: katta sud/regulyator muammolaridan (antitrest, yirik da'volar, tergov) XOLIMI? Jiddiy ochiq muammo bo'lsa false.
+4) beatSP500: so'nggi 5 yilda narx bo'yicha S&P 500 dan oldindami?
+Faqat JSON qaytaring: {"defensive":bool,"leader":bool,"legalClean":bool,"beatSP500":bool,"note":"1 qisqa jumla o'zbekcha, sud/regulyator holati haqida"}`;
+  for (const useSearch of [true, false]) {
+    for (const model of GEM_MODELS) {
+      const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), useSearch ? 7000 : 5000);
+      try {
+        const body = { contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.1, maxOutputTokens: 600 } };
+        if (useSearch) body.tools = [{ google_search: {} }]; else body.generationConfig.responseMimeType = "application/json";
+        if (/^gemini-2\.5-flash/.test(model)) body.generationConfig.thinkingConfig = { thinkingBudget: 0 };
+        const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: ctl.signal });
+        clearTimeout(to);
+        if (!r.ok) { if (r.status === 400 && useSearch) break; continue; }   // qidiruv qo'llab-quvvatlanmasa -> qidiruvsiz
+        const j = await r.json();
+        const txt = (j?.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("");
+        const a = txt.indexOf("{"), b = txt.lastIndexOf("}");
+        if (a < 0) continue;
+        const o = JSON.parse(txt.slice(a, b + 1));
+        if (typeof o.defensive === "boolean" && typeof o.leader === "boolean" && typeof o.legalClean === "boolean") {
+          return { defensive: o.defensive, leader: o.leader, legalClean: o.legalClean, beat: typeof o.beatSP500 === "boolean" ? o.beatSP500 : null, note: String(o.note || "").slice(0, 200), model, search: useSearch };
+        }
+      } catch (e) { clearTimeout(to); }
+    }
+  }
+  return null;
+}
+
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   if (req.method === "OPTIONS") return res.status(200).end();
@@ -76,8 +109,11 @@ export default async function handler(req, res) {
     // Sifat belgilari — taxminiy (UI "tekshiring" deb ko'rsatadi)
     const isDefensive = DEFENSIVE.test(industry);
     const isLeader = capM != null && capM >= 100000;     // >= $100 mlrd
-    let beat = null;
-    try { const y = await yahooReturn(sym); beat = y.stock > y.sp; } catch {}
+    const GKEY = process.env.GEMINI_KEY;
+    const [beat, ai] = await Promise.all([
+      yahooReturn(sym).then(y => y.stock > y.sp).catch(() => null),
+      GKEY ? geminiJudge(GKEY, { ticker: sym, name: p.name || sym, industry, capB: capM != null ? capM / 1000 : null }) : Promise.resolve(null),
+    ]);
 
     const out = {
       found: true, ticker: sym,
@@ -100,14 +136,16 @@ export default async function handler(req, res) {
         beta: r2(first(m, ["beta"])), marketCap: capM != null ? Math.round(capM) : null,
         profitableTTM: netM != null ? netM > 0 : null,
         operatingCashFlowPositive: opM != null ? opM > 0 : null,
-        isDefensiveSector: isDefensive, isIndustryLeader: isLeader,
-        freeFromLegalIssues: true, outperformedSP500_5y: beat,
+        isDefensiveSector: ai ? ai.defensive : isDefensive, isIndustryLeader: ai ? ai.leader : isLeader,
+        freeFromLegalIssues: ai ? ai.legalClean : true, outperformedSP500_5y: beat != null ? beat : (ai && ai.beat != null ? ai.beat : false),
       },
-      // UI da "tekshiring" belgisi bilan chiqadigan taxminiy maydonlar
-      estimated: ["isDefensiveSector", "isIndustryLeader", "freeFromLegalIssues"].concat(beat == null ? ["outperformedSP500_5y"] : ["outperformedSP500_5y"]),
+      // Yahoo (5 yillik narx) aniq hisob; qolganini Gemini baholaydi. ai=true bo'lsa UI "AI baholadi" deydi
+      ai: !!ai, aiNote: ai ? ai.note : "",
+      estimated: ["isDefensiveSector", "isIndustryLeader", "freeFromLegalIssues", "outperformedSP500_5y"],
     };
+    const _aiInfo = ai ? (ai.search ? "gemini+search" : "gemini") : "none";
     // ── FMP (ixtiyoriy, FMP_KEY bo'lsa): aniqroq ma'lumot, Finnhub ustiga yoziladi ──
-    out.source = "finnhub";
+    out.source = "finnhub"; out.aiMode = _aiInfo;
     const FMP = process.env.FMP_KEY;
     if (FMP) {
       try {
@@ -134,7 +172,7 @@ export default async function handler(req, res) {
         if (num(km.marketCap ?? pf.marketCap) != null) out.risk.marketCap = Math.round((km.marketCap ?? pf.marketCap) / 1e6);
         if (F.netMargin != null) out.risk.profitableTTM = F.netMargin > 0;
         if (F.operatingMargin != null) out.risk.operatingCashFlowPositive = F.operatingMargin > 0;
-        if (pf.sector) { out.sector = pf.sector; out.industry = pf.industry || pf.sector; out.risk.isDefensiveSector = DEFENSIVE.test((pf.sector || "") + " " + (pf.industry || "")); }
+        if (pf.sector) { out.sector = pf.sector; out.industry = pf.industry || pf.sector; if (!out.ai) out.risk.isDefensiveSector = DEFENSIVE.test((pf.sector || "") + " " + (pf.industry || "")); }
         if (Object.keys(rt).length) out.source = "fmp+finnhub";
       } catch (e) {}
     }
