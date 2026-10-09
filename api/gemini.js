@@ -66,11 +66,11 @@ const FAQ = [
       ar: "سجّل من زر «دخول / تسجيل» في القائمة بالبريد وكلمة المرور. بعد موافقة المشرف تُفتح أقسام التحليل الأساسي والمفكرة والتجريبي والامتحان وPattern Trainer. للتسريع: تيليجرام @savura_invest." } },
   { k: ["imtihon", "sertifikat", "exam", "certificate", "экзамен", "сертификат", "sınav", "sertifika", "امتحان", "شهادة"],
     a: {
-      uz: "Imtihon 7 moduldan iborat: har birida 20 ta savol va 15 daqiqa vaqt, savollar va variantlar har safar aralashadi. 70% dan yuqori natija keyingi modulni ochadi, xatolar to'g'ri javob bilan ko'rsatiladi. 7 modul tugagach ismingiz yozilgan PDF sertifikat olasiz.",
-      en: "The exam has 7 modules, each with 20 questions and 15 minutes; questions and answer order are shuffled every time. Scoring above 70% unlocks the next module, and mistakes are shown with the right answers. After all 7 you get a PDF certificate with your name.",
-      ru: "Экзамен — 7 модулей по 20 вопросов и 15 минут, вопросы и варианты каждый раз перемешиваются. Результат выше 70% открывает следующий модуль, ошибки показываются с правильными ответами. После 7 модулей — именной PDF-сертификат.",
-      tr: "Sınav 7 modülden oluşur: her birinde 20 soru ve 15 dakika, sorular ve şıklar her seferinde karışır. %70 üzeri sonraki modülü açar, hatalar doğru cevaplarla gösterilir. 7 modül bitince adınıza PDF sertifika alırsınız.",
-      ar: "الامتحان من 7 وحدات، في كل منها 20 سؤالاً و15 دقيقة، وتُخلط الأسئلة والخيارات كل مرة. النتيجة فوق 70% تفتح الوحدة التالية وتُعرض الأخطاء مع الإجابات الصحيحة. بعد الوحدات السبع تحصل على شهادة PDF باسمك." } },
+      uz: "Imtihon 10 moduldan iborat: har birida 20 ta savol va 15 daqiqa vaqt, savollar va variantlar har safar aralashadi. 70% dan yuqori natija keyingi modulni ochadi, xatolar to'g'ri javob bilan ko'rsatiladi. 7 modul tugagach ismingiz yozilgan PDF sertifikat olasiz.",
+      en: "The exam has 10 modules, each with 20 questions and 15 minutes; questions and answer order are shuffled every time. Scoring above 70% unlocks the next module, and mistakes are shown with the right answers. After all 7 you get a PDF certificate with your name.",
+      ru: "Экзамен — 10 модулей по 20 вопросов и 15 минут, вопросы и варианты каждый раз перемешиваются. Результат выше 70% открывает следующий модуль, ошибки показываются с правильными ответами. После 7 модулей — именной PDF-сертификат.",
+      tr: "Sınav 10 modülden oluşur: her birinde 20 soru ve 15 dakika, sorular ve şıklar her seferinde karışır. %70 üzeri sonraki modülü açar, hatalar doğru cevaplarla gösterilir. 7 modül bitince adınıza PDF sertifika alırsınız.",
+      ar: "الامتحان من 10 وحدات، في كل منها 20 سؤالاً و15 دقيقة، وتُخلط الأسئلة والخيارات كل مرة. النتيجة فوق 70% تفتح الوحدة التالية وتُعرض الأخطاء مع الإجابات الصحيحة. بعد الوحدات السبع تحصل على شهادة PDF باسمك." } },
   { k: ["p/e", "pe ", "fundamental", "фундамент", "temel", "أساسي", "tahlil", "analysis", "анализ", "analiz", "تحليل"],
     a: {
       uz: "P/E — aksiya narxining bir aksiyaga to'g'ri keladigan yillik foydaga nisbati: investor 1 dollar foyda uchun necha dollar to'layotganini ko'rsatadi. Saytdagi 🔬 Fundamental tahlil vositasi aksiyani 5 toifa (o'sish, baholanish, rentabellik, moliyaviy sog'lomlik, samaradorlik) va 15 savollik risk modeli bo'yicha baholaydi.",
