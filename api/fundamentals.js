@@ -106,6 +106,38 @@ export default async function handler(req, res) {
       // UI da "tekshiring" belgisi bilan chiqadigan taxminiy maydonlar
       estimated: ["isDefensiveSector", "isIndustryLeader", "freeFromLegalIssues"].concat(beat == null ? ["outperformedSP500_5y"] : ["outperformedSP500_5y"]),
     };
+    // ── FMP (ixtiyoriy, FMP_KEY bo'lsa): aniqroq ma'lumot, Finnhub ustiga yoziladi ──
+    out.source = "finnhub";
+    const FMP = process.env.FMP_KEY;
+    if (FMP) {
+      try {
+        const fb = "https://financialmodelingprep.com/stable";
+        const g = async path => { const r = await fetch(`${fb}/${path}${path.includes("?") ? "&" : "?"}symbol=${sym}&apikey=${FMP}`); if (!r.ok) throw new Error("fmp " + r.status); const j = await r.json(); return Array.isArray(j) ? (j[0] || {}) : (j || {}); };
+        const [rt, km, gr, pf] = await Promise.all([
+          g("ratios-ttm").catch(() => ({})), g("key-metrics-ttm").catch(() => ({})),
+          g("financial-growth?limit=1").catch(() => ({})), g("profile").catch(() => ({})),
+        ]);
+        const pct = v => { const x = num(v); return x == null ? null : r2(x * 100); };
+        const val = v => { const x = num(v); return x == null ? null : r2(x); };
+        const F = out.fundamentals;
+        const set = (k, v) => { if (v != null) F[k] = v; };
+        set("pe", val(rt.priceToEarningsRatioTTM)); set("ps", val(rt.priceToSalesRatioTTM));
+        set("pb", val(rt.priceToBookRatioTTM)); set("pcf", val(rt.priceToFreeCashFlowRatioTTM));
+        set("peg", val(rt.priceToEarningsGrowthRatioTTM));
+        set("grossMargin", pct(rt.grossProfitMarginTTM)); set("operatingMargin", pct(rt.operatingProfitMarginTTM)); set("netMargin", pct(rt.netProfitMarginTTM));
+        set("currentRatio", val(rt.currentRatioTTM)); set("quickRatio", val(rt.quickRatioTTM));
+        set("debtToEquity", val(rt.debtToEquityRatioTTM));
+        const ic = num(rt.interestCoverageRatioTTM); if (ic != null && ic > 0 && ic < 1000) F.interestCoverage = r2(ic);
+        set("roe", pct(km.returnOnEquityTTM)); set("roa", pct(km.returnOnAssetsTTM)); set("roic", pct(km.returnOnInvestedCapitalTTM));
+        set("revenueGrowth", pct(gr.revenueGrowth)); set("epsGrowth", pct(gr.epsgrowth ?? gr.epsGrowth));
+        if (num(pf.beta) != null) out.risk.beta = r2(pf.beta);
+        if (num(km.marketCap ?? pf.marketCap) != null) out.risk.marketCap = Math.round((km.marketCap ?? pf.marketCap) / 1e6);
+        if (F.netMargin != null) out.risk.profitableTTM = F.netMargin > 0;
+        if (F.operatingMargin != null) out.risk.operatingCashFlowPositive = F.operatingMargin > 0;
+        if (pf.sector) { out.sector = pf.sector; out.industry = pf.industry || pf.sector; out.risk.isDefensiveSector = DEFENSIVE.test((pf.sector || "") + " " + (pf.industry || "")); }
+        if (Object.keys(rt).length) out.source = "fmp+finnhub";
+      } catch (e) {}
+    }
     CACHE[sym] = { data: out, ts: now };
     return res.status(200).json(out);
   } catch (e) {
