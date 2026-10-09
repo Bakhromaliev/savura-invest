@@ -54,10 +54,18 @@ export default async function handler(req, res) {
     const m = mj?.metric || {};
     if (!p?.name && !Object.keys(m).length) return res.status(200).json({ found: false });
 
-    const pe = first(m, ["peTTM", "peBasicExclExtraTTM", "peNormalizedAnnual"]);
+    const px = q?.c > 0 ? q.c : null;
+    // Narx bilan hozirgi EPS / kitob qiymatidan hisoblaymiz — eskirgan nisbatlardan aniqroq
+    const epsTTM = first(m, ["epsTTM", "epsInclExtraItemsTTM", "epsBasicExclExtraItemsTTM"]);
+    let pe = px && epsTTM && epsTTM > 0 ? px / epsTTM : first(m, ["peTTM", "peBasicExclExtraTTM", "peNormalizedAnnual"]);
+    const bvps = first(m, ["bookValuePerShareQuarterly", "bookValuePerShareAnnual"]);
+    const pbCalc = px && bvps && bvps > 0 ? px / bvps : first(m, ["pbQuarterly", "pbAnnual"]);
     const epsG = first(m, ["epsGrowthTTMYoy", "epsGrowth3Y"]);
+    // PEG: barqaror (5/3 yillik) o'sish bilan — bir martalik sakrash PEG ni buzmasin
+    const epsGLong = first(m, ["epsGrowth5Y", "epsGrowth3Y"]);
     let peg = null;
-    if (pe != null && pe > 0 && epsG != null && epsG > 0) peg = pe / epsG;
+    const gForPeg = epsGLong != null && epsGLong > 0 ? epsGLong : epsG;
+    if (pe != null && pe > 0 && gForPeg != null && gForPeg > 0) peg = pe / gForPeg;
     let de = first(m, ["totalDebt/totalEquityQuarterly", "totalDebt/totalEquityAnnual"]);
     if (de != null && de > 50) de = de / 100;           // foiz ko'rinishida kelsa
     const capM = first(m, ["marketCapitalization"]) ?? num(p.marketCapitalization);
@@ -78,13 +86,13 @@ export default async function handler(req, res) {
       fundamentals: {
         revenueGrowth: r2(first(m, ["revenueGrowthTTMYoy", "revenueGrowth3Y"])),
         epsGrowth: r2(epsG), pe: r2(pe),
-        ps: r2(first(m, ["psTTM", "psAnnual"])), pb: r2(first(m, ["pbQuarterly", "pbAnnual"])),
+        ps: r2(first(m, ["psTTM", "psAnnual"])), pb: r2(pbCalc),
         pcf: r2(first(m, ["pfcfShareTTM", "pcfShareTTM"])), peg: r2(peg),
         grossMargin: r2(first(m, ["grossMarginTTM", "grossMarginAnnual"])), operatingMargin: r2(opM), netMargin: r2(netM),
         currentRatio: r2(first(m, ["currentRatioQuarterly", "currentRatioAnnual"])),
         quickRatio: r2(first(m, ["quickRatioQuarterly", "quickRatioAnnual"])),
         cashRatio: null, debtToEquity: r2(de), debtToAssets: null,
-        interestCoverage: r2(first(m, ["netInterestCoverageTTM", "netInterestCoverageAnnual"])),
+        interestCoverage: null, // ishonchsiz manba (sof foiz) — bo'sh qoldiriladi
         roa: r2(first(m, ["roaTTM", "roaRfy"])), roe: r2(first(m, ["roeTTM", "roeRfy"])),
         roic: r2(first(m, ["roiTTM", "roiAnnual"])),
       },
