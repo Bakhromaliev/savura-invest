@@ -5587,12 +5587,14 @@ function FloatCard({style,title,sub,delay}){
 }
 
 function ExpertVisual(){
-  const [photoSrc,setPhotoSrc]=useState("/expert.jpg");
+  const [photoSrc,setPhotoSrc]=useState("/expert.png");
+  const cut=photoSrc==="/expert.png";
   return(
     <div style={{position:"relative",width:"100%",maxWidth:430,margin:"0 auto",aspectRatio:"1/1.05"}}>
-      <div style={{position:"absolute",inset:"6% 8%",borderRadius:"50% 50% 44% 44%",background:"linear-gradient(160deg,rgba(47,125,246,.28),rgba(55,178,77,.26))",filter:"blur(0px)",border:`1px solid ${C.border}`,overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"}}>
+      {cut&&<div style={{position:"absolute",left:"8%",right:"8%",top:"14%",bottom:"6%",borderRadius:"50%",background:"radial-gradient(circle at 50% 45%,rgba(74,163,255,.38),rgba(55,178,77,.22) 60%,transparent 72%)"}}/>}
+      <div style={cut?{position:"absolute",inset:"0 4%",display:"flex",alignItems:"flex-end",justifyContent:"center"}:{position:"absolute",inset:"6% 8%",borderRadius:"50% 50% 44% 44%",background:"linear-gradient(160deg,rgba(47,125,246,.28),rgba(55,178,77,.26))",border:`1px solid ${C.border}`,overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"}}>
         {photoSrc
-          ? <img src={photoSrc} alt="Muhammadyusuf Bahromaliyev" onError={function(){ setPhotoSrc(photoSrc==="/expert.jpg"?FOUNDER_PHOTO:null); }} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top"}}/>
+          ? <img src={photoSrc} alt="Muhammadyusuf Bahromaliyev" onError={function(){ setPhotoSrc(photoSrc==="/expert.png"?"/expert.jpg":photoSrc==="/expert.jpg"?FOUNDER_PHOTO:null); }} style={cut?{maxWidth:"100%",maxHeight:"100%",objectFit:"contain",objectPosition:"bottom",filter:"drop-shadow(0 10px 24px rgba(0,0,0,.25))"}:{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top"}}/>
           : <div style={{position:"relative",width:"100%",height:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
               <svg viewBox="0 0 300 300" style={{position:"absolute",inset:0,width:"100%",height:"100%",opacity:.55}}>
                 <g stroke="#4aa3ff" strokeWidth="2" fill="none"><path d="M20 240 L80 190 L120 210 L180 130 L230 150 L285 70" strokeLinecap="round" strokeLinejoin="round"/></g>
