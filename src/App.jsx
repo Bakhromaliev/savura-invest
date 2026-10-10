@@ -5527,7 +5527,163 @@ function ExamPage({lang="uz", setPage, auth}){
 }
 
 
-export default function App(){
+
+// ═══════════════════════════════════════════════════════════════════════════
+// REKLAMA SAHIFALARI: /bepuldars1 va /redirecttotelegram  (Meta Pixel bilan)
+// ═══════════════════════════════════════════════════════════════════════════
+const TG_FREE_LINK = "https://t.me/+zMEwbtEvNro0YTc6";
+function fbTrack(ev){ try{ if(typeof window!=="undefined" && typeof window.fbq==="function") window.fbq("track",ev); }catch(e){} }
+
+const FL_TOPICS = [
+  ["Treyding nima va bozor qanday ishlaydi","Birja, aksiya, narx — noldan tushunarli tilda"],
+  ["Broker tanlash va hisob ochish","Qaysi broker, qanday hisob, qadamma-qadam"],
+  ["Halol aksiyalar","Qaysi kompaniya halol, filtr qanday ishlaydi"],
+  ["Fundamental tahlil asoslari","Kompaniya foydalimi — asosiy ko'rsatkichlar"],
+  ["Texnik tahlil va grafik","Trend, daraja, kirish va chiqish nuqtalari"],
+  ["Risk boshqaruvi","Zararni cheklash va kapitalni asrash"],
+  ["Treyder psixologiyasi","Hissiyotni boshqarish va intizom"],
+  ["Birinchi savdo","Demo bilan mashq va real savdoga tayyorlanish"],
+];
+const FL_FOR = ["Boshlang'ich mutaxassislar","Endi treydingni o'rganmoqchi bo'lgan odamlar","Treydingda natija qilmoqchi bo'lganlar"];
+
+function FlCta({children, big}){
+  function go(){
+    fbTrack("CompleteRegistration");
+    setTimeout(function(){ window.location.href="/redirecttotelegram"; }, 350);
+  }
+  return(
+    <button onClick={go} className="hero-btn" style={{background:"linear-gradient(135deg,#2f7df6,#37b24d)",border:"none",borderRadius:16,color:"#fff",fontWeight:800,fontSize:big?18:17,padding:big?"18px 40px":"16px 34px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 10px 28px rgba(47,125,246,.32)",display:"inline-flex",alignItems:"center",gap:10}}>
+      {children} <span style={{fontSize:20}}>→</span>
+    </button>
+  );
+}
+
+function FloatCard({style,icon,title,sub,delay}){
+  return(
+    <div className="fl-float" style={{position:"absolute",background:"var(--glass)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",border:`1px solid ${C.border}`,borderRadius:16,padding:"10px 14px",boxShadow:"0 12px 30px rgba(0,0,0,.18)",display:"flex",alignItems:"center",gap:10,animationDelay:delay,...style}}>
+      <div style={{width:34,height:34,borderRadius:10,background:"linear-gradient(135deg,rgba(47,125,246,.18),rgba(55,178,77,.18))",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,flexShrink:0}}>{icon}</div>
+      <div>
+        <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:13,color:C.text,lineHeight:1.2}}>{title}</div>
+        {sub&&<div style={{fontSize:11,color:C.dim,marginTop:2}}>{sub}</div>}
+      </div>
+    </div>
+  );
+}
+
+function ExpertVisual(){
+  const [photoOk,setPhotoOk]=useState(true);
+  return(
+    <div style={{position:"relative",width:"100%",maxWidth:430,margin:"0 auto",aspectRatio:"1/1.05"}}>
+      <div style={{position:"absolute",inset:"6% 8%",borderRadius:"50% 50% 44% 44%",background:"linear-gradient(160deg,rgba(47,125,246,.28),rgba(55,178,77,.26))",filter:"blur(0px)",border:`1px solid ${C.border}`,overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"}}>
+        {photoOk
+          ? <img src={FOUNDER_PHOTO} alt="Muhammadyusuf Bahromaliyev" onError={function(){setPhotoOk(false);}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top"}}/>
+          : <div style={{position:"relative",width:"100%",height:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <svg viewBox="0 0 300 300" style={{position:"absolute",inset:0,width:"100%",height:"100%",opacity:.55}}>
+                <g stroke="#4aa3ff" strokeWidth="2" fill="none"><path d="M20 240 L80 190 L120 210 L180 130 L230 150 L285 70" strokeLinecap="round" strokeLinejoin="round"/></g>
+                {[[40,215,40,26,"#37b24d"],[75,200,28,22,"#37b24d"],[110,215,22,26,"#e5484d"],[150,170,34,30,"#37b24d"],[185,140,26,34,"#37b24d"],[225,150,20,28,"#e5484d"],[262,95,36,34,"#37b24d"]].map(function(c,i){return <g key={i}><line x1={c[0]} x2={c[0]} y1={c[1]-10} y2={c[1]+c[3]+10} stroke={c[4]} strokeWidth="2"/><rect x={c[0]-7} y={c[1]} width="14" height={c[3]} rx="3" fill={c[4]}/></g>;})}
+              </svg>
+              <div style={{position:"relative",filter:"drop-shadow(0 12px 28px rgba(47,125,246,.4))"}}><Logo size={150}/></div>
+            </div>}
+      </div>
+      <FloatCard style={{top:"4%",left:"-2%"}} icon="👤" title="MuhammadYusuf Bahromaliev" sub="Treyder · Ustoz" delay="0s"/>
+      <FloatCard style={{top:"46%",right:"-3%"}} icon="📈" title="5 yillik tajriba" sub="Aksiya bozorida" delay="1.2s"/>
+      <FloatCard style={{bottom:"2%",left:"2%"}} icon="🏆" title="Savura Invest asoschisi" sub="Halol aksiyalar akademiyasi" delay="2.2s"/>
+    </div>
+  );
+}
+
+function FreeLanding(){
+  useEffect(function(){ try{ document.title="24 ta BEPUL dars — Stock treyding asoslari | Savura Invest"; window.scrollTo(0,0); }catch(e){} },[]);
+  return(
+    <div data-theme={initialTheme()} style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'Manrope',system-ui,sans-serif"}}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0;} a{text-decoration:none;} button{font-family:inherit;}
+        @keyframes flFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+        .fl-float{animation:flFloat 5s ease-in-out infinite;}
+        .fl-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;}
+        .fl-topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;}
+        .hero-btn{transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;}
+        .hero-btn:hover{transform:translateY(-2px);filter:brightness(1.07);}
+        @media(max-width:820px){.fl-hero{grid-template-columns:1fr;gap:26px;}.fl-hero-text{text-align:center;}.fl-hero-text .fl-cta{justify-content:center;}}
+        @media (prefers-reduced-motion: reduce){.fl-float{animation:none;}}
+      `}</style>
+      {/* mini header */}
+      <div style={{padding:"14px 20px",display:"flex",alignItems:"center",gap:10,maxWidth:1100,margin:"0 auto"}}>
+        <Logo size={34}/>
+        <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:17,color:C.text}}>SAVURA <span style={{color:C.greenLt}}>INVEST</span></div>
+      </div>
+
+      {/* 1-BLOK */}
+      <section style={{maxWidth:1100,margin:"0 auto",padding:"22px 20px 34px"}}>
+        <div className="fl-hero">
+          <div className="fl-hero-text">
+            <div style={{display:"inline-block",fontSize:11.5,letterSpacing:"1.5px",fontWeight:800,color:C.greenLt,border:"1px solid rgba(55,178,77,.45)",background:"rgba(55,178,77,.1)",borderRadius:20,padding:"5px 12px",marginBottom:16}}>100% BEPUL</div>
+            <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(28px,5.4vw,50px)",lineHeight:1.14,marginBottom:16,color:C.text}}>
+              Stock Treyding asoslarini <span style={{background:"linear-gradient(90deg,#4aa3ff,#5fd36a)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>24 ta darsda BEPUL</span> o'rganing
+            </h1>
+            <p style={{fontSize:"clamp(15px,2.2vw,18px)",color:C.dim,lineHeight:1.6,marginBottom:26,maxWidth:520}}>Buni o'rganish uchun sizda xohish bo'lsa yetarli</p>
+            <div className="fl-cta" style={{display:"flex"}}><FlCta>Darslarni ko'rish</FlCta></div>
+            <div style={{marginTop:16,fontSize:13.5,color:C.dim,display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}} className="fl-cta">
+              <span>🔒</span><span>Darslar yopiq kanalda. <b style={{color:C.text}}>Tezda a'zo bo'lib oling.</b></span>
+            </div>
+          </div>
+          <ExpertVisual/>
+        </div>
+      </section>
+
+      {/* 2-BLOK */}
+      <section style={{maxWidth:1100,margin:"0 auto",padding:"26px 20px 70px"}}>
+        <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(22px,3.8vw,32px)",marginBottom:18,color:C.text}}>Darslarda qanday mavzular bor?</h2>
+        <div className="fl-topics" style={{marginBottom:38}}>
+          {FL_TOPICS.map(function(tp,i){return(
+            <div key={i} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:"14px 16px",display:"flex",gap:12,alignItems:"flex-start"}}>
+              <div style={{width:30,height:30,borderRadius:9,background:"linear-gradient(135deg,#2f7df6,#37b24d)",color:"#fff",fontWeight:800,fontSize:13,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontFamily:"'Sora',sans-serif"}}>{i+1}</div>
+              <div><div style={{fontWeight:700,fontSize:14.5,color:C.text,lineHeight:1.3}}>{tp[0]}</div><div style={{fontSize:12.5,color:C.dim,marginTop:3,lineHeight:1.5}}>{tp[1]}</div></div>
+            </div>);})}
+        </div>
+
+        <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(22px,3.8vw,32px)",marginBottom:16,color:C.text}}>Dars kimlar uchun mos keladi?</h2>
+        <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:34,maxWidth:640}}>
+          {FL_FOR.map(function(x,i){return(
+            <div key={i} style={{display:"flex",alignItems:"center",gap:12,background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:"13px 16px"}}>
+              <span style={{width:24,height:24,borderRadius:"50%",background:"rgba(55,178,77,.18)",color:C.greenLt,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:14,flexShrink:0}}>✓</span>
+              <span style={{fontSize:15,fontWeight:600,color:C.text}}>{x}</span>
+            </div>);})}
+        </div>
+        <FlCta big>Darslarni hoziroq ko'rish</FlCta>
+        <div style={{marginTop:14,fontSize:12.5,color:C.faint}}>Hech qanday ro'yxatdan o'tish yoki telefon raqam talab qilinmaydi.</div>
+      </section>
+    </div>
+  );
+}
+
+function TgRedirect(){
+  const fired=React.useRef(false);
+  useEffect(function(){
+    try{ document.title="Yo'naltirilmoqda… | Savura Invest"; }catch(e){}
+    if(!fired.current){ fired.current=true; fbTrack("Contact"); }
+    const t=setTimeout(function(){ window.location.replace(TG_FREE_LINK); },1000);
+    return function(){ clearTimeout(t); };
+  },[]);
+  return(
+    <div data-theme={initialTheme()} style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'Manrope',system-ui,sans-serif",display:"flex",alignItems:"center",justifyContent:"center",padding:24,textAlign:"center"}}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Manrope:wght@400;600&display=swap');*{box-sizing:border-box;margin:0;padding:0;}a{text-decoration:none;}@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+      <div>
+        <div style={{display:"flex",justifyContent:"center",marginBottom:18}}><Logo size={64}/></div>
+        <div style={{width:34,height:34,margin:"0 auto 18px",borderRadius:"50%",border:`3px solid ${C.border}`,borderTopColor:"#4aa3ff",animation:"spin .8s linear infinite"}}/>
+        <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(20px,4.5vw,28px)",marginBottom:10,color:C.text}}>Hozir sizni Darslarga yo'naltiryapmiz…</h1>
+        <p style={{fontSize:14,color:C.dim,lineHeight:1.6}}>Bir soniya kuting. O'tmasa, <a href={TG_FREE_LINK} style={{color:C.blueLt,fontWeight:700}}>shu yerni bosing</a>.</p>
+      </div>
+    </div>
+  );
+}
+
+function pathPage(){
+  try{ const p=(window.location.pathname||"/").replace(/\/+$/,"").toLowerCase(); return p; }catch(e){ return "/"; }
+}
+
+function MainApp(){
   const [page,setPageRaw]=useState("home");
   const setPage=React.useCallback((p)=>{ try{window.history.pushState({pg:p},"");}catch(e){} setPageRaw(p); },[]);
   React.useEffect(()=>{
@@ -5593,4 +5749,11 @@ export default function App(){
       <Footer setPage={setPage} lang={lang}/>
     </div>
   );
+}
+
+export default function App(){
+  const p=pathPage();
+  if(p==="/bepuldars1") return <FreeLanding/>;
+  if(p==="/redirecttotelegram") return <TgRedirect/>;
+  return <MainApp/>;
 }
