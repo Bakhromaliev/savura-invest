@@ -5623,6 +5623,8 @@ const PL_CSS = `
 .pl-fc i{width:3px;align-self:stretch;border-radius:3px;background:linear-gradient(180deg,#4aa3ff,#5fd36a);}
 .pl-fc b{display:block;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;line-height:1.2;}
 .pl-fc span{font-size:10px;color:var(--dim);}
+.pl-fc1{top:6%;left:-3%}.pl-fc2{top:44%;right:-5%}.pl-fc3{bottom:7%;left:-1%}
+@media(max-width:820px){.pl-ex{margin-bottom:8px}.pl-fc1{top:auto;bottom:-4%;left:0;right:0;margin:0 auto;width:max-content;max-width:94%}.pl-fc2{top:50%;right:-2%}.pl-fc3{top:30%;bottom:auto;left:-2%}.pl-fc b{font-size:11.5px}}
 @keyframes plFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 /* marquee */
 .pl-mq{position:relative;z-index:1;padding:14px 0 6px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
@@ -5745,9 +5747,9 @@ function ExpertVisual(){
       <div className="pl-ring pl-r2"/>
       <div className="pl-ring pl-r1"/>
       <img className="pl-photo" src={EXPERT_PHOTO} alt="Muhammadyusuf Bahromaliyev" width="512" height="846"/>
-      <div className="pl-fc" style={{top:"6%",left:"-3%"}}><i/><div><b>MuhammadYusuf Bahromaliev</b><span>Treyder · Ustoz</span></div></div>
-      <div className="pl-fc" style={{top:"44%",right:"-5%",animationDelay:"1.4s"}}><i/><div><b>5 yillik tajriba</b><span>Aksiya bozorida</span></div></div>
-      <div className="pl-fc" style={{bottom:"7%",left:"-1%",animationDelay:"2.6s"}}><i/><div><b>Savura Invest asoschisi</b><span>Halol aksiyalar akademiyasi</span></div></div>
+      <div className="pl-fc pl-fc1"><i/><div><b>MuhammadYusuf Bahromaliev</b><span>Treyder · Ustoz</span></div></div>
+      <div className="pl-fc pl-fc2" style={{animationDelay:"1.4s"}}><i/><div><b>5 yillik tajriba</b><span>Aksiya bozorida</span></div></div>
+      <div className="pl-fc pl-fc3" style={{animationDelay:"2.6s"}}><i/><div><b>Savura Invest asoschisi</b><span>Halol aksiyalar akademiyasi</span></div></div>
     </div>
   );
 }
