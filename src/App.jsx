@@ -5532,7 +5532,22 @@ function ExamPage({lang="uz", setPage, auth}){
 // REKLAMA SAHIFALARI: /bepuldars1 va /redirecttotelegram  (Meta Pixel bilan)
 // ═══════════════════════════════════════════════════════════════════════════
 const TG_FREE_LINK = "https://t.me/+zMEwbtEvNro0YTc6";
-function fbTrack(ev){ try{ if(typeof window!=="undefined" && typeof window.fbq==="function") window.fbq("track",ev); }catch(e){} }
+const FB_PIXEL_ID="981686754974915";
+function fbLoaded(){ try{ return typeof window.fbq==="function" && typeof window.fbq.callMethod==="function"; }catch(e){ return false; } }
+// Hodisani ishonchli yuboradi: pixel yuklanguncha (max 2.5s) kutadi, so'ng cb ni chaqiradi.
+// Pixel yuklanmasa (sekin tarmoq) — rasmli beacon bilan yuboradi.
+function fbSend(ev,cb){
+  let done=false, waited=0;
+  function finish(){ if(cb) setTimeout(cb,450); }
+  function tick(){
+    if(done) return;
+    if(fbLoaded()){ done=true; try{ window.fbq("track",ev); }catch(e){} finish(); return; }
+    waited+=100;
+    if(waited>=2500){ done=true; try{ const im=new Image(); im.src="https://www.facebook.com/tr?id="+FB_PIXEL_ID+"&ev="+encodeURIComponent(ev)+"&dl="+encodeURIComponent(location.href)+"&noscript=1"; }catch(e){} finish(); return; }
+    setTimeout(tick,100);
+  }
+  tick();
+}
 
 const FL_TOPICS = [
   ["Treyding nima va bozor qanday ishlaydi","Birja, aksiya, narx — noldan tushunarli tilda"],
@@ -5547,9 +5562,10 @@ const FL_TOPICS = [
 const FL_FOR = ["Boshlang'ich mutaxassislar","Endi treydingni o'rganmoqchi bo'lgan odamlar","Treydingda natija qilmoqchi bo'lganlar"];
 
 function FlCta({children, big}){
+  const busy=React.useRef(false);
   function go(){
-    fbTrack("CompleteRegistration");
-    setTimeout(function(){ window.location.href="/redirecttotelegram"; }, 350);
+    if(busy.current) return; busy.current=true;
+    fbSend("CompleteRegistration",function(){ window.location.href="/redirecttotelegram"; });
   }
   return(
     <button onClick={go} className="hero-btn" style={{background:"linear-gradient(135deg,#2f7df6,#37b24d)",border:"none",borderRadius:16,color:"#fff",fontWeight:800,fontSize:big?18:17,padding:big?"18px 40px":"16px 34px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 10px 28px rgba(47,125,246,.32)",display:"inline-flex",alignItems:"center",gap:10}}>
@@ -5558,25 +5574,25 @@ function FlCta({children, big}){
   );
 }
 
-function FloatCard({style,icon,title,sub,delay}){
+function FloatCard({style,title,sub,delay}){
   return(
-    <div className="fl-float" style={{position:"absolute",background:"var(--glass)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",border:`1px solid ${C.border}`,borderRadius:16,padding:"10px 14px",boxShadow:"0 12px 30px rgba(0,0,0,.18)",display:"flex",alignItems:"center",gap:10,animationDelay:delay,...style}}>
-      <div style={{width:34,height:34,borderRadius:10,background:"linear-gradient(135deg,rgba(47,125,246,.18),rgba(55,178,77,.18))",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,flexShrink:0}}>{icon}</div>
+    <div className="fl-float fl-card" style={{position:"absolute",background:"var(--glass)",backdropFilter:"blur(8px)",WebkitBackdropFilter:"blur(8px)",border:`1px solid ${C.border}`,borderRadius:11,padding:"6px 10px 6px 9px",boxShadow:"0 6px 16px rgba(0,0,0,.14)",display:"flex",alignItems:"center",gap:7,animationDelay:delay,...style}}>
+      <span style={{width:3,alignSelf:"stretch",borderRadius:2,background:"linear-gradient(180deg,#4aa3ff,#5fd36a)",flexShrink:0}}/>
       <div>
-        <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:13,color:C.text,lineHeight:1.2}}>{title}</div>
-        {sub&&<div style={{fontSize:11,color:C.dim,marginTop:2}}>{sub}</div>}
+        <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:11.5,color:C.text,lineHeight:1.2,whiteSpace:"nowrap"}}>{title}</div>
+        {sub&&<div style={{fontSize:9.5,color:C.dim,marginTop:1,whiteSpace:"nowrap"}}>{sub}</div>}
       </div>
     </div>
   );
 }
 
 function ExpertVisual(){
-  const [photoOk,setPhotoOk]=useState(true);
+  const [photoSrc,setPhotoSrc]=useState("/expert.jpg");
   return(
     <div style={{position:"relative",width:"100%",maxWidth:430,margin:"0 auto",aspectRatio:"1/1.05"}}>
       <div style={{position:"absolute",inset:"6% 8%",borderRadius:"50% 50% 44% 44%",background:"linear-gradient(160deg,rgba(47,125,246,.28),rgba(55,178,77,.26))",filter:"blur(0px)",border:`1px solid ${C.border}`,overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"}}>
-        {photoOk
-          ? <img src={FOUNDER_PHOTO} alt="Muhammadyusuf Bahromaliyev" onError={function(){setPhotoOk(false);}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top"}}/>
+        {photoSrc
+          ? <img src={photoSrc} alt="Muhammadyusuf Bahromaliyev" onError={function(){ setPhotoSrc(photoSrc==="/expert.jpg"?FOUNDER_PHOTO:null); }} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top"}}/>
           : <div style={{position:"relative",width:"100%",height:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
               <svg viewBox="0 0 300 300" style={{position:"absolute",inset:0,width:"100%",height:"100%",opacity:.55}}>
                 <g stroke="#4aa3ff" strokeWidth="2" fill="none"><path d="M20 240 L80 190 L120 210 L180 130 L230 150 L285 70" strokeLinecap="round" strokeLinejoin="round"/></g>
@@ -5585,9 +5601,9 @@ function ExpertVisual(){
               <div style={{position:"relative",filter:"drop-shadow(0 12px 28px rgba(47,125,246,.4))"}}><Logo size={150}/></div>
             </div>}
       </div>
-      <FloatCard style={{top:"4%",left:"-2%"}} icon="👤" title="MuhammadYusuf Bahromaliev" sub="Treyder · Ustoz" delay="0s"/>
-      <FloatCard style={{top:"46%",right:"-3%"}} icon="📈" title="5 yillik tajriba" sub="Aksiya bozorida" delay="1.2s"/>
-      <FloatCard style={{bottom:"2%",left:"2%"}} icon="🏆" title="Savura Invest asoschisi" sub="Halol aksiyalar akademiyasi" delay="2.2s"/>
+      <FloatCard style={{top:"5%",left:"0%"}} title="MuhammadYusuf Bahromaliev" sub="Treyder · Ustoz" delay="0s"/>
+      <FloatCard style={{top:"47%",right:"0%"}} title="5 yillik tajriba" sub="Aksiya bozorida" delay="1.2s"/>
+      <FloatCard style={{bottom:"4%",left:"4%"}} title="Savura Invest asoschisi" sub="Halol aksiyalar akademiyasi" delay="2.2s"/>
     </div>
   );
 }
@@ -5606,6 +5622,7 @@ function FreeLanding(){
         .hero-btn{transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;}
         .hero-btn:hover{transform:translateY(-2px);filter:brightness(1.07);}
         @media(max-width:820px){.fl-hero{grid-template-columns:1fr;gap:26px;}.fl-hero-text{text-align:center;}.fl-hero-text .fl-cta{justify-content:center;}}
+        @media(max-width:480px){.fl-card{transform-origin:left center;}}
         @media (prefers-reduced-motion: reduce){.fl-float{animation:none;}}
       `}</style>
       {/* mini header */}
@@ -5625,7 +5642,7 @@ function FreeLanding(){
             <p style={{fontSize:"clamp(15px,2.2vw,18px)",color:C.dim,lineHeight:1.6,marginBottom:26,maxWidth:520}}>Buni o'rganish uchun sizda xohish bo'lsa yetarli</p>
             <div className="fl-cta" style={{display:"flex"}}><FlCta>Darslarni ko'rish</FlCta></div>
             <div style={{marginTop:16,fontSize:13.5,color:C.dim,display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}} className="fl-cta">
-              <span>🔒</span><span>Darslar yopiq kanalda. <b style={{color:C.text}}>Tezda a'zo bo'lib oling.</b></span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{color:C.dim,flexShrink:0}}><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Darslar yopiq kanalda. <b style={{color:C.text}}>Tezda a'zo bo'lib oling.</b></span>
             </div>
           </div>
           <ExpertVisual/>
@@ -5662,9 +5679,13 @@ function TgRedirect(){
   const fired=React.useRef(false);
   useEffect(function(){
     try{ document.title="Yo'naltirilmoqda… | Savura Invest"; }catch(e){}
-    if(!fired.current){ fired.current=true; fbTrack("Contact"); }
-    const t=setTimeout(function(){ window.location.replace(TG_FREE_LINK); },1000);
-    return function(){ clearTimeout(t); };
+    if(fired.current) return; fired.current=true;
+    const t0=Date.now();
+    // Contact hodisasi yuborilgach (kamida 1 soniya o'tgach) Telegram'ga o'tadi
+    fbSend("Contact",function(){
+      const left=Math.max(0,1000-(Date.now()-t0));
+      setTimeout(function(){ window.location.replace(TG_FREE_LINK); },left);
+    });
   },[]);
   return(
     <div data-theme={initialTheme()} style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'Manrope',system-ui,sans-serif",display:"flex",alignItems:"center",justifyContent:"center",padding:24,textAlign:"center"}}>
