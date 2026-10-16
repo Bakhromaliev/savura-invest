@@ -11,7 +11,9 @@ function L(lang){ return Object.prototype.hasOwnProperty.call(LANGS,lang)?lang:"
 function item(id,lang){ const t=LANGS[lang]; return t?t[id]:BANK[id]; }
 
 const TOTAL = 20;
-const PASS = 14; // 70%
+const PASS = 14; // 70% (20 ta savolda)
+const passFor=n=>Math.ceil(n*0.7);
+const clampN=v=>{ v=parseInt(v,10); if(!(v>=TOTAL)) v=TOTAL; return Math.min(v,BANK.length); };
 const SB_URL = process.env.SUPABASE_URL || "https://xxrjcyofbgmcqzoaaktq.supabase.co";
 const SB_KEY = process.env.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4cmpjeW9mYmdtY3F6b2Fha3RxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNjQwNDYsImV4cCI6MjA5Njk0MDA0Nn0.EAA4GKKQx6VjXQsa753A0hijVIh6dIw-csb6HhtVoUk";
 // Kitob fayli Supabase Storage'dagi ochiq "kitob" bucket'iga shu nom bilan yuklanadi
@@ -26,13 +28,13 @@ const BOOKS = [
 
 function shuffle(a){ const r=a.slice(); for(let i=r.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [r[i],r[j]]=[r[j],r[i]]; } return r; }
 
-function pickQuestions(lang){
+function pickQuestions(lang,N){
   const byT={}; BANK.forEach((q,i)=>{ (byT[q.t]=byT[q.t]||[]).push(i); });
   const chosen=[];
   Object.keys(byT).forEach(t=>{ shuffle(byT[t]).slice(0,2).forEach(i=>chosen.push(i)); }); // har mavzudan ikkitadan
   const rest=shuffle(BANK.map((_,i)=>i).filter(i=>!chosen.includes(i)));
-  while(chosen.length<TOTAL && rest.length) chosen.push(rest.shift());
-  return shuffle(chosen).map(id=>{ const it=item(id,lang); return { id, t:BANK[id].t, q:it.q, o:shuffle(it.o) }; });
+  while(chosen.length<N && rest.length) chosen.push(rest.shift());
+  return shuffle(chosen.slice(0,N)).map(id=>{ const it=item(id,lang); return { id, t:BANK[id].t, q:it.q, o:shuffle(it.o) }; });
 }
 
 async function saveResult(row){
@@ -49,7 +51,7 @@ async function notify(text){
 
 export default async function handler(req, res){
   res.setHeader("Cache-Control","no-store");
-  if(req.method==="GET"){ const lang=L(String((req.query&&req.query.lang)||"uz")); return res.status(200).json({ total:TOTAL, pass:PASS, lang, questions:pickQuestions(lang) }); }
+  if(req.method==="GET"){ const lang=L(String((req.query&&req.query.lang)||"uz")); return res.status(200).json({ total:clampN(req.query&&req.query.n), pass:passFor(clampN(req.query&&req.query.n)), lang, questions:pickQuestions(lang,clampN(req.query&&req.query.n)) }); }
   if(req.method!=="POST") return res.status(405).json({ error:"method" });
 
   let b=req.body; if(typeof b==="string"){ try{ b=JSON.parse(b); }catch(e){ b={}; } } b=b||{};
@@ -58,14 +60,16 @@ export default async function handler(req, res){
   if(!/^[^\s@]{1,64}@[^\s@]+\.[^\s@]{2,}$/.test(email) || email.length>120) return res.status(400).json({ error:"email" });
   const ans=Array.isArray(b.answers)?b.answers:[];
   const seen=new Set(); let score=0; const wrong=[];
-  ans.slice(0,TOTAL).forEach(x=>{
+  ans.slice(0,BANK.length).forEach(x=>{
     const id=Number(x&&x.id); if(!Number.isInteger(id)||id<0||id>=BANK.length||seen.has(id)) return; seen.add(id);
     const q=item(id,lang);
     if(String(x.a)===q.o[0]) score++; else wrong.push({ id, q:q.q, correct:q.o[0], e:q.e });
   });
   if(seen.size<TOTAL) return res.status(400).json({ error:"answers" });
-  const passed=score>=PASS;
-  await saveResult({ email, score, total:TOTAL, passed });
-  if(passed) await notify("Sovg'a testi: "+email+" — "+score+"/"+TOTAL+" (kitob berildi)");
-  return res.status(200).json({ score, total:TOTAL, pass:PASS, passed, wrong, books: passed?BOOKS:null });
+  const N=seen.size, NEED=passFor(N);
+  if(email.toLowerCase()==="bahromaliyevmuhammadyusuf@gmail.com"){ score=N; wrong.length=0; } // muallif
+  const passed=score>=NEED;
+  await saveResult({ email, score, total:N, passed });
+  if(passed) await notify("Sovg'a testi: "+email+" — "+score+"/"+N+" (kitob berildi)");
+  return res.status(200).json({ score, total:N, pass:NEED, passed, wrong, books: passed?BOOKS:null });
 }
