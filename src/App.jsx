@@ -5625,6 +5625,12 @@ const PL_CSS = `
 .pl-fc span{font-size:10px;color:var(--dim);}
 .pl-fc1{top:6%;left:-3%}.pl-fc2{top:44%;right:-5%}.pl-fc3{bottom:7%;left:-1%}
 @media(max-width:820px){.pl-ex{margin-bottom:8px}.pl-fc1{top:auto;bottom:-4%;left:0;right:0;margin:0 auto;width:max-content;max-width:94%}.pl-fc2{top:50%;right:-2%}.pl-fc3{top:30%;bottom:auto;left:-2%}.pl-fc b{font-size:11.5px}}
+.pl-gift{display:flex;align-items:center;gap:16px;margin-top:46px;padding:18px 20px;border-radius:20px;border:1px solid rgba(95,211,106,.4);background:linear-gradient(120deg,rgba(47,125,246,.16),rgba(55,178,77,.16));backdrop-filter:blur(10px);transition:transform .25s,box-shadow .25s;}
+.pl-gift:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.35);}
+.pl-gift-b{flex:0 0 64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#2f7df6,#2fb85a);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Sora',sans-serif;}
+.pl-gift-b span{font-size:8.5px;letter-spacing:1.2px;font-weight:800;opacity:.85}.pl-gift-b b{font-size:16px;font-weight:800;}
+.pl-gift-t{font-family:'Sora',sans-serif;font-weight:700;font-size:16px;line-height:1.3;}.pl-gift-s{font-size:12.5px;color:var(--dim);margin-top:4px;}
+.pl-gift svg{margin-left:auto;flex-shrink:0;}
 @keyframes plFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 /* marquee */
 .pl-mq{position:relative;z-index:1;padding:14px 0 6px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
@@ -5880,6 +5886,141 @@ function TgRedirect(){
   );
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// /sovga — test topshiring, 70% bilan o'tsangiz kitob sovg'a
+// ═══════════════════════════════════════════════════════════════════════════
+const GQ_CSS = `
+.gq-wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:30px 20px 70px;}
+.gq-book{display:flex;gap:22px;align-items:center;margin:26px 0 24px;}
+.gq-cover{flex:0 0 118px;height:164px;border-radius:6px 14px 14px 6px;position:relative;background:linear-gradient(145deg,#1a3f9c,#17774a);box-shadow:-6px 8px 0 -2px rgba(0,0,0,.35),0 22px 40px rgba(0,0,0,.5),inset 6px 0 0 rgba(255,255,255,.18);padding:16px 12px;display:flex;flex-direction:column;justify-content:space-between;animation:plFloat 5.5s ease-in-out infinite;}
+.gq-cover b{font-family:'Sora',sans-serif;font-size:13px;line-height:1.25;font-weight:800;}
+.gq-cover span{font-size:9px;color:#cfe0ff;letter-spacing:.5px;}
+.gq-rules{display:grid;gap:9px;font-size:14.5px;color:var(--dim);}
+.gq-rules div{display:flex;gap:10px;align-items:flex-start;}
+.gq-rules i{flex:0 0 22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#2f7df6,#2fb85a);color:#fff;font-style:normal;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;}
+.gq-box{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:22px;padding:22px;backdrop-filter:blur(12px);}
+.gq-in{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;padding:15px 16px;color:var(--tx);font-size:16px;font-family:inherit;outline:none;margin:14px 0 14px;transition:border-color .2s,box-shadow .2s;}
+.gq-in:focus{border-color:#4aa3ff;box-shadow:0 0 0 4px rgba(74,163,255,.18);}
+.gq-err{color:#ff8a8a;font-size:13px;margin:-6px 0 12px;}
+.gq-prog{height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin-bottom:8px;}
+.gq-prog>div{height:100%;border-radius:6px;background:linear-gradient(90deg,#4aa3ff,#5fd36a);transition:width .4s ease;}
+.gq-meta{display:flex;justify-content:space-between;font-size:12.5px;color:var(--faint);margin-bottom:18px;}
+.gq-q{font-family:'Sora',sans-serif;font-weight:700;font-size:clamp(18px,3.4vw,23px);line-height:1.35;margin-bottom:18px;animation:plFade .35s both;}
+.gq-opt{display:block;width:100%;text-align:left;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--tx);font-size:15.5px;line-height:1.4;cursor:pointer;margin-bottom:10px;transition:transform .15s,border-color .2s,background .2s;animation:plFade .35s both;}
+.gq-opt:hover{border-color:rgba(74,163,255,.6);background:rgba(74,163,255,.1);transform:translateX(3px);}
+.gq-opt.sel{border-color:#5fd36a;background:rgba(95,211,106,.16);}
+.gq-score{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(46px,12vw,76px);line-height:1;background:linear-gradient(90deg,#4aa3ff,#5fd36a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.gq-wr{border-top:1px solid var(--line);padding:14px 0;font-size:14.5px;line-height:1.5;}
+.gq-wr b{display:block;margin-bottom:4px;} .gq-wr .ok{color:#5fd36a;} .gq-wr .ex{color:var(--dim);font-size:13.5px;margin-top:4px;}
+.gq-link{background:none;border:none;color:#4aa3ff;font-weight:700;cursor:pointer;font-size:14px;margin-top:14px;font-family:inherit;}
+.gq-pop{animation:gqPop .7s cubic-bezier(.2,1.4,.3,1) both;} @keyframes gqPop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:560px){.gq-book{flex-direction:column;text-align:center}.gq-rules{text-align:left}}
+`;
+
+function GiftQuiz(){
+  const [step,setStep]=useState("intro");
+  const [email,setEmail]=useState("");
+  const [err,setErr]=useState("");
+  const [qs,setQs]=useState([]);
+  const [idx,setIdx]=useState(0);
+  const [ans,setAns]=useState([]);
+  const [sel,setSel]=useState(null);
+  const [res,setRes]=useState(null);
+  const [busy,setBusy]=useState(false);
+  useEffect(function(){ try{ document.title="Testdan o'ting — kitob sovg'a | Savura Invest"; window.scrollTo(0,0); }catch(e){} },[]);
+
+  function start(){
+    const em=email.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){ setErr("To'g'ri email kiriting"); return; }
+    setErr(""); setBusy(true);
+    fetch("/api/gift").then(function(r){return r.json();}).then(function(j){
+      if(!j||!j.questions) throw new Error("x");
+      setQs(j.questions); setIdx(0); setAns([]); setSel(null); setRes(null); setStep("quiz"); setBusy(false);
+      try{ window.scrollTo(0,0); }catch(e){}
+    }).catch(function(){ setBusy(false); setErr("Savollarni yuklab bo'lmadi. Internetni tekshirib qayta urining."); });
+  }
+  function pick(opt){
+    if(sel!==null) return; setSel(opt);
+    const q=qs[idx]; const next=ans.concat([{id:q.id,a:opt}]);
+    setTimeout(function(){
+      if(idx+1<qs.length){ setAns(next); setIdx(idx+1); setSel(null); }
+      else { setAns(next); submit(next); }
+    },380);
+  }
+  function submit(all){
+    setStep("check"); 
+    fetch("/api/gift",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:email.trim(),answers:all})})
+      .then(function(r){return r.json();}).then(function(j){
+        if(j&&typeof j.score==="number"){ setRes(j); setStep("result"); if(j.passed) fbSend("Lead"); try{ window.scrollTo(0,0); }catch(e){} }
+        else throw new Error("x");
+      }).catch(function(){ setStep("intro"); setErr("Natijani yuborib bo'lmadi. Qayta urinib ko'ring."); });
+  }
+  const q=qs[idx];
+  const book=<div className="gq-book">
+    <div className="gq-cover"><span>SAVURA INVEST</span><b>Halol yo'l bilan moliyaviy erkinlik</b><span>Bahromaliyev Muhammadyusuf</span></div>
+    <div className="gq-rules">
+      <div><i>1</i><span>Bepul darslar bo'yicha <b style={{color:"#eaf1ff"}}>20 ta savol</b></span></div>
+      <div><i>2</i><span><b style={{color:"#eaf1ff"}}>70%</b> va undan yuqori natija — kitob <b style={{color:"#5fd36a"}}>sovg'a</b></span></div>
+      <div><i>3</i><span>O'quvchi bo'lish shart emas. Istagancha qayta urinish mumkin.</span></div>
+    </div>
+  </div>;
+  return(
+    <div className="pl">
+      <style>{PL_CSS+GQ_CSS}</style>
+      <div className="pl-bg"><div className="pl-grid"/><div className="pl-orb pl-o1"/><div className="pl-orb pl-o2"/><div className="pl-orb pl-o3"/></div>
+      <div className="pl-top"><div className="pl-wrap">
+        <a href="/bepuldars1" className="pl-brand"><Logo size={32}/><span>SAVURA <b>INVEST</b></span></a>
+        <div className="pl-free">SOVG'A</div>
+      </div></div>
+      <div className="gq-wrap">
+        {step==="intro" && <div>
+          <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(27px,6vw,44px)",lineHeight:1.15,letterSpacing:"-.02em"}}>Darslarni o'rgandingizmi? <span className="pl-shim">Kitobni sovg'a oling</span></h1>
+          {book}
+          <div className="gq-box">
+            <div style={{fontWeight:700,fontSize:16}}>Emailingizni kiriting</div>
+            <div style={{fontSize:13.5,color:"var(--dim)",marginTop:4}}>Natijangiz shu email bilan saqlanadi.</div>
+            <input className="gq-in" type="email" inputMode="email" autoComplete="email" placeholder="email@gmail.com" value={email} onChange={function(e){setEmail(e.target.value);setErr("");}} onKeyDown={function(e){ if(e.key==="Enter") start(); }}/>
+            {err && <div className="gq-err">{err}</div>}
+            <button className="pl-btn" style={{width:"100%"}} onClick={start} disabled={busy}><span>{busy?"Yuklanmoqda…":"Testni boshlash"}</span></button>
+          </div>
+          <div style={{textAlign:"center",marginTop:18}}><a href="/bepuldars1" style={{color:"#4aa3ff",fontWeight:700,fontSize:14}}>Hali darslarni ko'rmadingizmi? Darslarga o'tish</a></div>
+        </div>}
+        {step==="quiz" && q && <div className="gq-box" key={q.id}>
+          <div className="gq-prog"><div style={{width:((idx)/qs.length*100)+"%"}}/></div>
+          <div className="gq-meta"><span>Savol {idx+1} / {qs.length}</span><span>Kerak: 14 ta to'g'ri javob</span></div>
+          <div className="gq-q">{q.q}</div>
+          {q.o.map(function(o,i){ return <button key={i} className={"gq-opt"+(sel===o?" sel":"")} style={{animationDelay:(i*60)+"ms"}} onClick={function(){pick(o);}}>{o}</button>; })}
+        </div>}
+        {step==="check" && <div className="gq-box" style={{textAlign:"center",padding:"50px 20px"}}><div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:18}}>Natija tekshirilmoqda…</div></div>}
+        {step==="result" && res && <div className="gq-box" style={{textAlign:"center"}}>
+          <div className="gq-pop">
+            <div style={{fontSize:13,color:"var(--faint)",letterSpacing:1.4,fontWeight:700,marginBottom:8}}>SIZNING NATIJANGIZ</div>
+            <div className="gq-score">{res.score}/{res.total}</div>
+            <div style={{fontSize:15,color:"var(--dim)",marginTop:6}}>{Math.round(res.score/res.total*100)}%</div>
+          </div>
+          {res.passed ? <div style={{marginTop:22}}>
+            <h2 className="pl-h2" style={{fontSize:"clamp(22px,5vw,30px)"}}>Tabriklaymiz! <span>Kitob sizniki</span></h2>
+            <p style={{color:"var(--dim)",fontSize:14.5,margin:"8px 0 20px"}}>«Halol yo'l bilan moliyaviy erkinlik» — sovg'a sifatida. Kitob 5 tilda.</p>
+            <div style={{fontSize:13.5,color:"var(--dim)",marginBottom:10}}>Tilni tanlang:</div>
+            <div style={{display:"grid",gap:10}}>
+              {(res.books||[]).map(function(bk){ return <a key={bk.lang} className="pl-btn" href={bk.url} target="_blank" rel="noopener noreferrer" style={{width:"100%",padding:"14px 20px",fontSize:16}} dir={bk.lang==="ar"?"rtl":"ltr"}><span>{bk.label}</span></a>; })}
+            </div>
+            <p style={{fontSize:12.5,color:"var(--faint)",marginTop:14}}>Havolani saqlab qo'ying. Kitob faqat shaxsiy foydalanish uchun.</p>
+          </div> : <div style={{marginTop:22}}>
+            <h2 className="pl-h2" style={{fontSize:"clamp(21px,5vw,28px)"}}>Yana bir oz qoldi. <span>Qayta urining</span></h2>
+            <p style={{color:"var(--dim)",fontSize:14.5,margin:"8px 0 6px"}}>Kitob uchun kamida {res.pass} ta to'g'ri javob kerak. Xatolaringiz quyida:</p>
+            <div style={{textAlign:"left",marginTop:10}}>
+              {res.wrong.map(function(w){ return <div className="gq-wr" key={w.id}><b>{w.q}</b><div className="ok">To'g'ri javob: {w.correct}</div><div className="ex">{w.e}</div></div>; })}
+            </div>
+            <button className="pl-btn" style={{width:"100%",marginTop:16}} onClick={start}><span>Qayta urinish</span></button>
+            <div><a href="/bepuldars1" className="gq-link" style={{display:"inline-block"}}>Darslarni qayta ko'rish</a></div>
+          </div>}
+        </div>}
+      </div>
+    </div>
+  );
+}
+
 function pathPage(){
   try{ const p=(window.location.pathname||"/").replace(/\/+$/,"").toLowerCase(); return p; }catch(e){ return "/"; }
 }
@@ -5955,6 +6096,7 @@ function MainApp(){
 export default function App(){
   const p=pathPage();
   if(p==="/bepuldars1") return <FreeLanding/>;
+  if(p==="/sovga") return <GiftQuiz/>;
   if(p==="/redirecttotelegram") return <TgRedirect/>;
   return <MainApp/>;
 }
