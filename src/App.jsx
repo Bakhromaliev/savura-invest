@@ -4652,6 +4652,28 @@ function LessonsPage({lang="uz", setPage}){
         <a href={plUrl} target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(229,72,77,0.12)",border:"1px solid rgba(229,72,77,0.4)",borderRadius:11,color:"#ff6b6f",fontSize:13.5,fontWeight:700,padding:"10px 16px",textDecoration:"none",whiteSpace:"nowrap"}}>▶ {T.openYT}</a>
       </div>
 
+      {/* Sovg'a kitob banneri */}
+      {(function(){
+        const G={
+          uz:["SOVG'A","24 dars imtihonidan o'tib, kitob sovg'ani bepulga oling","20 ta savol · 70% va undan yuqori · kitob 5 tilda","Testni boshlash"],
+          en:["GIFT","Pass the 24-lesson exam and get the book as a free gift","20 questions · 70% or higher · book in 5 languages","Start the test"],
+          ru:["ПОДАРОК","Сдайте экзамен по 24 урокам и получите книгу в подарок бесплатно","20 вопросов · 70% и выше · книга на 5 языках","Начать тест"],
+          tr:["HEDİYE","24 ders sınavını geçin, kitabı hediye olarak ücretsiz alın","20 soru · %70 ve üzeri · kitap 5 dilde","Teste başla"],
+          ar:["هدية","اجتز اختبار الدروس الـ24 واحصل على الكتاب هدية مجاناً","20 سؤالاً · 70% فأكثر · الكتاب بـ5 لغات","ابدأ الاختبار"]
+        }[lang]||[];
+        const g=G.length?G:["SOVG'A","24 dars imtihonidan o'tib, kitob sovg'ani bepulga oling","20 ta savol · 70% va undan yuqori · kitob 5 tilda","Testni boshlash"];
+        return(
+          <a href={"/sovga?lang="+lang} style={{display:"flex",alignItems:"center",gap:14,flexWrap:"wrap",textDecoration:"none",margin:"0 0 26px",padding:"16px 18px",borderRadius:18,border:"1px solid rgba(95,211,106,0.45)",background:"linear-gradient(120deg,rgba(47,125,246,0.16),rgba(55,178,77,0.18))",boxShadow:"0 10px 30px rgba(0,0,0,0.25)"}}>
+            <div style={{flex:"0 0 auto",minWidth:62,height:62,padding:"0 10px",borderRadius:15,background:`linear-gradient(135deg,${C.blue},${C.green})`,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontWeight:800,fontSize:12,letterSpacing:"1px",fontFamily:"'Sora',sans-serif"}}>{g[0]}</div>
+            <div style={{flex:"1 1 240px"}}>
+              <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:16,lineHeight:1.3,color:C.text}}>{g[1]}</div>
+              <div style={{fontSize:12.5,color:C.dim,marginTop:4}}>{g[2]}</div>
+            </div>
+            <div style={{flex:"0 0 auto",background:`linear-gradient(135deg,${C.blue},${C.green})`,color:"#fff",fontWeight:700,fontSize:14,padding:"11px 18px",borderRadius:12}}>{g[3]} {rtl?"←":"→"}</div>
+          </a>
+        );
+      })()}
+
       {/* 1 → 24 darslar ro'yxati */}
       <div style={{fontSize:13,letterSpacing:"1.5px",color:C.faint,fontWeight:700,marginBottom:12}}>{T.all.toUpperCase()} · {count}</div>
       <div style={{display:"flex",flexDirection:"column",gap:10}}>
@@ -5565,6 +5587,7 @@ const FL_FOR = ["Boshlang'ich mutaxassislar","Endi treydingni o'rganmoqchi bo'lg
 
 const PL_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
+html,body{margin:0;background:#050a18}
 .pl{--bg:#050a18;--tx:#eaf1ff;--dim:#9fb0d0;--faint:#6b7da3;--b1:#4aa3ff;--g1:#5fd36a;--glass:rgba(255,255,255,.045);--line:rgba(255,255,255,.1);
   min-height:100vh;background:var(--bg);color:var(--tx);font-family:'Manrope',system-ui,sans-serif;position:relative;overflow-x:hidden;}
 .pl *{box-sizing:border-box;margin:0;padding:0;} .pl a{text-decoration:none;color:inherit;} .pl button{font-family:inherit;}
@@ -5913,11 +5936,53 @@ const GQ_CSS = `
 .gq-wr{border-top:1px solid var(--line);padding:14px 0;font-size:14.5px;line-height:1.5;}
 .gq-wr b{display:block;margin-bottom:4px;} .gq-wr .ok{color:#5fd36a;} .gq-wr .ex{color:var(--dim);font-size:13.5px;margin-top:4px;}
 .gq-link{background:none;border:none;color:#4aa3ff;font-weight:700;cursor:pointer;font-size:14px;margin-top:14px;font-family:inherit;}
+.gq-lg{display:flex;gap:4px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:12px;padding:3px}.gq-lg button{background:none;border:none;color:var(--dim);font-weight:800;font-size:12px;padding:6px 9px;border-radius:9px;cursor:pointer;font-family:'Sora',sans-serif}.gq-lg button.on{background:linear-gradient(135deg,#2f7df6,#2fb85a);color:#fff}
+.pl[dir=rtl] .gq-opt{text-align:right}.pl[dir=rtl] .gq-opt:hover{transform:translateX(-3px)}.pl[dir=rtl] .gq-wr .ex{border:0}
 .gq-pop{animation:gqPop .7s cubic-bezier(.2,1.4,.3,1) both;} @keyframes gqPop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
 @media(max-width:560px){.gq-book{flex-direction:column;text-align:center}.gq-rules{text-align:left}}
 `;
 
+const GQ_T = {
+  uz:{tag:"SOVG'A",h1:"Darslarni o'rgandingizmi?",h2:"Kitobni sovg'a oling",r1:"Bepul darslar bo'yicha 20 ta savol",r2:"70% va undan yuqori natija — kitob sovg'a",r3:"O'quvchi bo'lish shart emas. Istagancha qayta urinish mumkin.",
+    et:"Emailingizni kiriting",es:"Natijangiz shu email bilan saqlanadi.",start:"Testni boshlash",loading:"Yuklanmoqda…",see:"Hali darslarni ko'rmadingizmi? Darslarga o'tish",
+    q:"Savol",need:"Kerak: 14 ta to'g'ri javob",check:"Natija tekshirilmoqda…",yr:"SIZNING NATIJANGIZ",ok1:"Tabriklaymiz!",ok2:"Kitob sizniki",okd:"«Halol yo'l bilan moliyaviy erkinlik» — sovg'a sifatida. Kitob 5 tilda.",pick:"Tilni tanlang:",keep:"Havolani saqlab qo'ying. Kitob faqat shaxsiy foydalanish uchun.",
+    no1:"Yana bir oz qoldi.",no2:"Qayta urining",nod:"Kitob uchun kamida 14 ta to'g'ri javob kerak. Xatolaringiz quyida:",corr:"To'g'ri javob:",retry:"Qayta urinish",rew:"Darslarni qayta ko'rish",
+    eEmail:"To'g'ri email kiriting",eLoad:"Savollarni yuklab bo'lmadi. Internetni tekshirib qayta urining.",eSend:"Natijani yuborib bo'lmadi. Qayta urinib ko'ring.",title:"Testdan o'ting — kitob sovg'a | Savura Invest"},
+  ru:{tag:"ПОДАРОК",h1:"Изучили уроки?",h2:"Получите книгу в подарок",r1:"20 вопросов по бесплатным урокам",r2:"Результат 70% и выше — книга в подарок",r3:"Быть учеником необязательно. Пробовать можно сколько угодно раз.",
+    et:"Введите ваш email",es:"Ваш результат сохранится с этим email.",start:"Начать тест",loading:"Загрузка…",see:"Ещё не смотрели уроки? Перейти к урокам",
+    q:"Вопрос",need:"Нужно: 14 верных ответов",check:"Проверяем результат…",yr:"ВАШ РЕЗУЛЬТАТ",ok1:"Поздравляем!",ok2:"Книга ваша",okd:"«К финансовой свободе халяльным путём» — в подарок. Книга на 5 языках.",pick:"Выберите язык:",keep:"Сохраните ссылку. Книга только для личного пользования.",
+    no1:"Совсем немного не хватило.",no2:"Попробуйте ещё раз",nod:"Для книги нужно минимум 14 верных ответов. Ваши ошибки ниже:",corr:"Верный ответ:",retry:"Попробовать снова",rew:"Пересмотреть уроки",
+    eEmail:"Введите корректный email",eLoad:"Не удалось загрузить вопросы. Проверьте интернет и попробуйте снова.",eSend:"Не удалось отправить результат. Попробуйте ещё раз.",title:"Пройдите тест — книга в подарок | Savura Invest"},
+  en:{tag:"GIFT",h1:"Finished the lessons?",h2:"Get the book as a gift",r1:"20 questions on the free lessons",r2:"Score 70% or higher — the book is a gift",r3:"You don't have to be a student. Retry as many times as you like.",
+    et:"Enter your email",es:"Your result will be saved with this email.",start:"Start the test",loading:"Loading…",see:"Haven't watched the lessons yet? Go to the lessons",
+    q:"Question",need:"Needed: 14 correct answers",check:"Checking your result…",yr:"YOUR RESULT",ok1:"Congratulations!",ok2:"The book is yours",okd:"“Financial Freedom Through Halal Means” — as a gift. The book comes in 5 languages.",pick:"Choose a language:",keep:"Save the link. The book is for personal use only.",
+    no1:"Just a little short.",no2:"Try again",nod:"You need at least 14 correct answers for the book. Your mistakes are below:",corr:"Correct answer:",retry:"Try again",rew:"Rewatch the lessons",
+    eEmail:"Enter a valid email",eLoad:"Couldn't load the questions. Check your internet and try again.",eSend:"Couldn't send the result. Please try again.",title:"Pass the test — get the book as a gift | Savura Invest"},
+  tr:{tag:"HEDİYE",h1:"Dersleri öğrendiniz mi?",h2:"Kitabı hediye alın",r1:"Ücretsiz dersler hakkında 20 soru",r2:"%70 ve üzeri sonuç — kitap hediye",r3:"Öğrenci olmanız şart değil. İstediğiniz kadar tekrar deneyebilirsiniz.",
+    et:"E-postanızı girin",es:"Sonucunuz bu e-posta ile kaydedilir.",start:"Teste başla",loading:"Yükleniyor…",see:"Dersleri henüz izlemediniz mi? Derslere git",
+    q:"Soru",need:"Gerekli: 14 doğru cevap",check:"Sonuç kontrol ediliyor…",yr:"SONUCUNUZ",ok1:"Tebrikler!",ok2:"Kitap sizin",okd:"«Helal Yoldan Finansal Özgürlük» — hediye olarak. Kitap 5 dilde.",pick:"Dil seçin:",keep:"Bağlantıyı saklayın. Kitap yalnızca kişisel kullanım içindir.",
+    no1:"Biraz daha kaldı.",no2:"Tekrar deneyin",nod:"Kitap için en az 14 doğru cevap gerekir. Hatalarınız aşağıda:",corr:"Doğru cevap:",retry:"Tekrar dene",rew:"Dersleri tekrar izle",
+    eEmail:"Geçerli bir e-posta girin",eLoad:"Sorular yüklenemedi. İnternetinizi kontrol edip tekrar deneyin.",eSend:"Sonuç gönderilemedi. Tekrar deneyin.",title:"Testi geçin — kitap hediye | Savura Invest"},
+  ar:{tag:"هدية",h1:"هل تعلّمت الدروس؟",h2:"احصل على الكتاب هدية",r1:"20 سؤالاً عن الدروس المجانية",r2:"نتيجة 70% فأكثر — الكتاب هدية",r3:"لا يشترط أن تكون طالباً. يمكنك المحاولة مرات عديدة.",
+    et:"أدخل بريدك الإلكتروني",es:"سيتم حفظ نتيجتك مع هذا البريد.",start:"ابدأ الاختبار",loading:"جارٍ التحميل…",see:"لم تشاهد الدروس بعد؟ انتقل إلى الدروس",
+    q:"سؤال",need:"المطلوب: 14 إجابة صحيحة",check:"جارٍ فحص النتيجة…",yr:"نتيجتك",ok1:"مبروك!",ok2:"الكتاب لك",okd:"«الحرية المالية من خلال الطرق الحلال» — هدية لك. الكتاب بـ5 لغات.",pick:"اختر اللغة:",keep:"احتفظ بالرابط. الكتاب للاستخدام الشخصي فقط.",
+    no1:"ينقصك القليل.",no2:"حاول مرة أخرى",nod:"يلزم 14 إجابة صحيحة على الأقل للحصول على الكتاب. أخطاؤك أدناه:",corr:"الإجابة الصحيحة:",retry:"حاول مرة أخرى",rew:"أعد مشاهدة الدروس",
+    eEmail:"أدخل بريداً إلكترونياً صحيحاً",eLoad:"تعذر تحميل الأسئلة. تحقق من الإنترنت وحاول مجدداً.",eSend:"تعذر إرسال النتيجة. حاول مرة أخرى.",title:"اجتز الاختبار — الكتاب هدية | Savura Invest"}
+};
+const GQ_LANGS=[["uz","UZ"],["ru","RU"],["en","EN"],["tr","TR"],["ar","AR"]];
+
+function gqInitLang(){
+  try{
+    const q=new URLSearchParams(location.search).get("lang"); if(q&&GQ_T[q]) return q;
+    const s=localStorage.getItem("savura_gift_lang"); if(s&&GQ_T[s]) return s;
+    const n=(navigator.language||"uz").slice(0,2).toLowerCase(); if(GQ_T[n]) return n;
+  }catch(e){}
+  return "uz";
+}
+
 function GiftQuiz(){
+  const [lang,setLangS]=useState(gqInitLang);
+  const T=GQ_T[lang]||GQ_T.uz; const rtl=lang==="ar";
   const [step,setStep]=useState("intro");
   const [email,setEmail]=useState("");
   const [err,setErr]=useState("");
@@ -5927,17 +5992,18 @@ function GiftQuiz(){
   const [sel,setSel]=useState(null);
   const [res,setRes]=useState(null);
   const [busy,setBusy]=useState(false);
-  useEffect(function(){ try{ document.title="Testdan o'ting — kitob sovg'a | Savura Invest"; window.scrollTo(0,0); }catch(e){} },[]);
+  function setLang(l){ setLangS(l); setErr(""); try{ localStorage.setItem("savura_gift_lang",l); }catch(e){} }
+  useEffect(function(){ try{ document.title=T.title; document.documentElement.lang=lang; window.scrollTo(0,0); }catch(e){} },[lang]);
 
   function start(){
     const em=email.trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){ setErr("To'g'ri email kiriting"); return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){ setErr(T.eEmail); return; }
     setErr(""); setBusy(true);
-    fetch("/api/gift").then(function(r){return r.json();}).then(function(j){
+    fetch("/api/gift?lang="+lang).then(function(r){return r.json();}).then(function(j){
       if(!j||!j.questions) throw new Error("x");
       setQs(j.questions); setIdx(0); setAns([]); setSel(null); setRes(null); setStep("quiz"); setBusy(false);
       try{ window.scrollTo(0,0); }catch(e){}
-    }).catch(function(){ setBusy(false); setErr("Savollarni yuklab bo'lmadi. Internetni tekshirib qayta urining."); });
+    }).catch(function(){ setBusy(false); setErr(T.eLoad); });
   }
   function pick(opt){
     if(sel!==null) return; setSel(opt);
@@ -5948,72 +6014,73 @@ function GiftQuiz(){
     },380);
   }
   function submit(all){
-    setStep("check"); 
-    fetch("/api/gift",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:email.trim(),answers:all})})
+    setStep("check");
+    fetch("/api/gift",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:email.trim(),lang:lang,answers:all})})
       .then(function(r){return r.json();}).then(function(j){
         if(j&&typeof j.score==="number"){ setRes(j); setStep("result"); if(j.passed) fbSend("Lead"); try{ window.scrollTo(0,0); }catch(e){} }
         else throw new Error("x");
-      }).catch(function(){ setStep("intro"); setErr("Natijani yuborib bo'lmadi. Qayta urinib ko'ring."); });
+      }).catch(function(){ setStep("intro"); setErr(T.eSend); });
   }
   const q=qs[idx];
+  const books=res&&res.books?res.books.slice().sort(function(a,b){ return (a.lang===lang?-1:0)-(b.lang===lang?-1:0); }):[];
   const book=<div className="gq-book">
-    <div className="gq-cover"><span>SAVURA INVEST</span><b>Halol yo'l bilan moliyaviy erkinlik</b><span>Bahromaliyev Muhammadyusuf</span></div>
+    <div className="gq-cover"><span>SAVURA INVEST</span><b>{{uz:"Halol yo'l bilan moliyaviy erkinlik",ru:"К финансовой свободе халяльным путём",en:"Financial Freedom Through Halal Means",tr:"Helal Yoldan Finansal Özgürlük",ar:"الحرية المالية من خلال الطرق الحلال"}[lang]}</b><span>{lang==="ar"?"محمد يوسف بحروماليف":"Bahromaliyev Muhammadyusuf"}</span></div>
     <div className="gq-rules">
-      <div><i>1</i><span>Bepul darslar bo'yicha <b style={{color:"#eaf1ff"}}>20 ta savol</b></span></div>
-      <div><i>2</i><span><b style={{color:"#eaf1ff"}}>70%</b> va undan yuqori natija — kitob <b style={{color:"#5fd36a"}}>sovg'a</b></span></div>
-      <div><i>3</i><span>O'quvchi bo'lish shart emas. Istagancha qayta urinish mumkin.</span></div>
+      <div><i>1</i><span>{T.r1}</span></div>
+      <div><i>2</i><span>{T.r2}</span></div>
+      <div><i>3</i><span>{T.r3}</span></div>
     </div>
   </div>;
   return(
-    <div className="pl">
+    <div className="pl" dir={rtl?"rtl":"ltr"}>
       <style>{PL_CSS+GQ_CSS}</style>
       <div className="pl-bg"><div className="pl-grid"/><div className="pl-orb pl-o1"/><div className="pl-orb pl-o2"/><div className="pl-orb pl-o3"/></div>
       <div className="pl-top"><div className="pl-wrap">
         <a href="/bepuldars1" className="pl-brand"><Logo size={32}/><span>SAVURA <b>INVEST</b></span></a>
-        <div className="pl-free">SOVG'A</div>
+        <div className="gq-lg">{GQ_LANGS.map(function(l){ return <button key={l[0]} className={lang===l[0]?"on":""} onClick={function(){setLang(l[0]);}}>{l[1]}</button>; })}</div>
       </div></div>
       <div className="gq-wrap">
         {step==="intro" && <div>
-          <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(27px,6vw,44px)",lineHeight:1.15,letterSpacing:"-.02em"}}>Darslarni o'rgandingizmi? <span className="pl-shim">Kitobni sovg'a oling</span></h1>
+          <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(27px,6vw,44px)",lineHeight:1.15,letterSpacing:"-.02em"}}>{T.h1} <span className="pl-shim">{T.h2}</span></h1>
           {book}
           <div className="gq-box">
-            <div style={{fontWeight:700,fontSize:16}}>Emailingizni kiriting</div>
-            <div style={{fontSize:13.5,color:"var(--dim)",marginTop:4}}>Natijangiz shu email bilan saqlanadi.</div>
-            <input className="gq-in" type="email" inputMode="email" autoComplete="email" placeholder="email@gmail.com" value={email} onChange={function(e){setEmail(e.target.value);setErr("");}} onKeyDown={function(e){ if(e.key==="Enter") start(); }}/>
+            <div style={{fontWeight:700,fontSize:16}}>{T.et}</div>
+            <div style={{fontSize:13.5,color:"var(--dim)",marginTop:4}}>{T.es}</div>
+            <input className="gq-in" type="email" inputMode="email" autoComplete="email" dir="ltr" placeholder="email@gmail.com" value={email} onChange={function(e){setEmail(e.target.value);setErr("");}} onKeyDown={function(e){ if(e.key==="Enter") start(); }}/>
             {err && <div className="gq-err">{err}</div>}
-            <button className="pl-btn" style={{width:"100%"}} onClick={start} disabled={busy}><span>{busy?"Yuklanmoqda…":"Testni boshlash"}</span></button>
+            <button className="pl-btn" style={{width:"100%"}} onClick={start} disabled={busy}><span>{busy?T.loading:T.start}</span></button>
           </div>
-          <div style={{textAlign:"center",marginTop:18}}><a href="/bepuldars1" style={{color:"#4aa3ff",fontWeight:700,fontSize:14}}>Hali darslarni ko'rmadingizmi? Darslarga o'tish</a></div>
+          <div style={{textAlign:"center",marginTop:18}}><a href="/bepuldars1" style={{color:"#4aa3ff",fontWeight:700,fontSize:14}}>{T.see}</a></div>
         </div>}
         {step==="quiz" && q && <div className="gq-box" key={q.id}>
           <div className="gq-prog"><div style={{width:((idx)/qs.length*100)+"%"}}/></div>
-          <div className="gq-meta"><span>Savol {idx+1} / {qs.length}</span><span>Kerak: 14 ta to'g'ri javob</span></div>
+          <div className="gq-meta"><span>{T.q} {idx+1} / {qs.length}</span><span>{T.need}</span></div>
           <div className="gq-q">{q.q}</div>
           {q.o.map(function(o,i){ return <button key={i} className={"gq-opt"+(sel===o?" sel":"")} style={{animationDelay:(i*60)+"ms"}} onClick={function(){pick(o);}}>{o}</button>; })}
         </div>}
-        {step==="check" && <div className="gq-box" style={{textAlign:"center",padding:"50px 20px"}}><div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:18}}>Natija tekshirilmoqda…</div></div>}
+        {step==="check" && <div className="gq-box" style={{textAlign:"center",padding:"50px 20px"}}><div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:18}}>{T.check}</div></div>}
         {step==="result" && res && <div className="gq-box" style={{textAlign:"center"}}>
           <div className="gq-pop">
-            <div style={{fontSize:13,color:"var(--faint)",letterSpacing:1.4,fontWeight:700,marginBottom:8}}>SIZNING NATIJANGIZ</div>
-            <div className="gq-score">{res.score}/{res.total}</div>
+            <div style={{fontSize:13,color:"var(--faint)",letterSpacing:1.4,fontWeight:700,marginBottom:8}}>{T.yr}</div>
+            <div className="gq-score" dir="ltr">{res.score}/{res.total}</div>
             <div style={{fontSize:15,color:"var(--dim)",marginTop:6}}>{Math.round(res.score/res.total*100)}%</div>
           </div>
           {res.passed ? <div style={{marginTop:22}}>
-            <h2 className="pl-h2" style={{fontSize:"clamp(22px,5vw,30px)"}}>Tabriklaymiz! <span>Kitob sizniki</span></h2>
-            <p style={{color:"var(--dim)",fontSize:14.5,margin:"8px 0 20px"}}>«Halol yo'l bilan moliyaviy erkinlik» — sovg'a sifatida. Kitob 5 tilda.</p>
-            <div style={{fontSize:13.5,color:"var(--dim)",marginBottom:10}}>Tilni tanlang:</div>
+            <h2 className="pl-h2" style={{fontSize:"clamp(22px,5vw,30px)"}}>{T.ok1} <span>{T.ok2}</span></h2>
+            <p style={{color:"var(--dim)",fontSize:14.5,margin:"8px 0 20px"}}>{T.okd}</p>
+            <div style={{fontSize:13.5,color:"var(--dim)",marginBottom:10}}>{T.pick}</div>
             <div style={{display:"grid",gap:10}}>
-              {(res.books||[]).map(function(bk){ return <a key={bk.lang} className="pl-btn" href={bk.url} target="_blank" rel="noopener noreferrer" style={{width:"100%",padding:"14px 20px",fontSize:16}} dir={bk.lang==="ar"?"rtl":"ltr"}><span>{bk.label}</span></a>; })}
+              {books.map(function(bk){ return <a key={bk.lang} className="pl-btn" href={bk.url} target="_blank" rel="noopener noreferrer" style={{width:"100%",padding:"14px 20px",fontSize:16}} dir={bk.lang==="ar"?"rtl":"ltr"}><span>{bk.label}</span></a>; })}
             </div>
-            <p style={{fontSize:12.5,color:"var(--faint)",marginTop:14}}>Havolani saqlab qo'ying. Kitob faqat shaxsiy foydalanish uchun.</p>
+            <p style={{fontSize:12.5,color:"var(--faint)",marginTop:14}}>{T.keep}</p>
           </div> : <div style={{marginTop:22}}>
-            <h2 className="pl-h2" style={{fontSize:"clamp(21px,5vw,28px)"}}>Yana bir oz qoldi. <span>Qayta urining</span></h2>
-            <p style={{color:"var(--dim)",fontSize:14.5,margin:"8px 0 6px"}}>Kitob uchun kamida {res.pass} ta to'g'ri javob kerak. Xatolaringiz quyida:</p>
-            <div style={{textAlign:"left",marginTop:10}}>
-              {res.wrong.map(function(w){ return <div className="gq-wr" key={w.id}><b>{w.q}</b><div className="ok">To'g'ri javob: {w.correct}</div><div className="ex">{w.e}</div></div>; })}
+            <h2 className="pl-h2" style={{fontSize:"clamp(21px,5vw,28px)"}}>{T.no1} <span>{T.no2}</span></h2>
+            <p style={{color:"var(--dim)",fontSize:14.5,margin:"8px 0 6px"}}>{T.nod}</p>
+            <div style={{textAlign:rtl?"right":"left",marginTop:10}}>
+              {res.wrong.map(function(w){ return <div className="gq-wr" key={w.id}><b>{w.q}</b><div className="ok">{T.corr} {w.correct}</div><div className="ex">{w.e}</div></div>; })}
             </div>
-            <button className="pl-btn" style={{width:"100%",marginTop:16}} onClick={start}><span>Qayta urinish</span></button>
-            <div><a href="/bepuldars1" className="gq-link" style={{display:"inline-block"}}>Darslarni qayta ko'rish</a></div>
+            <button className="pl-btn" style={{width:"100%",marginTop:16}} onClick={start}><span>{T.retry}</span></button>
+            <div><a href="/bepuldars1" className="gq-link" style={{display:"inline-block"}}>{T.rew}</a></div>
           </div>}
         </div>}
       </div>
