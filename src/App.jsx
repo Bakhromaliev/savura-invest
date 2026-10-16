@@ -5938,35 +5938,36 @@ const GQ_CSS = `
 .gq-link{background:none;border:none;color:#4aa3ff;font-weight:700;cursor:pointer;font-size:14px;margin-top:14px;font-family:inherit;}
 .gq-lg{display:flex;gap:4px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:12px;padding:3px}.gq-lg button{background:none;border:none;color:var(--dim);font-weight:800;font-size:12px;padding:6px 9px;border-radius:9px;cursor:pointer;font-family:'Sora',sans-serif}.gq-lg button.on{background:linear-gradient(135deg,#2f7df6,#2fb85a);color:#fff}
 .pl[dir=rtl] .gq-opt{text-align:right}.pl[dir=rtl] .gq-opt:hover{transform:translateX(-3px)}.pl[dir=rtl] .gq-wr .ex{border:0}
+.gq-cnt{margin:14px 0 4px;font-size:14px;color:var(--dim)}.gq-cnt b{color:#fff;font-family:'Sora',sans-serif}.gq-cnt input{width:100%;accent-color:#2f7df6;margin:8px 0 2px}.gq-cnt div{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint)}
 .gq-pop{animation:gqPop .7s cubic-bezier(.2,1.4,.3,1) both;} @keyframes gqPop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
 @media(max-width:560px){.gq-book{flex-direction:column;text-align:center}.gq-rules{text-align:left}}
 `;
 
 const GQ_T = {
-  uz:{tag:"SOVG'A",h1:"Darslarni o'rgandingizmi?",h2:"Kitobni sovg'a oling",r1:"Bepul darslar bo'yicha 20 ta savol",r2:"70% va undan yuqori natija — kitob sovg'a",r3:"O'quvchi bo'lish shart emas. Istagancha qayta urinish mumkin.",
+  uz:{cnt:"Savollar soni",rt:"Qayta topshirish",tag:"SOVG'A",h1:"Darslarni o'rgandingizmi?",h2:"Kitobni sovg'a oling",r1:"Bepul darslar bo'yicha {n} ta savol",r2:"70% va undan yuqori natija — kitob sovg'a",r3:"O'quvchi bo'lish shart emas. Istagancha qayta urinish mumkin.",
     et:"Emailingizni kiriting",es:"Natijangiz shu email bilan saqlanadi.",start:"Testni boshlash",loading:"Yuklanmoqda…",see:"Hali darslarni ko'rmadingizmi? Darslarga o'tish",
-    q:"Savol",need:"Kerak: 14 ta to'g'ri javob",check:"Natija tekshirilmoqda…",yr:"SIZNING NATIJANGIZ",ok1:"Tabriklaymiz!",ok2:"Kitob sizniki",okd:"«Halol yo'l bilan moliyaviy erkinlik» — sovg'a sifatida. Kitob 5 tilda.",pick:"Tilni tanlang:",keep:"Havolani saqlab qo'ying. Kitob faqat shaxsiy foydalanish uchun.",
-    no1:"Yana bir oz qoldi.",no2:"Qayta urining",nod:"Kitob uchun kamida 14 ta to'g'ri javob kerak. Xatolaringiz quyida:",corr:"To'g'ri javob:",retry:"Qayta urinish",rew:"Darslarni qayta ko'rish",
+    q:"Savol",need:"Kerak: {p} ta to'g'ri javob",check:"Natija tekshirilmoqda…",yr:"SIZNING NATIJANGIZ",ok1:"Tabriklaymiz!",ok2:"Kitob sizniki",okd:"«Halol yo'l bilan moliyaviy erkinlik» — sovg'a sifatida. Kitob 5 tilda.",pick:"Tilni tanlang:",keep:"Havolani saqlab qo'ying. Kitob faqat shaxsiy foydalanish uchun.",
+    no1:"Yana bir oz qoldi.",no2:"Qayta urining",nod:"Kitob uchun kamida {p} ta to'g'ri javob kerak. Xatolaringiz quyida:",corr:"To'g'ri javob:",retry:"Qayta urinish",rew:"Darslarni qayta ko'rish",
     eEmail:"To'g'ri email kiriting",eLoad:"Savollarni yuklab bo'lmadi. Internetni tekshirib qayta urining.",eSend:"Natijani yuborib bo'lmadi. Qayta urinib ko'ring.",title:"Testdan o'ting — kitob sovg'a | Savura Invest"},
-  ru:{tag:"ПОДАРОК",h1:"Изучили уроки?",h2:"Получите книгу в подарок",r1:"20 вопросов по бесплатным урокам",r2:"Результат 70% и выше — книга в подарок",r3:"Быть учеником необязательно. Пробовать можно сколько угодно раз.",
+  ru:{cnt:"Количество вопросов",rt:"Пересдать тест",tag:"ПОДАРОК",h1:"Изучили уроки?",h2:"Получите книгу в подарок",r1:"{n} вопросов по бесплатным урокам",r2:"Результат 70% и выше — книга в подарок",r3:"Быть учеником необязательно. Пробовать можно сколько угодно раз.",
     et:"Введите ваш email",es:"Ваш результат сохранится с этим email.",start:"Начать тест",loading:"Загрузка…",see:"Ещё не смотрели уроки? Перейти к урокам",
-    q:"Вопрос",need:"Нужно: 14 верных ответов",check:"Проверяем результат…",yr:"ВАШ РЕЗУЛЬТАТ",ok1:"Поздравляем!",ok2:"Книга ваша",okd:"«К финансовой свободе халяльным путём» — в подарок. Книга на 5 языках.",pick:"Выберите язык:",keep:"Сохраните ссылку. Книга только для личного пользования.",
-    no1:"Совсем немного не хватило.",no2:"Попробуйте ещё раз",nod:"Для книги нужно минимум 14 верных ответов. Ваши ошибки ниже:",corr:"Верный ответ:",retry:"Попробовать снова",rew:"Пересмотреть уроки",
+    q:"Вопрос",need:"Нужно: {p} верных ответов",check:"Проверяем результат…",yr:"ВАШ РЕЗУЛЬТАТ",ok1:"Поздравляем!",ok2:"Книга ваша",okd:"«К финансовой свободе халяльным путём» — в подарок. Книга на 5 языках.",pick:"Выберите язык:",keep:"Сохраните ссылку. Книга только для личного пользования.",
+    no1:"Совсем немного не хватило.",no2:"Попробуйте ещё раз",nod:"Для книги нужно минимум {p} верных ответов. Ваши ошибки ниже:",corr:"Верный ответ:",retry:"Попробовать снова",rew:"Пересмотреть уроки",
     eEmail:"Введите корректный email",eLoad:"Не удалось загрузить вопросы. Проверьте интернет и попробуйте снова.",eSend:"Не удалось отправить результат. Попробуйте ещё раз.",title:"Пройдите тест — книга в подарок | Savura Invest"},
-  en:{tag:"GIFT",h1:"Finished the lessons?",h2:"Get the book as a gift",r1:"20 questions on the free lessons",r2:"Score 70% or higher — the book is a gift",r3:"You don't have to be a student. Retry as many times as you like.",
+  en:{cnt:"Number of questions",rt:"Retake the test",tag:"GIFT",h1:"Finished the lessons?",h2:"Get the book as a gift",r1:"{n} questions on the free lessons",r2:"Score 70% or higher — the book is a gift",r3:"You don't have to be a student. Retry as many times as you like.",
     et:"Enter your email",es:"Your result will be saved with this email.",start:"Start the test",loading:"Loading…",see:"Haven't watched the lessons yet? Go to the lessons",
-    q:"Question",need:"Needed: 14 correct answers",check:"Checking your result…",yr:"YOUR RESULT",ok1:"Congratulations!",ok2:"The book is yours",okd:"“Financial Freedom Through Halal Means” — as a gift. The book comes in 5 languages.",pick:"Choose a language:",keep:"Save the link. The book is for personal use only.",
-    no1:"Just a little short.",no2:"Try again",nod:"You need at least 14 correct answers for the book. Your mistakes are below:",corr:"Correct answer:",retry:"Try again",rew:"Rewatch the lessons",
+    q:"Question",need:"Needed: {p} correct answers",check:"Checking your result…",yr:"YOUR RESULT",ok1:"Congratulations!",ok2:"The book is yours",okd:"“Financial Freedom Through Halal Means” — as a gift. The book comes in 5 languages.",pick:"Choose a language:",keep:"Save the link. The book is for personal use only.",
+    no1:"Just a little short.",no2:"Try again",nod:"You need at least {p} correct answers for the book. Your mistakes are below:",corr:"Correct answer:",retry:"Try again",rew:"Rewatch the lessons",
     eEmail:"Enter a valid email",eLoad:"Couldn't load the questions. Check your internet and try again.",eSend:"Couldn't send the result. Please try again.",title:"Pass the test — get the book as a gift | Savura Invest"},
-  tr:{tag:"HEDİYE",h1:"Dersleri öğrendiniz mi?",h2:"Kitabı hediye alın",r1:"Ücretsiz dersler hakkında 20 soru",r2:"%70 ve üzeri sonuç — kitap hediye",r3:"Öğrenci olmanız şart değil. İstediğiniz kadar tekrar deneyebilirsiniz.",
+  tr:{cnt:"Soru sayısı",rt:"Testi tekrar çöz",tag:"HEDİYE",h1:"Dersleri öğrendiniz mi?",h2:"Kitabı hediye alın",r1:"Ücretsiz dersler hakkında {n} soru",r2:"%70 ve üzeri sonuç — kitap hediye",r3:"Öğrenci olmanız şart değil. İstediğiniz kadar tekrar deneyebilirsiniz.",
     et:"E-postanızı girin",es:"Sonucunuz bu e-posta ile kaydedilir.",start:"Teste başla",loading:"Yükleniyor…",see:"Dersleri henüz izlemediniz mi? Derslere git",
-    q:"Soru",need:"Gerekli: 14 doğru cevap",check:"Sonuç kontrol ediliyor…",yr:"SONUCUNUZ",ok1:"Tebrikler!",ok2:"Kitap sizin",okd:"«Helal Yoldan Finansal Özgürlük» — hediye olarak. Kitap 5 dilde.",pick:"Dil seçin:",keep:"Bağlantıyı saklayın. Kitap yalnızca kişisel kullanım içindir.",
-    no1:"Biraz daha kaldı.",no2:"Tekrar deneyin",nod:"Kitap için en az 14 doğru cevap gerekir. Hatalarınız aşağıda:",corr:"Doğru cevap:",retry:"Tekrar dene",rew:"Dersleri tekrar izle",
+    q:"Soru",need:"Gerekli: {p} doğru cevap",check:"Sonuç kontrol ediliyor…",yr:"SONUCUNUZ",ok1:"Tebrikler!",ok2:"Kitap sizin",okd:"«Helal Yoldan Finansal Özgürlük» — hediye olarak. Kitap 5 dilde.",pick:"Dil seçin:",keep:"Bağlantıyı saklayın. Kitap yalnızca kişisel kullanım içindir.",
+    no1:"Biraz daha kaldı.",no2:"Tekrar deneyin",nod:"Kitap için en az {p} doğru cevap gerekir. Hatalarınız aşağıda:",corr:"Doğru cevap:",retry:"Tekrar dene",rew:"Dersleri tekrar izle",
     eEmail:"Geçerli bir e-posta girin",eLoad:"Sorular yüklenemedi. İnternetinizi kontrol edip tekrar deneyin.",eSend:"Sonuç gönderilemedi. Tekrar deneyin.",title:"Testi geçin — kitap hediye | Savura Invest"},
-  ar:{tag:"هدية",h1:"هل تعلّمت الدروس؟",h2:"احصل على الكتاب هدية",r1:"20 سؤالاً عن الدروس المجانية",r2:"نتيجة 70% فأكثر — الكتاب هدية",r3:"لا يشترط أن تكون طالباً. يمكنك المحاولة مرات عديدة.",
+  ar:{cnt:"عدد الأسئلة",rt:"أعد الاختبار",tag:"هدية",h1:"هل تعلّمت الدروس؟",h2:"احصل على الكتاب هدية",r1:"{n} سؤالاً عن الدروس المجانية",r2:"نتيجة 70% فأكثر — الكتاب هدية",r3:"لا يشترط أن تكون طالباً. يمكنك المحاولة مرات عديدة.",
     et:"أدخل بريدك الإلكتروني",es:"سيتم حفظ نتيجتك مع هذا البريد.",start:"ابدأ الاختبار",loading:"جارٍ التحميل…",see:"لم تشاهد الدروس بعد؟ انتقل إلى الدروس",
-    q:"سؤال",need:"المطلوب: 14 إجابة صحيحة",check:"جارٍ فحص النتيجة…",yr:"نتيجتك",ok1:"مبروك!",ok2:"الكتاب لك",okd:"«الحرية المالية من خلال الطرق الحلال» — هدية لك. الكتاب بـ5 لغات.",pick:"اختر اللغة:",keep:"احتفظ بالرابط. الكتاب للاستخدام الشخصي فقط.",
-    no1:"ينقصك القليل.",no2:"حاول مرة أخرى",nod:"يلزم 14 إجابة صحيحة على الأقل للحصول على الكتاب. أخطاؤك أدناه:",corr:"الإجابة الصحيحة:",retry:"حاول مرة أخرى",rew:"أعد مشاهدة الدروس",
+    q:"سؤال",need:"المطلوب: {p} إجابة صحيحة",check:"جارٍ فحص النتيجة…",yr:"نتيجتك",ok1:"مبروك!",ok2:"الكتاب لك",okd:"«الحرية المالية من خلال الطرق الحلال» — هدية لك. الكتاب بـ5 لغات.",pick:"اختر اللغة:",keep:"احتفظ بالرابط. الكتاب للاستخدام الشخصي فقط.",
+    no1:"ينقصك القليل.",no2:"حاول مرة أخرى",nod:"يلزم {p} إجابة صحيحة على الأقل للحصول على الكتاب. أخطاؤك أدناه:",corr:"الإجابة الصحيحة:",retry:"حاول مرة أخرى",rew:"أعد مشاهدة الدروس",
     eEmail:"أدخل بريداً إلكترونياً صحيحاً",eLoad:"تعذر تحميل الأسئلة. تحقق من الإنترنت وحاول مجدداً.",eSend:"تعذر إرسال النتيجة. حاول مرة أخرى.",title:"اجتز الاختبار — الكتاب هدية | Savura Invest"}
 };
 const GQ_LANGS=[["uz","UZ"],["ru","RU"],["en","EN"],["tr","TR"],["ar","AR"]];
@@ -5992,6 +5993,11 @@ function GiftQuiz(){
   const [sel,setSel]=useState(null);
   const [res,setRes]=useState(null);
   const [busy,setBusy]=useState(false);
+  const [nq,setNq]=useState(20);
+  const [retake,setRetake]=useState(false);
+  const fmt=function(s,n,p){ return String(s).replace("{n}",n).replace("{p}",p); };
+  const curN=Math.max(20,Math.min(98,parseInt(nq,10)||20));
+  const curP=Math.ceil(curN*0.7);
   function setLang(l){ setLangS(l); setErr(""); try{ localStorage.setItem("savura_gift_lang",l); }catch(e){} }
   useEffect(function(){ try{ document.title=T.title; document.documentElement.lang=lang; window.scrollTo(0,0); }catch(e){} },[lang]);
 
@@ -5999,9 +6005,10 @@ function GiftQuiz(){
     const em=email.trim();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){ setErr(T.eEmail); return; }
     setErr(""); setBusy(true);
-    fetch("/api/gift?lang="+lang).then(function(r){return r.json();}).then(function(j){
+    fetch("/api/gift?lang="+lang+"&n="+curN+(retake?"":"&email="+encodeURIComponent(em))).then(function(r){return r.json();}).then(function(j){
+      if(j&&j.passed&&j.books){ setRes({score:j.total,total:j.total,passed:true,books:j.books,wrong:[]}); setStep("result"); setBusy(false); try{ window.scrollTo(0,0); }catch(e){} return; }
       if(!j||!j.questions) throw new Error("x");
-      setQs(j.questions); setIdx(0); setAns([]); setSel(null); setRes(null); setStep("quiz"); setBusy(false);
+      setQs(j.questions); setIdx(0); setAns([]); setSel(null); setRes(null); setStep("quiz"); setBusy(false); setRetake(false);
       try{ window.scrollTo(0,0); }catch(e){}
     }).catch(function(){ setBusy(false); setErr(T.eLoad); });
   }
@@ -6026,7 +6033,7 @@ function GiftQuiz(){
   const book=<div className="gq-book">
     <div className="gq-cover"><span>SAVURA INVEST</span><b>{{uz:"Halol yo'l bilan moliyaviy erkinlik",ru:"К финансовой свободе халяльным путём",en:"Financial Freedom Through Halal Means",tr:"Helal Yoldan Finansal Özgürlük",ar:"الحرية المالية من خلال الطرق الحلال"}[lang]}</b><span>{lang==="ar"?"محمد يوسف بحروماليف":"Bahromaliyev Muhammadyusuf"}</span></div>
     <div className="gq-rules">
-      <div><i>1</i><span>{T.r1}</span></div>
+      <div><i>1</i><span>{fmt(T.r1,curN,curP)}</span></div>
       <div><i>2</i><span>{T.r2}</span></div>
       <div><i>3</i><span>{T.r3}</span></div>
     </div>
@@ -6046,6 +6053,7 @@ function GiftQuiz(){
           <div className="gq-box">
             <div style={{fontWeight:700,fontSize:16}}>{T.et}</div>
             <div style={{fontSize:13.5,color:"var(--dim)",marginTop:4}}>{T.es}</div>
+            <div className="gq-cnt"><span>{T.cnt}: <b>{curN}</b></span><input type="range" min="20" max="98" value={curN} dir="ltr" onChange={function(e){setNq(parseInt(e.target.value,10));}}/><div><span>20</span><span>98</span></div></div>
             <input className="gq-in" type="email" inputMode="email" autoComplete="email" dir="ltr" placeholder="email@gmail.com" value={email} onChange={function(e){setEmail(e.target.value);setErr("");}} onKeyDown={function(e){ if(e.key==="Enter") start(); }}/>
             {err && <div className="gq-err">{err}</div>}
             <button className="pl-btn" style={{width:"100%"}} onClick={start} disabled={busy}><span>{busy?T.loading:T.start}</span></button>
@@ -6054,7 +6062,7 @@ function GiftQuiz(){
         </div>}
         {step==="quiz" && q && <div className="gq-box" key={q.id}>
           <div className="gq-prog"><div style={{width:((idx)/qs.length*100)+"%"}}/></div>
-          <div className="gq-meta"><span>{T.q} {idx+1} / {qs.length}</span><span>{T.need}</span></div>
+          <div className="gq-meta"><span>{T.q} {idx+1} / {qs.length}</span><span>{fmt(T.need,qs.length,Math.ceil(qs.length*0.7))}</span></div>
           <div className="gq-q">{q.q}</div>
           {q.o.map(function(o,i){ return <button key={i} className={"gq-opt"+(sel===o?" sel":"")} style={{animationDelay:(i*60)+"ms"}} onClick={function(){pick(o);}}>{o}</button>; })}
         </div>}
@@ -6073,9 +6081,10 @@ function GiftQuiz(){
               {books.map(function(bk){ return <a key={bk.lang} className="pl-btn" href={bk.url} target="_blank" rel="noopener noreferrer" style={{width:"100%",padding:"14px 20px",fontSize:16}} dir={bk.lang==="ar"?"rtl":"ltr"}><span>{bk.label}</span></a>; })}
             </div>
             <p style={{fontSize:12.5,color:"var(--faint)",marginTop:14}}>{T.keep}</p>
+            <button className="gq-link" style={{background:"none",border:0,cursor:"pointer",padding:8}} onClick={function(){setRetake(true);setRes(null);setStep("intro");setErr("");try{window.scrollTo(0,0);}catch(e){}}}>{T.rt}</button>
           </div> : <div style={{marginTop:22}}>
             <h2 className="pl-h2" style={{fontSize:"clamp(21px,5vw,28px)"}}>{T.no1} <span>{T.no2}</span></h2>
-            <p style={{color:"var(--dim)",fontSize:14.5,margin:"8px 0 6px"}}>{T.nod}</p>
+            <p style={{color:"var(--dim)",fontSize:14.5,margin:"8px 0 6px"}}>{fmt(T.nod,res.total,res.pass)}</p>
             <div style={{textAlign:rtl?"right":"left",marginTop:10}}>
               {res.wrong.map(function(w){ return <div className="gq-wr" key={w.id}><b>{w.q}</b><div className="ok">{T.corr} {w.correct}</div><div className="ex">{w.e}</div></div>; })}
             </div>
