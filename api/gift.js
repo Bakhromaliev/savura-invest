@@ -49,8 +49,22 @@ async function notify(text){
   try{ await fetch("https://api.telegram.org/bot"+tk+"/sendMessage",{ method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ chat_id:ch, text }) }); }catch(e){}
 }
 
+async function alreadyPassed(email){
+  try{
+    const r=await fetch(SB_URL+"/rest/v1/rpc/gift_passed",{ method:"POST",
+      headers:{ apikey:SB_KEY, Authorization:"Bearer "+SB_KEY, "Content-Type":"application/json" },
+      body:JSON.stringify({ p_email:email }) });
+    return (await r.json())===true;
+  }catch(e){ return false; }
+}
+
 export default async function handler(req, res){
   res.setHeader("Cache-Control","no-store");
+  if(req.method==="GET"){
+    const em=String((req.query&&req.query.email)||"").trim().toLowerCase();
+    if(/^[^\s@]{1,64}@[^\s@]+\.[^\s@]{2,}$/.test(em) && em.length<=120 && await alreadyPassed(em))
+      return res.status(200).json({ passed:true, total:TOTAL, pass:PASS, books:BOOKS });
+  }
   if(req.method==="GET"){ const lang=L(String((req.query&&req.query.lang)||"uz")); return res.status(200).json({ total:clampN(req.query&&req.query.n), pass:passFor(clampN(req.query&&req.query.n)), lang, questions:pickQuestions(lang,clampN(req.query&&req.query.n)) }); }
   if(req.method!=="POST") return res.status(405).json({ error:"method" });
 
