@@ -5915,6 +5915,11 @@ function TgRedirect(){
 const GQ_CSS = `
 .gq-wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:30px 20px 70px;}
 .gq-book{display:flex;gap:22px;align-items:center;margin:26px 0 24px;}
+.gq-prot,.gq-prot *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.gq-shield{position:fixed;inset:0;z-index:9999;background:#000;color:#9aa4b8;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;font-family:'Sora',sans-serif;font-size:15px}
+@media print{.gq-prot{display:none!important}}
+.gq-tm{position:relative;height:6px;border-radius:6px;background:rgba(255,255,255,.1);margin:10px 0 4px}.gq-tm div{height:100%;border-radius:6px;background:#2fb85a;transition:width 1s linear}.gq-tm.low div{background:#ef4444}.gq-tm b{position:absolute;right:0;top:-22px;font-size:13px;font-family:'Sora',sans-serif;color:var(--dim)}
+.gq-img{flex:0 0 auto;width:170px;max-width:46vw;height:auto;border-radius:6px 12px 12px 6px;box-shadow:-5px 8px 0 -2px rgba(0,0,0,.3),0 22px 40px rgba(0,0,0,.55);-webkit-user-drag:none}
 .gq-cover{flex:0 0 118px;height:164px;border-radius:6px 14px 14px 6px;position:relative;background:linear-gradient(145deg,#1a3f9c,#17774a);box-shadow:-6px 8px 0 -2px rgba(0,0,0,.35),0 22px 40px rgba(0,0,0,.5),inset 6px 0 0 rgba(255,255,255,.18);padding:16px 12px;display:flex;flex-direction:column;justify-content:space-between;animation:plFloat 5.5s ease-in-out infinite;}
 .gq-cover b{font-family:'Sora',sans-serif;font-size:13px;line-height:1.25;font-weight:800;}
 .gq-cover span{font-size:9px;color:#cfe0ff;letter-spacing:.5px;}
@@ -5944,7 +5949,7 @@ const GQ_CSS = `
 `;
 
 const GQ_T = {
-  uz:{cnt:"Savollar soni",rt:"Qayta topshirish",tag:"SOVG'A",h1:"Darslarni o'rgandingizmi?",h2:"Kitobni sovg'a oling",r1:"Bepul darslar bo'yicha {n} ta savol",r2:"70% va undan yuqori natija — kitob sovg'a",r3:"O'quvchi bo'lish shart emas. Istagancha qayta urinish mumkin.",
+  uz:{cnt:"Savollar soni",rt:"Qayta topshirish",tag:"SOVG'A",h1:"Darslarni o'rgandingizmi?",h2:"Kitobni sovg'a sifatida oling",r1:"Bepul darslar bo'yicha {n} ta savol",r2:"70% va undan yuqori natija — kitob sovg'a",r3:"O'quvchi bo'lish shart emas. Istagancha qayta urinish mumkin.",
     et:"Emailingizni kiriting",es:"Natijangiz shu email bilan saqlanadi.",start:"Testni boshlash",loading:"Yuklanmoqda…",see:"Hali darslarni ko'rmadingizmi? Darslarga o'tish",
     q:"Savol",need:"Kerak: {p} ta to'g'ri javob",check:"Natija tekshirilmoqda…",yr:"SIZNING NATIJANGIZ",ok1:"Tabriklaymiz!",ok2:"Kitob sizniki",okd:"«Halol yo'l bilan moliyaviy erkinlik» — sovg'a sifatida. Kitob 5 tilda.",pick:"Tilni tanlang:",keep:"Havolani saqlab qo'ying. Kitob faqat shaxsiy foydalanish uchun.",
     no1:"Yana bir oz qoldi.",no2:"Qayta urining",nod:"Kitob uchun kamida {p} ta to'g'ri javob kerak. Xatolaringiz quyida:",corr:"To'g'ri javob:",retry:"Qayta urinish",rew:"Darslarni qayta ko'rish",
@@ -5959,12 +5964,12 @@ const GQ_T = {
     q:"Question",need:"Needed: {p} correct answers",check:"Checking your result…",yr:"YOUR RESULT",ok1:"Congratulations!",ok2:"The book is yours",okd:"“Financial Freedom Through Halal Means” — as a gift. The book comes in 5 languages.",pick:"Choose a language:",keep:"Save the link. The book is for personal use only.",
     no1:"Just a little short.",no2:"Try again",nod:"You need at least {p} correct answers for the book. Your mistakes are below:",corr:"Correct answer:",retry:"Try again",rew:"Rewatch the lessons",
     eEmail:"Enter a valid email",eLoad:"Couldn't load the questions. Check your internet and try again.",eSend:"Couldn't send the result. Please try again.",title:"Pass the test — get the book as a gift | Savura Invest"},
-  tr:{cnt:"Soru sayısı",rt:"Testi tekrar çöz",tag:"HEDİYE",h1:"Dersleri öğrendiniz mi?",h2:"Kitabı hediye alın",r1:"Ücretsiz dersler hakkında {n} soru",r2:"%70 ve üzeri sonuç — kitap hediye",r3:"Öğrenci olmanız şart değil. İstediğiniz kadar tekrar deneyebilirsiniz.",
+  tr:{cnt:"Soru sayısı",rt:"Testi tekrar çöz",tag:"HEDİYE",h1:"Dersleri öğrendiniz mi?",h2:"Kitabı hediye olarak alın",r1:"Ücretsiz dersler hakkında {n} soru",r2:"%70 ve üzeri sonuç — kitap hediye",r3:"Öğrenci olmanız şart değil. İstediğiniz kadar tekrar deneyebilirsiniz.",
     et:"E-postanızı girin",es:"Sonucunuz bu e-posta ile kaydedilir.",start:"Teste başla",loading:"Yükleniyor…",see:"Dersleri henüz izlemediniz mi? Derslere git",
     q:"Soru",need:"Gerekli: {p} doğru cevap",check:"Sonuç kontrol ediliyor…",yr:"SONUCUNUZ",ok1:"Tebrikler!",ok2:"Kitap sizin",okd:"«Helal Yoldan Finansal Özgürlük» — hediye olarak. Kitap 5 dilde.",pick:"Dil seçin:",keep:"Bağlantıyı saklayın. Kitap yalnızca kişisel kullanım içindir.",
     no1:"Biraz daha kaldı.",no2:"Tekrar deneyin",nod:"Kitap için en az {p} doğru cevap gerekir. Hatalarınız aşağıda:",corr:"Doğru cevap:",retry:"Tekrar dene",rew:"Dersleri tekrar izle",
     eEmail:"Geçerli bir e-posta girin",eLoad:"Sorular yüklenemedi. İnternetinizi kontrol edip tekrar deneyin.",eSend:"Sonuç gönderilemedi. Tekrar deneyin.",title:"Testi geçin — kitap hediye | Savura Invest"},
-  ar:{cnt:"عدد الأسئلة",rt:"أعد الاختبار",tag:"هدية",h1:"هل تعلّمت الدروس؟",h2:"احصل على الكتاب هدية",r1:"{n} سؤالاً عن الدروس المجانية",r2:"نتيجة 70% فأكثر — الكتاب هدية",r3:"لا يشترط أن تكون طالباً. يمكنك المحاولة مرات عديدة.",
+  ar:{cnt:"عدد الأسئلة",rt:"أعد الاختبار",tag:"هدية",h1:"هل تعلّمت الدروس؟",h2:"احصل على الكتاب كهدية",r1:"{n} سؤالاً عن الدروس المجانية",r2:"نتيجة 70% فأكثر — الكتاب هدية",r3:"لا يشترط أن تكون طالباً. يمكنك المحاولة مرات عديدة.",
     et:"أدخل بريدك الإلكتروني",es:"سيتم حفظ نتيجتك مع هذا البريد.",start:"ابدأ الاختبار",loading:"جارٍ التحميل…",see:"لم تشاهد الدروس بعد؟ انتقل إلى الدروس",
     q:"سؤال",need:"المطلوب: {p} إجابة صحيحة",check:"جارٍ فحص النتيجة…",yr:"نتيجتك",ok1:"مبروك!",ok2:"الكتاب لك",okd:"«الحرية المالية من خلال الطرق الحلال» — هدية لك. الكتاب بـ5 لغات.",pick:"اختر اللغة:",keep:"احتفظ بالرابط. الكتاب للاستخدام الشخصي فقط.",
     no1:"ينقصك القليل.",no2:"حاول مرة أخرى",nod:"يلزم {p} إجابة صحيحة على الأقل للحصول على الكتاب. أخطاؤك أدناه:",corr:"الإجابة الصحيحة:",retry:"حاول مرة أخرى",rew:"أعد مشاهدة الدروس",
@@ -5998,6 +6003,45 @@ function GiftQuiz(){
   const fmt=function(s,n,p){ return String(s).replace("{n}",n).replace("{p}",p); };
   const curN=Math.max(20,Math.min(98,parseInt(nq,10)||20));
   const curP=Math.ceil(curN*0.7);
+  const QT=35;
+  const [left,setLeft]=useState(QT);
+  useEffect(function(){
+    if(step!=="quiz"||sel!==null) return;
+    setLeft(QT);
+    let n=QT;
+    const iv=setInterval(function(){ n-=1; setLeft(n); if(n<=0){ clearInterval(iv); pickRef.current(""); } },1000);
+    return function(){ clearInterval(iv); };
+  },[step,idx]);
+  const [shield,setShield]=useState(false);
+  const secure=step==="quiz"||step==="check"||step==="result";
+  useEffect(function(){
+    if(!secure){ setShield(false); return; }
+    let tm=null;
+    const flash=function(){ setShield(true); clearTimeout(tm); tm=setTimeout(function(){ if(document.hasFocus()&&!document.hidden) setShield(false); },1800); };
+    const onBlur=function(){ setShield(true); };
+    const onFocus=function(){ setTimeout(function(){ if(document.hasFocus()&&!document.hidden) setShield(false); },350); };
+    const onVis=function(){ if(document.hidden) setShield(true); else onFocus(); };
+    const onKey=function(e){
+      const k=(e.key||"").toLowerCase();
+      if(k==="printscreen"||k==="snapshot"||k==="f12"||(e.metaKey&&e.shiftKey&&["3","4","5","s"].indexOf(k)>-1)||(e.ctrlKey&&e.shiftKey&&["s","i","j","c"].indexOf(k)>-1)||((e.ctrlKey||e.metaKey)&&["p","s","u","c","x"].indexOf(k)>-1)){
+        e.preventDefault(); flash();
+        try{ navigator.clipboard&&navigator.clipboard.writeText(""); }catch(x){}
+      }
+    };
+    const onUp=function(e){ if((e.key||"").toLowerCase()==="printscreen") flash(); };
+    const stop=function(e){ e.preventDefault(); };
+    const EV=["contextmenu","copy","cut","selectstart","dragstart"];
+    window.addEventListener("blur",onBlur); window.addEventListener("focus",onFocus);
+    document.addEventListener("visibilitychange",onVis); window.addEventListener("keydown",onKey); window.addEventListener("keyup",onUp);
+    EV.forEach(function(t){ document.addEventListener(t,stop); });
+    if(!document.hasFocus()) setShield(true);
+    return function(){
+      clearTimeout(tm);
+      window.removeEventListener("blur",onBlur); window.removeEventListener("focus",onFocus);
+      document.removeEventListener("visibilitychange",onVis); window.removeEventListener("keydown",onKey); window.removeEventListener("keyup",onUp);
+      EV.forEach(function(t){ document.removeEventListener(t,stop); });
+    };
+  },[secure]);
   function setLang(l){ setLangS(l); setErr(""); try{ localStorage.setItem("savura_gift_lang",l); }catch(e){} }
   useEffect(function(){ try{ document.title=T.title; document.documentElement.lang=lang; window.scrollTo(0,0); }catch(e){} },[lang]);
 
@@ -6012,6 +6056,7 @@ function GiftQuiz(){
       try{ window.scrollTo(0,0); }catch(e){}
     }).catch(function(){ setBusy(false); setErr(T.eLoad); });
   }
+  const pickRef=React.useRef(null);
   function pick(opt){
     if(sel!==null) return; setSel(opt);
     const q=qs[idx]; const next=ans.concat([{id:q.id,a:opt}]);
@@ -6020,6 +6065,7 @@ function GiftQuiz(){
       else { setAns(next); submit(next); }
     },380);
   }
+  pickRef.current=pick;
   function submit(all){
     setStep("check");
     fetch("/api/gift",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:email.trim(),lang:lang,answers:all})})
@@ -6031,7 +6077,7 @@ function GiftQuiz(){
   const q=qs[idx];
   const books=res&&res.books?res.books.slice().sort(function(a,b){ return (a.lang===lang?-1:0)-(b.lang===lang?-1:0); }):[];
   const book=<div className="gq-book">
-    <div className="gq-cover"><span>SAVURA INVEST</span><b>{{uz:"Halol yo'l bilan moliyaviy erkinlik",ru:"К финансовой свободе халяльным путём",en:"Financial Freedom Through Halal Means",tr:"Helal Yoldan Finansal Özgürlük",ar:"الحرية المالية من خلال الطرق الحلال"}[lang]}</b><span>{lang==="ar"?"محمد يوسف بحروماليف":"Bahromaliyev Muhammadyusuf"}</span></div>
+    <img className="gq-img" src="/kitob-muqova.jpg" alt="Halol yo'l bilan moliyaviy erkinlik" draggable="false"/>
     <div className="gq-rules">
       <div><i>1</i><span>{fmt(T.r1,curN,curP)}</span></div>
       <div><i>2</i><span>{T.r2}</span></div>
@@ -6039,8 +6085,9 @@ function GiftQuiz(){
     </div>
   </div>;
   return(
-    <div className="pl" dir={rtl?"rtl":"ltr"}>
+    <div className={"pl"+(secure?" gq-prot":"")} dir={rtl?"rtl":"ltr"}>
       <style>{PL_CSS+GQ_CSS}</style>
+      {secure&&shield&&<div className="gq-shield">{{uz:"Himoya yoqildi. Savollarni yozib olish yoki skrinshot qilish mumkin emas. Sahifaga qayting.",ru:"Защита включена. Запись и скриншоты вопросов недоступны. Вернитесь на страницу.",en:"Protection is on. Questions cannot be recorded or screenshotted. Return to the page.",tr:"Koruma açık. Sorular kaydedilemez veya ekran görüntüsü alınamaz. Sayfaya dönün.",ar:"الحماية مفعّلة. لا يمكن تسجيل الأسئلة أو التقاط لقطة شاشة. عد إلى الصفحة."}[lang]}</div>}
       <div className="pl-bg"><div className="pl-grid"/><div className="pl-orb pl-o1"/><div className="pl-orb pl-o2"/><div className="pl-orb pl-o3"/></div>
       <div className="pl-top"><div className="pl-wrap">
         <a href="/bepuldars1" className="pl-brand"><Logo size={32}/><span>SAVURA <b>INVEST</b></span></a>
@@ -6062,6 +6109,7 @@ function GiftQuiz(){
         </div>}
         {step==="quiz" && q && <div className="gq-box" key={q.id}>
           <div className="gq-prog"><div style={{width:((idx)/qs.length*100)+"%"}}/></div>
+          <div className={"gq-tm"+(left<=10?" low":"")}><div style={{width:(Math.max(left,0)/QT*100)+"%"}}/><b dir="ltr">{Math.max(left,0)}</b></div>
           <div className="gq-meta"><span>{T.q} {idx+1} / {qs.length}</span><span>{fmt(T.need,qs.length,Math.ceil(qs.length*0.7))}</span></div>
           <div className="gq-q">{q.q}</div>
           {q.o.map(function(o,i){ return <button key={i} className={"gq-opt"+(sel===o?" sel":"")} style={{animationDelay:(i*60)+"ms"}} onClick={function(){pick(o);}}>{o}</button>; })}
