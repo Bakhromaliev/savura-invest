@@ -5554,6 +5554,8 @@ function ExamPage({lang="uz", setPage, auth}){
 // REKLAMA SAHIFALARI: /bepuldars1 va /redirecttotelegram  (Meta Pixel bilan)
 // ═══════════════════════════════════════════════════════════════════════════
 const TG_FREE_LINK = "https://t.me/+zMEwbtEvNro0YTc6";
+const TG_FREE_LINK2 = "https://t.me/+FygXFI2wZbY2NTVi";
+const isV2 = function(){ try{ return /2\/?$/.test(window.location.pathname); }catch(e){ return false; } };
 const FB_PIXEL_ID="981686754974915";
 function fbLoaded(){ try{ return typeof window.fbq==="function" && typeof window.fbq.callMethod==="function"; }catch(e){ return false; } }
 // Hodisani ishonchli yuboradi: pixel yuklanguncha (max 2.5s) kutadi, so'ng cb ni chaqiradi.
@@ -5725,7 +5727,7 @@ function FlCta({children,className=""}){
   const busy=React.useRef(false);
   function go(){
     if(busy.current) return; busy.current=true;
-    fbSend("CompleteRegistration",function(){ window.location.href="/redirecttotelegram"; });
+    fbSend("CompleteRegistration",function(){ window.location.href=isV2()?"/redirecttotelegram2":"/redirecttotelegram"; });
   }
   return(
     <button onClick={go} className={"pl-btn "+className}>
@@ -5877,6 +5879,7 @@ function FreeLanding(){
 }
 
 function TgRedirect(){
+  const LINK=isV2()?TG_FREE_LINK2:TG_FREE_LINK;
   const fired=React.useRef(false);
   useEffect(function(){
     try{ document.title="Yo'naltirilmoqda… | Savura Invest"; }catch(e){}
@@ -5885,7 +5888,7 @@ function TgRedirect(){
     // Contact hodisasi yuborilgach (kamida 1 soniya o'tgach) Telegram'ga o'tadi
     fbSend("Contact",function(){
       const left=Math.max(0,1000-(Date.now()-t0));
-      setTimeout(function(){ window.location.replace(TG_FREE_LINK); },left);
+      setTimeout(function(){ window.location.replace(LINK); },left);
     });
   },[]);
   return(
@@ -5903,7 +5906,7 @@ function TgRedirect(){
         <div style={{height:5,borderRadius:5,background:"rgba(255,255,255,.1)",overflow:"hidden",margin:"22px auto 18px",maxWidth:300}}>
           <div style={{height:"100%",borderRadius:5,background:"linear-gradient(90deg,#4aa3ff,#5fd36a)",animation:"plBar 1s linear forwards"}}/>
         </div>
-        <p style={{fontSize:14,color:"#9fb0d0",lineHeight:1.6}}>Bir soniya kuting. O'tmasa, <a href={TG_FREE_LINK} style={{color:"#4aa3ff",fontWeight:700}}>shu yerni bosing</a>.</p>
+        <p style={{fontSize:14,color:"#9fb0d0",lineHeight:1.6}}>Bir soniya kuting. O'tmasa, <a href={LINK} style={{color:"#4aa3ff",fontWeight:700}}>shu yerni bosing</a>.</p>
       </div>
     </div>
   );
@@ -6219,8 +6222,8 @@ function MainApp(){
 
 export default function App(){
   const p=pathPage();
-  if(p==="/bepuldars1") return <FreeLanding/>;
+  if(p==="/bepuldars1"||p==="/bepuldars2") return <FreeLanding/>;
   if(p==="/sovga") return <GiftQuiz/>;
-  if(p==="/redirecttotelegram") return <TgRedirect/>;
+  if(p==="/redirecttotelegram"||p==="/redirecttotelegram2") return <TgRedirect/>;
   return <MainApp/>;
 }
