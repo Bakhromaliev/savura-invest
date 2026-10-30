@@ -2,7 +2,7 @@
 // Vercel env: TELEGRAM_BOT_TOKEN (mavjud), TELEGRAM_CHAT_ID (ixtiyoriy), TG_HOOK_SECRET (yangi, maxfiy)
 const DEFAULT_CHAT_ID = "-5296428638";
 const SB_URL = "https://xxrjcyofbgmcqzoaaktq.supabase.co";
-const ANON = "";
+const ANON = "sb_publishable_ceM-8qTVH8RubZcFKsFLOQ_t6iT_uAS";
 const esc = (t) => String(t || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const tg = async (token, method, body) => {
   const r = await fetch(`https://api.telegram.org/bot${token}/${method}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
