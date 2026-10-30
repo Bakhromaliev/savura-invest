@@ -6050,6 +6050,71 @@ function WebinarThanks(){
   );
 }
 
+// ============================================================
+// ILOVA O'RNATISH SAHIFASI: /ilova
+// ============================================================
+const APK_URL = ""; // APK tayyor bo'lgach shu yerga havola qo'yiladi (bo'sh bo'lsa tugma ko'rinmaydi)
+function InstallPage(){
+  const [dp,setDp]=useState(null);
+  const [done,setDone]=useState(false);
+  const ua=(typeof navigator!=="undefined"?navigator.userAgent:"")||"";
+  const isIOS=/iphone|ipad|ipod/i.test(ua)||(/macintosh/i.test(ua)&&typeof document!=="undefined"&&"ontouchend" in document);
+  const isAndroid=/android/i.test(ua);
+  const standalone=(function(){ try{ return window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true; }catch(e){ return false; } })();
+  useEffect(function(){
+    try{ document.title="Savura Invest ilovasi — telefoningizga o'rnating"; window.scrollTo(0,0); }catch(e){}
+    const on=function(e){ e.preventDefault(); setDp(e); };
+    const ok=function(){ setDone(true); };
+    window.addEventListener("beforeinstallprompt",on); window.addEventListener("appinstalled",ok);
+    return function(){ window.removeEventListener("beforeinstallprompt",on); window.removeEventListener("appinstalled",ok); };
+  },[]);
+  function install(){ if(!dp) return; dp.prompt(); dp.userChoice.then(function(){ setDp(null); }); }
+  const Step=function(p){ return <div className="pl-fcard"><div className="pl-chk" style={{fontFamily:"'Sora',sans-serif",fontWeight:800,color:"#4aa3ff"}}>{p.n}</div><span>{p.children}</span></div>; };
+  return(
+    <div className="pl">
+      <style>{PL_CSS}</style>
+      <div className="pl-bg"><div className="pl-grid"/><div className="pl-orb pl-o1"/><div className="pl-orb pl-o2"/><div className="pl-orb pl-o3"/></div>
+      <div className="pl-top"><div className="pl-wrap">
+        <a href="/" className="pl-brand"><Logo size={32}/><span>SAVURA <b>INVEST</b></span></a>
+        <div className="pl-free">ILOVA</div>
+      </div></div>
+      <div className="pl-wrap" style={{maxWidth:640,paddingTop:30,paddingBottom:60}}>
+        <div style={{textAlign:"center"}}>
+          <img src="/icons/icon-512.png" alt="Savura Invest" width="112" height="112" style={{borderRadius:26,boxShadow:"0 18px 50px rgba(47,125,246,.35)"}}/>
+          <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(27px,6vw,40px)",lineHeight:1.15,margin:"18px 0 10px"}}>Savura Invest <span className="pl-shim">ilovasi</span></h1>
+          <p className="pl-sub" style={{margin:"0 auto"}}>Saytning barcha imkoniyatlari telefoningizda, ilova sifatida. Do'kondan yuklash shart emas.</p>
+        </div>
+
+        {(standalone||done) && <div className="pl-fcard" style={{marginTop:26}}><div className="pl-chk"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5fd36a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><span>Ilova o'rnatilgan. Uni bosh ekrandan oching.</span></div>}
+
+        {!standalone && !done && (isIOS || !isAndroid) && <div style={{marginTop:30}}>
+          <h2 className="pl-h2" style={{fontSize:"clamp(20px,4.6vw,26px)"}}>iPhone <span>uchun</span></h2>
+          <div className="pl-for" style={{gridTemplateColumns:"1fr"}}>
+            <Step n="1">Havolani <b>Safari</b> brauzerida oching (<b>savurainvest.com</b>). Chrome'da emas.</Step>
+            <Step n="2">Pastdagi <b>Ulashish</b> tugmasini bosing (kvadratdan yuqoriga strelka).</Step>
+            <Step n="3">Ro'yxatdan <b>«Ekranga qo'shish»</b> (Add to Home Screen) ni tanlang.</Step>
+            <Step n="4">Yuqori o'ngdagi <b>«Qo'shish»</b> ni bosing. Savura ikonkasi bosh ekranda paydo bo'ladi.</Step>
+          </div>
+        </div>}
+
+        {!standalone && !done && (isAndroid || !isIOS) && <div style={{marginTop:30}}>
+          <h2 className="pl-h2" style={{fontSize:"clamp(20px,4.6vw,26px)"}}>Android <span>uchun</span></h2>
+          {dp && <div style={{margin:"14px 0"}}><button className="pl-btn" onClick={install} style={{width:"100%"}}><span>Ilovani o'rnatish</span></button></div>}
+          {APK_URL && <div style={{margin:"14px 0"}}><a className="pl-btn" href={APK_URL} style={{width:"100%",display:"flex"}}><span>APK yuklab olish</span></a></div>}
+          <div className="pl-for" style={{gridTemplateColumns:"1fr"}}>
+            <Step n="1">Havolani <b>Chrome</b> brauzerida oching (<b>savurainvest.com</b>).</Step>
+            <Step n="2">Yuqori o'ngdagi <b>⋮</b> menyuni bosing.</Step>
+            <Step n="3"><b>«Ilovani o'rnatish»</b> (Install app) yoki <b>«Bosh ekranga qo'shish»</b> ni tanlang.</Step>
+          </div>
+        </div>}
+
+        <p style={{textAlign:"center",fontSize:13,color:"#9fb0d0",marginTop:30}}>Ilova avtomatik yangilanadi. Saytdagi hamma narsa shu yerda ishlaydi.</p>
+        <div style={{textAlign:"center",marginTop:14}}><a href="/" className="gq-link" style={{background:"none",color:"#4aa3ff",fontWeight:700,fontSize:14}}>Saytga qaytish</a></div>
+      </div>
+    </div>
+  );
+}
+
 const GQ_CSS = `
 .gq-wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:30px 20px 70px;}
 .gq-book{display:flex;gap:22px;align-items:center;margin:26px 0 24px;}
@@ -6359,6 +6424,7 @@ export default function App(){
   const p=pathPage();
   if(p==="/bepuldars1"||p==="/bepuldars2") return <FreeLanding/>;
   if(p==="/sovga") return <GiftQuiz/>;
+  if(p==="/ilova") return <InstallPage/>;
   if(p==="/webinar") return <Webinar/>;
   if(p==="/webinar-rahmat") return <WebinarThanks/>;
   if(p==="/redirecttotelegram"||p==="/redirecttotelegram2") return <TgRedirect/>;
