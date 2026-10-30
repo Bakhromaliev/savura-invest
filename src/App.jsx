@@ -5915,6 +5915,141 @@ function TgRedirect(){
 // ═══════════════════════════════════════════════════════════════════════════
 // /sovga — test topshiring, 70% bilan o'tsangiz kitob sovg'a
 // ═══════════════════════════════════════════════════════════════════════════
+// ============================================================
+// VEBINAR: /webinar  va  /webinar-rahmat
+// ============================================================
+const WB_LINK = "https://t.me/+O2ywfI3u-pA0NmUy";
+const WB_FOR = [
+  "Aksiyalarda boshlang'ich daromadingizni ishlashni boshlamoqchi bo'lsangiz",
+  "Kriptodan keyin endi pulimni qayerga tikaman deb o'ylayotgan bo'lsangiz",
+  "O'zi bu joizmi deb hisoblasangiz",
+  "AI orqali savdo qilsa bo'ladimi deb o'ylasangiz"
+];
+function WbCta({children}){
+  const busy=React.useRef(false);
+  function go(){
+    if(busy.current) return; busy.current=true;
+    fbSend("CompleteRegistration",function(){ window.location.href="/webinar-rahmat"; });
+  }
+  return(
+    <button onClick={go} className="pl-btn">
+      <span>{children}</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  );
+}
+function Webinar(){
+  const heroRef=React.useRef(null), finalRef=React.useRef(null);
+  const [heroSeen,setHeroSeen]=useState(true), [finalSeen,setFinalSeen]=useState(false);
+  useEffect(function(){ try{ document.title="BEPUL vebinar 5-6 noyabr — Aksiyalarda ishlashni o'rganing | Savura Invest"; window.scrollTo(0,0); }catch(e){} },[]);
+  useEffect(function(){
+    if(typeof IntersectionObserver==="undefined") return;
+    const a=new IntersectionObserver(function(es){ setHeroSeen(es[0].isIntersecting); },{threshold:0});
+    const b=new IntersectionObserver(function(es){ setFinalSeen(es[0].isIntersecting); },{threshold:.2});
+    if(heroRef.current) a.observe(heroRef.current); if(finalRef.current) b.observe(finalRef.current);
+    return function(){ a.disconnect(); b.disconnect(); };
+  },[]);
+  return(
+    <div className="pl">
+      <style>{PL_CSS}</style>
+      <div className="pl-bg"><div className="pl-grid"/><div className="pl-orb pl-o1"/><div className="pl-orb pl-o2"/><div className="pl-orb pl-o3"/></div>
+      <div className="pl-top"><div className="pl-wrap">
+        <div className="pl-brand"><Logo size={32}/><span>SAVURA <b>INVEST</b></span></div>
+        <div className="pl-free">BEPUL VEBINAR</div>
+      </div></div>
+
+      <div className="pl-wrap">
+        <section className="pl-hero">
+          <div>
+            <div className="pl-badge"><span className="pl-dot"/>5–6 noyabr · Onlayn vebinar</div>
+            <h1>
+              <span className="pl-ln"><span>Aksiyalarda ishlashni</span></span>
+              <span className="pl-ln"><span className="pl-shim">2 kun ichida</span></span>
+              <span className="pl-ln"><span>o'rganing</span></span>
+            </h1>
+            <p className="pl-sub">5–6 noyabr kunlari <b style={{color:"#fff"}}>BEPUL</b> vebinar</p>
+            <p className="pl-sub" style={{marginTop:6}}>Spiker: <b style={{color:"#fff"}}>Muhammadyusuf</b> — 5 yillik tajribaga ega treyder</p>
+            <div className="pl-cta-row" ref={heroRef}>
+              <div><WbCta>Joyingizni band qiling</WbCta></div>
+              <div className="pl-note"><span>Joylar soni cheklangan. <b>Hoziroq band qiling.</b></span></div>
+            </div>
+            <div className="pl-stats">
+              <div className="pl-stat"><b><CountUp to={2}/></b><span>kun</span></div>
+              <div className="pl-stat"><b><CountUp to={100} suffix="%"/></b><span>bepul</span></div>
+              <div className="pl-stat"><b><CountUp to={5}/>+</b><span>yillik tajriba</span></div>
+            </div>
+          </div>
+          <ExpertVisual/>
+        </section>
+      </div>
+
+      <div className="pl-wrap">
+        <section className="pl-sec">
+          <Reveal><h2 className="pl-h2">Vebinar <span>siz uchun</span> agar:</h2></Reveal>
+          <div className="pl-for">
+            {WB_FOR.map(function(x,i){return(
+              <Reveal key={i} delay={i*110}>
+                <div className="pl-fcard">
+                  <div className="pl-chk"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5fd36a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                  <span>{x}</span>
+                </div>
+              </Reveal>);})}
+          </div>
+        </section>
+
+        <div className="pl-final" ref={finalRef}>
+          <div className="pl-final-in">
+            <Reveal>
+              <h2 className="pl-h2" style={{marginBottom:22}}>5–6 noyabr. <span>Joyingizni band qiling.</span></h2>
+              <WbCta>Joyingizni band qiling</WbCta>
+              <p className="s">Vebinar mutlaqo bepul. To'lov talab qilinmaydi.</p>
+            </Reveal>
+          </div>
+        </div>
+      </div>
+
+      <div className={"pl-bar"+(!heroSeen&&!finalSeen?" on":"")}><WbCta>Joyingizni band qiling</WbCta></div>
+    </div>
+  );
+}
+
+function WebinarThanks(){
+  const [left,setLeft]=useState(5);
+  const fired=React.useRef(false);
+  useEffect(function(){
+    try{ document.title="Rahmat! Joyingiz band qilindi | Savura Invest"; window.scrollTo(0,0); }catch(e){}
+    if(fired.current) return; fired.current=true;
+    const t0=Date.now();
+    fbSend("Contact",function(){
+      const wait=Math.max(1000,5000-(Date.now()-t0));
+      setTimeout(function(){ window.location.replace(WB_LINK); },wait);
+    });
+    const iv=setInterval(function(){ setLeft(function(v){ return v>0?v-1:0; }); },1000);
+    return function(){ clearInterval(iv); };
+  },[]);
+  return(
+    <div className="pl">
+      <style>{PL_CSS}</style>
+      <div className="pl-bg"><div className="pl-grid"/><div className="pl-orb pl-o1"/><div className="pl-orb pl-o2"/><div className="pl-orb pl-o3"/></div>
+      <div className="pl-top"><div className="pl-wrap">
+        <div className="pl-brand"><Logo size={32}/><span>SAVURA <b>INVEST</b></span></div>
+        <div className="pl-free">BEPUL VEBINAR</div>
+      </div></div>
+      <div className="pl-wrap" style={{minHeight:"72vh",display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center"}}>
+        <div style={{maxWidth:520}}>
+          <div style={{width:84,height:84,borderRadius:"50%",margin:"0 auto 22px",display:"flex",alignItems:"center",justifyContent:"center",background:"linear-gradient(135deg,#2f7df6,#2fb85a)",boxShadow:"0 0 50px rgba(47,184,90,.45)"}}>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          </div>
+          <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(28px,6vw,42px)",lineHeight:1.15,margin:"0 0 12px"}}>Rahmat! <span className="pl-shim">Joyingiz band qilindi</span></h1>
+          <p className="pl-sub" style={{margin:"0 auto 8px"}}>5–6 noyabr kunlari vebinarda ko'rishamiz.</p>
+          <p style={{fontSize:14.5,color:"#9fb0d0",lineHeight:1.6,margin:"0 0 22px"}}>Vebinar haqidagi barcha ma'lumotlar Telegram guruhda. {left>0?("Siz "+left+" soniyada guruhga o'tasiz…"):"O'tmoqdasiz…"}</p>
+          <a className="pl-btn" href={WB_LINK} style={{display:"inline-flex"}}><span>Telegram guruhga o'tish</span></a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const GQ_CSS = `
 .gq-wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:30px 20px 70px;}
 .gq-book{display:flex;gap:22px;align-items:center;margin:26px 0 24px;}
@@ -6224,6 +6359,8 @@ export default function App(){
   const p=pathPage();
   if(p==="/bepuldars1"||p==="/bepuldars2") return <FreeLanding/>;
   if(p==="/sovga") return <GiftQuiz/>;
+  if(p==="/webinar") return <Webinar/>;
+  if(p==="/webinar-rahmat") return <WebinarThanks/>;
   if(p==="/redirecttotelegram"||p==="/redirecttotelegram2") return <TgRedirect/>;
   return <MainApp/>;
 }
