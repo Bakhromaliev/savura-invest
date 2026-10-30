@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PracticePage from "./practice/Practice.jsx";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SUPABASE — autentifikatsiya va o'quvchilar ruxsati
@@ -1076,6 +1077,7 @@ const LINE_ICONS = {
   journal:<><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3v18"/><path d="M10 8h5M10 12h5M10 16h3"/></>,
   demo:   <><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/><path d="M15 8h4v4"/></>,
   exam:   <><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="m9 13 2 2 4-4"/></>,
+  practice:<><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></>,
   pattern:<><path d="M7 3v4M7 17v4M17 3v3M17 14v7"/><rect x="5" y="7" width="4" height="10" rx="1"/><rect x="15" y="6" width="4" height="8" rx="1"/></>,
   about:  <><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M21.5 20a6.5 6.5 0 0 0-4-6"/></>,
   edu:    <><path d="M2 5h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 5h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/></>,
@@ -1125,6 +1127,7 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
     {id:"demo",label:sn.demo||"Demo",icon:"demo",ic:"#10b981"},
     {id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,icon:"exam",ic:"#6366f1"},
     {id:"pattern",label:(PT_T[lang]||PT_T.uz).title,icon:"pattern",ic:"#f97316"},
+    {id:"practice",label:"Amaliyot",icon:"practice",ic:"#eab308"},
     {id:"about",label:sn.about,icon:"about",ic:"#ec4899"},
     {id:"edu",label:"Savura Edu",icon:"edu",ic:"#14b8a6",ext:"https://savuraedu.com"}];
   const go=(id)=>{setPage(id);setOpen(false);setFlagOpen(false);window.scrollTo({top:0,behavior:"smooth"});};
@@ -6432,6 +6435,7 @@ function MainApp(){
       {page==="demo"&&<LockGate state={aState} lang={lang} setPage={setPage}><DemoPage lang={lang} setPage={setPage}/></LockGate>}
       {page==="exam"&&<LockGate state={aState} lang={lang} setPage={setPage}><ExamPage lang={lang} setPage={setPage} auth={auth}/></LockGate>}
       {page==="certificate"&&<LockGate state={aState} lang={lang} setPage={setPage}><CertificatePage lang={lang} setPage={setPage} fullName={auth.profile?.full_name||""}/></LockGate>}
+      {page==="practice"&&<LockGate state={aState} lang={lang} setPage={setPage}><PracticePage C={C} sb={sb} getUid={getUid} BackBtn={BackBtn} setPage={setPage} lang={lang} auth={auth} modNames={EXAM_MOD_NAMES[lang]||EXAM_MOD_NAMES.uz}/></LockGate>}
       {page==="pattern"&&<LockGate state={aState} lang={lang} setPage={setPage}><PatternPage lang={lang} setPage={setPage} auth={auth}/></LockGate>}
       <ChatWidget lang={lang}/>
       <Footer setPage={setPage} lang={lang}/>
