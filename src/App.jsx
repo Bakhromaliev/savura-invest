@@ -6353,6 +6353,23 @@ function pathPage(){
   try{ const p=(window.location.pathname||"/").replace(/\/+$/,"").toLowerCase(); return p; }catch(e){ return "/"; }
 }
 
+function InstallStrip(){
+  const [show,setShow]=useState(function(){
+    try{
+      if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true) return false;
+      return localStorage.getItem("savura_inst_x")!=="1";
+    }catch(e){ return true; }
+  });
+  if(!show) return null;
+  return(
+    <div style={{display:"flex",alignItems:"center",gap:9,padding:"8px 10px 8px 12px",background:"linear-gradient(90deg,#2f7df6,#2fb85a)",color:"#fff",fontSize:13.5,fontWeight:700,position:"fixed",left:12,bottom:14,zIndex:900,borderRadius:999,boxShadow:"0 10px 30px rgba(0,0,0,.4)",maxWidth:"calc(100vw - 92px)"}}>
+      <img src="/icons/icon-192.png" alt="" width="22" height="22" style={{borderRadius:6}}/>
+      <a href="/ilova" style={{color:"#fff",textDecoration:"underline",textUnderlineOffset:3}}>Ilovani o'rnatish</a>
+      <button aria-label="Yopish" onClick={function(){ setShow(false); try{ localStorage.setItem("savura_inst_x","1"); }catch(e){} }} style={{background:"rgba(255,255,255,.2)",border:0,color:"#fff",borderRadius:"50%",width:22,height:22,cursor:"pointer",fontSize:13,lineHeight:1}}>×</button>
+    </div>
+  );
+}
+
 function MainApp(){
   const [page,setPageRaw]=useState("home");
   const setPage=React.useCallback((p)=>{ try{window.history.pushState({pg:p},"");}catch(e){} setPageRaw(p); },[]);
@@ -6371,6 +6388,7 @@ function MainApp(){
   useEffect(()=>{ if(auth.user && page==="auth") setPage("home"); },[auth.user]);
   return(
     <div data-theme={theme} style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'Manrope',system-ui,sans-serif",transition:"background .25s,color .25s"}}>
+      <InstallStrip/>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
         *{box-sizing:border-box;margin:0;padding:0;} ::selection{background:#2f7df6;color:#fff;} a{text-decoration:none;} button{font-family:inherit;}
