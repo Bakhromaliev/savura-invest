@@ -6053,7 +6053,7 @@ function WebinarThanks(){
 // ============================================================
 // ILOVA O'RNATISH SAHIFASI: /ilova
 // ============================================================
-const APK_URL = ""; // APK tayyor bo'lgach shu yerga havola qo'yiladi (bo'sh bo'lsa tugma ko'rinmaydi)
+const APK_URL = "/savura-invest.apk"; // APK tayyor bo'lgach shu yerga havola qo'yiladi (bo'sh bo'lsa tugma ko'rinmaydi)
 function InstallPage(){
   const [dp,setDp]=useState(null);
   const [done,setDone]=useState(false);
@@ -6101,6 +6101,7 @@ function InstallPage(){
           <h2 className="pl-h2" style={{fontSize:"clamp(20px,4.6vw,26px)"}}>Android <span>uchun</span></h2>
           {dp && <div style={{margin:"14px 0"}}><button className="pl-btn" onClick={install} style={{width:"100%"}}><span>Ilovani o'rnatish</span></button></div>}
           {APK_URL && <div style={{margin:"14px 0"}}><a className="pl-btn" href={APK_URL} style={{width:"100%",display:"flex"}}><span>APK yuklab olish</span></a></div>}
+          {APK_URL && <p style={{fontSize:13,color:"#9fb0d0",margin:"0 0 12px"}}>APK o'rnatilayotganda telefon so'rasa, <b>«Noma'lum manbalardan o'rnatish»</b> ga ruxsat bering.</p>}
           <div className="pl-for" style={{gridTemplateColumns:"1fr"}}>
             <Step n="1">Havolani <b>Chrome</b> brauzerida oching (<b>savurainvest.com</b>).</Step>
             <Step n="2">Yuqori o'ngdagi <b>⋮</b> menyuni bosing.</Step>

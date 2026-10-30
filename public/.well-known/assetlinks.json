@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.savurainvest.twa",
+        "sha256_cert_fingerprints": ["48:6A:76:72:40:43:A0:77:F4:D8:7D:4C:52:2A:15:69:76:12:6F:46:46:25:1D:75:25:2D:ED:28:E8:0E:0D:58"]
+      }
+    }]
