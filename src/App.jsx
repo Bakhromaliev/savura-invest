@@ -85,6 +85,17 @@ function useAuth(){
     return ()=>{ active=false; };
   },[session]);
 
+  // Admin tasdiqlagach sahifani yangilamasdan ham ochilishi uchun: profilni qayta o'qish
+  useEffect(()=>{
+    if(!sb||!session?.user) return;
+    const uid=session.user.id;
+    const refresh=()=>{ sb.from("students").select("*").eq("id",uid).single().then(({data})=>{ if(data) setProfile(function(p){ return p&&p.approved===data.approved&&p.expires_at===data.expires_at&&p.is_admin===data.is_admin?p:data; }); }); };
+    const onVis=()=>{ if(document.visibilityState==="visible") refresh(); };
+    document.addEventListener("visibilitychange",onVis); window.addEventListener("focus",refresh);
+    const iv=setInterval(refresh,30000);
+    return ()=>{ document.removeEventListener("visibilitychange",onVis); window.removeEventListener("focus",refresh); clearInterval(iv); };
+  },[session]);
+
   const logout=async()=>{ if(sb) await sb.auth.signOut(); setProfile(null); };
   return {session,profile,loading,logout,user:session?.user||null};
 }
