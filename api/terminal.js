@@ -70,7 +70,7 @@ function royxat() {
 
 // ── Yahoo narxlari ────────────────────────────────────────────────────────
 async function yChart(sym, range = "1y", interval = "1d") {
-  return kesh(`ch:${sym}:${range}:${interval}`, range === "5d" ? 10 * MIN : 60 * MIN, async () => {
+  return kesh(`ch:${sym}:${range}:${interval}`, (range === "5d" || range === "1mo") ? 10 * MIN : 60 * MIN, async () => {
     let j;
     try { j = await jget(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=${interval}&range=${range}`, YH); }
     catch (e) { j = await jget(`https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=${interval}&range=${range}`, YH); }
@@ -211,18 +211,19 @@ async function huquq(req) {
 const OCHIQ = h => h && (h.holat === "ok" || h.holat === "sinov");
 
 // ── Amallar ───────────────────────────────────────────────────────────────
-const INDEKS = [["^GSPC", "S&P 500"], ["^NDX", "Nasdaq 100"], ["^DJI", "Dow Jones"], ["^VIX", "VIX"], ["GC=F", "Oltin"], ["^TNX", "10Y obligatsiya"]];
+const INDEKS = [["^GSPC", "S&P 500"], ["^NDX", "Nasdaq 100"], ["^DJI", "Dow Jones"], ["^RUT", "Russell 2000"], ["^VIX", "VIX"]];
+// Makro panel: foiz stavkalari, dollar, xomashyo (Yahoo, bepul, ~15 daqiqa kechikadi)
+const MAKRO = [["^IRX", "3 oylik"], ["^FVX", "5 yillik"], ["^TNX", "10 yillik"], ["^TYX", "30 yillik"], ["DX-Y.NYB", "Dollar indeksi"], ["CL=F", "Neft (WTI)"], ["GC=F", "Oltin"], ["SI=F", "Kumush"]];
 
 async function market() {
   return kesh("market", 10 * MIN, async () => {
-    const [idx, list] = await Promise.all([
-      Promise.all(INDEKS.map(async ([s, n]) => { try { const c = await yChart(s, "5d"); return { s, n, narx: c.narx, oldingi: c.oldingi }; } catch (e) { return { s, n, narx: null }; } })),
-      royxat().catch(() => [])]);
+    const bir = async ([s, n]) => { try { const c = await yChart(s, "1mo"); return { s, n, narx: c.narx, oldingi: c.oldingi, iz: c.nuqtalar.slice(-22).map(p => p.c) }; } catch (e) { return { s, n, narx: null }; } };
+    const [idx, makro, list] = await Promise.all([Promise.all(INDEKS.map(bir)), Promise.all(MAKRO.map(bir)), royxat().catch(() => [])]);
     const top = list.filter(k => k.data?.kapitalizatsiya).sort((a, b) => b.data.kapitalizatsiya - a.data.kapitalizatsiya).slice(0, 60);
     const sp = await ySpark(top.map(k => k.ticker));
     const xarita = top.filter(k => sp[k.ticker]).map(k => ({ t: k.ticker, nom: k.nom, sektor: k.sektor, cap: k.data.kapitalizatsiya,
       narx: sp[k.ticker].narx, oz: (sp[k.ticker].narx / sp[k.ticker].oldingi - 1) * 100, holat: k.halol?.holat || null }));
-    return { indeks: idx, xarita, vaqt: Date.now() };
+    return { indeks: idx, makro, xarita, vaqt: Date.now() };
   });
 }
 
@@ -280,6 +281,21 @@ async function company(sym) {
   return { sym, narx: ch, sec, finnhub: fh, kompaniya: k, sektor, kompas: kompas(k, sec && !sec.xato ? sec : null, sektor), vaqt: Date.now() };
 }
 
+// ── Hisobotlar kalendari (Finnhub, faqat Halol aksiyalar jurnalidagi kompaniyalar) ──
+async function kalendar() {
+  const KEY = process.env.FINNHUB_KEY; if (!KEY) return { royxat: [], xato: "kalit" };
+  return kesh("kalendar", 3 * SOAT, async () => {
+    const d = x => x.toISOString().slice(0, 10), bugun = new Date(), oxir = new Date(Date.now() + 28 * 864e5);
+    const [j, list] = await Promise.all([jget(`https://finnhub.io/api/v1/calendar/earnings?from=${d(bugun)}&to=${d(oxir)}&token=${KEY}`, {}, 12000), royxat().catch(() => [])]);
+    const bizda = {}; list.forEach(k => { bizda[k.ticker] = k; });
+    const out = (j?.earningsCalendar || []).filter(x => bizda[x.symbol]).map(x => ({ sana: x.date, t: x.symbol, nom: bizda[x.symbol].nom || "",
+      vaqt: x.hour || "", epsKut: num(x.epsEstimate), daromadKut: num(x.revenueEstimate), holat: bizda[x.symbol].halol?.holat || null,
+      cap: bizda[x.symbol].data?.kapitalizatsiya || null }));
+    out.sort((a, b) => (a.sana < b.sana ? -1 : a.sana > b.sana ? 1 : (b.cap || 0) - (a.cap || 0)));
+    return { royxat: out.slice(0, 200), vaqt: Date.now() };
+  });
+}
+
 const TIL = { uz: "o'zbek (lotin)", ru: "rus", en: "ingliz", tr: "turk", ar: "arab" };
 async function ai(sym, lang) {
   const KEY = process.env.ANTHROPIC_API_KEY; if (!KEY) return { xato: "kalit yo'q" };
@@ -310,6 +326,7 @@ export default async function handler(req, res) {
   const sym = String(req.query.sym || "").trim().toUpperCase().replace(/[^A-Z.\-]/g, "").slice(0, 10);
   try {
     if (a === "market") { res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=600"); return res.status(200).json(await market()); }
+    if (a === "kalendar") { res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate=7200"); return res.status(200).json(await kalendar()); }
     if (a === "list" || a === "company" || a === "ai") {
       const h = await huquq(req);
       if (!OCHIQ(h)) return res.status(h.holat === "tugadi" ? 403 : 401).json({ xato: "ruxsat", holat: h.holat });
@@ -329,7 +346,7 @@ export default async function handler(req, res) {
       res.setHeader("Cache-Control", "private, max-age=3600");
       return res.status(200).json(await ai(sym, lang));
     }
-    return res.status(400).json({ xato: "a = market | list | company | ai" });
+    return res.status(400).json({ xato: "a = market | kalendar | list | company | ai" });
   } catch (e) {
     console.error("terminal", a, sym, e && e.message);
     return res.status(502).json({ xato: "manba javob bermadi", sabab: String(e && e.message || e).slice(0, 160) });

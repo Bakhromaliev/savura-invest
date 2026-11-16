@@ -93,7 +93,115 @@ function Darvoza({ L, kirish, children, ulashOch }) {
 
 // ── Bozor ─────────────────────────────────────────────────────────────────
 const INDEKS_NOM = { "GC=F": { uz: "Oltin", ru: "Золото", en: "Gold", tr: "Altın", ar: "الذهب" },
-  "^TNX": { uz: "10 yillik obligatsiya", ru: "10-летние облигации", en: "10Y Treasury", tr: "10 yıllık tahvil", ar: "سندات 10 سنوات" } };
+  "SI=F": { uz: "Kumush", ru: "Серебро", en: "Silver", tr: "Gümüş", ar: "الفضة" },
+  "CL=F": { uz: "Neft (WTI)", ru: "Нефть (WTI)", en: "Oil (WTI)", tr: "Petrol (WTI)", ar: "النفط (WTI)" },
+  "DX-Y.NYB": { uz: "Dollar indeksi", ru: "Индекс доллара", en: "Dollar index", tr: "Dolar endeksi", ar: "مؤشر الدولار" },
+  "^IRX": { uz: "Obligatsiya, 3 oy", ru: "Облигации, 3 мес.", en: "Treasury, 3M", tr: "Tahvil, 3 ay", ar: "سندات 3 أشهر" },
+  "^FVX": { uz: "Obligatsiya, 5 yil", ru: "Облигации, 5 лет", en: "Treasury, 5Y", tr: "Tahvil, 5 yıl", ar: "سندات 5 سنوات" },
+  "^TNX": { uz: "Obligatsiya, 10 yil", ru: "Облигации, 10 лет", en: "Treasury, 10Y", tr: "Tahvil, 10 yıl", ar: "سندات 10 سنوات" },
+  "^TYX": { uz: "Obligatsiya, 30 yil", ru: "Облигации, 30 лет", en: "Treasury, 30Y", tr: "Tahvil, 30 yıl", ar: "سندات 30 سنة" } };
+const FOIZ_SIM = new Set(["^IRX", "^FVX", "^TNX", "^TYX"]);
+
+// Sana: o'zbekcha nomlar qo'lda (brauzerlarda uz lokali ko'pincha to'liq emas)
+const UZ_OY = ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"];
+const UZ_KUN = ["yakshanba", "dushanba", "seshanba", "chorshanba", "payshanba", "juma", "shanba"];
+function sanaYoz(dt, L, qisqa) {
+  if (L === "uz") return (qisqa ? UZ_KUN[dt.getDay()].slice(0, 3) : UZ_KUN[dt.getDay()]) + ", " + dt.getDate() + "-" + (qisqa ? UZ_OY[dt.getMonth()].slice(0, 3) : UZ_OY[dt.getMonth()]);
+  try { return dt.toLocaleDateString(L, qisqa ? { weekday: "short", day: "numeric", month: "short" } : { weekday: "long", day: "numeric", month: "long" }); } catch (e) { return dt.toISOString().slice(0, 10); }
+}
+
+// Kompaniya logotipi (ochiq rasm manbasi), topilmasa harfli belgi
+function Logo({ t, size = 28 }) {
+  const [xato, setXato] = useState(false);
+  const st = { width: size, height: size, borderRadius: size * 0.28, flexShrink: 0, objectFit: "contain", background: "#fff" };
+  if (xato || !t) return <span aria-hidden="true" style={{ ...st, display: "inline-flex", alignItems: "center", justifyContent: "center", background: R.greenBg, color: R.green, fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: size * 0.42 }}>{(t || "?")[0]}</span>;
+  return <img src={"https://financialmodelingprep.com/image-stock/" + encodeURIComponent(t) + ".png"} alt="" loading="lazy" width={size} height={size} onError={() => setXato(true)} style={{ ...st, padding: size * 0.1, boxSizing: "border-box" }} />;
+}
+
+// Kichik chiziqli grafik (makro va indekslar)
+function Iz({ v, w = 96, h = 28, c }) {
+  if (!v || v.length < 2) return null;
+  const mn = Math.min(...v), mx = Math.max(...v);
+  const d = v.map((x, i) => (i ? "L" : "M") + (i * w / (v.length - 1)).toFixed(1) + " " + (h - 2 - (x - mn) / (mx - mn || 1) * (h - 4)).toFixed(1)).join(" ");
+  return <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true" style={{ display: "block" }}><path d={d} fill="none" stroke={c} strokeWidth="1.8" strokeLinejoin="round" /></svg>;
+}
+
+// Bosh qism: harakatlanuvchi gradient va kompaniya logotiplari lentasi
+function BozorBosh({ L, d }) {
+  const xr = (d.xarita || []).slice(0, 48);
+  const q1 = xr.filter((_, i) => i % 2 === 0), q2 = xr.filter((_, i) => i % 2 === 1);
+  const chip = (x, nusxa) => <a key={(nusxa ? "b" : "a") + x.t} href={"/terminal/" + x.t} onClick={e => { e.preventDefault(); ot("/terminal/" + x.t); }} className="tr-lchip"
+    aria-hidden={nusxa ? "true" : undefined} tabIndex={nusxa ? -1 : undefined}>
+    <Logo t={x.t} size={26} /><b>{x.t}</b><span style={{ color: rang(x.oz), fontWeight: 800 }}>{ozg(x.oz)}</span></a>;
+  const qator = (arr, teskari) => <div className="tr-lenta-oyna"><div className={"tr-lenta" + (teskari ? " teskari" : "")}>{arr.map(x => chip(x, false))}{arr.map(x => chip(x, true))}</div></div>;
+  const sana = sanaYoz(new Date(), L, false);
+  return <section className="tr-hero">
+    <div style={{ position: "relative", display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 16, padding: "26px 26px 8px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 0 }}>
+        <span style={{ fontSize: 13, color: R.faint, textTransform: L === "uz" ? "none" : "capitalize" }}>{sana}</span>
+        <h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: "clamp(28px, 4vw, 40px)", letterSpacing: "-0.02em" }}>{tr(L, "bugunBozor")}</h1>
+        <span style={{ color: R.dim, fontSize: 15 }}>{tr(L, "bozorSub")}</span>
+      </div>
+      <div className="tr-hero-ind">
+        {(d.indeks || []).map(i => { const c = i.narx && i.oldingi ? (i.narx / i.oldingi - 1) * 100 : null;
+          return <div key={i.s} className="tr-shisha">
+            <span style={{ fontSize: 12, color: R.faint }}>{INDEKS_NOM[i.s]?.[L] || i.n}</span>
+            <b style={{ fontFamily: "Sora, sans-serif", fontSize: 17 }}>{i.narx == null ? "—" : fx(i.narx, i.narx > 1000 ? 1 : 2)}</b>
+            <span style={{ fontSize: 12.5, fontWeight: 800, color: rang(c) }}>{ozg(c)}</span></div>; })}
+      </div>
+    </div>
+    {xr.length > 6 && <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 10, padding: "14px 0 22px" }}>{qator(q1, false)}{qator(q2, true)}</div>}
+  </section>;
+}
+
+function Makro({ L, d }) {
+  const m = (d.makro || []).filter(x => x.narx != null);
+  if (!m.length) return null;
+  return <section style={{ ...card, display: "flex", flexDirection: "column", gap: 12 }}>
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8 }}>
+      <h2 style={h2}>{tr(L, "makro")}</h2><span style={{ fontSize: 12, color: R.faint }}>{tr(L, "makroIzoh")}</span></div>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 10 }}>
+      {m.map(i => { const c = i.oldingi ? (i.narx / i.oldingi - 1) * 100 : null, f = FOIZ_SIM.has(i.s);
+        const farq = f && i.oldingi ? i.narx - i.oldingi : null;
+        return <div key={i.s} className="tr-makro">
+          <span style={{ fontSize: 12, color: R.faint }}>{INDEKS_NOM[i.s]?.[L] || i.n}</span>
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 8 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <b style={{ fontFamily: "Sora, sans-serif", fontSize: 18 }}>{f ? iz(fx0(i.narx, 2) + "%") : (i.s === "DX-Y.NYB" ? fx(i.narx, 2) : pul(i.narx))}</b>
+              <span style={{ fontSize: 12, fontWeight: 800, color: rang(f ? farq : c) }}>{f ? iz((farq >= 0 ? "+" : "−") + fx0(Math.abs(farq || 0), 2) + " p.p.") : ozg(c)}</span>
+            </div>
+            <Iz v={i.iz} c={rang(f ? farq : c)} w={84} />
+          </div></div>; })}
+    </div>
+  </section>;
+}
+
+function KalendarQism({ L, toliq }) {
+  const { yuk, d, xato, qayta } = useApi("/api/terminal?a=kalendar");
+  if (yuk && !d) return <Yuk L={L} />;
+  if (xato) return <Xato L={L} qayta={qayta} />;
+  const arr = (d?.royxat || []).slice(0, toliq ? 200 : 8);
+  const kun = s => { try { return sanaYoz(new Date(s + "T12:00:00"), L, true); } catch (e) { return s; } };
+  let oldingi = "";
+  return <section style={{ ...card, display: "flex", flexDirection: "column", gap: 4 }}>
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8, marginBottom: 6 }}>
+      <h2 style={h2}>{tr(L, "kalendar")}</h2>
+      {toliq ? <span style={{ fontSize: 12, color: R.faint }}>{tr(L, "kalendarIzoh")}</span>
+        : <a href="/terminal/kalendar" onClick={e => { e.preventDefault(); ot("/terminal/kalendar"); }} style={{ color: R.blueLt, fontWeight: 700, fontSize: 13 }}>{tr(L, "hammasiniKor")}</a>}
+    </div>
+    {!arr.length && <span style={{ color: R.faint, padding: "8px 0" }}>{tr(L, "kalYoq")}</span>}
+    {arr.map(x => { const sar = toliq && x.sana !== oldingi ? (oldingi = x.sana, true) : false;
+      return <React.Fragment key={x.t + x.sana}>
+        {sar && <div style={{ marginTop: 10, fontSize: 12.5, fontWeight: 800, color: R.faint, textTransform: "capitalize" }}>{kun(x.sana)}</div>}
+        <a href={"/terminal/" + x.t} onClick={e => { e.preventDefault(); ot("/terminal/" + x.t); }} className="tr-qator">
+          {!toliq && <span style={{ width: 86, color: R.faint, fontSize: 12.5, textTransform: "capitalize" }}>{kun(x.sana)}</span>}
+          <Logo t={x.t} size={26} /><b style={{ width: 56 }}>{x.t}</b>
+          <span className="tr-tel-yoq" style={{ flex: 1, color: R.dim, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{x.nom}</span>
+          <span className="tr-tel-yoq" style={{ fontSize: 12, color: R.faint, whiteSpace: "nowrap" }}>{x.vaqt === "bmo" ? tr(L, "oldin") : x.vaqt === "amc" ? tr(L, "keyin") : ""}</span>
+          <span style={{ width: 92, textAlign: "end", fontSize: 13 }}>{x.epsKut != null ? "EPS " + pul(x.epsKut) : "—"}</span>
+        </a></React.Fragment>; })}
+  </section>;
+}
 function Bozor({ L }) {
   const { yuk, d, xato, qayta } = useApi("/api/terminal?a=market");
   const [sek, setSek] = useState("");
@@ -111,13 +219,7 @@ function Bozor({ L }) {
   const yozuv = c => (kun && Math.abs(c || 0) < 1.6 ? R.text : "#fff");
   const tartib = [...xr].sort((a, b) => b.oz - a.oz);
   return <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-    <section style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
-      {(d.indeks || []).map(i => { const c = i.narx && i.oldingi ? (i.narx / i.oldingi - 1) * 100 : null;
-        return <div key={i.s} style={{ ...card, padding: "12px 14px", borderRadius: 14 }}>
-          <div style={{ fontSize: 12, color: R.faint }}>{INDEKS_NOM[i.s]?.[L] || i.n}</div>
-          <div style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 18, margin: "4px 0" }}>{i.narx == null ? "—" : fx(i.narx, i.narx > 1000 ? 1 : 2)}</div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: rang(c) }}>{ozg(c)}</div></div>; })}
-    </section>
+    <BozorBosh L={L} d={d} />
     <section style={{ ...card, display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
         <h2 style={h2}>{tr(L, "xarita")}</h2>
@@ -134,12 +236,14 @@ function Bozor({ L }) {
       </div>
       <span style={{ fontSize: 12, color: R.faint }}>{tr(L, "xaritaIzoh")}</span>
     </section>
+    <Makro L={L} d={d} />
+    <KalendarQism L={L} />
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 18 }}>
       {[["osgan", tartib.slice(0, 6)], ["tushgan", tartib.slice(-6).reverse()]].map(([k, arr]) =>
         <section key={k} style={{ ...card, display: "flex", flexDirection: "column", gap: 4 }}>
           <h2 style={{ ...h2, marginBottom: 6 }}>{tr(L, k)}</h2>
           {arr.map(x => <a key={x.t} href={"/terminal/" + x.t} onClick={e => { e.preventDefault(); ot("/terminal/" + x.t); }} className="tr-qator">
-            <b style={{ width: 60 }}>{x.t}</b><span style={{ flex: 1, color: R.dim, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{x.nom}</span>
+            <Logo t={x.t} size={26} /><b style={{ width: 56 }}>{x.t}</b><span style={{ flex: 1, color: R.dim, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{x.nom}</span>
             <span style={{ width: 84, textAlign: "end" }}>{pul(x.narx)}</span><span style={{ width: 72, textAlign: "end", fontWeight: 700, color: rang(x.oz) }}>{ozg(x.oz)}</span></a>)}
         </section>)}
     </div>
@@ -193,10 +297,10 @@ function Kompaniya({ L, sym, tab0 }) {
   const k = d.kompaniya || {}, dt = k.data || {}, fh = d.finnhub || {}, pr = fh.profil || {};
   const nom = d.sec?.nom || pr.nom || k.nom || d.narx?.nom || sym;
   return <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-    <section style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", gap: 18, justifyContent: "space-between" }}>
+    <section className="tr-hero" style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", gap: 18, justifyContent: "space-between", padding: "22px 24px" }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 0 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-          {pr.logo && <img src={pr.logo} alt="" width="34" height="34" style={{ borderRadius: 8, background: "#fff" }} />}
+          <Logo t={sym} size={44} />
           <h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: 30 }}>{sym}</h1>
           <span style={{ color: R.dim, fontSize: 16 }}>{nom}{k.sektor ? ", " + k.sektor : ""}</span>
         </div>
@@ -568,6 +672,7 @@ function tahlilYol(p) {
   if (!q.length) return { sahifa: "bozor" };
   const a = q[0].toLowerCase();
   if (a === "skaner") return { sahifa: "skaner" };
+  if (a === "kalendar") return { sahifa: "kalendar" };
   if (a === "portfel" || a === "kuzatuv" || a === "savdo") return { sahifa: a };
   if (a === "solishtir" || a === "solishtirish") return { sahifa: "solish", syms: (q[1] || "").toUpperCase().split(",").filter(Boolean) };
   return { sahifa: "kompaniya", sym: q[0].toUpperCase().replace(/[^A-Z.\-]/g, ""), tab: BUYRUQ[(q[1] || "").toUpperCase()] };
@@ -598,7 +703,7 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
   useEffect(() => { try { localStorage.setItem("savura_til", L); } catch (e) {} document.documentElement.lang = L; }, [L]);
   const y = tahlilYol(p);
   useEffect(() => { document.title = (y.sym ? y.sym + " — " : "") + "Savura Terminal"; }, [p]);
-  const nav = [["bozor", "/terminal"], ["skaner", "/terminal/skaner"], ["solish", "/terminal/solishtir"]];
+  const nav = [["bozor", "/terminal"], ["skaner", "/terminal/skaner"], ["solish", "/terminal/solishtir"], ["kalendar", "/terminal/kalendar"]];
   const nav2 = [["portfel", "/terminal/portfel"], ["kuzatuv", "/terminal/kuzatuv"], ["savdo", "/terminal/savdo"]];
   return <div dir={L === "ar" ? "rtl" : "ltr"} className="tr-ildiz" style={{ minHeight: "100vh", background: R.bg, backgroundImage: `linear-gradient(${R.grid}66 1px, transparent 1px), linear-gradient(90deg, ${R.grid}66 1px, transparent 1px)`, backgroundSize: "56px 56px", color: R.text, fontFamily: "Manrope, system-ui, sans-serif", fontVariantNumeric: "tabular-nums" }}>
     <style>{`
@@ -611,6 +716,24 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
       .tr-btn2{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border-radius:11px;background:transparent;color:${R.text};font-weight:700;font-size:14px;border:1px solid ${R.line2};cursor:pointer;text-decoration:none}
       .tr-btn:hover{filter:brightness(1.08)} .tr-btn2:hover{border-color:${R.blueLt}}
       .tr-chip{cursor:pointer;font-family:inherit}
+      @keyframes trOqim{0%{background-position:0% 30%}50%{background-position:100% 70%}100%{background-position:0% 30%}}
+      @keyframes trLenta{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+      .tr-hero{position:relative;overflow:hidden;border-radius:24px;border:1px solid ${R.line};
+        background:linear-gradient(120deg, ${R.greenBg} 0%, ${R.card} 35%, ${R.bg2} 55%, ${R.greenBg} 75%, ${R.card} 100%);background-size:260% 260%;animation:trOqim 22s ease-in-out infinite}
+      .tr-hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+        background:radial-gradient(520px 220px at 12% 0%, ${R.up}2e, transparent 70%), radial-gradient(420px 200px at 92% 100%, ${R.amber}24, transparent 70%)}
+      .tr-hero > *{position:relative}
+      .tr-hero-ind{display:flex;gap:10px;flex-wrap:wrap}
+      @media(max-width:640px){.tr-hero-ind{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}.tr-tel-yoq{display:none}}
+      .tr-shisha{display:flex;flex-direction:column;gap:2px;min-width:118px;padding:10px 14px;border-radius:14px;background:${R.card}cc;border:1px solid ${R.line};backdrop-filter:blur(6px)}
+      .tr-lenta-oyna{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+      .tr-lenta{display:flex;gap:10px;width:max-content;animation:trLenta 70s linear infinite}
+      .tr-lenta.teskari{animation-direction:reverse;animation-duration:85s}
+      .tr-lenta-oyna:hover .tr-lenta{animation-play-state:paused}
+      .tr-lchip{display:inline-flex;align-items:center;gap:9px;padding:7px 12px 7px 8px;border-radius:999px;background:${R.card}e6;border:1px solid ${R.line};color:${R.text};font-size:13.5px;white-space:nowrap;transition:border-color .2s,transform .2s}
+      .tr-lchip:hover{border-color:${R.up};transform:translateY(-2px)}
+      .tr-makro{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:14px;background:linear-gradient(160deg, ${R.card}, ${R.bg2});border:1px solid ${R.line}}
+      @media (prefers-reduced-motion: reduce){.tr-hero,.tr-lenta{animation:none}.tr-lenta-oyna{overflow-x:auto}}
       .tr-kat{display:flex;align-items:center;gap:10px;min-height:40px;padding:0 12px;border-radius:11px;border:1px solid transparent;color:${R.text};font:inherit;font-size:14px;cursor:pointer} .tr-tab{min-height:44px;padding:0 14px;background:transparent;border:0;font:inherit;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:-1px;white-space:nowrap}
       .tr-qator{display:flex;align-items:center;gap:12px;padding:9px 4px;border-bottom:1px solid ${R.line};font-size:14px;color:${R.text};text-decoration:none}
       .tr-qator:hover{background:${R.hover}}
@@ -668,10 +791,10 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
       </nav>
       <main style={{ flex: "999 1 560px", minWidth: 0, boxSizing: "border-box", padding: "18px 20px 48px", display: "flex", flexDirection: "column", gap: 16 }}>
         {y.sahifa === "bozor" && <>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8 }}>
-            <h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, "bozor")}</h1>
-            <span style={{ fontSize: 13, color: R.faint }}>{tr(L, "kech")}</span></div>
-          <Bozor L={L} /></>}
+          <Bozor L={L} />
+          <span style={{ fontSize: 12, color: R.faint }}>{tr(L, "kech")}</span></>}
+        {y.sahifa === "kalendar" && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, "kalendar")}</h1>
+          <KalendarQism L={L} toliq /></>}
         {(y.sahifa === "portfel" || y.sahifa === "kuzatuv" || y.sahifa === "savdo") && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, y.sahifa)}</h1>
           <IlovaBolim L={L} tab={y.sahifa} /></>}
         {y.sahifa === "kompaniya" && <Darvoza L={L} kirish={kirish} ulashOch={ulashOch}><Kompaniya key={y.sym} L={L} sym={y.sym} tab0={y.tab} /></Darvoza>}
