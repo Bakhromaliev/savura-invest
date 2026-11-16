@@ -331,8 +331,8 @@ Ma'lumot (SEC, yillik, $): ${y}. Ko'rsatkichlar: P/E ${d.pe}, P/S ${d.ps}, EV/EB
 Faqat JSON qaytar: {"kuchli":["...","...","..."],"risk":["...","...","..."],"xulosa":"2 jumla"}. Shariat hukmi berma, sotib ol/sot deb tavsiya berma, faqat berilgan raqamlarga tayan.`;
     const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST",
       headers: { "Content-Type": "application/json", "x-api-key": KEY, "anthropic-version": "2023-06-01" },
-      body: JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: 700, messages: [{ role: "user", content: prompt }] }) });
-    if (!r.ok) throw new Error("ai " + r.status);
+      body: JSON.stringify({ model: "claude-haiku-5-5", max_tokens: 700, messages: [{ role: "user", content: prompt }] }) });
+    if (!r.ok) { const m = await r.text().catch(() => ""); console.error("AI xato", r.status, m.slice(0, 200)); throw new Error("ai " + r.status); }
     const j = await r.json(); const t = (j.content || []).map(x => x.text || "").join("");
     const a = t.indexOf("{"), b = t.lastIndexOf("}");
     const o = JSON.parse(t.slice(a, b + 1));

@@ -112,7 +112,7 @@ Rules: % values as numbers (33.23 not 0.3323). isDefensiveSector true ONLY for H
     const ar = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-api-key': AIKEY, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 250, messages: [{ role: 'user', content: prompt }] })
+      body: JSON.stringify({ model: 'claude-haiku-5-5', max_tokens: 250, messages: [{ role: 'user', content: prompt }] })
     });
     if (ar.ok) {
       const ad = await ar.json();
