@@ -1,8 +1,5 @@
 {
   "functions": {
-    "api/stock.js": {
-      "maxDuration": 60
-    },
     "api/terminal.js": {
       "maxDuration": 60
     }
