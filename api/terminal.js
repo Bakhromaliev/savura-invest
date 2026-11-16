@@ -329,13 +329,21 @@ async function ai(sym, lang) {
     const prompt = `Sen Savura Invest tahlilchisisan. ${sym} (${c.sec?.nom || c.kompaniya?.nom || ""}) kompaniyasi uchun ${TIL[lang] || TIL.uz} tilida qisqa tahlil yoz.
 Ma'lumot (SEC, yillik, $): ${y}. Ko'rsatkichlar: P/E ${d.pe}, P/S ${d.ps}, EV/EBITDA ${d.ev_ebitda}, ROE ${d.roe}, yalpi marja ${d.yalpi}, qarz/kapital ${d.de}. Sektor medianasi: P/E ${c.sektor?.pe}, P/S ${c.sektor?.ps}.
 Faqat JSON qaytar: {"kuchli":["...","...","..."],"risk":["...","...","..."],"xulosa":"2 jumla"}. Shariat hukmi berma, sotib ol/sot deb tavsiya berma, faqat berilgan raqamlarga tayan.`;
+    // Javob "{" bilan boshlanadi (prefill) - shuning uchun doim JSON keladi
     const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST",
       headers: { "Content-Type": "application/json", "x-api-key": KEY, "anthropic-version": "2023-06-01" },
-      body: JSON.stringify({ model: "claude-haiku-5-5", max_tokens: 700, messages: [{ role: "user", content: prompt }] }) });
-    if (!r.ok) { const m = await r.text().catch(() => ""); console.error("AI xato", r.status, m.slice(0, 200)); throw new Error("ai " + r.status); }
-    const j = await r.json(); const t = (j.content || []).map(x => x.text || "").join("");
+      body: JSON.stringify({ model: "claude-haiku-5-5", max_tokens: 1200,
+        messages: [{ role: "user", content: prompt }, { role: "assistant", content: "{" }] }) });
+    if (!r.ok) {
+      const m = await r.text().catch(() => "");
+      let msg = ""; try { msg = JSON.parse(m).error?.message || ""; } catch (e) {}
+      console.error("AI xato", r.status, m.slice(0, 300));
+      throw new Error(`AI ${r.status}${msg ? ": " + msg.slice(0, 120) : ""}`);
+    }
+    const j = await r.json(); const t = "{" + (j.content || []).map(x => x.text || "").join("");
     const a = t.indexOf("{"), b = t.lastIndexOf("}");
-    const o = JSON.parse(t.slice(a, b + 1));
+    let o;
+    try { o = JSON.parse(t.slice(a, b + 1)); } catch (e) { console.error("AI JSON", t.slice(0, 300)); throw new Error("AI javobi o'qilmadi"); }
     return { kuchli: (o.kuchli || []).slice(0, 4), risk: (o.risk || []).slice(0, 4), xulosa: o.xulosa || "", sana: kun };
   });
 }
@@ -376,7 +384,8 @@ export default async function handler(req, res) {
       if (cheklov(req, 6)) return res.status(429).json({ xato: "kop" });
       const lang = ["uz", "ru", "en", "tr", "ar"].includes(req.query.lang) ? req.query.lang : "uz";
       res.setHeader("Cache-Control", "private, max-age=3600");
-      return res.status(200).json(await ai(sym, lang));
+      try { return res.status(200).json(await ai(sym, lang)); }
+      catch (e) { return res.status(200).json({ xato: "ai", sabab: String(e && e.message || e).slice(0, 200) }); }
     }
     return res.status(400).json({ xato: "a = market | kalendar | list | company | ai" });
   } catch (e) {

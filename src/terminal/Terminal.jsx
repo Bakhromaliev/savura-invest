@@ -514,7 +514,8 @@ function AiXulosa({ L, sym }) {
     <button className="tr-btn" onClick={() => setUrl(`/api/terminal?a=ai&sym=${encodeURIComponent(sym)}&lang=${L}`)}>{tr(L, "aiTugma")}</button>
     <span style={{ fontSize: 12, color: R.faint }}>{tr(L, "aiIzoh")}</span></section>;
   if (yuk) return <Yuk L={L} />;
-  if (xato || !d || d.xato) return <Xato L={L} qayta={qayta} />;
+  if (xato || !d || d.xato) return <Xato L={L} qayta={() => { delete KESH[url]; qayta(); }}
+    matn={d && d.xato ? tr(L, "xato") + " (" + (d.xato === "kalit yo'q" ? "AI kaliti sozlanmagan" : d.sabab || d.xato) + ")" : xato ? tr(L, "xato") + " (" + xato + ")" : null} />;
   return <div style={{ display: "flex", flexWrap: "wrap", gap: 18 }}>
     {[["kuchli", d.kuchli, R.green], ["risk", d.risk, R.amber]].map(([kk, arr, c]) =>
       <section key={kk} style={{ ...card, flex: "1 1 360px", minWidth: 0, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -666,6 +667,93 @@ function IlovaBolim({ L, tab }) {
   </div>;
 }
 
+// ── Savura AI chat (bot bilan bir xil suhbat; Supabase ai_navbat orqali bot javob beradi) ──
+const CH = {
+  uz: { sar: "Savura AI", ph: "Savolingizni yozing…", qoldi: "Bugun {n} ta savol qoldi", salom: "Assalomu alaykum! Men Savura AI. Aksiya, grafik, portfelingiz yoki savdo rejangiz haqida so'rang. Grafik rasmini ham yuborishingiz mumkin. Suhbat bot bilan bir xil saqlanadi.", ulash: "Chat bot hisobingiz bilan ishlaydi: limitlar, portfel va suhbat tarixi bitta. Avval botni ulang.", ulashT: "Botni ulash", kirish: "Chatdan foydalanish uchun saytga kiring.", xato: "Javob olinmadi. Birozdan keyin urinib ko'ring.", limit: "Bugungi limit tugadi. Start va Pro tariflarida ko'proq savol.", yangi: "Yangi suhbat", rasm: "Rasm biriktirildi", yub: "Yuborish", tak: ["AAPL hozir qanday?", "Portfelimda qaysi pozitsiya xavfli?", "MSFT va GOOGL ni solishtir", "Bugun bozor qanday?"] },
+  ru: { sar: "Savura AI", ph: "Напишите вопрос…", qoldi: "Сегодня осталось {n} вопросов", salom: "Здравствуйте! Я Savura AI. Спрашивайте об акциях, графиках, портфеле или плане сделки. Можно прислать изображение графика. История общая с ботом.", ulash: "Чат работает с аккаунтом бота: лимиты, портфель и история общие. Сначала подключите бота.", ulashT: "Подключить бота", kirish: "Войдите на сайт, чтобы пользоваться чатом.", xato: "Не удалось получить ответ. Попробуйте позже.", limit: "Лимит на сегодня исчерпан. В Start и Pro — больше вопросов.", yangi: "Новый диалог", rasm: "Изображение прикреплено", yub: "Отправить", tak: ["Как сейчас AAPL?", "Какая позиция рискованная?", "Сравни MSFT и GOOGL", "Как рынок сегодня?"] },
+  en: { sar: "Savura AI", ph: "Type your question…", qoldi: "{n} questions left today", salom: "Hi! I'm Savura AI. Ask about stocks, charts, your portfolio or a trade plan. You can attach a chart image. The chat is shared with the bot.", ulash: "The chat uses your bot account: limits, portfolio and history are shared. Connect the bot first.", ulashT: "Connect the bot", kirish: "Log in to use the chat.", xato: "No answer. Please try again shortly.", limit: "Today's limit is used. Start and Pro give more questions.", yangi: "New chat", rasm: "Image attached", yub: "Send", tak: ["How is AAPL now?", "Which of my positions is risky?", "Compare MSFT and GOOGL", "How is the market today?"] },
+  tr: { sar: "Savura AI", ph: "Sorunuzu yazın…", qoldi: "Bugün {n} soru kaldı", salom: "Merhaba! Ben Savura AI. Hisseler, grafikler, portföyünüz veya işlem planınız hakkında sorun. Grafik görseli ekleyebilirsiniz. Sohbet botla ortaktır.", ulash: "Sohbet bot hesabınızla çalışır: limitler, portföy ve geçmiş ortaktır. Önce botu bağlayın.", ulashT: "Botu bağla", kirish: "Sohbeti kullanmak için giriş yapın.", xato: "Yanıt alınamadı. Biraz sonra deneyin.", limit: "Bugünkü limit doldu. Start ve Pro'da daha fazla soru.", yangi: "Yeni sohbet", rasm: "Görsel eklendi", yub: "Gönder", tak: ["AAPL şu an nasıl?", "Hangi pozisyonum riskli?", "MSFT ile GOOGL'u karşılaştır", "Bugün piyasa nasıl?"] },
+  ar: { sar: "Savura AI", ph: "اكتب سؤالك…", qoldi: "تبقى {n} أسئلة اليوم", salom: "مرحباً! أنا Savura AI. اسأل عن الأسهم أو الرسوم البيانية أو محفظتك أو خطة التداول. يمكنك إرفاق صورة رسم بياني. المحادثة مشتركة مع البوت.", ulash: "تعمل المحادثة بحساب البوت: الحدود والمحفظة والسجل مشتركة. اربط البوت أولاً.", ulashT: "ربط البوت", kirish: "سجّل الدخول لاستخدام المحادثة.", xato: "لم يصل رد. حاول بعد قليل.", limit: "انتهى حد اليوم. المزيد في Start و Pro.", yangi: "محادثة جديدة", rasm: "تم إرفاق صورة", yub: "إرسال", tak: ["كيف حال AAPL الآن؟", "أي صفقة في محفظتي خطرة؟", "قارن MSFT و GOOGL", "كيف السوق اليوم؟"] } };
+const cht = (L, k, o) => { let x = (CH[L] || CH.uz)[k]; if (o) for (const q in o) x = String(x).replace("{" + q + "}", o[q]); return x; };
+function chatHtml(m) { const d = document.createElement("div"); d.textContent = m || ""; return d.innerHTML.replace(/&lt;(\/?)(b|i|code)&gt;/g, "<$1$2>"); }
+async function chatSorov(sb, turi, matn, rasm) {
+  const { data, error } = await sb.from("ai_navbat").insert({ turi, matn: matn || null, rasm: rasm || null }).select("id").single();
+  if (error) return { ok: false, xato: error.message };
+  for (let i = 0; i < 90; i++) {
+    await new Promise(f => setTimeout(f, i < 10 ? 700 : 1500));
+    const { data: n } = await sb.from("ai_navbat").select("holat,javob").eq("id", data.id).single();
+    if (n && (n.holat === "bajarildi" || n.holat === "xato")) return n.javob || { ok: false };
+  }
+  return { ok: false, xato: "vaqt" };
+}
+function SaytChat({ L, sb, kirish, ulashOch }) {
+  const [xab, setXab] = useState(null);
+  const [matn, setMatn] = useState("");
+  const [rasm, setRasm] = useState(null);
+  const [band, setBand] = useState(false);
+  const [qoldi, setQoldi] = useState(null);
+  const pastRef = React.useRef(null);
+  const ulangan = !!(sb && kirish && kirish.bot);
+  useEffect(() => {
+    if (!ulangan) return;
+    let t = true;
+    chatSorov(sb, "tarix").then(r => { if (!t) return; if (r && r.ok) { setXab((r.tarix || []).map(x => ({ rol: x.rol, matn: x.matn }))); setQoldi(r.qoldi); } else setXab([]); });
+    return () => { t = false; };
+  }, [ulangan]);
+  useEffect(() => { pastRef.current?.scrollIntoView({ block: "end" }); }, [xab, band]);
+  const card2 = { ...card, padding: 22, display: "flex", flexDirection: "column", gap: 12, maxWidth: 760, alignItems: "flex-start" };
+  if (!sb) return <div style={card2}><span style={{ color: R.dim }}>{cht(L, "kirish")}</span>
+    <a href="/?p=auth&keyin=/terminal/chat" onClick={() => { try { sessionStorage.setItem("savura_keyin", "/terminal/chat"); } catch (e) {} }} className="tr-btn">{tr(L, "kirish")}</a></div>;
+  if (!ulangan) return <div style={card2}><span style={{ color: R.dim, lineHeight: 1.6 }}>{cht(L, "ulash")}</span>
+    {ulashOch && <button className="tr-btn" onClick={ulashOch}>{cht(L, "ulashT")}</button>}</div>;
+  const yubor = async (q) => {
+    const m = (q != null ? q : matn).trim(); if ((!m && !rasm) || band) return;
+    const r0 = rasm; setRasm(null); setMatn(""); setBand(true);
+    setXab(x => [...(x || []), { rol: "user", matn: m, rasm: r0 }]);
+    const r = await chatSorov(sb, "savol", m, r0);
+    setBand(false);
+    setXab(x => [...(x || []), { rol: "assistant", matn: r && r.ok ? r.matn : (r && (r.xato === "ai_limit" || r.xato === "limit") ? cht(L, "limit") : cht(L, "xato")) }]);
+    if (r && r.qoldi != null) setQoldi(r.qoldi);
+  };
+  const rasmOl = f => { if (!f) return; const img = new Image(), u = URL.createObjectURL(f);
+    img.onload = () => { const k = Math.min(1, 1600 / Math.max(img.width, img.height)), c = document.createElement("canvas");
+      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      setRasm(c.toDataURL("image/jpeg", 0.85)); URL.revokeObjectURL(u); }; img.src = u; };
+  const tozala = async () => { setXab([]); await chatSorov(sb, "tozala"); };
+  const bosh = xab && xab.length === 0;
+  return <section aria-label="Savura AI" style={{ ...card, padding: 0, maxWidth: 860, width: "100%", display: "flex", flexDirection: "column", height: "calc(100vh - 210px)", minHeight: 520, overflow: "hidden" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 18px", borderBottom: `1px solid ${R.line}` }}>
+      <span aria-hidden="true" style={{ width: 38, height: 38, borderRadius: 12, background: "linear-gradient(135deg,#178A56,#2BC27D 55%,#E2B65C)", display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.8 4.6L18.5 9.4l-4.7 1.8L12 16l-1.8-4.8L5.5 9.4l4.7-1.8z" /><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" /></svg></span>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}><b style={{ fontFamily: "Sora, sans-serif", fontSize: 17 }}>{cht(L, "sar")}</b>
+        <span style={{ fontSize: 12.5, color: R.faint }}>{qoldi != null ? cht(L, "qoldi", { n: qoldi }) : ""}</span></div>
+      <button className="tr-btn2" onClick={tozala} disabled={band}>{cht(L, "yangi")}</button>
+    </div>
+    <div aria-live="polite" style={{ flex: 1, overflowY: "auto", padding: "16px 18px", display: "flex", flexDirection: "column", gap: 10 }}>
+      {xab === null && <Yuk L={L} />}
+      {bosh && <div style={{ alignSelf: "flex-start", maxWidth: "86%", padding: "11px 14px", borderRadius: 16, background: R.bg2, border: `1px solid ${R.line}`, lineHeight: 1.55 }}>{cht(L, "salom")}</div>}
+      {(xab || []).map((m, i) => <div key={i} style={{ alignSelf: m.rol === "user" ? "flex-end" : "flex-start", maxWidth: "86%", padding: "11px 14px", borderRadius: 16, lineHeight: 1.55, whiteSpace: "pre-wrap", overflowWrap: "anywhere",
+        background: m.rol === "user" ? R.blue : R.bg2, color: m.rol === "user" ? "#fff" : R.text, border: m.rol === "user" ? 0 : `1px solid ${R.line}` }}>
+        {m.rasm && <img src={m.rasm} alt="" style={{ maxWidth: 260, borderRadius: 10, display: "block", marginBottom: 6 }} />}
+        <span dangerouslySetInnerHTML={{ __html: chatHtml(m.matn) }} /></div>)}
+      {band && <div style={{ alignSelf: "flex-start", padding: "11px 14px", borderRadius: 16, background: R.bg2, border: `1px solid ${R.line}`, color: R.faint }}>…</div>}
+      <div ref={pastRef} />
+    </div>
+    {bosh && <div style={{ display: "flex", gap: 8, overflowX: "auto", padding: "0 18px 10px" }}>
+      {cht(L, "tak").map(q => <button key={q} className="tr-btn2" style={{ flex: "none" }} onClick={() => yubor(q)}>{q}</button>)}</div>}
+    {rasm && <span style={{ padding: "0 18px 6px", fontSize: 12.5, color: R.faint }}>📎 {cht(L, "rasm")}</span>}
+    <form onSubmit={e => { e.preventDefault(); yubor(); }} style={{ display: "flex", gap: 8, alignItems: "flex-end", padding: "10px 14px", borderTop: `1px solid ${R.line}` }}>
+      <label className="tr-btn2" aria-label={cht(L, "rasm")} style={{ cursor: "pointer", flex: "none" }}>
+        <input type="file" accept="image/*" style={{ display: "none" }} onChange={e => rasmOl(e.target.files && e.target.files[0])} />
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><circle cx="9" cy="10" r="1.6" /><path d="M21 16l-5-5-8 8" /></svg></label>
+      <textarea value={matn} onChange={e => setMatn(e.target.value)} rows={1} placeholder={cht(L, "ph")} aria-label={cht(L, "ph")}
+        onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); yubor(); } }}
+        style={{ flex: 1, minWidth: 0, resize: "none", minHeight: 44, maxHeight: 140, borderRadius: 12, border: `1px solid ${R.line2}`, background: R.bg2, color: R.text, fontFamily: "inherit", fontSize: 15, padding: "11px 12px", boxSizing: "border-box" }} />
+      <button type="submit" className="tr-btn" disabled={band || (!matn.trim() && !rasm)} style={{ flex: "none" }}>{cht(L, "yub")}</button>
+    </form>
+  </section>;
+}
+
 // ── Terminal qobig'i ──────────────────────────────────────────────────────
 function tahlilYol(p) {
   const q = p.replace(/^\/terminal/i, "").split("/").filter(Boolean);
@@ -685,7 +773,7 @@ function buyruq(s) {
   return "/terminal/" + p[0].replace(/[^A-Z.\-]/g, "") + (p[1] && BUYRUQ[p[1]] ? "/" + p[1] : "");
 }
 
-export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash = null }) {
+export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash = null, sb = null }) {
   TOKEN = token || "";
   const [tema, setTema] = useState(temaOl);
   Object.assign(R, tema === "light" ? KUN : TUN);
@@ -801,7 +889,8 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
           <span style={{ fontSize: 12, color: R.faint }}>{tr(L, "kech")}</span></>}
         {y.sahifa === "kalendar" && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, "kalendar")}</h1>
           <KalendarQism L={L} toliq /></>}
-        {(y.sahifa === "portfel" || y.sahifa === "kuzatuv" || y.sahifa === "savdo" || y.sahifa === "chat") && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, y.sahifa)}</h1>
+        {y.sahifa === "chat" && <SaytChat L={L} sb={sb} kirish={kirish} ulashOch={ulash ? ulashOch : null} />}
+        {(y.sahifa === "portfel" || y.sahifa === "kuzatuv" || y.sahifa === "savdo") && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, y.sahifa)}</h1>
           <IlovaBolim L={L} tab={y.sahifa} /></>}
         {y.sahifa === "kompaniya" && <Darvoza L={L} kirish={kirish} ulashOch={ulashOch}><Kompaniya key={y.sym} L={L} sym={y.sym} tab0={y.tab} /></Darvoza>}
         {y.sahifa === "skaner" && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, "skaner")}</h1>

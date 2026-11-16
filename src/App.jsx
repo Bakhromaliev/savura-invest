@@ -6497,7 +6497,7 @@ function TerminalRoute(){
   },[]);
   return(
     <React.Suspense fallback={<div style={{minHeight:"100vh",background:"#06140F"}}/>}>
-      <Terminal kirish={rx||{holat:"yuk"}} token={auth.session?.access_token||""} ulash={auth.user&&sb?ulash:null}/>
+      <Terminal kirish={rx||{holat:"yuk"}} token={auth.session?.access_token||""} ulash={auth.user&&sb?ulash:null} sb={auth.user?sb:null}/>
     </React.Suspense>
   );
 }
