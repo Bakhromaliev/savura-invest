@@ -3,6 +3,7 @@ export const TILLAR = [["uz", "O'z"], ["ru", "Ру"], ["en", "En"], ["tr", "Tr"]
 
 export const T = {
   uz: {
+    ulash: "Botni ulash", ulashSar: "Botni saytga ulash", ulashMat: "Botda /sayt buyrug'ini yuboring va kelgan 6 xonali kodni kiriting. Botdagi tarifingiz saytda ham amal qiladi.", ulashTugma: "Ulash", ulashOk: "Bot ulandi", kodXato: "Kod noto'g'ri yoki muddati o'tgan. Botda /sayt ni qayta yuboring.", kop: "Juda ko'p urinish. Bir soatdan keyin qayta urinib ko'ring.", yopish: "Yopish", botgaOt: "Botni ochish", portfel: "Demo portfel", kuzatuv: "Kuzatuv", savdo: "Demo savdo", ilovaIzoh: "Bu bo'lim Savura AI bot hisobingiz bilan ishlaydi. Birinchi marta botdan /kirish kodini olib kiriting.", botBor: "Bot: {t}", kod: "Kod",
     nomi: "Kompaniya", bosh: "Bosh sahifa", bozor: "Bozor", skaner: "Skaner", solish: "Solishtirish",
     qidir: "Ticker yoki buyruq: AAPL, AAPL FA, SKANER", kech: "Narxlar ~15 daqiqa kechikadi",
     xarita: "Bozor xaritasi: yirik kompaniyalar", xaritaIzoh: "Kvadrat hajmi bozor qiymatiga mos, rangi kunlik o'zgarish",
@@ -29,6 +30,7 @@ export const T = {
     yangilandi: "Yangilangan", kunlik: "Kunlik", narx: "Narx", ozg: "O'zgarish",
   },
   ru: {
+    ulash: "Подключить бота", ulashSar: "Подключение бота к сайту", ulashMat: "Отправьте боту команду /sayt и введите полученный 6-значный код. Тариф бота будет действовать и на сайте.", ulashTugma: "Подключить", ulashOk: "Бот подключён", kodXato: "Код неверный или истёк. Отправьте /sayt в боте ещё раз.", kop: "Слишком много попыток. Попробуйте через час.", yopish: "Закрыть", botgaOt: "Открыть бота", portfel: "Демо-портфель", kuzatuv: "Наблюдение", savdo: "Демо-торговля", ilovaIzoh: "Этот раздел работает с вашим аккаунтом Savura AI. В первый раз войдите по коду /kirish из бота.", botBor: "Бот: {t}", kod: "Код",
     nomi: "Компания", bosh: "Главная", bozor: "Рынок", skaner: "Скринер", solish: "Сравнение",
     qidir: "Тикер или команда: AAPL, AAPL FA, SKANER", kech: "Цены с задержкой ~15 минут",
     xarita: "Карта рынка: крупные компании", xaritaIzoh: "Размер — капитализация, цвет — изменение за день",
@@ -55,6 +57,7 @@ export const T = {
     yangilandi: "Обновлено", kunlik: "За день", narx: "Цена", ozg: "Изменение",
   },
   en: {
+    ulash: "Connect the bot", ulashSar: "Connect the bot to the website", ulashMat: "Send /sayt to the bot and enter the 6-digit code it gives you. Your bot plan will work on the website too.", ulashTugma: "Connect", ulashOk: "Bot connected", kodXato: "The code is wrong or expired. Send /sayt to the bot again.", kop: "Too many attempts. Try again in an hour.", yopish: "Close", botgaOt: "Open the bot", portfel: "Demo portfolio", kuzatuv: "Watchlist", savdo: "Demo trading", ilovaIzoh: "This section uses your Savura AI bot account. The first time, log in with the /kirish code from the bot.", botBor: "Bot: {t}", kod: "Code",
     nomi: "Company", bosh: "Home", bozor: "Market", skaner: "Screener", solish: "Compare",
     qidir: "Ticker or command: AAPL, AAPL FA, SKANER", kech: "Prices delayed ~15 minutes",
     xarita: "Market map: largest companies", xaritaIzoh: "Size = market cap, colour = daily change",
@@ -81,6 +84,7 @@ export const T = {
     yangilandi: "Updated", kunlik: "Daily", narx: "Price", ozg: "Change",
   },
   tr: {
+    ulash: "Botu bağla", ulashSar: "Botu siteye bağla", ulashMat: "Bota /sayt komutunu gönderin ve gelen 6 haneli kodu girin. Bot paketiniz sitede de geçerli olur.", ulashTugma: "Bağla", ulashOk: "Bot bağlandı", kodXato: "Kod yanlış veya süresi dolmuş. Bota /sayt komutunu tekrar gönderin.", kop: "Çok fazla deneme. Bir saat sonra tekrar deneyin.", yopish: "Kapat", botgaOt: "Botu aç", portfel: "Demo portföy", kuzatuv: "İzleme listesi", savdo: "Demo işlem", ilovaIzoh: "Bu bölüm Savura AI bot hesabınızla çalışır. İlk seferde bottan /kirish kodunu alıp girin.", botBor: "Bot: {t}", kod: "Kod",
     nomi: "Şirket", bosh: "Ana sayfa", bozor: "Piyasa", skaner: "Tarayıcı", solish: "Karşılaştır",
     qidir: "Sembol veya komut: AAPL, AAPL FA, SKANER", kech: "Fiyatlar ~15 dakika gecikmeli",
     xarita: "Piyasa haritası: büyük şirketler", xaritaIzoh: "Boyut = piyasa değeri, renk = günlük değişim",
@@ -107,6 +111,7 @@ export const T = {
     yangilandi: "Güncellendi", kunlik: "Günlük", narx: "Fiyat", ozg: "Değişim",
   },
   ar: {
+    ulash: "ربط البوت", ulashSar: "ربط البوت بالموقع", ulashMat: "أرسل الأمر /sayt إلى البوت وأدخل الرمز المكوّن من 6 أرقام. ستعمل خطتك في البوت على الموقع أيضاً.", ulashTugma: "ربط", ulashOk: "تم ربط البوت", kodXato: "الرمز غير صحيح أو منتهي الصلاحية. أرسل /sayt إلى البوت مرة أخرى.", kop: "محاولات كثيرة. حاول بعد ساعة.", yopish: "إغلاق", botgaOt: "افتح البوت", portfel: "المحفظة التجريبية", kuzatuv: "قائمة المتابعة", savdo: "التداول التجريبي", ilovaIzoh: "يعمل هذا القسم بحسابك في بوت Savura AI. في المرة الأولى سجّل الدخول برمز /kirish من البوت.", botBor: "البوت: {t}", kod: "الرمز",
     nomi: "الشركة", bosh: "الرئيسية", bozor: "السوق", skaner: "الماسح", solish: "مقارنة",
     qidir: "الرمز أو الأمر: AAPL، AAPL FA، SKANER", kech: "الأسعار متأخرة نحو 15 دقيقة",
     xarita: "خريطة السوق: الشركات الكبرى", xaritaIzoh: "الحجم = القيمة السوقية، اللون = التغير اليومي",

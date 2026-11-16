@@ -14,6 +14,8 @@ const SB_KEY = process.env.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp
 const SEC_UA = process.env.SEC_UA || "SavuraInvest Terminal savurainvest.com";
 const YH = { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/124 Safari/537.36", "Accept": "application/json" };
 
+import { createHash } from "crypto";
+
 const KESH = {};
 function kesh(kalit, ttl, fn) {
   const k = KESH[kalit], now = Date.now();
@@ -191,6 +193,23 @@ async function finnhub(sym) {
   });
 }
 
+// ── Kirish huquqi: Supabase terminal_ruxsat() (foydalanuvchi tokeni bilan) ──
+async function huquq(req) {
+  const h = String(req.headers.authorization || "");
+  const tok = h.startsWith("Bearer ") ? h.slice(7).trim() : "";
+  if (!tok || tok.length > 4096) return { holat: "mehmon" };
+  const k = "rx:" + createHash("sha256").update(tok).digest("hex");
+  try {
+    return await kesh(k, 5 * MIN, async () => {
+      const r = await fetch(`${SB_URL}/rest/v1/rpc/terminal_ruxsat`, { method: "POST",
+        headers: { apikey: SB_KEY, Authorization: "Bearer " + tok, "Content-Type": "application/json" }, body: "{}" });
+      if (!r.ok) return { holat: "mehmon" };
+      return await r.json();
+    });
+  } catch (e) { return { holat: "mehmon" }; }
+}
+const OCHIQ = h => h && (h.holat === "ok" || h.holat === "sinov");
+
 // ── Amallar ───────────────────────────────────────────────────────────────
 const INDEKS = [["^GSPC", "S&P 500"], ["^NDX", "Nasdaq 100"], ["^DJI", "Dow Jones"], ["^VIX", "VIX"], ["GC=F", "Oltin"], ["^TNX", "10Y obligatsiya"]];
 
@@ -249,18 +268,23 @@ export default async function handler(req, res) {
   const sym = String(req.query.sym || "").trim().toUpperCase().replace(/[^A-Z.\-]/g, "").slice(0, 10);
   try {
     if (a === "market") { res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=600"); return res.status(200).json(await market()); }
-    if (a === "list") { res.setHeader("Cache-Control", "s-maxage=1800, stale-while-revalidate=3600"); return res.status(200).json({ royxat: await royxat() }); }
+    if (a === "list" || a === "company" || a === "ai") {
+      const h = await huquq(req);
+      if (!OCHIQ(h)) return res.status(h.holat === "tugadi" ? 403 : 401).json({ xato: "ruxsat", holat: h.holat });
+      res.setHeader("Vary", "Authorization");
+    }
+    if (a === "list") { res.setHeader("Cache-Control", "private, max-age=600"); return res.status(200).json({ royxat: await royxat() }); }
     if (a === "company") {
       if (!sym) return res.status(400).json({ xato: "sym kerak" });
       if (cheklov(req, 30)) return res.status(429).json({ xato: "kop" });
-      res.setHeader("Cache-Control", "s-maxage=900, stale-while-revalidate=3600");
+      res.setHeader("Cache-Control", "private, max-age=300");
       return res.status(200).json(await company(sym));
     }
     if (a === "ai") {
       if (!sym) return res.status(400).json({ xato: "sym kerak" });
       if (cheklov(req, 6)) return res.status(429).json({ xato: "kop" });
       const lang = ["uz", "ru", "en", "tr", "ar"].includes(req.query.lang) ? req.query.lang : "uz";
-      res.setHeader("Cache-Control", "s-maxage=21600, stale-while-revalidate=86400");
+      res.setHeader("Cache-Control", "private, max-age=3600");
       return res.status(200).json(await ai(sym, lang));
     }
     return res.status(400).json({ xato: "a = market | list | company | ai" });

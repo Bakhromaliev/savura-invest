@@ -23,6 +23,11 @@ function yol() { try { return decodeURIComponent(window.location.pathname.replac
 function ot(url) { try { window.history.pushState({}, "", url); window.dispatchEvent(new Event("popstate")); window.scrollTo({ top: 0 }); } catch (e) { window.location.href = url; } }
 
 const KESH = {};
+let TOKEN = "";
+function olish(url) {
+  return fetch(url, { headers: TOKEN ? { Authorization: "Bearer " + TOKEN } : {} })
+    .then(r => r.json().then(j => ({ ok: r.ok, status: r.status, j })));
+}
 function useApi(url) {
   const [s, setS] = useState({ yuk: !!url, d: url ? KESH[url] : null, xato: null });
   const [k, setK] = useState(0);
@@ -31,7 +36,7 @@ function useApi(url) {
     let tirik = true;
     if (KESH[url] && k === 0) { setS({ yuk: false, d: KESH[url], xato: null }); return; }
     setS(p => ({ ...p, yuk: true, xato: null }));
-    fetch(url).then(r => r.json().then(j => ({ ok: r.ok, j }))).then(({ ok, j }) => {
+    olish(url).then(({ ok, j }) => {
       if (!tirik) return;
       if (!ok) throw new Error(j && j.xato || "xato");
       KESH[url] = j; setS({ yuk: false, d: j, xato: null });
@@ -61,8 +66,9 @@ function HolatBelgi({ L, holat, kichik }) {
 }
 
 // ── Kirish holati (3 kunlik sinov) ────────────────────────────────────────
-function Darvoza({ L, kirish, children }) {
+function Darvoza({ L, kirish, children, ulashOch }) {
   if (kirish.holat === "ok" || kirish.holat === "sinov") return children;
+  if (kirish.holat === "yuk") return <Yuk L={L} />;
   const tugadi = kirish.holat === "tugadi";
   return <div style={{ ...card, maxWidth: 520, margin: "40px auto", textAlign: "center", display: "flex", flexDirection: "column", gap: 12, alignItems: "center", padding: 32 }}>
     <h2 style={{ ...h2, fontSize: 22 }}>{tr(L, tugadi ? "tugadi" : "kirishKerak")}</h2>
@@ -70,6 +76,7 @@ function Darvoza({ L, kirish, children }) {
     <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center", marginTop: 6 }}>
       {!tugadi && <a href="/?p=auth&keyin=/terminal" onClick={() => { try { sessionStorage.setItem("savura_keyin", window.location.pathname); } catch (e) {} }} className="tr-btn">{tr(L, "kirish")}</a>}
       <a href="https://t.me/savurabot?start=tarif" target="_blank" rel="noopener" className={tugadi ? "tr-btn" : "tr-btn2"}>{tr(L, "botTarif")}</a>
+      {tugadi && ulashOch && <button className="tr-btn2" onClick={ulashOch}>{tr(L, "ulash")}</button>}
     </div>
   </div>;
 }
@@ -400,7 +407,7 @@ const RANGLAR = ["#4aa3ff", "#52d869", "#f0a92b", "#c58bff"];
 function useKompaniyalar(syms) {
   const [m, setM] = useState({});
   useEffect(() => { syms.forEach(s => { if (m[s] || KESH["c:" + s]) { if (!m[s]) setM(p => ({ ...p, [s]: KESH["c:" + s] })); return; }
-    fetch("/api/terminal?a=company&sym=" + s).then(r => r.json()).then(j => { KESH["c:" + s] = j; setM(p => ({ ...p, [s]: j })); }).catch(() => setM(p => ({ ...p, [s]: { xato: 1 } }))); }); }, [syms.join(",")]);
+    olish("/api/terminal?a=company&sym=" + s).then(({ j }) => { KESH["c:" + s] = j; setM(p => ({ ...p, [s]: j })); }).catch(() => setM(p => ({ ...p, [s]: { xato: 1 } }))); }); }, [syms.join(",")]);
   return m;
 }
 function Solishtirish({ L, boshlang }) {
@@ -447,12 +454,52 @@ function Solishtirish({ L, boshlang }) {
   </div>;
 }
 
+// ── Botni ulash oynasi ────────────────────────────────────────────────────
+function UlashOyna({ L, ulash, yop }) {
+  const [kod, setKod] = useState(""), [band, setBand] = useState(false), [xabar, setXabar] = useState(null);
+  const inp = useRef(null);
+  useEffect(() => { inp.current?.focus(); const f = e => { if (e.key === "Escape") yop(); }; window.addEventListener("keydown", f); return () => window.removeEventListener("keydown", f); }, []);
+  const yubor = async e => { e.preventDefault(); if (kod.length !== 6 || band) return; setBand(true); setXabar(null);
+    try { const r = await ulash(kod); if (r && r.ok) { setXabar({ ok: true, m: tr(L, "ulashOk") + (r.tarif ? " · " + String(r.tarif).toUpperCase() : "") }); setTimeout(yop, 1200); }
+      else setXabar({ ok: false, m: tr(L, r && r.xato === "kop" ? "kop" : "kodXato") }); }
+    catch (er) { setXabar({ ok: false, m: tr(L, "xato") }); }
+    setBand(false); };
+  return <div role="dialog" aria-modal="true" aria-labelledby="ulash-sar" onClick={e => { if (e.target === e.currentTarget) yop(); }}
+    style={{ position: "fixed", inset: 0, background: "#020510cc", zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+    <form onSubmit={yubor} style={{ ...card, width: "100%", maxWidth: 420, display: "flex", flexDirection: "column", gap: 14, padding: 24 }}>
+      <h2 id="ulash-sar" style={{ ...h2, fontSize: 20 }}>{tr(L, "ulashSar")}</h2>
+      <p style={{ margin: 0, color: R.dim, lineHeight: 1.6, fontSize: 14 }}>{tr(L, "ulashMat")}</p>
+      <label style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: R.faint }}>{tr(L, "kod")}
+        <input ref={inp} value={kod} onChange={e => setKod(e.target.value.replace(/\D/g, "").slice(0, 6))} inputMode="numeric" autoComplete="one-time-code"
+          className="tr-input" dir="ltr" style={{ height: 52, fontSize: 24, letterSpacing: "0.4em", textAlign: "center", fontFamily: "Sora, sans-serif", fontWeight: 700 }} /></label>
+      {xabar && <span role="status" style={{ color: xabar.ok ? R.green : R.red, fontWeight: 700, fontSize: 14 }}>{xabar.m}</span>}
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        <button type="submit" className="tr-btn" disabled={kod.length !== 6 || band} style={{ flex: 1, opacity: kod.length === 6 ? 1 : 0.6 }}>{tr(L, "ulashTugma")}</button>
+        <a href="https://t.me/savurabot?start=sayt" target="_blank" rel="noopener" className="tr-btn2">{tr(L, "botgaOt")}</a>
+        <button type="button" className="tr-btn2" onClick={yop}>{tr(L, "yopish")}</button>
+      </div>
+    </form>
+  </div>;
+}
+
+// ── Botdagi hisob: portfel, kuzatuv, demo savdo (app.savurainvest.com oynasi) ──
+const ILOVA = "https://app.savurainvest.com/";
+function IlovaBolim({ L, tab }) {
+  return <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+    <span style={{ fontSize: 13, color: R.faint }}>{tr(L, "ilovaIzoh")}</span>
+    <iframe key={tab} title={tr(L, tab)} src={ILOVA + "?tab=" + tab + "&lg=" + L}
+      style={{ width: "100%", maxWidth: 520, height: "calc(100vh - 190px)", minHeight: 640, border: `1px solid ${R.line}`, borderRadius: 20, background: R.card, alignSelf: "center" }}
+      allow="clipboard-write" />
+  </div>;
+}
+
 // ── Terminal qobig'i ──────────────────────────────────────────────────────
 function tahlilYol(p) {
   const q = p.replace(/^\/terminal/i, "").split("/").filter(Boolean);
   if (!q.length) return { sahifa: "bozor" };
   const a = q[0].toLowerCase();
   if (a === "skaner") return { sahifa: "skaner" };
+  if (a === "portfel" || a === "kuzatuv" || a === "savdo") return { sahifa: a };
   if (a === "solishtir" || a === "solishtirish") return { sahifa: "solish", syms: (q[1] || "").toUpperCase().split(",").filter(Boolean) };
   return { sahifa: "kompaniya", sym: q[0].toUpperCase().replace(/[^A-Z.\-]/g, ""), tab: BUYRUQ[(q[1] || "").toUpperCase()] };
 }
@@ -464,7 +511,10 @@ function buyruq(s) {
   return "/terminal/" + p[0].replace(/[^A-Z.\-]/g, "") + (p[1] && BUYRUQ[p[1]] ? "/" + p[1] : "");
 }
 
-export default function Terminal({ kirish = { holat: "ok" } }) {
+export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash = null }) {
+  TOKEN = token || "";
+  const [ulashOchiq, setUlashOchiq] = useState(() => { try { return new URLSearchParams(window.location.search).get("ulash") === "1"; } catch (e) { return false; } });
+  const ulashOch = ulash ? () => setUlashOchiq(true) : null;
   const [p, setP] = useState(yol());
   const [L, setL] = useState(() => { try { return localStorage.getItem("savura_til") || "uz"; } catch (e) { return "uz"; } });
   const [q, setQ] = useState("");
@@ -476,6 +526,7 @@ export default function Terminal({ kirish = { holat: "ok" } }) {
   const y = tahlilYol(p);
   useEffect(() => { document.title = (y.sym ? y.sym + " — " : "") + "Savura Terminal"; }, [p]);
   const nav = [["bozor", "/terminal"], ["skaner", "/terminal/skaner"], ["solish", "/terminal/solishtir"]];
+  const nav2 = [["portfel", "/terminal/portfel"], ["kuzatuv", "/terminal/kuzatuv"], ["savdo", "/terminal/savdo"]];
   return <div dir={L === "ar" ? "rtl" : "ltr"} className="tr-ildiz" style={{ minHeight: "100vh", background: R.bg, color: R.text, fontFamily: "Manrope, system-ui, sans-serif", fontVariantNumeric: "tabular-nums" }}>
     <style>{`
       @import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
@@ -518,11 +569,17 @@ export default function Terminal({ kirish = { holat: "ok" } }) {
           style={{ minWidth: 38, minHeight: 32, borderRadius: 7, border: 0, fontSize: 13, fontWeight: 700, cursor: "pointer", background: L === k ? R.line2 : "transparent", color: L === k ? R.text : R.faint }}>{nm}</button>)}
       </div>
       {kirish.holat === "sinov" && <span style={{ fontSize: 12, fontWeight: 700, color: R.amber, border: "1px solid #5c4a22", borderRadius: 999, padding: "5px 10px" }}>{tr(L, "sinov", { n: kirish.qoldi })}</span>}
+      {kirish.bot && kirish.tarif && kirish.tarif !== "bepul" && <span style={{ fontSize: 12, fontWeight: 700, color: R.green, border: `1px solid ${R.greenLine}`, borderRadius: 999, padding: "5px 10px" }}>{tr(L, "botBor", { t: String(kirish.tarif).toUpperCase() })}</span>}
+      {ulash && !kirish.bot && kirish.holat !== "yuk" && <button className="tr-btn2" onClick={ulashOch}>{tr(L, "ulash")}</button>}
       {kirish.holat === "mehmon" && <a href="/?p=auth&keyin=/terminal" onClick={() => { try { sessionStorage.setItem("savura_keyin", window.location.pathname); } catch (e) {} }} className="tr-btn2">{tr(L, "kirish")}</a>}
     </header>
     <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start" }}>
       <nav aria-label="Terminal" className="tr-nav">
         {nav.map(([k, u]) => { const on = y.sahifa === k || (k === "bozor" && y.sahifa === "kompaniya" && false);
+          return <a key={k} href={u} aria-current={on ? "page" : undefined} onClick={e => { e.preventDefault(); ot(u); }}
+            style={{ padding: "10px 12px", borderRadius: 10, fontSize: 14, fontWeight: on ? 800 : 600, textDecoration: "none", background: on ? "#0f1d38" : "transparent", color: on ? R.blueLt : R.dim }}>{tr(L, k)}</a>; })}
+        <span className="tr-nav-ajr" />
+        {nav2.map(([k, u]) => { const on = y.sahifa === k;
           return <a key={k} href={u} aria-current={on ? "page" : undefined} onClick={e => { e.preventDefault(); ot(u); }}
             style={{ padding: "10px 12px", borderRadius: 10, fontSize: 14, fontWeight: on ? 800 : 600, textDecoration: "none", background: on ? "#0f1d38" : "transparent", color: on ? R.blueLt : R.dim }}>{tr(L, k)}</a>; })}
         <span className="tr-nav-ajr" />
@@ -535,12 +592,15 @@ export default function Terminal({ kirish = { holat: "ok" } }) {
             <h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, "bozor")}</h1>
             <span style={{ fontSize: 13, color: R.faint }}>{tr(L, "kech")}</span></div>
           <Bozor L={L} /></>}
-        {y.sahifa === "kompaniya" && <Darvoza L={L} kirish={kirish}><Kompaniya key={y.sym} L={L} sym={y.sym} tab0={y.tab} /></Darvoza>}
+        {(y.sahifa === "portfel" || y.sahifa === "kuzatuv" || y.sahifa === "savdo") && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, y.sahifa)}</h1>
+          <IlovaBolim L={L} tab={y.sahifa} /></>}
+        {y.sahifa === "kompaniya" && <Darvoza L={L} kirish={kirish} ulashOch={ulashOch}><Kompaniya key={y.sym} L={L} sym={y.sym} tab0={y.tab} /></Darvoza>}
         {y.sahifa === "skaner" && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, "skaner")}</h1>
-          <Darvoza L={L} kirish={kirish}><Skaner L={L} /></Darvoza></>}
+          <Darvoza L={L} kirish={kirish} ulashOch={ulashOch}><Skaner L={L} /></Darvoza></>}
         {y.sahifa === "solish" && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, "solish")}</h1>
-          <Darvoza L={L} kirish={kirish}><Solishtirish L={L} boshlang={y.syms} /></Darvoza></>}
+          <Darvoza L={L} kirish={kirish} ulashOch={ulashOch}><Solishtirish L={L} boshlang={y.syms} /></Darvoza></>}
       </main>
     </div>
+    {ulashOchiq && ulash && <UlashOyna L={L} ulash={ulash} yop={() => { setUlashOchiq(false); try { const u = new URL(window.location.href); if (u.searchParams.has("ulash")) { u.searchParams.delete("ulash"); window.history.replaceState({}, "", u.pathname + u.search); } } catch (e) {} }} />}
   </div>;
 }

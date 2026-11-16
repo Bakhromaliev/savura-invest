@@ -6475,10 +6475,24 @@ function terminalKirish(auth){
 }
 function TerminalRoute(){
   const auth=useAuth();
-  const kirish=auth.loading?{holat:"ok"}:terminalKirish(auth);
+  const [rx,setRx]=useState(null);
+  // Huquq bitta manbadan: Supabase terminal_ruxsat() (sayt ruxsati, bot tarifi, 3 kunlik sinov)
+  useEffect(()=>{
+    if(auth.loading) return;
+    if(!auth.user||!sb){ setRx({holat:"mehmon"}); return; }
+    let tirik=true;
+    sb.rpc("terminal_ruxsat").then(({data,error})=>{ if(tirik) setRx(!error&&data?data:terminalKirish(auth)); });
+    return ()=>{ tirik=false; };
+  },[auth.loading,auth.user,auth.profile]);
+  const ulash=React.useCallback(async(kod)=>{
+    const {data,error}=await sb.rpc("sayt_ulash",{p_kod:kod});
+    if(error) return {ok:false,xato:"server"};
+    if(data&&data.ok){ const {ok,...q}=data; setRx(q); }
+    return data;
+  },[]);
   return(
     <React.Suspense fallback={<div style={{minHeight:"100vh",background:"#060a14"}}/>}>
-      <Terminal kirish={auth.loading&&auth.user?{holat:"ok"}:kirish}/>
+      <Terminal kirish={rx||{holat:"yuk"}} token={auth.session?.access_token||""} ulash={auth.user&&sb?ulash:null}/>
     </React.Suspense>
   );
 }
