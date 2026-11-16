@@ -86,6 +86,8 @@ export default function Admin({ sb, ism }) {
   const [xato, setXato] = useState("");
   const [toast, setToast] = useState("");
   const [qidir, setQidir] = useState("");
+  const [tfa, setTfa] = useState(null);   // Telegram kodi bilan tasdiq holati
+  useEffect(() => { sb.rpc("admin_2fa_holat").then(({ data }) => setTfa(data && data.ok ? data : { ok: false })); }, [sb]);
 
   const yukla = useCallback(async () => {
     try {
@@ -123,8 +125,23 @@ export default function Admin({ sb, ism }) {
     return null;
   }, [sb, yukla]);
 
+  // Bot admin API (kodlar, sozlamalar, xabarlar...): natijani to'liq qaytaradi
+  const botApi = useCallback(async (nom, dd) => {
+    const { data: r, error } = await sb.from("admin_amal").insert({ turi: "api", data: { amal: nom, d: dd || {} } }).select("id").single();
+    if (error) return { ok: false, xato: error.message };
+    for (let i = 0; i < 40; i++) {
+      await new Promise(f => setTimeout(f, i < 5 ? 1000 : 2000));
+      const { data: a } = await sb.from("admin_amal").select("holat,natija").eq("id", r.id).single();
+      if (a && (a.holat === "bajarildi" || a.holat === "xato")) return a.natija?.toliq || a.natija || { ok: false };
+    }
+    return { ok: false, xato: "bot javob bermadi" };
+  }, [sb]);
+
   const kutTolov = d ? d.tol.filter(t => t.holat === "kutilmoqda").length : 0;
-  const nav = [["bosh", "Bosh sahifa"], ["odamlar", "Foydalanuvchilar"], ["tolov", "To'lovlar", kutTolov]];
+  const murSon = d?.stat?.malumot?.murojaat_7kun || 0;
+  const nav = [["bosh", "Bosh sahifa"], ["odamlar", "Foydalanuvchilar"], ["tolov", "To'lovlar", kutTolov], ["tarif", "Tariflar va to'lov"],
+    ["kod", "Kirish kodlari"], ["xabar", "Ommaviy xabar"], ["murojaat", "Murojaatlar", murSon], ["jurnal", "Jurnal"]];
+  if (tfa && !tfa.ok) return <TfaEkran sb={sb} tayyor={g => setTfa({ ok: true, gacha: g })} />;
 
   return <div style={{ minHeight: "100vh", background: P.bg, color: P.text, fontFamily: "Manrope, system-ui, sans-serif", display: "flex", flexWrap: "wrap", alignItems: "stretch" }}>
     <style>{`
@@ -144,7 +161,7 @@ export default function Admin({ sb, ism }) {
           style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, minHeight: 42, padding: "0 12px", borderRadius: 11, border: 0, fontFamily: "inherit", fontSize: 14, cursor: "pointer", textAlign: "left",
             fontWeight: bolim === k ? 800 : 600, background: bolim === k ? P.card2 : "transparent", color: bolim === k ? P.mint : P.dim }}>
           <span>{nom}</span>{b ? <span style={{ minWidth: 22, height: 22, borderRadius: 11, background: "#E2B65C", color: "#1A1405", fontSize: 12, fontWeight: 800, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>{b}</span> : null}</button>)}
-        <a href={BOT_PANEL} target="_blank" rel="noopener" className="ad-nav" style={{ display: "flex", alignItems: "center", minHeight: 42, padding: "0 12px", borderRadius: 11, fontSize: 14, fontWeight: 600, color: P.dim, textDecoration: "none" }}>Tariflar, kodlar, xabarlar ↗</a>
+        <a href={BOT_PANEL} target="_blank" rel="noopener" className="ad-nav" style={{ display: "flex", alignItems: "center", minHeight: 42, padding: "0 12px", borderRadius: 11, fontSize: 14, fontWeight: 600, color: P.dim, textDecoration: "none" }}>Bot paneli ↗</a>
         <a href="/terminal" className="ad-nav" style={{ display: "flex", alignItems: "center", minHeight: 42, padding: "0 12px", borderRadius: 11, fontSize: 14, fontWeight: 600, color: P.dim, textDecoration: "none" }}>Terminal</a>
       </div>
       <div className="ad-pastki" style={{ marginTop: "auto", padding: "14px 10px 0", borderTop: `1px solid ${P.line}`, display: "flex", flexDirection: "column", gap: 4, fontSize: 13, color: P.dim }}>
@@ -172,6 +189,11 @@ export default function Admin({ sb, ism }) {
       {d && bolim === "bosh" && <Bosh d={d} ot={ot} />}
       {d && bolim === "odamlar" && <Odamlar d={d} qidir={qidir} amal={amal} sb={sb} yukla={yukla} xabar={xabar} />}
       {d && bolim === "tolov" && <Tolovlar d={d} amal={amal} sb={sb} />}
+      {bolim === "tarif" && <Sozlamalar botApi={botApi} xabar={xabar} />}
+      {bolim === "kod" && <Kodlar botApi={botApi} xabar={xabar} />}
+      {bolim === "xabar" && <Ommaviy botApi={botApi} xabar={xabar} />}
+      {bolim === "murojaat" && <Murojaatlar botApi={botApi} amal={amal} />}
+      {bolim === "jurnal" && <Jurnal botApi={botApi} />}
     </main>
     {toast && <div role="status" style={{ position: "fixed", left: "50%", bottom: 24, transform: "translateX(-50%)", background: P.text, color: P.bg, padding: "12px 18px", borderRadius: 12, fontWeight: 700, fontSize: 14, zIndex: 50, maxWidth: "90vw" }}>{toast}</div>}
   </div>;
@@ -462,4 +484,226 @@ function TolovKarta({ t, amal, sb }) {
         : <span style={{ fontSize: 14, fontWeight: 700, color: t.holat === "tasdiqlandi" ? P.green : P.red }}>{t.holat === "tasdiqlandi" ? "Tasdiqlangan" : t.holat === "kam" ? "Summa kam deb rad etilgan" : "Rad etilgan"}{t.korildi ? " · " + sana(t.korildi) : ""}</span>}
     </div>
   </section>;
+}
+
+// ── Telegram kodi bilan tasdiq (12 soat) ───────────────────────────────
+function TfaEkran({ sb, tayyor }) {
+  const [kod, setKod] = useState("");
+  const [holat, setHolat] = useState("");
+  const [band, setBand] = useState(false);
+  const yubor = async () => {
+    setBand(true); setHolat("");
+    const { error } = await sb.from("admin_amal").insert({ turi: "kod2fa", data: {} });
+    setHolat(error ? "Xato: " + error.message : "Kod Telegram'ga yuborildi (@savurabot). 10 daqiqa amal qiladi.");
+    setBand(false);
+  };
+  const tasdiq = async e => {
+    e.preventDefault(); setBand(true);
+    const { data, error } = await sb.rpc("admin_2fa_tasdiq", { p_kod: kod.trim() });
+    setBand(false);
+    if (!error && data && data.ok) tayyor(data.gacha);
+    else setHolat(error ? error.message : data?.xato || "Kod noto'g'ri");
+  };
+  return <div style={{ minHeight: "100vh", background: P.bg, color: P.text, fontFamily: "Manrope, system-ui, sans-serif", display: "flex", alignItems: "center", justifyContent: "center", padding: 16, boxSizing: "border-box" }}>
+    <form onSubmit={tasdiq} style={{ ...karta(), width: "100%", maxWidth: 420, padding: 28, display: "flex", flexDirection: "column", gap: 14 }}>
+      <h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 22 }}>Panelga kirishni tasdiqlang</h1>
+      <p style={{ margin: 0, color: P.dim, lineHeight: 1.55, fontSize: 14 }}>Xavfsizlik uchun Telegram'ingizga 6 xonali kod yuboriladi. Tasdiqdan keyin panel 12 soat ochiq turadi.</p>
+      <Tugma type="button" onClick={yubor} disabled={band}>Telegram'ga kod yuborish</Tugma>
+      <label htmlFor="ad-kod" style={{ fontSize: 13, fontWeight: 700, color: P.dim }}>Kod</label>
+      <input id="ad-kod" inputMode="numeric" autoComplete="one-time-code" maxLength={6} value={kod} onChange={e => setKod(e.target.value.replace(/\D/g, ""))}
+        style={{ height: 52, borderRadius: 12, border: `1px solid ${P.line2}`, background: P.card2, color: P.text, fontFamily: "Sora, sans-serif", fontSize: 24, letterSpacing: 8, textAlign: "center" }} />
+      <Tugma turi="primary" type="submit" disabled={band || kod.length !== 6}>Tasdiqlash</Tugma>
+      {holat && <span role="status" style={{ fontSize: 13.5, color: P.dim }}>{holat}</span>}
+    </form>
+  </div>;
+}
+
+// ── Umumiy: bot API dan yuklash ─────────────────────────────────────────
+function useBotApi(botApi, nom, dd, deps) {
+  const [r, setR] = useState(null);
+  const yangila = useCallback(async () => { setR(null); setR(await botApi(nom, dd)); }, deps || []);
+  useEffect(() => { yangila(); }, [yangila]);
+  return [r, yangila];
+}
+const kiritma = () => ({ height: 44, borderRadius: 11, border: `1px solid ${P.line2}`, background: P.card2, color: P.text, fontFamily: "inherit", fontSize: 14, padding: "0 12px", boxSizing: "border-box", width: "100%", minWidth: 0 });
+const Yuk = ({ r }) => !r ? <div style={{ ...karta(), color: P.faint }}>Botdan olinmoqda…</div> : !r.ok ? <div role="alert" style={{ ...karta(), color: P.red }}>Xato: {r.xato || "bot javob bermadi"}</div> : null;
+
+// ── Tariflar va to'lov sozlamalari ──────────────────────────────────────
+const SOZ_MAYDON = [
+  ["Narxlar (so'm / oy)", [["narx_start", "Start"], ["narx_pro", "Pro"]]],
+  ["Narxlar (USDT / oy)", [["narx_start_usdt", "Start"], ["narx_pro_usdt", "Pro"]]],
+  ["Narxlar (Stars / oy)", [["narx_start_stars", "Start"], ["narx_pro_stars", "Pro"]]],
+  ["Yillik to'lov", [["yillik_oy", "12 oy = necha oy narxi"]]],
+  ["USDT", [["usdt_manzil", "Hamyon manzili"], ["usdt_tarmoq", "Tarmoq"]]],
+  ["Boshqa", [["admin_username", "Obuna uchun admin (@)"], ["qurilma_limit", "Bir vaqtda qurilmalar"], ["kod_kun", "Yangi kod muddati (kun)"]]]];
+function Sozlamalar({ botApi, xabar }) {
+  const [r, yangila] = useBotApi(botApi, "stat");
+  const [q, setQ] = useState(null);
+  const [band, setBand] = useState(false);
+  useEffect(() => { if (r?.ok) { const s = { ...r.sozlamalar }; try { s.kartalar = JSON.parse(s.kartalar || "[]"); } catch (e) { s.kartalar = []; } setQ(s); } }, [r]);
+  if (!r || !r.ok || !q) return <Yuk r={r} />;
+  const asl = r.sozlamalar;
+  const saqla = async () => {
+    const ozg = Object.keys(asl).filter(k => k !== "kartalar" && String(q[k] ?? "") !== String(asl[k] ?? ""));
+    const kart = JSON.stringify(q.kartalar.filter(k => k.raqam.trim()));
+    if (kart !== JSON.stringify(JSON.parse(asl.kartalar || "[]"))) ozg.push("kartalar");
+    if (!ozg.length) { xabar("O'zgarish yo'q"); return; }
+    if (!confirm("Saqlansinmi? " + ozg.join(", "))) return;
+    setBand(true);
+    const nat = await Promise.all(ozg.map(k => botApi("sozlama", { kalit: k, qiymat: k === "kartalar" ? kart : String(q[k]) })));
+    const yom = nat.filter(x => !x.ok);
+    xabar(yom.length ? `${ozg.length - yom.length} saqlandi, ${yom.length} xato: ${yom.map(x => x.xato).join(", ")}` : "Saqlandi — botda darhol kuchga kirdi");
+    setBand(false); yangila();
+  };
+  const ust = (k, v) => setQ({ ...q, [k]: v });
+  const kartUst = (i, k, v) => { const ks = q.kartalar.map((x, j) => j === i ? { ...x, [k]: v } : x); setQ({ ...q, kartalar: ks }); };
+  return <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 14 }}>
+      {SOZ_MAYDON.map(([sar, ms]) => <section key={sar} style={{ ...karta(), display: "flex", flexDirection: "column", gap: 12 }}>
+        <h2 style={h2}>{sar}</h2>
+        {ms.map(([k, nom]) => <label key={k} style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, fontWeight: 700, color: P.dim }}>{nom}
+          <input value={q[k] ?? ""} onChange={e => ust(k, e.target.value)} style={kiritma()} /></label>)}
+      </section>)}
+      <section style={{ ...karta(), display: "flex", flexDirection: "column", gap: 12 }}>
+        <h2 style={h2}>Rejimlar</h2>
+        {[["texnik_rejim", "Texnik rejim (bot faqat adminlarga ochiq)"], ["robot_toxtatilgan", "Barcha savdo robotlari pauzada"]].map(([k, nom]) =>
+          <label key={k} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, cursor: "pointer" }}>
+            <input type="checkbox" checked={q[k] === "1"} onChange={e => ust(k, e.target.checked ? "1" : "0")} style={{ width: 20, height: 20 }} />{nom}</label>)}
+      </section>
+    </div>
+    <section style={{ ...karta(), display: "flex", flexDirection: "column", gap: 12 }}>
+      <h2 style={h2}>To'lov kartalari</h2>
+      {q.kartalar.map((k, i) => <div key={i} style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
+        <input aria-label="Karta raqami" placeholder="8600 …" value={k.raqam} onChange={e => kartUst(i, "raqam", e.target.value)} style={{ ...kiritma(), flex: "2 1 200px", width: "auto" }} />
+        <input aria-label="Egasi" placeholder="Egasi" value={k.egasi} onChange={e => kartUst(i, "egasi", e.target.value)} style={{ ...kiritma(), flex: "2 1 160px", width: "auto" }} />
+        <input aria-label="Bank" placeholder="Bank" value={k.bank} onChange={e => kartUst(i, "bank", e.target.value)} style={{ ...kiritma(), flex: "1 1 120px", width: "auto" }} />
+        <Tugma turi="qizil" onClick={() => setQ({ ...q, kartalar: q.kartalar.filter((_, j) => j !== i) })}>O'chirish</Tugma>
+      </div>)}
+      {q.kartalar.length < 5 && <Tugma onClick={() => setQ({ ...q, kartalar: [...q.kartalar, { raqam: "", egasi: "", bank: "" }] })} style={{ alignSelf: "flex-start" }}>Karta qo'shish</Tugma>}
+    </section>
+    <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <Tugma turi="primary" disabled={band} onClick={saqla} style={{ minWidth: 200 }}>{band ? "Saqlanmoqda…" : "O'zgarishlarni saqlash"}</Tugma>
+      <Tugma disabled={band} onClick={yangila}>Qayta yuklash</Tugma>
+    </div>
+  </div>;
+}
+
+// ── Kirish kodlari ──────────────────────────────────────────────────────
+function Kodlar({ botApi, xabar }) {
+  const [filtr, setFiltr] = useState("faol");
+  const [r, yangila] = useBotApi(botApi, "kodlar", { filtr, limit: 150 }, [filtr]);
+  const [f, setF] = useState({ tarif: "shogird", kun: 365, soni: 1, max_soni: 1, izoh: "" });
+  const [yangi, setYangi] = useState(null);
+  const [band, setBand] = useState(false);
+  const nusxa = t => { try { navigator.clipboard.writeText(t); xabar("Nusxa olindi"); } catch (e) {} };
+  const yarat = async e => {
+    e.preventDefault(); setBand(true);
+    const n = await botApi("kod_yarat", f);
+    setBand(false);
+    if (n.ok) { setYangi(n.kodlar); yangila(); } else xabar("Xato: " + (n.xato || ""));
+  };
+  const bekor = async k => { if (!confirm(k.korinish + " bekor qilinsinmi?")) return; const n = await botApi("kod_bekor", { kod: k.kod }); xabar(n.ok ? "Bekor qilindi" : "Xato"); yangila(); };
+  return <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+    <form onSubmit={yarat} style={{ ...karta(), display: "flex", flexDirection: "column", gap: 12 }}>
+      <h2 style={h2}>Yangi kod</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
+        <label style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, fontWeight: 700, color: P.dim }}>Tarif
+          <select value={f.tarif} onChange={e => setF({ ...f, tarif: e.target.value })} style={kiritma()}><option value="start">Start</option><option value="pro">Pro</option><option value="shogird">Shogird</option></select></label>
+        {[["kun", "Muddat (kun)"], ["soni", "Nechta kod"], ["max_soni", "Har kod necha kishiga"]].map(([k, nom]) =>
+          <label key={k} style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, fontWeight: 700, color: P.dim }}>{nom}
+            <input type="number" min="1" value={f[k]} onChange={e => setF({ ...f, [k]: +e.target.value })} style={kiritma()} /></label>)}
+        <label style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, fontWeight: 700, color: P.dim }}>Izoh
+          <input value={f.izoh} onChange={e => setF({ ...f, izoh: e.target.value })} placeholder="masalan: 5-oqim" style={kiritma()} /></label>
+      </div>
+      <Tugma turi="primary" type="submit" disabled={band} style={{ alignSelf: "flex-start", minWidth: 180 }}>{band ? "Yaratilmoqda…" : "Kod yaratish"}</Tugma>
+      {yangi && <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {yangi.map(k => <div key={k.kod} style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center", padding: 12, borderRadius: 12, background: P.card2 }}>
+          <b style={{ fontFamily: "Sora, sans-serif", fontSize: 16, flex: "1 1 160px" }}>{k.korinish}</b>
+          <Tugma onClick={() => nusxa(k.korinish)}>Kod</Tugma><Tugma turi="primary" onClick={() => nusxa(k.havola)}>Havola</Tugma></div>)}
+      </div>}
+    </form>
+    <div role="group" aria-label="Filtr" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+      {[["faol", "Bo'sh"], ["ishlatilgan", "Ishlatilgan"], ["bekor", "Bekor"], ["hammasi", "Hammasi"]].map(([k, n]) => <Chip key={k} on={filtr === k} onClick={() => setFiltr(k)}>{n}</Chip>)}
+    </div>
+    {(!r || !r.ok) ? <Yuk r={r} /> : <div style={{ borderRadius: 18, background: P.card, border: `1px solid ${P.line}`, overflowX: "auto" }}>
+      <table style={{ width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 14 }}>
+        <thead><tr style={{ textAlign: "left", color: P.faint, fontSize: 12.5 }}>{["Kod", "Tarif", "Muddat", "Ishlatildi", "Izoh", ""].map(h => <th key={h} style={{ padding: "12px 14px" }}>{h}</th>)}</tr></thead>
+        <tbody>{r.kodlar.map(k => <tr key={k.kod} style={{ borderTop: `1px solid ${P.line}` }}>
+          <td style={{ padding: "10px 14px", fontWeight: 700, whiteSpace: "nowrap" }}>{k.korinish}</td>
+          <td style={{ padding: "10px 14px" }}><TarifBelgi t={k.tarif} /></td>
+          <td style={{ padding: "10px 14px", color: P.dim }}>{k.kun} kun</td>
+          <td style={{ padding: "10px 14px", color: P.dim }}>{k.ishlatildi}/{k.max_soni}{k.kimlar?.length ? " · " + k.kimlar.map(x => x.ism || x.chat_id).join(", ") : ""}</td>
+          <td style={{ padding: "10px 14px", color: P.dim }}>{k.bekor ? "bekor · " : ""}{k.izoh}</td>
+          <td style={{ padding: "8px 14px", whiteSpace: "nowrap" }}>{!k.bekor && k.ishlatildi < k.max_soni && <><Tugma onClick={() => nusxa(k.havola)} style={{ minHeight: 36 }}>Havola</Tugma> <Tugma turi="qizil" onClick={() => bekor(k)} style={{ minHeight: 36 }}>Bekor</Tugma></>}</td>
+        </tr>)}</tbody></table>
+      {!r.kodlar.length && <div style={{ padding: 20, color: P.faint }}>Kod yo'q.</div>}
+    </div>}
+  </div>;
+}
+
+// ── Ommaviy xabar ───────────────────────────────────────────────────────
+const MAQSAD = [["hammasi", "Hamma foydalanuvchilar"], ["faol", "Faol obunachilar"], ["tugaydi7", "7 kunda tugaydiganlar"], ["tugagan", "Obunasi tugaganlar"], ["obunasiz", "Obunasizlar"]];
+function Ommaviy({ botApi, xabar }) {
+  const [maqsad, setMaqsad] = useState("faol");
+  const [matn, setMatn] = useState("");
+  const [son, setSon] = useState(null);
+  const [band, setBand] = useState(false);
+  useEffect(() => { let t = true; setSon(null); botApi("xabar_soni", { maqsad }).then(r => { if (t) setSon(r.ok ? r.soni : "?"); }); return () => { t = false; }; }, [maqsad]);
+  const yubor = async test => {
+    if (!test && !confirm(`${son} kishiga yuborilsinmi?`)) return;
+    setBand(true);
+    const r = await botApi("xabar", { matn, maqsad, test });
+    setBand(false);
+    xabar(r.ok ? (test ? "Sinov xabari sizga yuborildi" : `Yuborish boshlandi: ${r.soni} kishi`) : "Xato: " + (r.xato || ""));
+    if (r.ok && !test) setMatn("");
+  };
+  return <section style={{ ...karta(), display: "flex", flexDirection: "column", gap: 14, maxWidth: 760 }}>
+    <label style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, fontWeight: 700, color: P.dim }}>Kimga
+      <select value={maqsad} onChange={e => setMaqsad(e.target.value)} style={kiritma()}>{MAQSAD.map(([k, n]) => <option key={k} value={k}>{n}</option>)}</select></label>
+    <span style={{ fontSize: 13.5, color: P.dim }}>{son == null ? "Hisoblanmoqda…" : `${son} kishi`}</span>
+    <label htmlFor="ad-om" style={{ fontSize: 13, fontWeight: 700, color: P.dim }}>Xabar (Telegram HTML: &lt;b&gt;, &lt;i&gt;, havolalar)</label>
+    <textarea id="ad-om" rows={8} value={matn} onChange={e => setMatn(e.target.value)} style={{ borderRadius: 12, border: `1px solid ${P.line2}`, background: P.card2, color: P.text, fontFamily: "inherit", fontSize: 14, padding: 12, resize: "vertical" }} />
+    <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <Tugma disabled={band || !matn.trim()} onClick={() => yubor(true)}>Avval o'zimga sinov</Tugma>
+      <Tugma turi="primary" disabled={band || !matn.trim() || !son} onClick={() => yubor(false)}>Yuborish</Tugma>
+    </div>
+  </section>;
+}
+
+// ── Murojaatlar ─────────────────────────────────────────────────────────
+function Murojaatlar({ botApi, amal }) {
+  const [r, yangila] = useBotApi(botApi, "murojaatlar");
+  const [och, setOch] = useState(null);
+  const [matn, setMatn] = useState("");
+  if (!r || !r.ok) return <Yuk r={r} />;
+  return <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 860 }}>
+    <span style={{ fontSize: 13.5, color: P.faint }}>Murojaat matnlari admin guruhida. Bu yerdan foydalanuvchiga bot orqali javob yozishingiz mumkin.</span>
+    {!r.murojaatlar.length && <div style={{ ...karta(), color: P.faint }}>Murojaat yo'q.</div>}
+    {r.murojaatlar.map(m => <div key={m.ticket} style={{ ...karta(), padding: 16, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 10, alignItems: "baseline" }}>
+        <b style={{ flex: "1 1 200px" }}>#{m.ticket} · {m.ism || m.chat_id}{m.username ? " @" + m.username : ""}</b>
+        <span style={{ fontSize: 13, color: P.faint }}>{m.soni} xabar · {oldin(m.vaqt)}</span>
+        <Tugma onClick={() => { setOch(och === m.ticket ? null : m.ticket); setMatn(""); }}>Javob yozish</Tugma>
+      </div>
+      {och === m.ticket && <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <textarea aria-label="Javob" rows={4} value={matn} onChange={e => setMatn(e.target.value)} style={{ borderRadius: 12, border: `1px solid ${P.line2}`, background: P.card2, color: P.text, fontFamily: "inherit", fontSize: 14, padding: 12 }} />
+        <Tugma turi="primary" disabled={!matn.trim()} onClick={async () => { await amal("xabar", { chat_id: m.chat_id, matn: `💬 Savura qo'llab-quvvatlash (#${m.ticket}):\n\n${matn}` }, "Javob yuborildi"); setOch(null); }} style={{ alignSelf: "flex-start" }}>Yuborish</Tugma>
+      </div>}
+    </div>)}
+    <Tugma onClick={yangila} style={{ alignSelf: "flex-start" }}>Yangilash</Tugma>
+  </div>;
+}
+
+// ── Jurnal ──────────────────────────────────────────────────────────────
+function Jurnal({ botApi }) {
+  const [r] = useBotApi(botApi, "jurnal", { limit: 150 });
+  if (!r || !r.ok) return <Yuk r={r} />;
+  return <div style={{ borderRadius: 18, background: P.card, border: `1px solid ${P.line}`, overflowX: "auto" }}>
+    <table style={{ width: "100%", minWidth: 560, borderCollapse: "collapse", fontSize: 13.5 }}>
+      <thead><tr style={{ textAlign: "left", color: P.faint, fontSize: 12.5 }}>{["Vaqt", "Admin", "Amal", "Tafsilot"].map(h => <th key={h} style={{ padding: "12px 14px" }}>{h}</th>)}</tr></thead>
+      <tbody>{r.jurnal.map(j => <tr key={j.id} style={{ borderTop: `1px solid ${P.line}` }}>
+        <td style={{ padding: "9px 14px", color: P.faint, whiteSpace: "nowrap" }}>{new Date(j.vaqt * 1000).toLocaleString("ru-RU")}</td>
+        <td style={{ padding: "9px 14px" }}>{j.admin_ism || j.admin}</td><td style={{ padding: "9px 14px", fontWeight: 700 }}>{j.amal}</td>
+        <td style={{ padding: "9px 14px", color: P.dim, overflowWrap: "anywhere" }}>{j.tafsilot}</td></tr>)}</tbody></table>
+  </div>;
 }
