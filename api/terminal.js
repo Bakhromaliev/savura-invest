@@ -68,6 +68,18 @@ function royxat() {
   });
 }
 
+// Bot (Railway) har 15 daqiqada yuboradigan narxlar: Vercel'dan Yahoo bloklansa ham ishlaydi
+function sbNarx() {
+  return kesh("sbnarx", 3 * MIN, async () => {
+    const m = {};
+    (await sbAll("terminal_narx", "ticker,narx,oldingi,iz,vaqt")).forEach(x => {
+      const narx = num(x.narx), oldingi = num(x.oldingi);
+      if (narx) m[x.ticker] = { narx, oldingi, iz: Array.isArray(x.iz) ? x.iz.map(num).filter(v => v != null) : [], vaqt: x.vaqt };
+    });
+    return m;
+  });
+}
+
 // ── Yahoo narxlari ────────────────────────────────────────────────────────
 async function yChart(sym, range = "1y", interval = "1d") {
   return kesh(`ch:${sym}:${range}:${interval}`, (range === "5d" || range === "1mo") ? 10 * MIN : 60 * MIN, async () => {
@@ -98,9 +110,9 @@ async function ySpark(syms) {
     } catch (e) { /* bitta qism ishlamasa qolganlari ko'rsatiladi */ }
   }
   // Zaxira: spark javob bermasa, har bir aksiya uchun 5 kunlik grafikdan (eng yiriklari)
-  const yoq = syms.filter(s => !out[s]).slice(0, 40);
-  if (yoq.length > syms.length / 2) {
-    await Promise.all(yoq.map(async s => { try { const c = await yChart(s, "5d"); if (c.narx && c.oldingi) out[s] = { narx: c.narx, oldingi: c.oldingi }; } catch (e) {} }));
+  const yoq = syms.filter(s => !out[s]).slice(0, 60);
+  for (let i = 0; i < yoq.length; i += 6) {
+    await Promise.all(yoq.slice(i, i + 6).map(async s => { try { const c = await yChart(s, "5d"); if (c.narx && c.oldingi) out[s] = { narx: c.narx, oldingi: c.oldingi }; } catch (e) {} }));
   }
   return out;
 }
@@ -217,12 +229,20 @@ const MAKRO = [["^IRX", "3 oylik"], ["^FVX", "5 yillik"], ["^TNX", "10 yillik"],
 
 async function market() {
   return kesh("market", 10 * MIN, async () => {
-    const bir = async ([s, n]) => { try { const c = await yChart(s, "1mo"); return { s, n, narx: c.narx, oldingi: c.oldingi, iz: c.nuqtalar.slice(-22).map(p => p.c) }; } catch (e) { return { s, n, narx: null }; } };
+    const sb = await sbNarx().catch(() => ({}));
+    const bir = async ([s, n]) => {
+      const z = sb[s];
+      if (z && z.oldingi) return { s, n, narx: z.narx, oldingi: z.oldingi, iz: z.iz };
+      try { const c = await yChart(s, "1mo"); return { s, n, narx: c.narx, oldingi: c.oldingi, iz: c.nuqtalar.slice(-22).map(p => p.c) }; } catch (e) { return { s, n, narx: null }; } };
     const [idx, makro, list] = await Promise.all([Promise.all(INDEKS.map(bir)), Promise.all(MAKRO.map(bir)), royxat().catch(() => [])]);
     const top = list.filter(k => k.data?.kapitalizatsiya).sort((a, b) => b.data.kapitalizatsiya - a.data.kapitalizatsiya).slice(0, 60);
-    const sp = await ySpark(top.map(k => k.ticker));
+    const sp = {};
+    top.forEach(k => { const z = sb[k.ticker]; if (z && z.oldingi) sp[k.ticker] = { narx: z.narx, oldingi: z.oldingi }; });
+    const yoq = top.map(k => k.ticker).filter(t => !sp[t]);
+    if (yoq.length) Object.assign(sp, await ySpark(yoq));
     const xarita = top.filter(k => sp[k.ticker]).map(k => ({ t: k.ticker, nom: k.nom, sektor: k.sektor, cap: k.data.kapitalizatsiya,
       narx: sp[k.ticker].narx, oz: (sp[k.ticker].narx / sp[k.ticker].oldingi - 1) * 100, holat: k.halol?.holat || null }));
+    if (xarita.length < 10) delete KESH.market;   // yarim natija keshda qolmasin
     return { indeks: idx, makro, xarita, vaqt: Date.now() };
   });
 }
@@ -270,10 +290,11 @@ function kompas(k, sec, sektor) {
 }
 
 async function company(sym) {
-  const [ch, sec, fh, list] = await Promise.all([
+  let [ch, sec, fh, list] = await Promise.all([
     yChart(sym, "1y").catch(() => null), secHisobot(sym).catch(e => ({ xato: String(e.message || e) })),
     finnhub(sym).catch(() => ({})), royxat().catch(() => [])]);
   const k = list.find(x => x.ticker === sym) || null;
+  if (!ch) { const z = (await sbNarx().catch(() => ({})))[sym]; if (z) ch = { narx: z.narx, oldingi: z.oldingi, vaqt: z.vaqt ? Date.parse(z.vaqt) / 1000 : null, nom: "", nuqtalar: [] }; }
   if (!ch && !k && (!sec || sec.xato)) return { topilmadi: true };
   const sektorlar = k ? list.filter(x => x.sektor === k.sektor && x.data && x.ticker !== sym) : [];
   const med = key => { const v = sektorlar.map(x => num(x.data[key])).filter(x => x != null && x > 0).sort((a, b) => a - b); return v.length ? v[Math.floor(v.length / 2)] : null; };
