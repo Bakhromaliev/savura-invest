@@ -262,7 +262,9 @@ function kompas(k, sec, sektor) {
   ];
   const yon = B.map(([id, ball, dal]) => ({ id, ball: ball == null ? null : Math.round(ball * 10) / 10,
     dalil: Object.fromEntries(Object.entries(dal).map(([kk, v]) => [kk, q(v)])) }));
-  const umumiy = ort(yon.map(x => x.ball));
+  // Ma'lumot juda kam bo'lsa umumiy baho chiqarilmaydi (dividend 0 ballining o'zi baho emas)
+  const asosiy = yon.filter(x => x.id !== "dividend" && x.ball != null).length;
+  const umumiy = asosiy >= 3 ? ort(yon.map(x => x.ball)) : null;
   return { umumiy: umumiy == null ? null : Math.round(umumiy * 10) / 10, yon };
 }
 
