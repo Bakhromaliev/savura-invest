@@ -673,7 +673,7 @@ function tahlilYol(p) {
   const a = q[0].toLowerCase();
   if (a === "skaner") return { sahifa: "skaner" };
   if (a === "kalendar") return { sahifa: "kalendar" };
-  if (a === "portfel" || a === "kuzatuv" || a === "savdo") return { sahifa: a };
+  if (a === "portfel" || a === "kuzatuv" || a === "savdo" || a === "chat") return { sahifa: a };
   if (a === "solishtir" || a === "solishtirish") return { sahifa: "solish", syms: (q[1] || "").toUpperCase().split(",").filter(Boolean) };
   return { sahifa: "kompaniya", sym: q[0].toUpperCase().replace(/[^A-Z.\-]/g, ""), tab: BUYRUQ[(q[1] || "").toUpperCase()] };
 }
@@ -704,7 +704,7 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
   const y = tahlilYol(p);
   useEffect(() => { document.title = (y.sym ? y.sym + " — " : "") + "Savura Terminal"; }, [p]);
   const nav = [["bozor", "/terminal"], ["skaner", "/terminal/skaner"], ["solish", "/terminal/solishtir"], ["kalendar", "/terminal/kalendar"]];
-  const nav2 = [["portfel", "/terminal/portfel"], ["kuzatuv", "/terminal/kuzatuv"], ["savdo", "/terminal/savdo"]];
+  const nav2 = [["chat", "/terminal/chat"], ["portfel", "/terminal/portfel"], ["kuzatuv", "/terminal/kuzatuv"], ["savdo", "/terminal/savdo"]];
   return <div dir={L === "ar" ? "rtl" : "ltr"} className="tr-ildiz" style={{ minHeight: "100vh", background: R.bg, backgroundImage: `linear-gradient(${R.grid}66 1px, transparent 1px), linear-gradient(90deg, ${R.grid}66 1px, transparent 1px)`, backgroundSize: "56px 56px", color: R.text, fontFamily: "Manrope, system-ui, sans-serif", fontVariantNumeric: "tabular-nums" }}>
     <style>{`
       @import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
@@ -801,7 +801,7 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
           <span style={{ fontSize: 12, color: R.faint }}>{tr(L, "kech")}</span></>}
         {y.sahifa === "kalendar" && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, "kalendar")}</h1>
           <KalendarQism L={L} toliq /></>}
-        {(y.sahifa === "portfel" || y.sahifa === "kuzatuv" || y.sahifa === "savdo") && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, y.sahifa)}</h1>
+        {(y.sahifa === "portfel" || y.sahifa === "kuzatuv" || y.sahifa === "savdo" || y.sahifa === "chat") && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, y.sahifa)}</h1>
           <IlovaBolim L={L} tab={y.sahifa} /></>}
         {y.sahifa === "kompaniya" && <Darvoza L={L} kirish={kirish} ulashOch={ulashOch}><Kompaniya key={y.sym} L={L} sym={y.sym} tab0={y.tab} /></Darvoza>}
         {y.sahifa === "skaner" && <><h1 style={{ margin: 0, fontFamily: "Sora, sans-serif", fontSize: 26, fontWeight: 700 }}>{tr(L, "skaner")}</h1>
