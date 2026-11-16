@@ -113,18 +113,22 @@ function accessState(profile){
 
 
 // ═══ MAVZU (TUN / KUN) ═══════════════════════════════════════════════════════
-const C_DARK={bg:"#060a14",bg2:"#0b1628",card:"rgba(13,22,42,0.85)",border:"rgba(74,163,255,0.1)",borderHi:"rgba(74,163,255,0.28)",blue:"#2f7df6",blueLt:"#4aa3ff",green:"#37b24d",greenLt:"#52d869",amber:"#f0a92b",orange:"#e8590c",red:"#e5484d",text:"#edf2ff",dim:"#8ea0c4",faint:"#4a5c82"};
-const C_LIGHT={bg:"#f3f6fb",bg2:"#ffffff",card:"#ffffff",border:"rgba(15,23,42,0.10)",borderHi:"rgba(47,125,246,0.40)",blue:"#2f7df6",blueLt:"#1b6ee0",green:"#2f9e44",greenLt:"#1c9a3c",amber:"#c47f00",orange:"#d9560c",red:"#dc3e43",text:"#0f172a",dim:"#475569",faint:"#7a889e"};
+// Savura yagona palitrasi (sayt, terminal, bot): tun - to'q yashil, kun - iliq oq.
+// "blue" kalitlari tarixiy nom: endi brend yashili (tugma foni), "blueLt" - yalpiz urg'u.
+const C_DARK={bg:"#06140F",bg2:"#0C1F18",card:"rgba(12,31,24,0.88)",border:"rgba(75,224,160,0.10)",borderHi:"rgba(75,224,160,0.30)",blue:"#178A56",blueLt:"#4BE0A0",green:"#2BC27D",greenLt:"#5FE3A8",amber:"#E2B65C",orange:"#E8915A",red:"#F2766A",text:"#E8F1EA",dim:"#9DBBAB",faint:"#6E9282"};
+const C_LIGHT={bg:"#F4F6EF",bg2:"#FFFFFF",card:"#FFFFFF",border:"rgba(14,33,24,0.10)",borderHi:"rgba(18,122,76,0.40)",blue:"#127A4C",blueLt:"#0E6B41",green:"#159A5C",greenLt:"#0E7C4A",amber:"#9A6B12",orange:"#B4541C",red:"#C4382E",text:"#0E2118",dim:"#46604F",faint:"#6B8577"};
 const C={...C_DARK};
 const THEME_VARS={
-  dark:{"--bg":"#060a14","--glass":"rgba(8,14,30,0.85)","--glass2":"rgba(12,20,38,.85)","--nav":"rgba(6,10,20,0.97)","--navT":"rgba(6,10,20,0.7)","--menu":"rgba(6,10,20,0.98)","--modal":"#0b1628","--dimv":"#8ea0c4",
-    "--heroG":"linear-gradient(160deg,rgba(6,10,20,1) 0%,rgba(11,22,40,1) 100%)","--illus":"rgba(13,22,42,0.7)",
-    "--w01":"rgba(255,255,255,0.01)","--w04":"rgba(255,255,255,0.04)","--w05":"rgba(255,255,255,0.05)","--w06":"rgba(255,255,255,0.06)","--w07":"rgba(255,255,255,0.07)","--w12":"rgba(255,255,255,0.12)",
-    "--k20":"rgba(0,0,0,0.2)","--k25":"rgba(0,0,0,0.25)","--k30":"rgba(0,0,0,0.3)","--shadow":"0 8px 32px rgba(0,0,0,0.6)","--scrollTrack":"#060a14","--tick":"#03060d","--tickLabel":"#070d1c","--halalBg":"linear-gradient(135deg,#0a2a1d 0%,#0b1f38 100%)","--halalBorder":"rgba(55,178,77,0.3)","--halalPat":"rgba(82,216,105,0.14)","--cardShadow":"0 16px 50px rgba(0,0,0,0.35)"},
-  light:{"--bg":"#f3f6fb","--glass":"rgba(255,255,255,0.92)","--glass2":"#ffffff","--nav":"rgba(255,255,255,0.97)","--navT":"rgba(255,255,255,0.8)","--menu":"#ffffff","--modal":"#ffffff","--dimv":"#475569",
-    "--heroG":"linear-gradient(160deg,#ffffff 0%,#e9f0fb 100%)","--illus":"#ffffff",
-    "--w01":"rgba(15,23,42,0.015)","--w04":"rgba(15,23,42,0.035)","--w05":"rgba(15,23,42,0.045)","--w06":"rgba(15,23,42,0.06)","--w07":"rgba(15,23,42,0.07)","--w12":"rgba(15,23,42,0.10)",
-    "--k20":"rgba(15,23,42,0.04)","--k25":"rgba(15,23,42,0.05)","--k30":"rgba(15,23,42,0.06)","--shadow":"0 8px 28px rgba(15,23,42,0.12)","--scrollTrack":"#e6ecf5","--tick":"#ffffff","--tickLabel":"#eef3fb","--halalBg":"linear-gradient(135deg,#ecfbf1 0%,#eef5ff 100%)","--halalBorder":"rgba(34,160,80,0.25)","--halalPat":"rgba(22,120,60,0.10)","--cardShadow":"0 12px 36px rgba(15,23,42,0.08)"},
+  dark:{"--bg":"#06140F","--glass":"rgba(7,22,16,0.86)","--glass2":"rgba(13,33,25,.86)","--nav":"rgba(6,20,15,0.97)","--navT":"rgba(6,20,15,0.72)","--menu":"rgba(6,20,15,0.98)","--modal":"#0C1F18","--dimv":"#9DBBAB",
+    "--heroG":"linear-gradient(160deg,#06140F 0%,#0B1E17 100%)","--illus":"rgba(12,31,24,0.72)",
+    "--w01":"rgba(232,241,234,0.012)","--w04":"rgba(232,241,234,0.04)","--w05":"rgba(232,241,234,0.05)","--w06":"rgba(232,241,234,0.06)","--w07":"rgba(232,241,234,0.07)","--w12":"rgba(232,241,234,0.12)",
+    "--k20":"rgba(0,0,0,0.2)","--k25":"rgba(0,0,0,0.25)","--k30":"rgba(0,0,0,0.3)","--shadow":"0 8px 32px rgba(0,0,0,0.55)","--scrollTrack":"#06140F","--tick":"#030B08","--tickLabel":"#08170F","--halalBg":"linear-gradient(135deg,#0B2A1C 0%,#0C1F18 100%)","--halalBorder":"rgba(43,194,125,0.3)","--halalPat":"rgba(95,227,168,0.12)","--cardShadow":"0 16px 50px rgba(0,0,0,0.35)",
+    "--panjara":"rgba(75,224,160,0.035)"},
+  light:{"--bg":"#F4F6EF","--glass":"rgba(255,255,255,0.92)","--glass2":"#ffffff","--nav":"rgba(255,255,255,0.97)","--navT":"rgba(255,255,255,0.82)","--menu":"#ffffff","--modal":"#ffffff","--dimv":"#46604F",
+    "--heroG":"linear-gradient(160deg,#FBFCF8 0%,#ECF1E7 100%)","--illus":"#ffffff",
+    "--w01":"rgba(14,33,24,0.015)","--w04":"rgba(14,33,24,0.035)","--w05":"rgba(14,33,24,0.045)","--w06":"rgba(14,33,24,0.06)","--w07":"rgba(14,33,24,0.07)","--w12":"rgba(14,33,24,0.10)",
+    "--k20":"rgba(14,33,24,0.04)","--k25":"rgba(14,33,24,0.05)","--k30":"rgba(14,33,24,0.06)","--shadow":"0 8px 28px rgba(14,33,24,0.12)","--scrollTrack":"#E3EADD","--tick":"#ffffff","--tickLabel":"#EEF3EA","--halalBg":"linear-gradient(135deg,#E9F6EE 0%,#F1F5EC 100%)","--halalBorder":"rgba(21,154,92,0.25)","--halalPat":"rgba(14,124,74,0.10)","--cardShadow":"0 12px 36px rgba(14,33,24,0.08)",
+    "--panjara":"rgba(14,33,24,0.035)"},
 };
 function applyTheme(t){
   const th=t==="light"?"light":"dark";
@@ -942,7 +946,7 @@ const ChartIcon=({s=28})=><svg width={s} height={s} viewBox="0 0 24 24" fill="no
 const ShieldIcon=({s=28})=><svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
 const GlobeIcon=({s=28})=><svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>;
 const BookIcon=({s=28})=><svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>;
-function Logo({size=42}){return(<svg width={size} height={size} viewBox="0 0 100 100" fill="none"><defs><linearGradient id="lgB" x1="20" y1="15" x2="85" y2="60" gradientUnits="userSpaceOnUse"><stop stopColor="#3461d6"/><stop offset="1" stopColor="#4aa3ff"/></linearGradient><linearGradient id="lgG" x1="30" y1="55" x2="80" y2="92" gradientUnits="userSpaceOnUse"><stop stopColor="#5fd36a"/><stop offset="1" stopColor="#2f9e44"/></linearGradient></defs><path d="M70 16 C40 16 24 30 24 47 C24 60 35 66 47 60 C36 62 33 52 41 45 C49 38 64 40 70 30 C73 24 73 18 70 16 Z" fill="url(#lgB)"/><path d="M30 84 C60 84 76 70 76 53 C76 40 65 34 53 40 C64 38 67 48 59 55 C51 62 36 60 30 70 C27 76 27 82 30 84 Z" fill="url(#lgG)"/><path d="M40 62 L62 47 L57 44 L66 40 L67 51 L62 49 L43 66 Z" fill="#4aa3ff"/></svg>);}
+function Logo({size=42}){return(<svg width={size} height={size} viewBox="0 0 100 100" fill="none"><defs><linearGradient id="lgB" x1="20" y1="15" x2="85" y2="60" gradientUnits="userSpaceOnUse"><stop stopColor="#127A4C"/><stop offset="1" stopColor="#2BC27D"/></linearGradient><linearGradient id="lgG" x1="30" y1="55" x2="80" y2="92" gradientUnits="userSpaceOnUse"><stop stopColor="#5FE3A8"/><stop offset="1" stopColor="#1E9E66"/></linearGradient></defs><path d="M70 16 C40 16 24 30 24 47 C24 60 35 66 47 60 C36 62 33 52 41 45 C49 38 64 40 70 30 C73 24 73 18 70 16 Z" fill="url(#lgB)"/><path d="M30 84 C60 84 76 70 76 53 C76 40 65 34 53 40 C64 38 67 48 59 55 C51 62 36 60 30 70 C27 76 27 82 30 84 Z" fill="url(#lgG)"/><path d="M40 62 L62 47 L57 44 L66 40 L67 51 L62 49 L43 66 Z" fill="#E2B65C"/></svg>);}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // BOZOR SOATLARI LENTASI — shaharlar soati va AQSh birjasi (NYSE/NASDAQ) shu shahar vaqtida
@@ -1059,7 +1063,7 @@ function MarketTicker({lang="uz"}){
       <div style={{flexShrink:0,height:"100%",display:"flex",alignItems:"center",gap:7,padding:"0 10px",background:"var(--tickLabel)",borderRight:`1px solid ${C.border}`,zIndex:2}}>
         <Flag code="us" size={17} emoji="🇺🇸"/>
         <span className="mkt-long" style={{fontSize:10.5,fontWeight:800,letterSpacing:"1px",color:C.blueLt}}>{T.label}</span>
-        <span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:11,fontWeight:700,color:col,background:st.open?"rgba(55,178,77,0.12)":"rgba(229,72,77,0.1)",border:`1px solid ${st.open?"rgba(55,178,77,0.35)":"rgba(229,72,77,0.3)"}`,borderRadius:20,padding:"2px 8px",whiteSpace:"nowrap"}}>
+        <span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:11,fontWeight:700,color:col,background:st.open?"rgba(55,178,77,0.12)":"rgba(242,118,106,0.1)",border:`1px solid ${st.open?"rgba(55,178,77,0.35)":"rgba(242,118,106,0.3)"}`,borderRadius:20,padding:"2px 8px",whiteSpace:"nowrap"}}>
           <span className={st.open?"mkt-dot":""} style={{width:6,height:6,borderRadius:"50%",background:col,display:"inline-block"}}/>
           {st.open ? T.open : T.closed}
           <span style={{fontWeight:600,opacity:0.85}}>· <span className="mkt-long">{st.open ? T.toClose : T.toOpen} </span>{fmtLeft(st.mins, T)}</span>
@@ -1106,7 +1110,7 @@ function HalalSeal({size=190}){
     <svg width={size} height={size} viewBox="0 0 200 200" role="img" aria-label="Halal" style={{display:"block",flexShrink:0}}>
       <defs>
         <linearGradient id="hsG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#22c55e"/><stop offset="100%" stopColor="#0f7a3a"/></linearGradient>
-        <linearGradient id="hsRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#4ade80"/><stop offset="100%" stopColor="#2f7df6"/></linearGradient>
+        <linearGradient id="hsRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#4ade80"/><stop offset="100%" stopColor="#178A56"/></linearGradient>
       </defs>
       <g className="hs-spin" style={{transformOrigin:"100px 100px"}}>
         <circle cx="100" cy="100" r="95" fill="none" stroke="url(#hsRing)" strokeWidth="2" strokeDasharray="3 7" strokeLinecap="round"/>
@@ -1132,13 +1136,13 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
   const sn=getST(lang).nav;
   const links=[
     {id:"halal",label:sn.halal,hot:true,icon:"halal",ic:"#22a55a"},
-    {id:"home",label:sn.home,icon:"home",ic:"#3b82f6"},
+    {id:"home",label:sn.home,icon:"home",ic:"#178A56"},
     {id:"lessons",label:(LES_T[lang]||LES_T.uz).title,icon:"lessons",ic:"#ef4444"},
-    {id:"tool",label:sn.tool,icon:"tool",ic:"#06b6d4"},
-    {id:"course",label:sn.course,icon:"course",ic:"#8b5cf6"},
+    {id:"tool",label:sn.tool,icon:"tool",ic:"#2BC27D"},
+    {id:"course",label:sn.course,icon:"course",ic:"#E2B65C"},
     {id:"journal",label:sn.journal||"Kundalik",icon:"journal",ic:"#f59e0b"},
     {id:"demo",label:sn.demo||"Demo",icon:"demo",ic:"#10b981"},
-    {id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,icon:"exam",ic:"#6366f1"},
+    {id:"exam",label:(EXAM_T[lang]||EXAM_T.uz).title,icon:"exam",ic:"#178A56"},
     {id:"pattern",label:(PT_T[lang]||PT_T.uz).title,icon:"pattern",ic:"#f97316"},
     {id:"practice",label:"Amaliyot",icon:"practice",ic:"#eab308"},
     {id:"about",label:sn.about,icon:"about",ic:"#ec4899"},
@@ -1157,7 +1161,7 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
           </div>
         </button>
         <div style={{display:"flex",alignItems:"center",gap:6}}>
-          <a className="nav-social" href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{color:C.dim,display:"flex",padding:"6px 8px",borderRadius:8,border:"1px solid transparent",transition:"all .2s"}} onMouseEnter={e=>{e.currentTarget.style.color=C.blueLt;e.currentTarget.style.borderColor="rgba(74,163,255,0.3)";}} onMouseLeave={e=>{e.currentTarget.style.color=C.dim;e.currentTarget.style.borderColor="transparent";}}><TgIcon s={18}/></a>
+          <a className="nav-social" href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{color:C.dim,display:"flex",padding:"6px 8px",borderRadius:8,border:"1px solid transparent",transition:"all .2s"}} onMouseEnter={e=>{e.currentTarget.style.color=C.blueLt;e.currentTarget.style.borderColor="rgba(75,224,160,0.3)";}} onMouseLeave={e=>{e.currentTarget.style.color=C.dim;e.currentTarget.style.borderColor="transparent";}}><TgIcon s={18}/></a>
           <a className="nav-social" href="https://instagram.com/savura_invest" target="_blank" rel="noreferrer" style={{color:C.dim,display:"flex",padding:"6px 8px",borderRadius:8,border:"1px solid transparent",transition:"all .2s"}} onMouseEnter={e=>{e.currentTarget.style.color="#e1306c";e.currentTarget.style.borderColor="rgba(225,48,108,0.3)";}} onMouseLeave={e=>{e.currentTarget.style.color=C.dim;e.currentTarget.style.borderColor="transparent";}}><IgIcon s={18}/></a>
           <button onClick={toggleTheme} aria-label={theme==="light"?"Tun rejimi":"Kun rejimi"} title={theme==="light"?"Tun rejimi":"Kun rejimi"}
             style={{width:36,height:36,display:"flex",alignItems:"center",justifyContent:"center",background:"transparent",border:`1px solid ${C.border}`,borderRadius:8,cursor:"pointer",color:theme==="light"?C.blueLt:C.amber,flexShrink:0}}>
@@ -1166,13 +1170,13 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
               : <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>}
           </button>
           <div style={{position:"relative"}}>
-            <button onClick={()=>{setFlagOpen(v=>!v);setOpen(false);}} style={{background:flagOpen?"rgba(47,125,246,0.15)":"transparent",border:`1px solid ${flagOpen?C.blueLt:C.border}`,borderRadius:8,padding:"4px 8px",cursor:"pointer",height:36,display:"flex",alignItems:"center",gap:4,fontSize:19,lineHeight:1}}>
+            <button onClick={()=>{setFlagOpen(v=>!v);setOpen(false);}} style={{background:flagOpen?"rgba(23,138,86,0.15)":"transparent",border:`1px solid ${flagOpen?C.blueLt:C.border}`,borderRadius:8,padding:"4px 8px",cursor:"pointer",height:36,display:"flex",alignItems:"center",gap:4,fontSize:19,lineHeight:1}}>
               <Flag code={cur.c} size={19} emoji={cur.f}/><span style={{fontSize:11,color:flagOpen?C.blueLt:C.faint,fontFamily:"'JetBrains Mono',monospace"}}>{cur.l}</span>
             </button>
             {flagOpen&&(
               <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,background:"var(--menu)",border:`1px solid ${C.border}`,borderRadius:12,overflow:"hidden",minWidth:130,boxShadow:"var(--shadow)",zIndex:200}}>
                 {LANGS.map(function(l){return(
-                  <button key={l.k} onClick={()=>{setLang(l.k);setFlagOpen(false);}} style={{display:"flex",alignItems:"center",gap:10,width:"100%",background:lang===l.k?"rgba(47,125,246,0.1)":"transparent",border:"none",borderLeft:`3px solid ${lang===l.k?C.blue:"transparent"}`,padding:"10px 14px",cursor:"pointer",color:lang===l.k?C.blueLt:C.dim,fontFamily:"'Manrope',sans-serif",fontSize:14,fontWeight:lang===l.k?700:400,textAlign:"left"}}>
+                  <button key={l.k} onClick={()=>{setLang(l.k);setFlagOpen(false);}} style={{display:"flex",alignItems:"center",gap:10,width:"100%",background:lang===l.k?"rgba(23,138,86,0.1)":"transparent",border:"none",borderLeft:`3px solid ${lang===l.k?C.blue:"transparent"}`,padding:"10px 14px",cursor:"pointer",color:lang===l.k?C.blueLt:C.dim,fontFamily:"'Manrope',sans-serif",fontSize:14,fontWeight:lang===l.k?700:400,textAlign:"left"}}>
                     <Flag code={l.c} size={20} emoji={l.f}/><span>{l.l}</span>
                   </button>
                 );})}
@@ -1188,11 +1192,11 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
         <div style={{borderTop:`1px solid ${C.border}`,background:"var(--menu)"}}>
           {links.map(function(l){return l.ext
             ?<a key={l.id} href={l.ext} target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"center",width:"100%",background:"transparent",borderLeft:"3px solid transparent",color:C.dim,padding:"11px 22px",fontSize:15,fontWeight:500,fontFamily:"'Manrope',sans-serif",textDecoration:"none",gap:12}}>
-              <NavIcon name={l.icon} color={l.ic}/>
+              <NavIcon name={l.icon} color={l.hot?C.green:C.blueLt}/>
               <span style={{flex:1}}>{l.label}</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{opacity:.4}}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
-            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:12,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(47,125,246,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"11px 22px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}><NavIcon name={l.icon} color={l.ic}/><span>{l.label}</span></button>;
+            :<button key={l.id} onClick={()=>go(l.id)} style={{display:"flex",alignItems:"center",gap:12,width:"100%",background:l.hot?(page===l.id?"rgba(55,178,77,0.15)":"rgba(55,178,77,0.07)"):(page===l.id?"rgba(23,138,86,0.08)":"transparent"),border:"none",borderLeft:`3px solid ${l.hot?C.green:(page===l.id?C.blue:"transparent")}`,color:l.hot?C.greenLt:(page===l.id?C.blueLt:C.dim),padding:"11px 22px",fontSize:l.hot?14:15,fontWeight:l.hot?800:(page===l.id?700:500),letterSpacing:l.hot?"0.5px":"normal",cursor:"pointer",fontFamily:l.hot?"'Sora',sans-serif":"'Manrope',sans-serif",textAlign:"left"}}><NavIcon name={l.icon} color={l.hot?C.green:C.blueLt}/><span>{l.label}</span></button>;
           })}
           <div style={{padding:"10px 24px 6px",borderTop:`1px solid ${C.border}`}}>
             {auth&&auth.user
@@ -1203,7 +1207,7 @@ function NavBar({page,setPage,lang,setLang,auth,theme,toggleTheme}){
                   <div style={{fontSize:10.5,color:C.green,marginBottom:8}}>{(AUTH_T[lang]||AUTH_T.uz).validTill}: {new Date(auth.profile.expires_at).toLocaleDateString()}</div>
                 )}
                 {auth.profile?.is_admin&&(
-                  <button onClick={()=>go("admin")} style={{display:"block",width:"100%",background:"rgba(240,169,43,0.12)",border:`1px solid rgba(240,169,43,0.4)`,borderRadius:8,color:C.amber,padding:"9px",cursor:"pointer",fontSize:13,fontWeight:600,marginBottom:8,fontFamily:"'Sora',sans-serif"}}>⚙️ Admin panel</button>
+                  <button onClick={()=>go("admin")} style={{display:"block",width:"100%",background:"rgba(226,182,92,0.12)",border:`1px solid rgba(226,182,92,0.4)`,borderRadius:8,color:C.amber,padding:"9px",cursor:"pointer",fontSize:13,fontWeight:600,marginBottom:8,fontFamily:"'Sora',sans-serif"}}>⚙️ Admin panel</button>
                 )}
                 <button onClick={()=>{ if(window.confirm((AUTH_T[lang]||AUTH_T.uz).logoutConfirm)){auth.logout();setOpen(false);setPage("home");} }} style={{display:"block",width:"100%",background:"transparent",border:`1px solid ${C.border}`,borderRadius:8,color:C.dim,padding:"9px",cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:"'Sora',sans-serif"}}>{(AUTH_T[lang]||AUTH_T.uz).logout}</button>
               </div>
@@ -1227,15 +1231,15 @@ function FinanceIllustration(){
   return(
     <div style={{padding:"0 24px 20px",maxWidth:1100,margin:"0 auto"}}>
       <div style={{background:"var(--illus)",border:`1px solid ${C.border}`,borderRadius:24,overflow:"hidden",position:"relative",padding:"32px 28px",boxShadow:"var(--cardShadow)"}}>
-        <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 60% 80% at 80% 50%,rgba(47,125,246,0.07),transparent 70%)"}}/>
+        <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 60% 80% at 80% 50%,rgba(23,138,86,0.07),transparent 70%)"}}/>
         <svg width="100%" height="220" viewBox="0 0 800 220" style={{position:"relative"}}>
           <defs>
             <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#4aa3ff" stopOpacity="0.28"/>
-              <stop offset="100%" stopColor="#4aa3ff" stopOpacity="0"/>
+              <stop offset="0%" stopColor="#4BE0A0" stopOpacity="0.28"/>
+              <stop offset="100%" stopColor="#4BE0A0" stopOpacity="0"/>
             </linearGradient>
             <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#2f7df6"/>
+              <stop offset="0%" stopColor="#178A56"/>
               <stop offset="100%" stopColor="#37b24d"/>
             </linearGradient>
           </defs>
@@ -1255,8 +1259,8 @@ function FinanceIllustration(){
           <rect x="20" y="195" width="760" height="1" fill={grid}/>
           <circle cx="780" cy="38" r="10" fill="rgba(55,178,77,0.2)" className="pulse"/>
           <circle cx="780" cy="38" r="5" fill="#37b24d" className="pulse"/>
-          {[{x:260,y:90},{x:440,y:55},{x:620,y:45}].map(function(p,i){return(<circle key={i} cx={p.x} cy={p.y} r="3.5" fill="#2f7df6"/>);})}
-          {[["AAPL","$189.25",null,20,8,"#2f7df6"],["MSFT","$415.30","+2.1%",280,30,"#2f7df6"],["NVDA","$875.40","+4.2%",580,8,"#37b24d"]].map(function(b,i){return(
+          {[{x:260,y:90},{x:440,y:55},{x:620,y:45}].map(function(p,i){return(<circle key={i} cx={p.x} cy={p.y} r="3.5" fill="#178A56"/>);})}
+          {[["AAPL","$189.25",null,20,8,"#178A56"],["MSFT","$415.30","+2.1%",280,30,"#178A56"],["NVDA","$875.40","+4.2%",580,8,"#37b24d"]].map(function(b,i){return(
             <g key={b[0]} className="fade-card" style={{animationDelay:(i*0.25)+"s"}}>
               <rect x={b[3]} y={b[4]} width="112" height="42" rx="9" fill={box} stroke={b[5]} strokeOpacity="0.35" strokeWidth="1"/>
               <text x={b[3]+12} y={b[4]+15} fill={b[5]} fontSize="9.5" fontFamily="JetBrains Mono,monospace" fontWeight="700">{b[0]}</text>
@@ -1294,10 +1298,10 @@ function StockLogo({t, domain}){
   const src = stage === 0 ? "https://financialmodelingprep.com/image-stock/" + t + ".png"
             : "https://www.google.com/s2/favicons?domain=" + domain + "&sz=64";
   return (
-    <span style={{flexShrink:0,width:30,height:30,borderRadius:9,background:"#ffffff",border:"1px solid rgba(15,23,42,0.08)",display:"inline-flex",alignItems:"center",justifyContent:"center",overflow:"hidden",boxShadow:"0 1px 3px rgba(0,0,0,0.12)"}}>
+    <span style={{flexShrink:0,width:30,height:30,borderRadius:9,background:"#ffffff",border:"1px solid rgba(14,33,24,0.08)",display:"inline-flex",alignItems:"center",justifyContent:"center",overflow:"hidden",boxShadow:"0 1px 3px rgba(0,0,0,0.12)"}}>
       {stage < 2
         ? <img src={src} alt="" loading="lazy" onError={()=>setStage(stage + 1)} style={{width:21,height:21,objectFit:"contain",display:"block"}}/>
-        : <span style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:13,color:"#2f7df6"}}>{t[0]}</span>}
+        : <span style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:13,color:"#178A56"}}>{t[0]}</span>}
     </span>
   );
 }
@@ -1334,20 +1338,20 @@ function HeroSection({setPage,lang}){
   return(
     <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",textAlign:"center",padding:"142px 24px 64px",position:"relative",overflow:"hidden"}}>
       <div style={{position:"absolute",top:74,left:0,right:0,zIndex:2}}><StockStrip lang={lang} setPage={setPage}/></div>
-      <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 80% 60% at 50% 40%,rgba(47,125,246,0.1),transparent 70%)"}}/>
-      <div style={{position:"absolute",top:"15%",left:"0%",width:380,height:380,borderRadius:"50%",background:"rgba(47,125,246,0.05)",filter:"blur(80px)"}}/>
+      <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 80% 60% at 50% 40%,rgba(23,138,86,0.1),transparent 70%)"}}/>
+      <div style={{position:"absolute",top:"15%",left:"0%",width:380,height:380,borderRadius:"50%",background:"rgba(23,138,86,0.05)",filter:"blur(80px)"}}/>
       <div style={{position:"absolute",bottom:"15%",right:"0%",width:320,height:320,borderRadius:"50%",background:"rgba(55,178,77,0.05)",filter:"blur(80px)"}}/>
       <div style={{position:"relative",maxWidth:700}}>
-        <div style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(47,125,246,0.08)",border:"1px solid rgba(47,125,246,0.2)",borderRadius:20,padding:"6px 16px",marginBottom:28,fontSize:11,color:C.blueLt,fontFamily:"'JetBrains Mono',monospace",letterSpacing:"1.2px"}}>{sh.badge}</div>
+        <div style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(23,138,86,0.08)",border:"1px solid rgba(23,138,86,0.2)",borderRadius:20,padding:"6px 16px",marginBottom:28,fontSize:11,color:C.blueLt,fontFamily:"'JetBrains Mono',monospace",letterSpacing:"1.2px"}}>{sh.badge}</div>
         <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(34px,8vw,68px)",lineHeight:1.05,margin:"0 0 22px",letterSpacing:"-1.5px",color:C.text}}>
           {sh.h1}<br/>
-          <span style={{background:"linear-gradient(135deg,#4aa3ff,#52d869)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>{sh.h2}</span>
+          <span style={{background:`linear-gradient(135deg,${C.blueLt},${C.green})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>{sh.h2}</span>
         </h1>
         <p style={{fontSize:"clamp(14px,2.5vw,17px)",color:C.dim,maxWidth:500,margin:"0 auto 36px",lineHeight:1.7}}>{sh.desc}</p>
         <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
-          <button className="hero-btn" onClick={()=>setPage("tool")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 24px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(47,125,246,0.26)",display:"inline-flex",alignItems:"center",gap:9}}><LineIcon name="tool" size={18}/>{sh.btn1}</button>
-          <button className="hero-btn" onClick={()=>setPage("course")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 24px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(47,125,246,0.26)",display:"inline-flex",alignItems:"center",gap:9}}><LineIcon name="course" size={18}/>{sh.btn2}</button>
-          <button className="hero-btn" onClick={()=>setPage("demo")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 24px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(47,125,246,0.26)",display:"inline-flex",alignItems:"center",gap:9}}><LineIcon name="demo" size={18}/>Demo Treyding</button>
+          <button className="hero-btn" onClick={()=>setPage("tool")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 24px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(23,138,86,0.26)",display:"inline-flex",alignItems:"center",gap:9}}><LineIcon name="tool" size={18}/>{sh.btn1}</button>
+          <button className="hero-btn" onClick={()=>setPage("course")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 24px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(23,138,86,0.26)",display:"inline-flex",alignItems:"center",gap:9}}><LineIcon name="course" size={18}/>{sh.btn2}</button>
+          <button className="hero-btn" onClick={()=>setPage("demo")} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 24px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:"0 8px 26px rgba(23,138,86,0.26)",display:"inline-flex",alignItems:"center",gap:9}}><LineIcon name="demo" size={18}/>Demo Treyding</button>
         </div>
         <div style={{display:"flex",justifyContent:"center",gap:32,marginTop:48,flexWrap:"wrap"}}>
           {sh.stats.map(function(it){return(
@@ -1480,7 +1484,7 @@ function FeaturesSection({setPage,lang}){
     {Icon:ChartIcon,color:C.blue,action:()=>setPage("tool")},
     {Icon:ShieldIcon,color:C.amber,action:()=>setPage("tool")},
     {Icon:GlobeIcon,color:C.green,action:()=>setPage("tool")},
-    {Icon:BookIcon,color:"#8b5cf6",action:()=>setPage("course")},
+    {Icon:BookIcon,color:"#E2B65C",action:()=>setPage("course")},
     {Icon:TgIcon,color:C.blueLt,action:()=>window.open("https://t.me/savura_invest","_blank")},
     {Icon:IgIcon,color:"#e1306c",action:()=>window.open("https://instagram.com/savura_invest","_blank")},
     {Icon:BookIcon,color:C.greenLt,action:()=>window.open("https://savuraedu.com","_blank")},
@@ -1576,12 +1580,12 @@ function ApplyForm({lang="uz", source="home"}){
   return(
     <div dir={rtl?"rtl":"ltr"} style={{maxWidth:1100,margin:"0 auto",padding:"10px 24px 60px"}}>
       <div style={{position:"relative",overflow:"hidden",borderRadius:26,background:C.card,border:`1px solid ${C.border}`,boxShadow:"var(--cardShadow)"}}>
-        <div style={{position:"absolute",top:-120,left:-120,width:340,height:340,borderRadius:"50%",background:"radial-gradient(circle,rgba(47,125,246,0.14),transparent 65%)",pointerEvents:"none"}}/>
+        <div style={{position:"absolute",top:-120,left:-120,width:340,height:340,borderRadius:"50%",background:"radial-gradient(circle,rgba(23,138,86,0.14),transparent 65%)",pointerEvents:"none"}}/>
         <div style={{position:"absolute",bottom:-140,right:-100,width:360,height:360,borderRadius:"50%",background:"radial-gradient(circle,rgba(55,178,77,0.12),transparent 65%)",pointerEvents:"none"}}/>
         <div style={{position:"relative",display:"flex",flexWrap:"wrap",gap:32,padding:"clamp(24px,4.5vw,44px)",textAlign:rtl?"right":"left"}}>
           {/* Chap: ma'lumot */}
           <div style={{flex:"1 1 300px",minWidth:0}}>
-            <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(47,125,246,0.1)",border:"1px solid rgba(47,125,246,0.3)",borderRadius:30,padding:"6px 14px",marginBottom:16}}>
+            <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(23,138,86,0.1)",border:"1px solid rgba(23,138,86,0.3)",borderRadius:30,padding:"6px 14px",marginBottom:16}}>
               <span style={{color:C.blueLt,display:"flex"}}><LineIcon name="course" size={15}/></span>
               <span style={{fontSize:11,letterSpacing:"1.8px",color:C.blueLt,fontWeight:800}}>{T.badge}</span>
             </div>
@@ -1645,9 +1649,9 @@ function ApplyForm({lang="uz", source="home"}){
                   <label style={lab}>{T.msg}</label>
                   <textarea value={f.message} onChange={set("message")} placeholder={T.msgPh} rows={3} maxLength={1000} style={{...inp,resize:"vertical",minHeight:90,lineHeight:1.5}}/>
                 </div>
-                {err && <div role="alert" style={{fontSize:13.5,fontWeight:600,color:C.red,background:"rgba(229,72,77,0.08)",border:"1px solid rgba(229,72,77,0.3)",borderRadius:10,padding:"10px 12px"}}>{err}</div>}
+                {err && <div role="alert" style={{fontSize:13.5,fontWeight:600,color:C.red,background:"rgba(242,118,106,0.08)",border:"1px solid rgba(242,118,106,0.3)",borderRadius:10,padding:"10px 12px"}}>{err}</div>}
                 <button type="submit" disabled={state==="sending"} className="hero-btn"
-                  style={{width:"100%",background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:13,color:"#fff",fontWeight:800,fontSize:16,padding:"14px",cursor:state==="sending"?"default":"pointer",opacity:state==="sending"?0.75:1,fontFamily:"'Sora',sans-serif",boxShadow:"0 10px 28px rgba(47,125,246,0.28)",display:"inline-flex",alignItems:"center",justifyContent:"center",gap:9}}>
+                  style={{width:"100%",background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:13,color:"#fff",fontWeight:800,fontSize:16,padding:"14px",cursor:state==="sending"?"default":"pointer",opacity:state==="sending"?0.75:1,fontFamily:"'Sora',sans-serif",boxShadow:"0 10px 28px rgba(23,138,86,0.28)",display:"inline-flex",alignItems:"center",justifyContent:"center",gap:9}}>
                   {state==="sending" ? T.sending : T.send}
                   {state!=="sending" && <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{transform:rtl?"scaleX(-1)":"none"}}><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>}
                 </button>
@@ -1770,13 +1774,13 @@ function CoursePage({lang, setPage}){
           <p style={{fontSize:16,color:C.dim,lineHeight:1.7,maxWidth:580,marginBottom:28}}>{sc.desc}</p>
           <div style={{display:"flex",gap:16,flexWrap:"wrap",marginBottom:32}}>
             {[["10",({uz:"Modul",en:"Modules",ru:"Модулей",tr:"Modül",ar:"وحدات"})[lang]||"Modul"],["100+",cr.statLessons],["100+",cr.statStock],["Video",cr.statVideo]].map(function(it){return(
-              <div key={it[1]} style={{background:"rgba(47,125,246,0.08)",border:"1px solid rgba(47,125,246,0.18)",borderRadius:10,padding:"10px 16px",textAlign:"center"}}>
+              <div key={it[1]} style={{background:"rgba(23,138,86,0.08)",border:"1px solid rgba(23,138,86,0.18)",borderRadius:10,padding:"10px 16px",textAlign:"center"}}>
                 <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:18,color:C.blueLt}}>{it[0]}</div>
                 <div style={{fontSize:11,color:C.faint,marginTop:2}}>{it[1]}</div>
               </div>
             );})}
           </div>
-          <a href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:8,background:`linear-gradient(135deg,${C.blue},${C.green})`,borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 26px",textDecoration:"none",boxShadow:"0 8px 28px rgba(47,125,246,0.28)"}}>
+          <a href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:8,background:`linear-gradient(135deg,${C.blue},${C.green})`,borderRadius:12,color:"#fff",fontWeight:700,fontSize:15,padding:"13px 26px",textDecoration:"none",boxShadow:"0 8px 28px rgba(23,138,86,0.28)"}}>
             <TgIcon s={18}/> {sc.cb}
           </a>
         </div>
@@ -1794,7 +1798,7 @@ function CoursePage({lang, setPage}){
         <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:22,color:C.text,marginBottom:20}}>{sc.ol}</h2>
         <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:18,padding:"24px",display:"flex",gap:20,flexWrap:"wrap",alignItems:"flex-start",position:"relative",overflow:"hidden",marginBottom:44}}>
           <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:`linear-gradient(90deg,${C.blue},${C.green})`}}/>
-          <div style={{width:72,height:72,borderRadius:"50%",overflow:"hidden",border:"2px solid rgba(47,125,246,0.4)",flexShrink:0}}>
+          <div style={{width:72,height:72,borderRadius:"50%",overflow:"hidden",border:"2px solid rgba(23,138,86,0.4)",flexShrink:0}}>
             <img src={FOUNDER_PHOTO} alt="Bahromaliyev Muhammadyusuf" style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"top"}}/>
           </div>
           <div style={{flex:1,minWidth:200}}>
@@ -1809,7 +1813,7 @@ function CoursePage({lang, setPage}){
               );})}
             </div>
             <div style={{display:"flex",gap:10,marginTop:16,flexWrap:"wrap"}}>
-              <a href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(47,125,246,0.1)",border:"1px solid rgba(47,125,246,0.2)",borderRadius:8,padding:"7px 12px",color:C.blueLt,fontSize:12.5,textDecoration:"none",fontWeight:600}}><TgIcon s={14}/> Telegram</a>
+              <a href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(23,138,86,0.1)",border:"1px solid rgba(23,138,86,0.2)",borderRadius:8,padding:"7px 12px",color:C.blueLt,fontSize:12.5,textDecoration:"none",fontWeight:600}}><TgIcon s={14}/> Telegram</a>
               <a href="https://instagram.com/savura_invest" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(225,48,108,0.08)",border:"1px solid rgba(225,48,108,0.2)",borderRadius:8,padding:"7px 12px",color:"#e1306c",fontSize:12.5,textDecoration:"none",fontWeight:600}}><IgIcon s={14}/> Instagram</a>
               <a href="https://savuraedu.com" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(55,178,77,0.08)",border:"1px solid rgba(55,178,77,0.2)",borderRadius:8,padding:"7px 12px",color:C.greenLt,fontSize:12.5,textDecoration:"none",fontWeight:600}}><GlobeIcon s={14}/> savuraedu.com</a>
             </div>
@@ -1820,7 +1824,7 @@ function CoursePage({lang, setPage}){
           {modules.map(function(m,i){return(
             <div key={i} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,overflow:"hidden"}}>
               <div style={{display:"flex",alignItems:"flex-start",gap:14,padding:"16px 18px"}}>
-                <div style={{flexShrink:0,width:40,height:40,borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",background:`linear-gradient(135deg,${C.blue},${C.green})`,color:"#fff",fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:17,boxShadow:"0 6px 18px rgba(47,125,246,0.25)"}}>{i}</div>
+                <div style={{flexShrink:0,width:40,height:40,borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",background:`linear-gradient(135deg,${C.blue},${C.green})`,color:"#fff",fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:17,boxShadow:"0 6px 18px rgba(23,138,86,0.25)"}}>{i}</div>
                 <div style={{flex:1}}>
                   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:10,flexWrap:"wrap",marginBottom:6}}>
                     <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:15.5,color:C.text}}>{m.title}</div>
@@ -1867,7 +1871,7 @@ function AboutPage({lang, setPage}){
           <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:`linear-gradient(90deg,${C.blue},${C.green})`}}/>
           <div style={{fontSize:10.5,letterSpacing:"2px",color:C.faint,fontFamily:"'JetBrains Mono',monospace",marginBottom:14}}>{sa.fl}</div>
           <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:16}}>
-            <div style={{width:52,height:52,borderRadius:"50%",overflow:"hidden",border:"2px solid rgba(47,125,246,0.35)",flexShrink:0}}>
+            <div style={{width:52,height:52,borderRadius:"50%",overflow:"hidden",border:"2px solid rgba(23,138,86,0.35)",flexShrink:0}}>
               <img src={FOUNDER_PHOTO} alt="Bahromaliyev Muhammadyusuf" style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"top"}}/>
             </div>
             <div>
@@ -1934,13 +1938,13 @@ function BoolSection({ticker, bools, setBools, t, lang}){
           <div style={{fontSize:11, color:C.faint, marginTop:2}}>{(t&&t.tf)?t.tf.boolSub:"Savollarga javob bering"}</div>
         </div>
         <button onClick={function(){setShowP(function(v){return !v;});}}
-          style={{background:"rgba(74,163,255,0.1)", border:"1px solid rgba(74,163,255,0.3)", borderRadius:8, color:C.blueLt, fontSize:12, fontWeight:600, padding:"7px 12px", cursor:"pointer"}}>
+          style={{background:"rgba(75,224,160,0.1)", border:"1px solid rgba(75,224,160,0.3)", borderRadius:8, color:C.blueLt, fontSize:12, fontWeight:600, padding:"7px 12px", cursor:"pointer"}}>
           AI Prompt {showP ? "^" : "v"}
         </button>
       </div>
 
       {showP && (
-        <div style={{background:"var(--k30)", border:"1px solid rgba(74,163,255,0.2)", borderRadius:10, padding:"12px", marginBottom:14}}>
+        <div style={{background:"var(--k30)", border:"1px solid rgba(75,224,160,0.2)", borderRadius:10, padding:"12px", marginBottom:14}}>
           <div style={{fontSize:11, color:C.blueLt, fontWeight:600, marginBottom:6}}>
             {(t&&t.tf)?t.tf.aiInstr:""}
           </div>
@@ -1960,8 +1964,8 @@ function BoolSection({ticker, bools, setBools, t, lang}){
             </div>
           </div>
           <button onClick={copyPrompt}
-            style={{background: copied ? "rgba(55,178,77,0.15)" : "rgba(47,125,246,0.1)",
-              border: "1px solid " + (copied ? "rgba(55,178,77,0.4)" : "rgba(47,125,246,0.3)"),
+            style={{background: copied ? "rgba(55,178,77,0.15)" : "rgba(23,138,86,0.1)",
+              border: "1px solid " + (copied ? "rgba(55,178,77,0.4)" : "rgba(23,138,86,0.3)"),
               borderRadius:7, color: copied ? C.greenLt : C.blueLt,
               fontSize:12, fontWeight:600, padding:"7px 16px", cursor:"pointer"}}>
             {copied ? t.tf.aiCopied : t.tf.aiCopy}
@@ -2125,13 +2129,13 @@ function FundamentalTool({lang, setLang, setPage}){
           <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:16,marginBottom:6}}>{FA.manual}</div>
           <div style={{fontSize:12.5,color:C.dim,lineHeight:1.6}}>{FA.manualD}</div>
         </button>
-        <button onClick={runAuto} disabled={autoState.loading} style={{textAlign:"start",background:`linear-gradient(135deg,rgba(47,125,246,.14),rgba(55,178,77,.14))`,border:`1px solid rgba(47,125,246,.45)`,borderRadius:16,padding:"20px 18px",cursor:autoState.loading?"wait":"pointer",color:C.text,fontFamily:"inherit",opacity:autoState.loading?.7:1}}>
+        <button onClick={runAuto} disabled={autoState.loading} style={{textAlign:"start",background:`linear-gradient(135deg,rgba(23,138,86,.14),rgba(55,178,77,.14))`,border:`1px solid rgba(23,138,86,.45)`,borderRadius:16,padding:"20px 18px",cursor:autoState.loading?"wait":"pointer",color:C.text,fontFamily:"inherit",opacity:autoState.loading?.7:1}}>
           <div style={{fontSize:26,marginBottom:8}}>⚡</div>
           <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:16,marginBottom:6}}>{autoState.loading?FA.load:FA.auto}</div>
           <div style={{fontSize:12.5,color:C.dim,lineHeight:1.6}}>{FA.autoD}</div>
         </button>
       </div>
-      {autoState.err&&<div style={{marginTop:16,background:"rgba(240,169,43,.1)",border:"1px solid rgba(240,169,43,.4)",borderRadius:12,padding:"12px 14px",fontSize:13,color:C.amber,lineHeight:1.6}}>{autoState.err}</div>}
+      {autoState.err&&<div style={{marginTop:16,background:"rgba(226,182,92,.1)",border:"1px solid rgba(226,182,92,.4)",borderRadius:12,padding:"12px 14px",fontSize:13,color:C.amber,lineHeight:1.6}}>{autoState.err}</div>}
       <div style={{marginTop:14,fontSize:11.5,color:C.faint,lineHeight:1.6,textAlign:"center"}}>{FA.warn}</div>
     </div>
   );
@@ -2139,7 +2143,7 @@ function FundamentalTool({lang, setLang, setPage}){
   // ── STEP 2: Results ─────────────────────────────────────────────
   if(step===2&&result) return(
     <div style={{padding:"85px 24px 60px",maxWidth:940,margin:"0 auto"}}>
-      <button onClick={()=>{setResult(null);setStep(1);}} style={{background:`rgba(47,125,246,0.1)`,border:`1px solid ${C.border}`,color:C.blueLt,borderRadius:9,padding:"8px 16px",fontSize:13,cursor:"pointer",marginBottom:20,display:"inline-flex",alignItems:"center",gap:7}}>
+      <button onClick={()=>{setResult(null);setStep(1);}} style={{background:`rgba(23,138,86,0.1)`,border:`1px solid ${C.border}`,color:C.blueLt,borderRadius:9,padding:"8px 16px",fontSize:13,cursor:"pointer",marginBottom:20,display:"inline-flex",alignItems:"center",gap:7}}>
         ← {t.tf.reEnter}
       </button>
       <ToolResult d={result} t={t} FA={FA}/>
@@ -2159,7 +2163,7 @@ function FundamentalTool({lang, setLang, setPage}){
         <p style={{color:C.dim,fontSize:14,maxWidth:480,margin:"0 auto 8px",lineHeight:1.6}}>
           {t.tf.sub2}
         </p>
-        <a href="https://stockanalysis.com" target="_blank" rel="noreferrer" style={{fontSize:12,color:C.blueLt,border:`1px solid rgba(74,163,255,0.3)`,borderRadius:7,padding:"4px 10px",display:"inline-flex",alignItems:"center",gap:5}}>
+        <a href="https://stockanalysis.com" target="_blank" rel="noreferrer" style={{fontSize:12,color:C.blueLt,border:`1px solid rgba(75,224,160,0.3)`,borderRadius:7,padding:"4px 10px",display:"inline-flex",alignItems:"center",gap:5}}>
           stockanalysis.com →
         </a>
       </div>
@@ -2193,15 +2197,15 @@ function FundamentalTool({lang, setLang, setPage}){
         <div style={{display:"flex",alignItems:"center",gap:14}}>
           <button onClick={()=>setStep(0)} style={{background:"transparent",border:`1px solid ${C.border}`,color:C.dim,borderRadius:8,padding:"7px 13px",fontSize:12.5,cursor:"pointer"}}>← {t.tf.backBtn}</button>
           <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:22,color:C.blueLt}}>{ticker}</div>
-          <div style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(240,169,43,.4)",borderRadius:6,padding:"3px 8px",fontWeight:600}}>{t.tf.manualBadge}</div>
+          <div style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(226,182,92,.4)",borderRadius:6,padding:"3px 8px",fontWeight:600}}>{t.tf.manualBadge}</div>
         </div>
-        <a href={`https://stockanalysis.com/stocks/${ticker.toLowerCase()}/statistics/`} target="_blank" rel="noreferrer" style={{fontSize:12,color:C.blueLt,border:`1px solid rgba(74,163,255,0.3)`,borderRadius:8,padding:"7px 12px",display:"inline-flex",alignItems:"center",gap:5}}>
+        <a href={`https://stockanalysis.com/stocks/${ticker.toLowerCase()}/statistics/`} target="_blank" rel="noreferrer" style={{fontSize:12,color:C.blueLt,border:`1px solid rgba(75,224,160,0.3)`,borderRadius:8,padding:"7px 12px",display:"inline-flex",alignItems:"center",gap:5}}>
           stockanalysis.com/{ticker.toLowerCase()} →
         </a>
       </div>
 
       {/* Instruction banner */}
-      <div style={{background:`rgba(47,125,246,0.07)`,border:`1px solid rgba(47,125,246,0.2)`,borderRadius:12,padding:"12px 16px",marginBottom:24,display:"flex",alignItems:"flex-start",gap:10}}>
+      <div style={{background:`rgba(23,138,86,0.07)`,border:`1px solid rgba(23,138,86,0.2)`,borderRadius:12,padding:"12px 16px",marginBottom:24,display:"flex",alignItems:"flex-start",gap:10}}>
         <span style={{color:C.blueLt,fontSize:18,flexShrink:0}}>ℹ</span>
         <div style={{fontSize:13,color:C.dim,lineHeight:1.6}}>
           {t.tf.instrText}
@@ -2210,7 +2214,7 @@ function FundamentalTool({lang, setLang, setPage}){
 
       {/* READ-ONLY Company Info */}
       {(()=>{const s=SAMPLE[ticker]||{}; const cn=s.companyName||ticker; const ex=s.exchange||""; const sc=s.sector||""; const ind=s.industry||""; return(
-        <div style={{background:`rgba(47,125,246,0.05)`,border:`1px solid rgba(47,125,246,0.2)`,borderRadius:12,padding:"12px 16px",marginBottom:14,display:"flex",flexWrap:"wrap",gap:16,alignItems:"center"}}>
+        <div style={{background:`rgba(23,138,86,0.05)`,border:`1px solid rgba(23,138,86,0.2)`,borderRadius:12,padding:"12px 16px",marginBottom:14,display:"flex",flexWrap:"wrap",gap:16,alignItems:"center"}}>
           <div style={{display:"flex",alignItems:"center",gap:8}}>
             <span style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:18,color:C.blueLt}}>{ticker}</span>
             {ex&&<span style={{fontSize:11,color:C.dim,border:`1px solid ${C.border}`,borderRadius:5,padding:"2px 7px"}}>{ex}</span>}
@@ -2256,7 +2260,7 @@ function FundamentalTool({lang, setLang, setPage}){
 
       {/* Analyze button */}
       <div style={{textAlign:"center"}}>
-        <button onClick={()=>handleAnalyze()} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:14,color:"#fff",fontWeight:700,fontSize:17,padding:"16px 48px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:`0 8px 28px rgba(47,125,246,0.28)`,letterSpacing:".5px"}}>
+        <button onClick={()=>handleAnalyze()} style={{background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:14,color:"#fff",fontWeight:700,fontSize:17,padding:"16px 48px",cursor:"pointer",fontFamily:"'Sora',sans-serif",boxShadow:`0 8px 28px rgba(23,138,86,0.28)`,letterSpacing:".5px"}}>
           Tahlil Qilish — 15 Savol →
         </button>
         <div style={{fontSize:11,color:C.faint,marginTop:10}}>Kiritilgan ma'lumotlar asosida 15 savolga avtomatik javob beriladi va risk darajasi aniqlanadi</div>
@@ -2280,16 +2284,16 @@ function ToolResult({d,t,FA}){
             <span style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:22,color:C.blueLt}}>{d.ticker}</span>
             {d.exchange&&<span style={{fontSize:11,color:C.dim,border:`1px solid ${C.border}`,borderRadius:6,padding:"2px 7px"}}>{d.exchange}</span>}
             {d._live&&<span style={{fontSize:10.5,color:C.greenLt,border:"1px solid rgba(82,216,105,.4)",borderRadius:6,padding:"2px 7px"}}>live</span>}
-            {d._manual&&<span style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(240,169,43,.4)",borderRadius:6,padding:"2px 7px"}}>qo'lda kiritilgan</span>}
-            {d._auto&&<span style={{fontSize:10.5,color:C.blueLt,border:"1px solid rgba(74,163,255,.45)",borderRadius:6,padding:"2px 7px"}}>⚡ {FA.badge}</span>}
-            {d._sample&&!d._live&&<span style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(240,169,43,.4)",borderRadius:6,padding:"2px 7px"}}>{t.sample}</span>}
+            {d._manual&&<span style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(226,182,92,.4)",borderRadius:6,padding:"2px 7px"}}>qo'lda kiritilgan</span>}
+            {d._auto&&<span style={{fontSize:10.5,color:C.blueLt,border:"1px solid rgba(75,224,160,.45)",borderRadius:6,padding:"2px 7px"}}>⚡ {FA.badge}</span>}
+            {d._sample&&!d._live&&<span style={{fontSize:10.5,color:C.amber,border:"1px solid rgba(226,182,92,.4)",borderRadius:6,padding:"2px 7px"}}>{t.sample}</span>}
           </div>
           <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:16,marginTop:5,color:C.text}}>{d.companyName}</div>
           {d.sector&&<div style={{fontSize:12,color:C.dim,marginTop:2}}>{d.sector}{d.industry&&d.industry!==d.sector?" · "+d.industry:""}</div>}
         </div>
         {d.price!=null&&<div style={{textAlign:"right"}}><div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,fontSize:22,color:C.text}}>${Number(d.price).toFixed(2)}</div><div style={{fontSize:11,color:C.faint}}>{d.dataAsOf||""}</div></div>}
       </div>
-      {d._auto&&<div style={{background:"rgba(240,169,43,.08)",border:"1px solid rgba(240,169,43,.35)",borderRadius:12,padding:"10px 14px",marginBottom:14,fontSize:12.5,color:C.dim,lineHeight:1.7}}>
+      {d._auto&&<div style={{background:"rgba(226,182,92,.08)",border:"1px solid rgba(226,182,92,.35)",borderRadius:12,padding:"10px 14px",marginBottom:14,fontSize:12.5,color:C.dim,lineHeight:1.7}}>
         <div style={{color:C.amber,fontWeight:700,marginBottom:3}}>{d._ai?FA.aiTitle:FA.estNote}</div>
         <div>{["isDefensiveSector:q1","isIndustryLeader:q2","freeFromLegalIssues:q3","outperformedSP500_5y:q4"].map(x=>FA[x.split(":")[1]]).join(" · ")}</div>
         {d._aiNote&&<div style={{marginTop:6,color:C.dim,fontSize:12}}>🤖 {d._aiNote}</div>}
@@ -2372,7 +2376,7 @@ const SavuraAiIcon = ({size=26}) => (
   <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
     <defs>
       <linearGradient id="aiGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#2f7df6"/>
+        <stop stopColor="#178A56"/>
         <stop offset="1" stopColor="#1db584"/>
       </linearGradient>
     </defs>
@@ -2449,15 +2453,15 @@ function ChatWidget({lang}){
   };
   const sugg = SUGGESTIONS[lang]||SUGGESTIONS.uz;
 
-  const BG = "rgba(8,14,30,0.97)";
-  const BORDER = "rgba(74,163,255,0.18)";
+  const BG = "rgba(7,22,16,0.97)";
+  const BORDER = "rgba(75,224,160,0.18)";
 
   return(
     <div style={{position:"fixed", bottom:20, right:20, zIndex:9999, display:"flex", flexDirection:"column", alignItems:"flex-end"}}>
 
       {/* Notification bubble */}
       {!open && pulse && (
-        <div style={{background:"linear-gradient(135deg,#1a3a6e,#0d2137)", border:"1px solid rgba(74,163,255,0.3)", borderRadius:12, padding:"8px 14px", marginBottom:10, fontSize:12, color:"#a0c4ff", maxWidth:200, boxShadow:"0 4px 20px rgba(0,0,0,0.4)", animation:"fadeIn .5s ease"}}>
+        <div style={{background:"linear-gradient(135deg,#14402C,#0C1F18)", border:"1px solid rgba(75,224,160,0.3)", borderRadius:12, padding:"8px 14px", marginBottom:10, fontSize:12, color:"#A6E8C8", maxWidth:200, boxShadow:"0 4px 20px rgba(0,0,0,0.4)", animation:"fadeIn .5s ease"}}>
           Savol bering, javob beraman! 💬
         </div>
       )}
@@ -2467,7 +2471,7 @@ function ChatWidget({lang}){
         <div style={{width:340, height:490, background:BG, border:"1px solid "+BORDER, borderRadius:20, boxShadow:"0 24px 64px rgba(0,0,0,0.6)", display:"flex", flexDirection:"column", marginBottom:12, overflow:"hidden", backdropFilter:"blur(12px)"}}>
 
           {/* Header */}
-          <div style={{background:"linear-gradient(135deg,#1a3a6e 0%,#0d3d2a 100%)", padding:"14px 16px", display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:"1px solid "+BORDER}}>
+          <div style={{background:"linear-gradient(135deg,#14402C 0%,#0d3d2a 100%)", padding:"14px 16px", display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:"1px solid "+BORDER}}>
             <div style={{display:"flex", alignItems:"center", gap:10}}>
               <SavuraAiIcon size={38}/>
               <div>
@@ -2479,8 +2483,8 @@ function ChatWidget({lang}){
               </div>
             </div>
             <div style={{display:"flex", gap:8}}>
-              <button onClick={()=>setMsgs(msgs.slice(0,1))} style={{background:"rgba(255,255,255,0.07)", border:"none", borderRadius:8, color:"#8099c0", fontSize:11, padding:"4px 9px", cursor:"pointer"}}>Tozala</button>
-              <button onClick={()=>setOpen(false)} style={{background:"rgba(255,255,255,0.07)", border:"none", borderRadius:8, color:"#8099c0", fontSize:14, padding:"2px 8px", cursor:"pointer"}}>✕</button>
+              <button onClick={()=>setMsgs(msgs.slice(0,1))} style={{background:"rgba(255,255,255,0.07)", border:"none", borderRadius:8, color:"#86A898", fontSize:11, padding:"4px 9px", cursor:"pointer"}}>Tozala</button>
+              <button onClick={()=>setOpen(false)} style={{background:"rgba(255,255,255,0.07)", border:"none", borderRadius:8, color:"#86A898", fontSize:14, padding:"2px 8px", cursor:"pointer"}}>✕</button>
             </div>
           </div>
 
@@ -2493,9 +2497,9 @@ function ChatWidget({lang}){
                   <div style={{maxWidth:"80%", padding:"10px 13px",
                     borderRadius: m.role==="user"?"16px 16px 4px 16px":"16px 16px 16px 4px",
                     background: m.role==="user"
-                      ? "linear-gradient(135deg,#2f7df6,#1a6de0)"
+                      ? "linear-gradient(135deg,#178A56,#127A4C)"
                       : "rgba(255,255,255,0.05)",
-                    border: m.role==="assistant" ? "1px solid rgba(74,163,255,0.12)" : "none",
+                    border: m.role==="assistant" ? "1px solid rgba(75,224,160,0.12)" : "none",
                     color: m.role==="user" ? "#fff" : "#c8d8f0",
                     fontSize:12.5, lineHeight:1.65, whiteSpace:"pre-wrap"}}>
                     {m.content}
@@ -2506,9 +2510,9 @@ function ChatWidget({lang}){
             {loading && (
               <div style={{display:"flex", gap:8, alignItems:"center"}}>
                 <SavuraAiIcon size={24}/>
-                <div style={{background:"rgba(255,255,255,0.05)", border:"1px solid rgba(74,163,255,0.12)", borderRadius:"16px 16px 16px 4px", padding:"12px 16px", display:"flex", gap:5}}>
+                <div style={{background:"rgba(255,255,255,0.05)", border:"1px solid rgba(75,224,160,0.12)", borderRadius:"16px 16px 16px 4px", padding:"12px 16px", display:"flex", gap:5}}>
                   {[0,1,2].map(function(i){ return(
-                    <div key={i} style={{width:6, height:6, borderRadius:"50%", background:"#4aa3ff", opacity: 0.6+i*0.2, animation:"bounce 1s "+i*0.15+"s infinite"}}/>
+                    <div key={i} style={{width:6, height:6, borderRadius:"50%", background:"#4BE0A0", opacity: 0.6+i*0.2, animation:"bounce 1s "+i*0.15+"s infinite"}}/>
                   ); })
                   }
                 </div>
@@ -2522,7 +2526,7 @@ function ChatWidget({lang}){
             <div style={{padding:"0 12px 10px", display:"flex", flexWrap:"wrap", gap:6}}>
               {sugg.map(function(s){ return(
                 <button key={s} onClick={function(){setInput(s);}}
-                  style={{background:"rgba(47,125,246,0.1)", border:"1px solid rgba(47,125,246,0.25)", borderRadius:20, color:"#7ab8ff", fontSize:10.5, padding:"5px 11px", cursor:"pointer", fontFamily:"'Sora',sans-serif"}}>
+                  style={{background:"rgba(23,138,86,0.1)", border:"1px solid rgba(23,138,86,0.25)", borderRadius:20, color:"#7FE8BC", fontSize:10.5, padding:"5px 11px", cursor:"pointer", fontFamily:"'Sora',sans-serif"}}>
                   {s}
                 </button>
               ); })}
@@ -2539,7 +2543,7 @@ function ChatWidget({lang}){
             />
             <button onClick={send} disabled={loading||!input.trim()}
               style={{width:40, height:40, borderRadius:12, flexShrink:0,
-                background: input.trim()&&!loading ? "linear-gradient(135deg,#2f7df6,#1db584)" : "rgba(255,255,255,0.06)",
+                background: input.trim()&&!loading ? "linear-gradient(135deg,#178A56,#1db584)" : "rgba(255,255,255,0.06)",
                 border:"none", color:"#fff", fontSize:16, cursor: input.trim()&&!loading?"pointer":"default",
                 display:"flex", alignItems:"center", justifyContent:"center"}}>
               {loading ? "⏳" : "➤"}
@@ -2551,12 +2555,12 @@ function ChatWidget({lang}){
       {/* Toggle button */}
       <button onClick={function(){setOpen(function(v){return !v;}); setPulse(false);}}
         style={{width:54, height:54, borderRadius:16,
-          background: open ? "rgba(20,40,80,0.9)" : "linear-gradient(135deg,#2f7df6,#1db584)",
-          border: open ? "1.5px solid rgba(74,163,255,0.4)" : "none",
+          background: open ? "rgba(16,44,32,0.9)" : "linear-gradient(135deg,#178A56,#1db584)",
+          border: open ? "1.5px solid rgba(75,224,160,0.4)" : "none",
           cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center",
-          boxShadow:"0 8px 28px rgba(47,125,246,0.45)", transition:"all .3s"}}>
+          boxShadow:"0 8px 28px rgba(23,138,86,0.45)", transition:"all .3s"}}>
         {open
-          ? <span style={{color:"#7ab8ff", fontSize:20}}>✕</span>
+          ? <span style={{color:"#7FE8BC", fontSize:20}}>✕</span>
           : <SavuraAiIcon size={28}/>
         }
       </button>
@@ -2575,7 +2579,7 @@ function BackBtn({setPage, lang}){
     <div style={{marginBottom:14}}>
       <button onClick={()=>setPage('home')}
         style={{background:'var(--glass)',
-          border:'1px solid rgba(74,163,255,0.2)',borderRadius:10,color:'var(--dimv)',
+          border:'1px solid rgba(75,224,160,0.2)',borderRadius:10,color:'var(--dimv)',
           fontSize:12.5,padding:'7px 13px',cursor:'pointer',
           display:'inline-flex',alignItems:'center',gap:6,fontFamily:"'Sora',sans-serif"}}>
         {labels[lang]||labels.uz}
@@ -2950,7 +2954,7 @@ function JournalTab({lang="uz"}){
         </button>
         {['ALL','OPEN','PROFIT','LOSS'].map(f=>(
           <button key={f} onClick={()=>setFilter(f)}
-            style={{background:filter===f?'rgba(47,125,246,0.2)':'transparent',border:`1px solid ${filter===f?C.blue:C.border}`,borderRadius:8,color:filter===f?C.blueLt:C.dim,fontSize:12,padding:'7px 14px',cursor:'pointer'}}>
+            style={{background:filter===f?'rgba(23,138,86,0.2)':'transparent',border:`1px solid ${filter===f?C.blue:C.border}`,borderRadius:8,color:filter===f?C.blueLt:C.dim,fontSize:12,padding:'7px 14px',cursor:'pointer'}}>
             {f==='ALL'?J.stAll:f==='OPEN'?J.stOpen:f==='PROFIT'?J.fProfitable:J.fLoss}
           </button>
         ))}
@@ -3020,7 +3024,7 @@ function JournalTab({lang="uz"}){
                 <div style={{fontSize:10.5,color:C.faint}}>{e.date}</div>
               </div>
               <div style={{display:'flex',gap:8,alignItems:'center',flexWrap:'wrap'}}>
-                <span style={{background:e.action==='BUY'?'rgba(55,178,77,0.15)':'rgba(229,72,77,0.15)',border:`1px solid ${e.action==='BUY'?C.green:C.red}`,borderRadius:6,padding:'2px 8px',fontSize:11,fontWeight:700,color:e.action==='BUY'?C.green:C.red}}>{e.action}</span>
+                <span style={{background:e.action==='BUY'?'rgba(55,178,77,0.15)':'rgba(242,118,106,0.15)',border:`1px solid ${e.action==='BUY'?C.green:C.red}`,borderRadius:6,padding:'2px 8px',fontSize:11,fontWeight:700,color:e.action==='BUY'?C.green:C.red}}>{e.action}</span>
                 {e.price&&<span style={{fontSize:12,color:C.dim}}>${e.price}</span>}
                 {e.shares&&<span style={{fontSize:12,color:C.dim}}>×{e.shares}</span>}
                 {e.pnl&&<span style={{fontWeight:700,fontSize:13,color:pnlN>=0?C.green:C.red}}>{pnlN>=0?'+':''}{e.pnl}$</span>}
@@ -3211,7 +3215,7 @@ function ChecklistTab({lang="uz"}){
               return(
                 <div key={i}
                   onClick={()=>!last2&&toggle(i)}
-                  style={{display:'flex',gap:12,padding:'11px 14px',background:C.card,border:`1px solid ${answers[i]?'rgba(55,178,77,0.3)':last2?'rgba(229,72,77,0.2)':C.border}`,borderRadius:10,cursor:last2?'default':'pointer',alignItems:'flex-start',opacity:last2?0.7:1}}>
+                  style={{display:'flex',gap:12,padding:'11px 14px',background:C.card,border:`1px solid ${answers[i]?'rgba(55,178,77,0.3)':last2?'rgba(242,118,106,0.2)':C.border}`,borderRadius:10,cursor:last2?'default':'pointer',alignItems:'flex-start',opacity:last2?0.7:1}}>
                   <div style={{flexShrink:0,width:22,height:22,borderRadius:6,marginTop:1,
                     background: last2?C.red:answers[i]?C.green:'transparent',
                     border:`2px solid ${last2?C.red:answers[i]?C.green:C.border}`,
@@ -3519,7 +3523,7 @@ function EquityChart({history, startBal}){
   const ys=v=>H-PY-((v-minV)/rng)*(H-PY*2);
   const lastV=history[history.length-1].v;
   const isUp=lastV>=startBal;
-  const col=isUp?'#52d869':'#e5484d';
+  const col=isUp?'#52d869':'#F2766A';
   const sy=ys(startBal);
   const pts=history.map((h,i)=>xs(i)+','+ys(h.v)).join(' ');
   const area=xs(0)+','+ys(history[0].v)+' '+pts+' '+xs(history.length-1)+','+(H-PY)+' '+xs(0)+','+(H-PY);
@@ -3824,7 +3828,7 @@ function DemoPage({lang="uz", setPage}){
           {[1000,3000,5000,10000].map((amt,idx)=>(
             <button key={amt} onClick={()=>createAcc(amt)}
               style={{background:C.card,border:`2px solid ${C.border}`,borderRadius:14,padding:'16px 12px',cursor:'pointer',transition:'all .2s'}}
-              onMouseEnter={e=>{e.currentTarget.style.borderColor=C.blue;e.currentTarget.style.background='rgba(47,125,246,0.1)';}}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor=C.blue;e.currentTarget.style.background='rgba(23,138,86,0.1)';}}
               onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.background=C.card;}}>
               <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:800,fontSize:22,color:C.blueLt}}>${amt.toLocaleString()}</div>
               <div style={{fontSize:11.5,color:C.dim,marginTop:3}}>{D.startLabel[idx]}</div>
@@ -3893,7 +3897,7 @@ function DemoPage({lang="uz", setPage}){
                 <button onClick={()=>setSellModal(m.mode==='qty'
                     ?{...m,qty:String(m.pos.shares)}
                     :{...m,amt:String(Math.floor(cp*m.pos.shares*100)/100)})}
-                  style={{marginBottom:12,background:'rgba(229,72,77,0.07)',border:`1px dashed rgba(229,72,77,0.35)`,borderRadius:7,color:C.red,fontSize:10.5,fontWeight:600,padding:'4px 10px',cursor:'pointer',fontFamily:"'Sora',sans-serif"}}>
+                  style={{marginBottom:12,background:'rgba(242,118,106,0.07)',border:`1px dashed rgba(242,118,106,0.35)`,borderRadius:7,color:C.red,fontSize:10.5,fontWeight:600,padding:'4px 10px',cursor:'pointer',fontFamily:"'Sora',sans-serif"}}>
                   {D.max}: {m.mode==='qty'?m.pos.shares+' '+D.dona:'$'+(cp*m.pos.shares).toFixed(2)}
                 </button>
               )}
@@ -3929,7 +3933,7 @@ function DemoPage({lang="uz", setPage}){
           return(
             <div key={acc.id} onClick={()=>switchAcc(i)}
               style={{display:'flex',alignItems:'center',gap:8,padding:'8px 12px',borderRadius:12,cursor:'pointer',
-                background:active?'rgba(47,125,246,0.12)':'rgba(255,255,255,0.03)',
+                background:active?'rgba(23,138,86,0.12)':'rgba(255,255,255,0.03)',
                 border:`1.5px solid ${active?C.blue:C.border}`,transition:'all .2s'}}>
               <div>
                 <div style={{fontSize:12.5,fontWeight:active?700:400,color:active?C.text:C.dim}}>{acc.name}</div>
@@ -3960,7 +3964,7 @@ function DemoPage({lang="uz", setPage}){
             {[1000,3000,5000,10000].map(function(amt){
               return(
                 <button key={amt} onClick={()=>createAcc(amt)}
-                  style={{background:'rgba(47,125,246,0.1)',border:`1px solid rgba(47,125,246,0.3)`,borderRadius:8,color:C.blueLt,fontSize:11.5,fontWeight:600,padding:'5px 10px',cursor:'pointer'}}>
+                  style={{background:'rgba(23,138,86,0.1)',border:`1px solid rgba(23,138,86,0.3)`,borderRadius:8,color:C.blueLt,fontSize:11.5,fontWeight:600,padding:'5px 10px',cursor:'pointer'}}>
                   ${amt.toLocaleString()}
                 </button>
               );
@@ -3996,7 +4000,7 @@ function DemoPage({lang="uz", setPage}){
             })}
             <div style={{textAlign:'right'}}>
               <button onClick={()=>refreshPrices()} disabled={refreshing}
-                style={{background:'rgba(47,125,246,0.1)',border:`1px solid ${C.border}`,borderRadius:8,color:C.blueLt,fontSize:11.5,padding:'6px 12px',cursor:'pointer'}}>
+                style={{background:'rgba(23,138,86,0.1)',border:`1px solid ${C.border}`,borderRadius:8,color:C.blueLt,fontSize:11.5,padding:'6px 12px',cursor:'pointer'}}>
                 {refreshing?'...':D.refresh}
               </button>
               <div style={{fontSize:9.5,color:C.faint,marginTop:4,display:'flex',alignItems:'center',gap:4,justifyContent:'flex-end'}}>
@@ -4035,7 +4039,7 @@ function DemoPage({lang="uz", setPage}){
             {buyForm.err&&<div style={{fontSize:11,color:C.red,marginTop:4}}>{buyForm.err}</div>}
           </div>
           {buyForm.price&&(
-            <div style={{background:'rgba(47,125,246,0.08)',border:`1px solid rgba(47,125,246,0.2)`,borderRadius:10,padding:'9px 12px',marginBottom:12}}>
+            <div style={{background:'rgba(23,138,86,0.08)',border:`1px solid rgba(23,138,86,0.2)`,borderRadius:10,padding:'9px 12px',marginBottom:12}}>
               <div style={{fontSize:10,color:C.faint}}>{D.curPrice}</div>
               <div style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:800,fontSize:22,color:C.blueLt}}>${buyForm.price.toFixed(2)}</div>
             </div>
@@ -4062,7 +4066,7 @@ function DemoPage({lang="uz", setPage}){
                   if(buyMode==='amt') setBuyAmt(String(Math.floor(demo.cash*100)/100));
                   else setBuyForm(f=>({...f,shares:String(Math.floor(demo.cash/buyForm.price*10000)/10000)}));
                 }}
-                style={{marginTop:5,background:'rgba(47,125,246,0.08)',border:`1px dashed rgba(74,163,255,0.3)`,borderRadius:7,color:C.blueLt,fontSize:10.5,fontWeight:600,padding:'4px 10px',cursor:'pointer',fontFamily:"'Sora',sans-serif"}}>
+                style={{marginTop:5,background:'rgba(23,138,86,0.08)',border:`1px dashed rgba(75,224,160,0.3)`,borderRadius:7,color:C.blueLt,fontSize:10.5,fontWeight:600,padding:'4px 10px',cursor:'pointer',fontFamily:"'Sora',sans-serif"}}>
                 {D.max}: {buyMode==='amt'
                   ? '$'+demo.cash.toFixed(2)
                   : (Math.floor(demo.cash/buyForm.price*10000)/10000)+' '+D.dona}
@@ -4081,7 +4085,7 @@ function DemoPage({lang="uz", setPage}){
               <div style={{fontSize:10.5,color:C.red,marginBottom:4}}>● {D.sl}</div>
               <input type="number" value={buyForm.sl} onChange={e=>setBuyForm(f=>({...f,sl:e.target.value}))}
                 placeholder={buyForm.price?(buyForm.price*0.95).toFixed(2):'—'}
-                style={{width:'100%',background:'rgba(229,72,77,0.06)',border:`1px solid rgba(229,72,77,0.25)`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none'}}/>
+                style={{width:'100%',background:'rgba(242,118,106,0.06)',border:`1px solid rgba(242,118,106,0.25)`,borderRadius:8,color:C.text,padding:'8px 10px',fontSize:13,outline:'none'}}/>
             </div>
             <div>
               <div style={{fontSize:10.5,color:C.green,marginBottom:4}}>● {D.tp}</div>
@@ -4137,7 +4141,7 @@ function DemoPage({lang="uz", setPage}){
                       const pct=(cp-pos.buyPrice)/pos.buyPrice*100;
                       const col=pnl>=0?C.green:C.red;
                       const fl=flash[pos.ticker];
-                      const flBg=fl==='up'?'rgba(55,178,77,0.12)':fl==='down'?'rgba(229,72,77,0.12)':'transparent';
+                      const flBg=fl==='up'?'rgba(55,178,77,0.12)':fl==='down'?'rgba(242,118,106,0.12)':'transparent';
                       return(
                         <tr key={pos.id} style={{borderBottom:`1px solid var(--w04)`,background:flBg,transition:'background .5s ease'}}>
                           <td style={{padding:'8px 6px',fontFamily:"'JetBrains Mono',monospace",fontWeight:700,color:C.blueLt}}>{pos.ticker}</td>
@@ -4151,11 +4155,11 @@ function DemoPage({lang="uz", setPage}){
                           <td style={{padding:'8px 6px',whiteSpace:'nowrap'}}>
                             {isSettled(pos.buyDate)
                               ?<span title="T+2 bajarildi — aksiya to'liq mulkingizda" style={{display:'inline-flex',alignItems:'center',gap:3,background:'rgba(55,178,77,0.12)',border:'1px solid rgba(55,178,77,0.35)',borderRadius:6,color:C.greenLt,fontSize:10,fontWeight:700,padding:'3px 7px'}}>✓ T+2</span>
-                              :<span title={"T+2 hali bajarilmadi — hisob-kitob sanasi: "+settleLabel(pos.buyDate)} style={{display:'inline-flex',alignItems:'center',gap:3,background:'rgba(240,169,43,0.1)',border:'1px solid rgba(240,169,43,0.35)',borderRadius:6,color:C.amber,fontSize:10,fontWeight:700,padding:'3px 7px'}}>⏳ {settleLabel(pos.buyDate)}</span>
+                              :<span title={"T+2 hali bajarilmadi — hisob-kitob sanasi: "+settleLabel(pos.buyDate)} style={{display:'inline-flex',alignItems:'center',gap:3,background:'rgba(226,182,92,0.1)',border:'1px solid rgba(226,182,92,0.35)',borderRadius:6,color:C.amber,fontSize:10,fontWeight:700,padding:'3px 7px'}}>⏳ {settleLabel(pos.buyDate)}</span>
                             }
                           </td>
                           <td style={{padding:'8px 6px'}}>
-                            <button onClick={()=>setSellModal({pos:pos,mode:'full',qty:'',amt:''})} style={{background:'rgba(229,72,77,0.1)',border:`1px solid rgba(229,72,77,0.3)`,borderRadius:7,color:C.red,fontSize:11,padding:'4px 8px',cursor:'pointer'}}>{D.sell}</button>
+                            <button onClick={()=>setSellModal({pos:pos,mode:'full',qty:'',amt:''})} style={{background:'rgba(242,118,106,0.1)',border:`1px solid rgba(242,118,106,0.3)`,borderRadius:7,color:C.red,fontSize:11,padding:'4px 8px',cursor:'pointer'}}>{D.sell}</button>
                           </td>
                         </tr>
                       );
@@ -4301,7 +4305,7 @@ function AuthScreen({lang, onClose}){
             </div>
           </div>
         )}
-        {err&&<div style={{background:"rgba(229,72,77,0.1)",border:`1px solid rgba(229,72,77,0.3)`,borderRadius:8,color:C.red,fontSize:12,padding:"8px 11px",marginBottom:12}}>{err}</div>}
+        {err&&<div style={{background:"rgba(242,118,106,0.1)",border:`1px solid rgba(242,118,106,0.3)`,borderRadius:8,color:C.red,fontSize:12,padding:"8px 11px",marginBottom:12}}>{err}</div>}
         <button onClick={submit} disabled={busy}
           style={{width:"100%",background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:10,color:"#fff",fontWeight:700,fontSize:14.5,padding:"12px",cursor:busy?"default":"pointer",opacity:busy?0.6:1,marginBottom:14}}>
           {busy?"...":(mode==="login"?T.loginBtn:T.signupBtn)}
@@ -4419,7 +4423,7 @@ function AdminPanel({lang,setPage,auth}){
           <div style={{fontSize:10,letterSpacing:"2px",color:C.amber,marginBottom:4}}>⚙️ ADMIN PANEL</div>
           <h2 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:22,color:C.text,margin:0}}>{T.adminTitle}</h2>
         </div>
-        <button onClick={load} style={{background:"rgba(47,125,246,0.1)",border:`1px solid ${C.border}`,borderRadius:8,color:C.blueLt,fontSize:12,padding:"7px 14px",cursor:"pointer"}}>↻ {T.adminRefresh}</button>
+        <button onClick={load} style={{background:"rgba(23,138,86,0.1)",border:`1px solid ${C.border}`,borderRadius:8,color:C.blueLt,fontSize:12,padding:"7px 14px",cursor:"pointer"}}>↻ {T.adminRefresh}</button>
       </div>
 
       {msg&&<div style={{background:"rgba(55,178,77,0.12)",border:`1px solid rgba(55,178,77,0.35)`,borderRadius:10,color:C.greenLt,fontSize:13,padding:"10px 14px",marginBottom:14}}>{msg}</div>}
@@ -4465,9 +4469,9 @@ function AdminPanel({lang,setPage,auth}){
                         :<>
                           <span style={{fontSize:11,color:C.faint}}>{T.adminExtend}:</span>
                           {[1,3,6,12].map(m=>(
-                            <button key={m} onClick={()=>extend(s,m)} style={{background:"rgba(47,125,246,0.1)",border:`1px solid rgba(47,125,246,0.3)`,borderRadius:7,color:C.blueLt,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer"}}>+{m} {T.adminMonth}</button>
+                            <button key={m} onClick={()=>extend(s,m)} style={{background:"rgba(23,138,86,0.1)",border:`1px solid rgba(23,138,86,0.3)`,borderRadius:7,color:C.blueLt,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer"}}>+{m} {T.adminMonth}</button>
                           ))}
-                          <button onClick={()=>revoke(s)} style={{background:"rgba(229,72,77,0.1)",border:`1px solid rgba(229,72,77,0.3)`,borderRadius:7,color:C.red,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer",marginLeft:"auto"}}>{T.adminBlock}</button>
+                          <button onClick={()=>revoke(s)} style={{background:"rgba(242,118,106,0.1)",border:`1px solid rgba(242,118,106,0.3)`,borderRadius:7,color:C.red,fontSize:11.5,fontWeight:600,padding:"5px 11px",cursor:"pointer",marginLeft:"auto"}}>{T.adminBlock}</button>
                         </>
                       }
                     </div>
@@ -4493,7 +4497,7 @@ function AdminPanel({lang,setPage,auth}){
                               const passed=done&&pct>=70;
                               return(
                                 <div key={m} style={{display:"flex",alignItems:"center",gap:7,background:"var(--k20)",borderRadius:8,padding:"6px 9px"}}>
-                                  <span style={{flexShrink:0,width:20,height:20,borderRadius:6,background:passed?C.green:done?"rgba(240,169,43,0.2)":"var(--w05)",color:passed?"#fff":done?C.amber:C.faint,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10.5,fontWeight:700}}>{passed?"✓":m}</span>
+                                  <span style={{flexShrink:0,width:20,height:20,borderRadius:6,background:passed?C.green:done?"rgba(226,182,92,0.2)":"var(--w05)",color:passed?"#fff":done?C.amber:C.faint,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10.5,fontWeight:700}}>{passed?"✓":m}</span>
                                   <span style={{fontSize:10.5,color:C.faint}}>M{m}:</span>
                                   <span style={{fontSize:11.5,fontWeight:700,color:done?(passed?C.greenLt:C.amber):C.faint,marginLeft:"auto"}}>{done?pct+"%":"—"}</span>
                                 </div>
@@ -4610,14 +4614,14 @@ function LessonsPage({lang="uz", setPage}){
   const plUrl = "https://www.youtube.com/playlist?list=" + YT_PLAYLIST;
   const doneN = watched.filter(function(i){ return i < count; }).length;
 
-  const navBtn = function(disabled){ return {flex:"1 1 0",display:"inline-flex",alignItems:"center",justifyContent:"center",gap:8,background:disabled?C.card:"rgba(24,38,66,0.9)",border:`1px solid ${C.border}`,borderRadius:12,color:disabled?C.faint:C.text,fontSize:14,fontWeight:700,padding:"12px 14px",cursor:disabled?"default":"pointer",opacity:disabled?0.5:1,fontFamily:"'Sora',sans-serif"}; };
+  const navBtn = function(disabled){ return {flex:"1 1 0",display:"inline-flex",alignItems:"center",justifyContent:"center",gap:8,background:disabled?C.card:"rgba(18,42,32,0.9)",border:`1px solid ${C.border}`,borderRadius:12,color:disabled?C.faint:C.text,fontSize:14,fontWeight:700,padding:"12px 14px",cursor:disabled?"default":"pointer",opacity:disabled?0.5:1,fontFamily:"'Sora',sans-serif"}; };
 
   return(
     <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:1100,margin:"0 auto"}}>
       <div style={{marginBottom:16}}><BackBtn setPage={setPage} lang={lang}/></div>
 
       <div style={{textAlign:"center",marginBottom:22}}>
-        <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(229,72,77,0.1)",border:"1px solid rgba(229,72,77,0.35)",borderRadius:30,padding:"6px 14px",marginBottom:14}}>
+        <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(242,118,106,0.1)",border:"1px solid rgba(242,118,106,0.35)",borderRadius:30,padding:"6px 14px",marginBottom:14}}>
           <span style={{width:0,height:0,borderTop:"6px solid transparent",borderBottom:"6px solid transparent",borderLeft:`10px solid ${C.red}`}}/>
           <span style={{fontSize:11,letterSpacing:"2px",color:C.red,fontWeight:700}}>{T.badge}</span>
         </div>
@@ -4642,8 +4646,8 @@ function LessonsPage({lang="uz", setPage}){
                 </span>
                 <span style={{position:"absolute",left:18,right:18,bottom:16,color:"#fff",fontSize:"clamp(14px,2.4vw,19px)",fontWeight:700,textAlign:"left",fontFamily:"'Sora',sans-serif",textShadow:"0 2px 10px rgba(0,0,0,0.6)"}}>{titleOf(idx)}</span>
               </button>
-            : <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",background:"linear-gradient(135deg,#0d1b33,#0c2a22)"}}>
-                <div style={{width:40,height:40,border:"3px solid rgba(255,255,255,0.15)",borderTopColor:"#4aa3ff",borderRadius:"50%",animation:"spin 0.8s linear infinite"}}/>
+            : <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",background:"linear-gradient(135deg,#0E241B,#0c2a22)"}}>
+                <div style={{width:40,height:40,border:"3px solid rgba(255,255,255,0.15)",borderTopColor:"#4BE0A0",borderRadius:"50%",animation:"spin 0.8s linear infinite"}}/>
               </div>}
       </div>
 
@@ -4665,7 +4669,7 @@ function LessonsPage({lang="uz", setPage}){
             <div style={{height:"100%",width:`${doneN / count * 100}%`,background:`linear-gradient(90deg,${C.green},${C.blueLt})`,borderRadius:3}}/>
           </div>
         </div>
-        <a href={plUrl} target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(229,72,77,0.12)",border:"1px solid rgba(229,72,77,0.4)",borderRadius:11,color:"#ff6b6f",fontSize:13.5,fontWeight:700,padding:"10px 16px",textDecoration:"none",whiteSpace:"nowrap"}}>▶ {T.openYT}</a>
+        <a href={plUrl} target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(242,118,106,0.12)",border:"1px solid rgba(242,118,106,0.4)",borderRadius:11,color:"#ff6b6f",fontSize:13.5,fontWeight:700,padding:"10px 16px",textDecoration:"none",whiteSpace:"nowrap"}}>▶ {T.openYT}</a>
       </div>
 
       {/* Sovg'a kitob banneri */}
@@ -4679,7 +4683,7 @@ function LessonsPage({lang="uz", setPage}){
         }[lang]||[];
         const g=G.length?G:["SOVG'A","24 dars imtihonidan o'tib, kitob sovg'ani bepulga oling","20 ta savol · 70% va undan yuqori · kitob 5 tilda","Testni boshlash"];
         return(
-          <a href={"/sovga?lang="+lang} style={{display:"flex",alignItems:"center",gap:14,flexWrap:"wrap",textDecoration:"none",margin:"0 0 26px",padding:"16px 18px",borderRadius:18,border:"1px solid rgba(95,211,106,0.45)",background:"linear-gradient(120deg,rgba(47,125,246,0.16),rgba(55,178,77,0.18))",boxShadow:"0 10px 30px rgba(0,0,0,0.25)"}}>
+          <a href={"/sovga?lang="+lang} style={{display:"flex",alignItems:"center",gap:14,flexWrap:"wrap",textDecoration:"none",margin:"0 0 26px",padding:"16px 18px",borderRadius:18,border:"1px solid rgba(95,211,106,0.45)",background:"linear-gradient(120deg,rgba(23,138,86,0.16),rgba(55,178,77,0.18))",boxShadow:"0 10px 30px rgba(0,0,0,0.25)"}}>
             <div style={{flex:"0 0 auto",minWidth:62,height:62,padding:"0 10px",borderRadius:15,background:`linear-gradient(135deg,${C.blue},${C.green})`,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontWeight:800,fontSize:12,letterSpacing:"1px",fontFamily:"'Sora',sans-serif"}}>{g[0]}</div>
             <div style={{flex:"1 1 240px"}}>
               <div style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:16,lineHeight:1.3,color:C.text}}>{g[1]}</div>
@@ -4700,10 +4704,10 @@ function LessonsPage({lang="uz", setPage}){
           const ln = (v && lessonNum(v.title)) || (i + 1);
           return(
             <button key={i} onClick={()=>go(i, true)}
-              style={{display:"flex",alignItems:"center",gap:14,textAlign:rtl?"right":"left",width:"100%",background:active?"rgba(47,125,246,0.12)":C.card,border:`1px solid ${active?C.blue:C.border}`,borderRadius:14,padding:10,cursor:"pointer",fontFamily:"'Manrope',sans-serif"}}>
+              style={{display:"flex",alignItems:"center",gap:14,textAlign:rtl?"right":"left",width:"100%",background:active?"rgba(23,138,86,0.12)":C.card,border:`1px solid ${active?C.blue:C.border}`,borderRadius:14,padding:10,cursor:"pointer",fontFamily:"'Manrope',sans-serif"}}>
               <div style={{flexShrink:0,width:40,height:40,borderRadius:11,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,fontWeight:800,fontFamily:"'Sora',sans-serif",
                 background:active?`linear-gradient(135deg,${C.blue},${C.green})`:seen?"rgba(55,178,77,0.15)":"var(--w05)",color:active?"#fff":seen?C.greenLt:C.dim}}>{ln}</div>
-              <div style={{flexShrink:0,position:"relative",width:128,height:72,borderRadius:9,overflow:"hidden",background:"linear-gradient(135deg,#132544,#0e2a22)"}}>
+              <div style={{flexShrink:0,position:"relative",width:128,height:72,borderRadius:9,overflow:"hidden",background:"linear-gradient(135deg,#11291F,#0e2a22)"}}>
                 {v && <img src={"https://i.ytimg.com/vi/" + v.id + "/mqdefault.jpg"} alt="" loading="lazy" onError={(e)=>{e.currentTarget.style.display="none";}} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>}
                 {!v && <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",color:"rgba(255,255,255,0.5)",fontSize:22}}>▶</div>}
                 {v && v.length && <span style={{position:"absolute",bottom:4,right:4,background:"rgba(0,0,0,0.8)",color:"#fff",fontSize:10.5,fontWeight:700,borderRadius:4,padding:"1px 5px"}}>{v.length}</span>}
@@ -4720,7 +4724,7 @@ function LessonsPage({lang="uz", setPage}){
       </div>
 
       {/* Kursga chaqiruv */}
-      <div style={{marginTop:34,background:"linear-gradient(135deg,rgba(47,125,246,0.12),rgba(55,178,77,0.1))",border:`1px solid ${C.border}`,borderRadius:18,padding:"22px 24px",display:"flex",alignItems:"center",justifyContent:"space-between",gap:16,flexWrap:"wrap"}}>
+      <div style={{marginTop:34,background:"linear-gradient(135deg,rgba(23,138,86,0.12),rgba(55,178,77,0.1))",border:`1px solid ${C.border}`,borderRadius:18,padding:"22px 24px",display:"flex",alignItems:"center",justifyContent:"space-between",gap:16,flexWrap:"wrap"}}>
         <div style={{minWidth:0,flex:"1 1 320px"}}>
           <div style={{fontSize:18,fontWeight:800,color:C.text,fontFamily:"'Sora',sans-serif",marginBottom:4}}>{T.ctaT}</div>
           <div style={{fontSize:14,color:C.dim,lineHeight:1.6}}>{T.ctaD}</div>
@@ -4763,7 +4767,7 @@ function HalalPage({lang="uz", setPage}){
       </div>
 
       {/* ENG MUHIM XULOSA — rangli ramka */}
-      <div style={{background:"linear-gradient(135deg,rgba(55,178,77,0.14),rgba(47,125,246,0.1))",border:`2px solid ${C.green}`,borderRadius:18,padding:"22px 24px",marginBottom:30,position:"relative"}}>
+      <div style={{background:"linear-gradient(135deg,rgba(55,178,77,0.14),rgba(23,138,86,0.1))",border:`2px solid ${C.green}`,borderRadius:18,padding:"22px 24px",marginBottom:30,position:"relative"}}>
         <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
           <span style={{fontSize:24}}>✓</span>
           <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:15,letterSpacing:"1px",color:C.greenLt}}>{H.keyTitle}</div>
@@ -4782,7 +4786,7 @@ function HalalPage({lang="uz", setPage}){
             <h3 style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:18,color:C.text,margin:"0 0 10px",paddingLeft:rtl?0:12,paddingRight:rtl?12:0,borderLeft:rtl?"none":`3px solid ${accent}`,borderRight:rtl?`3px solid ${accent}`:"none"}}>{s.h}</h3>
             <div>{renderP(s.p)}</div>
             {s.note&&(
-              <div style={{marginTop:12,background:s.note.indexOf("Savura Invest")>=0||s.note.indexOf("تعلّمه")>=0?"linear-gradient(135deg,rgba(55,178,77,0.12),rgba(47,125,246,0.08))":"rgba(240,169,43,0.08)",border:`1px solid ${s.note.indexOf("Savura Invest")>=0||s.note.indexOf("تعلّمه")>=0?"rgba(55,178,77,0.4)":"rgba(240,169,43,0.35)"}`,borderRadius:12,padding:"13px 16px"}}>
+              <div style={{marginTop:12,background:s.note.indexOf("Savura Invest")>=0||s.note.indexOf("تعلّمه")>=0?"linear-gradient(135deg,rgba(55,178,77,0.12),rgba(23,138,86,0.08))":"rgba(226,182,92,0.08)",border:`1px solid ${s.note.indexOf("Savura Invest")>=0||s.note.indexOf("تعلّمه")>=0?"rgba(55,178,77,0.4)":"rgba(226,182,92,0.35)"}`,borderRadius:12,padding:"13px 16px"}}>
                 <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:7}}>
                   <span style={{fontSize:15}}>{s.note.indexOf("Savura Invest")>=0||s.note.indexOf("تعلّمه")>=0?"✅":"💡"}</span>
                   <span style={{fontFamily:"'Sora',sans-serif",fontWeight:700,fontSize:12,letterSpacing:"0.5px",color:s.note.indexOf("Savura Invest")>=0||s.note.indexOf("تعلّمه")>=0?C.greenLt:C.amber}}>{(s.note.split(":")[0])}</span>
@@ -4798,7 +4802,7 @@ function HalalPage({lang="uz", setPage}){
       <div style={{marginTop:34,paddingTop:20,borderTop:`1px solid ${C.border}`,textAlign:"center"}}>
         <div style={{fontSize:11,color:C.faint,marginBottom:8,letterSpacing:"1px"}}>{H.srcLabel.toUpperCase()}</div>
         <a href="https://islommoliyasi.uz/uz/forex/" target="_blank" rel="noreferrer"
-          style={{display:"inline-flex",alignItems:"center",gap:7,background:"rgba(47,125,246,0.1)",border:`1px solid ${C.border}`,borderRadius:10,color:C.blueLt,fontSize:13.5,textDecoration:"none",padding:"10px 18px",fontWeight:600}}>
+          style={{display:"inline-flex",alignItems:"center",gap:7,background:"rgba(23,138,86,0.1)",border:`1px solid ${C.border}`,borderRadius:10,color:C.blueLt,fontSize:13.5,textDecoration:"none",padding:"10px 18px",fontWeight:600}}>
           {H.srcText} ↗
         </a>
       </div>
@@ -4888,7 +4892,7 @@ function PatternPage({lang="uz", setPage, auth}){
     {id:"breakout",name:T.breakout,desc:T.breakoutD,icon:"⚡",color:C.blue},
     {id:"reversal",name:T.reversal,desc:T.reversalD,icon:"🔄",color:C.amber},
     {id:"pullback",name:T.pullback,desc:T.pullbackD,icon:"↩️",color:C.green},
-    {id:"all",name:T.all,desc:T.allD,icon:"🎯",color:"#8b5cf6"},
+    {id:"all",name:T.all,desc:T.allD,icon:"🎯",color:"#E2B65C"},
   ];
 
   // ═══ O'YIN (iframe) ═══
@@ -4896,10 +4900,10 @@ function PatternPage({lang="uz", setPage, auth}){
     return(
       <div style={{padding:"70px 0 0",maxWidth:1000,margin:"0 auto"}}>
         <div style={{padding:"0 16px 10px"}}>
-          <button onClick={()=>setView("pick")} style={{background:"var(--glass)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.back}</button>
+          <button onClick={()=>setView("pick")} style={{background:"var(--glass)",border:`1px solid rgba(75,224,160,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.back}</button>
         </div>
         <iframe title="Pattern Trainer" src={"/pattern-trainer.html?strat="+strat}
-          style={{width:"100%",height:"820px",border:"none",borderRadius:0,background:"#060a14"}}/>
+          style={{width:"100%",height:"820px",border:"none",borderRadius:0,background:"#06140F"}}/>
       </div>
     );
   }
@@ -4909,7 +4913,7 @@ function PatternPage({lang="uz", setPage, auth}){
     const myEmail=(auth&&auth.user&&auth.user.email)||null;
     return(
       <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:720,margin:"0 auto"}}>
-        <div style={{marginBottom:18}}><button onClick={()=>setView("pick")} style={{background:"var(--glass)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.back}</button></div>
+        <div style={{marginBottom:18}}><button onClick={()=>setView("pick")} style={{background:"var(--glass)",border:`1px solid rgba(75,224,160,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.back}</button></div>
         <div style={{textAlign:"center",marginBottom:24}}>
           <div style={{fontSize:40,marginBottom:8}}>🏆</div>
           <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:24,color:C.text,margin:0}}>{T.lbTitle}</h1>
@@ -4921,7 +4925,7 @@ function PatternPage({lang="uz", setPage, auth}){
               const maskMe=myEmail?(myEmail.slice(0,2)+'***@'+myEmail.split('@')[1]):null; const isMe=maskMe&&row.email===maskMe;
               const medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":String(i+1);
               return(
-                <div key={i} style={{display:"flex",alignItems:"center",gap:13,background:isMe?"rgba(47,125,246,0.1)":C.card,
+                <div key={i} style={{display:"flex",alignItems:"center",gap:13,background:isMe?"rgba(23,138,86,0.1)":C.card,
                   border:`1px solid ${isMe?C.blue:C.border}`,borderRadius:13,padding:"12px 15px"}}>
                   <div style={{flexShrink:0,width:32,textAlign:"center",fontSize:i<3?20:14,fontWeight:800,color:i<3?"inherit":C.faint,fontFamily:"'Sora',sans-serif"}}>{medal}</div>
                   <div style={{flex:1,minWidth:0}}>
@@ -4949,7 +4953,7 @@ function PatternPage({lang="uz", setPage, auth}){
 
       <div style={{marginBottom:18}}>
         <button onClick={async()=>{ const d=await cloudLoadPatternLB(); setLb(d); setView("leaderboard"); }}
-          style={{width:"100%",background:"rgba(240,169,43,0.1)",border:`1px solid rgba(240,169,43,0.35)`,borderRadius:12,color:C.amber,fontWeight:700,fontSize:13,padding:"11px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.lbBtn}</button>
+          style={{width:"100%",background:"rgba(226,182,92,0.1)",border:`1px solid rgba(226,182,92,0.35)`,borderRadius:12,color:C.amber,fontWeight:700,fontSize:13,padding:"11px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.lbBtn}</button>
       </div>
 
       <div style={{display:"flex",flexDirection:"column",gap:12}}>
@@ -5010,7 +5014,7 @@ function CertificatePage({lang="uz", setPage, fullName}){
     try{
       if(!window.html2canvas) await loadScript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
       if(!window.jspdf) await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
-      const canvas=await window.html2canvas(certRef.current,{scale:2.5,backgroundColor:"#0a1020",useCORS:true});
+      const canvas=await window.html2canvas(certRef.current,{scale:2.5,backgroundColor:"#08170F",useCORS:true});
       const imgData=canvas.toDataURL("image/jpeg",0.95);
       const jsPDF=window.jspdf.jsPDF;
       // Sertifikat nisbatiga qarab A4 landscape yoki portrait
@@ -5053,8 +5057,8 @@ function CertificatePage({lang="uz", setPage, fullName}){
         <div>
           {/* SERTIFIKAT — zamonaviy minimalizm */}
           <div ref={certRef} dir="ltr" style={{
-            background:"linear-gradient(160deg,#0a1020 0%,#0d1830 100%)",
-            border:"1px solid rgba(120,150,200,0.2)",
+            background:"linear-gradient(160deg,#08170F 0%,#0D2219 100%)",
+            border:"1px solid rgba(130,170,150,0.2)",
             borderRadius:20,padding:"clamp(30px,6vw,64px) clamp(24px,5vw,60px)",
             position:"relative",overflow:"hidden",marginBottom:22,
             boxShadow:"0 20px 60px rgba(0,0,0,0.5)"}}>
@@ -5064,51 +5068,51 @@ function CertificatePage({lang="uz", setPage, fullName}){
               <rect x="14" y="14" width="calc(100% - 28px)" height="calc(100% - 28px)" fill="none" stroke="url(#certgrad)" strokeWidth="1.2"/>
               <defs>
                 <linearGradient id="certgrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#4aa3ff"/><stop offset="50%" stopColor="#37b24d"/><stop offset="100%" stopColor="#4aa3ff"/>
+                  <stop offset="0%" stopColor="#4BE0A0"/><stop offset="50%" stopColor="#37b24d"/><stop offset="100%" stopColor="#4BE0A0"/>
                 </linearGradient>
               </defs>
             </svg>
             {/* Burchak bezaklari */}
-            <div style={{position:"absolute",top:22,left:22,width:34,height:34,borderTop:"2px solid #4aa3ff",borderLeft:"2px solid #4aa3ff",opacity:0.6}}/>
+            <div style={{position:"absolute",top:22,left:22,width:34,height:34,borderTop:"2px solid #4BE0A0",borderLeft:"2px solid #4BE0A0",opacity:0.6}}/>
             <div style={{position:"absolute",top:22,right:22,width:34,height:34,borderTop:"2px solid #37b24d",borderRight:"2px solid #37b24d",opacity:0.6}}/>
             <div style={{position:"absolute",bottom:22,left:22,width:34,height:34,borderBottom:"2px solid #37b24d",borderLeft:"2px solid #37b24d",opacity:0.6}}/>
-            <div style={{position:"absolute",bottom:22,right:22,width:34,height:34,borderBottom:"2px solid #4aa3ff",borderRight:"2px solid #4aa3ff",opacity:0.6}}/>
+            <div style={{position:"absolute",bottom:22,right:22,width:34,height:34,borderBottom:"2px solid #4BE0A0",borderRight:"2px solid #4BE0A0",opacity:0.6}}/>
 
             <div style={{position:"relative",textAlign:"center"}}>
               {/* Logo + brend */}
               <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:11,marginBottom:22}}>
                 <Logo size={38}/>
                 <div style={{textAlign:"left"}}>
-                  <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:17,color:"#edf2ff",lineHeight:1}}>SAVURA <span style={{color:"#5fd36a"}}>INVEST</span></div>
+                  <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:17,color:"#E8F1EA",lineHeight:1}}>SAVURA <span style={{color:"#5fd36a"}}>INVEST</span></div>
                   <div style={{fontSize:8,color:"#7e94aa",letterSpacing:"2px",marginTop:2}}>AKSIYA TAHLILI</div>
                 </div>
               </div>
 
               {/* Sarlavha */}
               <div style={{fontSize:"clamp(11px,2vw,13px)",letterSpacing:"6px",color:"#5fd36a",fontWeight:600,marginBottom:8,fontFamily:"'JetBrains Mono',monospace"}}>{T.certTitle}</div>
-              <div style={{width:60,height:2,background:"linear-gradient(90deg,#4aa3ff,#37b24d)",margin:"0 auto 26px",borderRadius:2}}/>
+              <div style={{width:60,height:2,background:"linear-gradient(90deg,#4BE0A0,#37b24d)",margin:"0 auto 26px",borderRadius:2}}/>
 
               {/* Beriladi */}
-              <div style={{fontSize:"clamp(11px,1.6vw,13px)",color:"#8ea0c4",marginBottom:14,letterSpacing:"0.5px"}}>{T.certAwarded}</div>
+              <div style={{fontSize:"clamp(11px,1.6vw,13px)",color:"#9DBBAB",marginBottom:14,letterSpacing:"0.5px"}}>{T.certAwarded}</div>
 
               {/* ISM */}
               <div style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(26px,5.5vw,42px)",color:"#fff",lineHeight:1.1,marginBottom:20,letterSpacing:"0.5px"}}>{issued}</div>
 
               {/* Matn */}
-              <div style={{fontSize:"clamp(12px,1.9vw,15px)",color:"#a8c0e8",lineHeight:1.7,maxWidth:520,margin:"0 auto 34px"}}>{T.certText}</div>
+              <div style={{fontSize:"clamp(12px,1.9vw,15px)",color:"#A9CBB9",lineHeight:1.7,maxWidth:520,margin:"0 auto 34px"}}>{T.certText}</div>
 
               {/* Imzo qatori */}
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",maxWidth:480,margin:"0 auto",gap:20,flexWrap:"wrap"}}>
                 <div style={{textAlign:"center",flex:1,minWidth:130}}>
                   <img src={DIRECTOR_SIGNATURE} alt="signature" style={{width:"100%",maxWidth:160,height:"auto",margin:"0 auto 2px",display:"block"}}/>
-                  <div style={{height:1,background:"rgba(120,150,200,0.3)",marginBottom:6}}/>
-                  <div style={{fontSize:11,color:"#8ea0c4"}}>{T.certDir}</div>
-                  <div style={{fontSize:11.5,color:"#edf2ff",fontWeight:600}}>{T.certDirName}</div>
+                  <div style={{height:1,background:"rgba(130,170,150,0.3)",marginBottom:6}}/>
+                  <div style={{fontSize:11,color:"#9DBBAB"}}>{T.certDir}</div>
+                  <div style={{fontSize:11.5,color:"#E8F1EA",fontWeight:600}}>{T.certDirName}</div>
                 </div>
                 <div style={{textAlign:"center",flex:1,minWidth:130}}>
-                  <div style={{fontSize:13,color:"#edf2ff",marginBottom:4,fontWeight:600}}>{today}</div>
-                  <div style={{height:1,background:"rgba(120,150,200,0.3)",marginBottom:6}}/>
-                  <div style={{fontSize:11,color:"#8ea0c4"}}>{T.certDate}</div>
+                  <div style={{fontSize:13,color:"#E8F1EA",marginBottom:4,fontWeight:600}}>{today}</div>
+                  <div style={{height:1,background:"rgba(130,170,150,0.3)",marginBottom:6}}/>
+                  <div style={{fontSize:11,color:"#9DBBAB"}}>{T.certDate}</div>
                 </div>
               </div>
 
@@ -5122,7 +5126,7 @@ function CertificatePage({lang="uz", setPage, fullName}){
                   <text x="50" y="46" textAnchor="middle" fontSize="26" fill="#5fd36a" fontFamily="'Amiri','Traditional Arabic',serif" fontWeight="700">حلال</text>
                   {/* Pastki yozuv */}
                   <text x="50" y="66" textAnchor="middle" fontSize="9" fill="#37b24d" letterSpacing="1.5" fontFamily="'Sora',sans-serif" fontWeight="700">HALAL</text>
-                  <text x="50" y="76" textAnchor="middle" fontSize="5.5" fill="#8ea0c4" letterSpacing="1" fontFamily="'Sora',sans-serif">CERTIFIED</text>
+                  <text x="50" y="76" textAnchor="middle" fontSize="5.5" fill="#9DBBAB" letterSpacing="1" fontFamily="'Sora',sans-serif">CERTIFIED</text>
                   {/* Yulduzchalar */}
                   <circle cx="50" cy="12" r="1.6" fill="#37b24d"/>
                   <circle cx="50" cy="88" r="1.6" fill="#37b24d"/>
@@ -5297,7 +5301,7 @@ function ExamPage({lang="uz", setPage, auth}){
     return(
       <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:680,margin:"0 auto"}}>
         {/* Natija kartasi — skrinshot uchun chiroyli */}
-        <div style={{background:passed?"linear-gradient(135deg,rgba(55,178,77,0.15),rgba(47,125,246,0.1))":"linear-gradient(135deg,rgba(229,72,77,0.12),rgba(240,169,43,0.08))",
+        <div style={{background:passed?"linear-gradient(135deg,rgba(55,178,77,0.15),rgba(23,138,86,0.1))":"linear-gradient(135deg,rgba(242,118,106,0.12),rgba(226,182,92,0.08))",
           border:`2px solid ${passed?C.green:C.amber}`,borderRadius:24,padding:"32px 24px",textAlign:"center",marginBottom:20,position:"relative",overflow:"hidden"}}>
           <div style={{fontSize:13,letterSpacing:"1.5px",color:C.dim,marginBottom:6,fontWeight:600}}>SAVURA INVEST · {T.title}</div>
           <div style={{fontSize:15,color:C.text,fontWeight:700,marginBottom:20,fontFamily:"'Sora',sans-serif"}}>{T.mod} {activeMod}: {modNames[activeMod-1]}</div>
@@ -5338,7 +5342,7 @@ function ExamPage({lang="uz", setPage, auth}){
         {wrongMode&&<div style={{textAlign:"center",fontSize:12,color:C.amber,marginBottom:12,fontWeight:600}}>⚠️ {T.practiceMode}</div>}
         <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
           {(!wrongMode && wrongBankRef.current[String(activeMod)] && wrongBankRef.current[String(activeMod)].length>0)&&(
-            <button onClick={()=>startExam(activeMod,true)} style={{flex:"1 1 100%",background:"rgba(240,169,43,0.12)",border:`1px solid rgba(240,169,43,0.4)`,borderRadius:12,color:C.amber,fontWeight:700,fontSize:13.5,padding:"12px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.wrongOnly} ({wrongBankRef.current[String(activeMod)].length})</button>
+            <button onClick={()=>startExam(activeMod,true)} style={{flex:"1 1 100%",background:"rgba(226,182,92,0.12)",border:`1px solid rgba(226,182,92,0.4)`,borderRadius:12,color:C.amber,fontWeight:700,fontSize:13.5,padding:"12px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.wrongOnly} ({wrongBankRef.current[String(activeMod)].length})</button>
           )}
           <button onClick={()=>startExam(activeMod)} style={{flex:1,background:`linear-gradient(135deg,${C.blue},${C.green})`,border:"none",borderRadius:12,color:"#fff",fontWeight:700,fontSize:14,padding:"13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.retake}</button>
           <button onClick={()=>{setView("list");setJustUnlocked(false);}} style={{flex:1,background:"transparent",border:`1px solid ${C.border}`,borderRadius:12,color:C.dim,fontWeight:600,fontSize:14,padding:"13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.backToList}</button>
@@ -5359,7 +5363,7 @@ function ExamPage({lang="uz", setPage, auth}){
             <span style={{fontSize:12.5,color:C.dim,fontWeight:600}}>{T.mod} {activeMod} · {T.q} {curQ+1} {T.of} {questions.length}</span>
             <span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:13,fontWeight:700,fontFamily:"'JetBrains Mono',monospace",
               color:timeLeft<=60?C.red:timeLeft<=180?C.amber:C.greenLt,
-              background:timeLeft<=60?"rgba(229,72,77,0.12)":"var(--w05)",borderRadius:8,padding:"4px 10px"}}>
+              background:timeLeft<=60?"rgba(242,118,106,0.12)":"var(--w05)",borderRadius:8,padding:"4px 10px"}}>
               ⏱ {fmtTime(timeLeft)}
             </span>
           </div>
@@ -5381,7 +5385,7 @@ function ExamPage({lang="uz", setPage, auth}){
             return(
               <button key={idx} onClick={()=>choose(idx)}
                 style={{display:"flex",alignItems:"center",gap:13,textAlign:rtl?"right":"left",
-                  background:sel?"rgba(47,125,246,0.12)":C.card,
+                  background:sel?"rgba(23,138,86,0.12)":C.card,
                   border:`1.5px solid ${sel?C.blue:C.border}`,borderRadius:13,padding:"14px 16px",cursor:"pointer",transition:"all .15s"}}>
                 <span style={{flexShrink:0,width:30,height:30,borderRadius:"50%",background:sel?`linear-gradient(135deg,${C.blue},${C.green})`:"var(--w05)",
                   color:sel?"#fff":C.dim,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,fontSize:13.5,fontFamily:"'Sora',sans-serif"}}>{letter}</span>
@@ -5406,7 +5410,7 @@ function ExamPage({lang="uz", setPage, auth}){
     const myEmail=(auth&&auth.user&&auth.user.email)||null;
     return(
       <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:720,margin:"0 auto"}}>
-        <div style={{marginBottom:18}}><button onClick={()=>setView("list")} style={{background:"var(--glass)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>← {T.backToList}</button></div>
+        <div style={{marginBottom:18}}><button onClick={()=>setView("list")} style={{background:"var(--glass)",border:`1px solid rgba(75,224,160,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>← {T.backToList}</button></div>
         <div style={{textAlign:"center",marginBottom:24}}>
           <div style={{fontSize:40,marginBottom:8}}>🏆</div>
           <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:0}}>{T.leaderboard}</h1>
@@ -5418,7 +5422,7 @@ function ExamPage({lang="uz", setPage, auth}){
               const maskMe=myEmail?(myEmail.slice(0,2)+'***@'+myEmail.split('@')[1]):null; const isMe=maskMe&&row.email===maskMe;
               const medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":String(i+1);
               return(
-                <div key={i} style={{display:"flex",alignItems:"center",gap:13,background:isMe?"rgba(47,125,246,0.1)":C.card,
+                <div key={i} style={{display:"flex",alignItems:"center",gap:13,background:isMe?"rgba(23,138,86,0.1)":C.card,
                   border:`1px solid ${isMe?C.blue:C.border}`,borderRadius:13,padding:"12px 15px"}}>
                   <div style={{flexShrink:0,width:32,textAlign:"center",fontSize:i<3?20:14,fontWeight:800,color:i<3?"inherit":C.faint,fontFamily:"'Sora',sans-serif"}}>{medal}</div>
                   <div style={{flex:1,minWidth:0}}>
@@ -5445,7 +5449,7 @@ function ExamPage({lang="uz", setPage, auth}){
     const passedAll=examFull.filter(r=>r.best_percent>=PASS).length;
     return(
       <div dir={rtl?"rtl":"ltr"} style={{padding:"85px 18px 70px",maxWidth:720,margin:"0 auto"}}>
-        <div style={{marginBottom:18}}><button onClick={()=>setView("list")} style={{background:"var(--glass)",border:`1px solid rgba(74,163,255,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>← {T.backToList}</button></div>
+        <div style={{marginBottom:18}}><button onClick={()=>setView("list")} style={{background:"var(--glass)",border:`1px solid rgba(75,224,160,0.2)`,borderRadius:10,color:"var(--dimv)",fontSize:12.5,padding:"7px 13px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>← {T.backToList}</button></div>
         <div style={{textAlign:"center",marginBottom:24}}>
           <div style={{fontSize:40,marginBottom:8}}>📊</div>
           <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:26,color:C.text,margin:0}}>{T.statsTitle}</h1>
@@ -5519,9 +5523,9 @@ function ExamPage({lang="uz", setPage, auth}){
       {/* Reyting va Statistika tugmalari */}
       <div style={{display:"flex",gap:10,marginBottom:18}}>
         <button onClick={async()=>{ const lb=await cloudLoadLeaderboard(); setLeaderboard(lb); setView("leaderboard"); }}
-          style={{flex:1,background:"rgba(240,169,43,0.1)",border:`1px solid rgba(240,169,43,0.35)`,borderRadius:12,color:C.amber,fontWeight:700,fontSize:13,padding:"11px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.leaderboardBtn}</button>
+          style={{flex:1,background:"rgba(226,182,92,0.1)",border:`1px solid rgba(226,182,92,0.35)`,borderRadius:12,color:C.amber,fontWeight:700,fontSize:13,padding:"11px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.leaderboardBtn}</button>
         <button onClick={async()=>{ const f=await cloudLoadExamFull(); setExamFull(f); setView("stats"); }}
-          style={{flex:1,background:"rgba(47,125,246,0.1)",border:`1px solid rgba(47,125,246,0.35)`,borderRadius:12,color:C.blueLt,fontWeight:700,fontSize:13,padding:"11px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.statsBtn}</button>
+          style={{flex:1,background:"rgba(23,138,86,0.1)",border:`1px solid rgba(23,138,86,0.35)`,borderRadius:12,color:C.blueLt,fontWeight:700,fontSize:13,padding:"11px",cursor:"pointer",fontFamily:"'Sora',sans-serif"}}>{T.statsBtn}</button>
       </div>
 
       <div style={{display:"flex",flexDirection:"column",gap:12}}>
@@ -5534,7 +5538,7 @@ function ExamPage({lang="uz", setPage, auth}){
               opacity:unlocked?1:0.55,position:"relative"}}>
               <div style={{display:"flex",alignItems:"center",gap:14}}>
                 <div style={{flexShrink:0,width:46,height:46,borderRadius:13,
-                  background:passed?`linear-gradient(135deg,${C.green},${C.blue})`:unlocked?"rgba(47,125,246,0.12)":"var(--w04)",
+                  background:passed?`linear-gradient(135deg,${C.green},${C.blue})`:unlocked?"rgba(23,138,86,0.12)":"var(--w04)",
                   display:"flex",alignItems:"center",justifyContent:"center",fontSize:19,fontWeight:800,
                   color:passed?"#fff":unlocked?C.blueLt:C.faint,fontFamily:"'Sora',sans-serif"}}>
                   {passed?"✓":unlocked?mod:"🔒"}
@@ -5605,70 +5609,70 @@ const FL_FOR = ["Boshlang'ich mutaxassislar","Endi treydingni o'rganmoqchi bo'lg
 
 const PL_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
-html,body{margin:0;background:#050a18}
-.pl{--bg:#050a18;--tx:#eaf1ff;--dim:#9fb0d0;--faint:#6b7da3;--b1:#4aa3ff;--g1:#5fd36a;--glass:rgba(255,255,255,.045);--line:rgba(255,255,255,.1);
+html,body{margin:0;background:#06140F}
+.pl{--bg:#06140F;--tx:#E8F1EA;--dim:#A7C3B4;--faint:#6E9282;--b1:#4BE0A0;--g1:#5fd36a;--glass:rgba(255,255,255,.045);--line:rgba(255,255,255,.1);
   min-height:100vh;background:var(--bg);color:var(--tx);font-family:'Manrope',system-ui,sans-serif;position:relative;overflow-x:hidden;}
 .pl *{box-sizing:border-box;margin:0;padding:0;} .pl a{text-decoration:none;color:inherit;} .pl button{font-family:inherit;}
 .pl-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 .pl-orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;will-change:transform;}
-.pl-o1{width:520px;height:520px;left:-140px;top:-120px;background:#2f7df6;animation:plDrift1 18s ease-in-out infinite;}
+.pl-o1{width:520px;height:520px;left:-140px;top:-120px;background:#178A56;animation:plDrift1 18s ease-in-out infinite;}
 .pl-o2{width:460px;height:460px;right:-120px;top:18%;background:#37b24d;opacity:.34;animation:plDrift2 22s ease-in-out infinite;}
-.pl-o3{width:420px;height:420px;left:25%;bottom:-160px;background:#5b3df0;opacity:.3;animation:plDrift1 26s ease-in-out infinite reverse;}
+.pl-o3{width:420px;height:420px;left:25%;bottom:-160px;background:#E2B65C;opacity:.3;animation:plDrift1 26s ease-in-out infinite reverse;}
 .pl-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:56px 56px;
   -webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 20%,#000 20%,transparent 75%);}
 @keyframes plDrift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(70px,50px) scale(1.12)}}
 @keyframes plDrift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-60px,70px) scale(1.1)}}
 .pl-wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:0 20px;}
-.pl-top{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(5,10,24,.55);border-bottom:1px solid var(--line);}
+.pl-top{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(6,20,15,.55);border-bottom:1px solid var(--line);}
 .pl-top .pl-wrap{display:flex;align-items:center;justify-content:space-between;height:60px;}
 .pl-brand{display:flex;align-items:center;gap:10px;font-family:'Sora',sans-serif;font-weight:800;font-size:17px;}
 .pl-brand b{color:var(--g1);}
 .pl-free{font-size:11.5px;font-weight:800;letter-spacing:1.4px;color:var(--g1);border:1px solid rgba(95,211,106,.45);background:rgba(95,211,106,.1);border-radius:20px;padding:6px 12px;}
 .pl-hero{display:grid;grid-template-columns:1.08fr .92fr;gap:30px;align-items:center;padding:46px 0 34px;}
-.pl-badge{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;color:#cfe0ff;border:1px solid var(--line);background:var(--glass);border-radius:30px;padding:7px 14px 7px 11px;margin-bottom:20px;backdrop-filter:blur(8px);}
+.pl-badge{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;color:#D3F2E2;border:1px solid var(--line);background:var(--glass);border-radius:30px;padding:7px 14px 7px 11px;margin-bottom:20px;backdrop-filter:blur(8px);}
 .pl-dot{width:8px;height:8px;border-radius:50%;background:var(--g1);box-shadow:0 0 0 0 rgba(95,211,106,.7);animation:plPulse 1.8s infinite;}
 @keyframes plPulse{0%{box-shadow:0 0 0 0 rgba(95,211,106,.6)}70%{box-shadow:0 0 0 10px rgba(95,211,106,0)}100%{box-shadow:0 0 0 0 rgba(95,211,106,0)}}
 .pl h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(31px,6vw,60px);line-height:1.1;letter-spacing:-.02em;margin-bottom:18px;}
 .pl-ln{display:block;overflow:hidden;padding-bottom:.06em;} .pl-ln>span{display:inline-block;transform:translateY(110%);animation:plUp .9s cubic-bezier(.2,.8,.2,1) forwards;}
 .pl-ln:nth-child(1)>span{animation-delay:.1s}.pl-ln:nth-child(2)>span{animation-delay:.25s}.pl-ln:nth-child(3)>span{animation-delay:.4s}
 @keyframes plUp{to{transform:translateY(0)}}
-.pl-shim{background:linear-gradient(100deg,#4aa3ff 0%,#5fd36a 35%,#c8ffd0 50%,#5fd36a 65%,#4aa3ff 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:plShim 4.5s linear infinite;}
+.pl-shim{background:linear-gradient(100deg,#4BE0A0 0%,#5fd36a 35%,#c8ffd0 50%,#5fd36a 65%,#4BE0A0 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:plShim 4.5s linear infinite;}
 @keyframes plShim{from{background-position:120% 0}to{background-position:-120% 0}}
 .pl-sub{font-size:clamp(15px,2.3vw,19px);color:var(--dim);line-height:1.6;margin-bottom:26px;max-width:520px;opacity:0;animation:plFade .8s .6s forwards;}
 @keyframes plFade{to{opacity:1}}
 .pl-cta-row{opacity:0;animation:plFade .8s .75s forwards;display:flex;flex-direction:column;gap:16px;}
 .pl-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:12px;border:none;cursor:pointer;color:#fff;font-family:'Sora',sans-serif;font-weight:800;font-size:17px;padding:17px 34px;border-radius:16px;
-  background:linear-gradient(135deg,#2f7df6,#2fb85a);box-shadow:0 10px 34px rgba(47,125,246,.45),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .2s,box-shadow .2s;animation:plRing 2.6s infinite;}
-.pl-btn:hover{transform:translateY(-2px) scale(1.015);box-shadow:0 16px 44px rgba(47,125,246,.6),inset 0 1px 0 rgba(255,255,255,.4);}
+  background:linear-gradient(135deg,#178A56,#2BC27D);box-shadow:0 10px 34px rgba(23,138,86,.45),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .2s,box-shadow .2s;animation:plRing 2.6s infinite;}
+.pl-btn:hover{transform:translateY(-2px) scale(1.015);box-shadow:0 16px 44px rgba(23,138,86,.6),inset 0 1px 0 rgba(255,255,255,.4);}
 .pl-btn:active{transform:scale(.98);}
 .pl-btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:plShine 3.2s ease-in-out infinite;}
 @keyframes plShine{0%,60%{left:-60%}100%{left:130%}}
-@keyframes plRing{0%{box-shadow:0 10px 34px rgba(47,125,246,.45),0 0 0 0 rgba(74,163,255,.5),inset 0 1px 0 rgba(255,255,255,.35)}70%{box-shadow:0 10px 34px rgba(47,125,246,.45),0 0 0 16px rgba(74,163,255,0),inset 0 1px 0 rgba(255,255,255,.35)}100%{box-shadow:0 10px 34px rgba(47,125,246,.45),0 0 0 0 rgba(74,163,255,0),inset 0 1px 0 rgba(255,255,255,.35)}}
+@keyframes plRing{0%{box-shadow:0 10px 34px rgba(23,138,86,.45),0 0 0 0 rgba(75,224,160,.5),inset 0 1px 0 rgba(255,255,255,.35)}70%{box-shadow:0 10px 34px rgba(23,138,86,.45),0 0 0 16px rgba(75,224,160,0),inset 0 1px 0 rgba(255,255,255,.35)}100%{box-shadow:0 10px 34px rgba(23,138,86,.45),0 0 0 0 rgba(75,224,160,0),inset 0 1px 0 rgba(255,255,255,.35)}}
 .pl-btn svg{transition:transform .25s;} .pl-btn:hover svg{transform:translateX(5px);}
 .pl-note{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--dim);}
 .pl-note b{color:var(--tx);}
 .pl-stats{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap;opacity:0;animation:plFade .8s .95s forwards;}
 .pl-stat{background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:10px 16px;backdrop-filter:blur(8px);}
-.pl-stat b{display:block;font-family:'Sora',sans-serif;font-weight:800;font-size:22px;line-height:1.1;background:linear-gradient(90deg,#4aa3ff,#5fd36a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.pl-stat b{display:block;font-family:'Sora',sans-serif;font-weight:800;font-size:22px;line-height:1.1;background:linear-gradient(90deg,#4BE0A0,#5fd36a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 .pl-stat span{font-size:11.5px;color:var(--faint);}
 /* expert */
 .pl-ex{position:relative;width:100%;max-width:440px;margin:0 auto;aspect-ratio:1/1.12;opacity:0;animation:plFade 1s .3s forwards;}
 .pl-ring{position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%);}
-.pl-r1{width:92%;aspect-ratio:1;background:conic-gradient(from 0deg,#4aa3ff,#5fd36a,#5b3df0,#4aa3ff);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));animation:plSpin 14s linear infinite;opacity:.9;}
+.pl-r1{width:92%;aspect-ratio:1;background:conic-gradient(from 0deg,#4BE0A0,#5fd36a,#E2B65C,#4BE0A0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));animation:plSpin 14s linear infinite;opacity:.9;}
 .pl-r2{width:112%;aspect-ratio:1;border:1px dashed rgba(255,255,255,.16);animation:plSpin 40s linear infinite reverse;}
 .pl-r2::before{content:"";position:absolute;top:8%;left:14%;width:11px;height:11px;border-radius:50%;background:#5fd36a;box-shadow:0 0 16px #5fd36a;}
-.pl-glow{position:absolute;left:50%;top:52%;width:86%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(74,163,255,.5),rgba(55,178,77,.2) 55%,transparent 70%);filter:blur(10px);}
+.pl-glow{position:absolute;left:50%;top:52%;width:86%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(75,224,160,.5),rgba(55,178,77,.2) 55%,transparent 70%);filter:blur(10px);}
 @keyframes plSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 .pl-photo{position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:96%;width:auto;max-width:92%;object-fit:contain;-webkit-mask-image:linear-gradient(to bottom,#000 80%,transparent 100%);mask-image:linear-gradient(to bottom,#000 80%,transparent 100%);filter:drop-shadow(0 18px 30px rgba(0,0,0,.45));}
 .pl-fc{position:absolute;display:flex;align-items:center;gap:8px;background:rgba(10,18,40,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:7px 12px 7px 9px;box-shadow:0 10px 26px rgba(0,0,0,.35);animation:plFloat 5.5s ease-in-out infinite;white-space:nowrap;}
-.pl-fc i{width:3px;align-self:stretch;border-radius:3px;background:linear-gradient(180deg,#4aa3ff,#5fd36a);}
+.pl-fc i{width:3px;align-self:stretch;border-radius:3px;background:linear-gradient(180deg,#4BE0A0,#5fd36a);}
 .pl-fc b{display:block;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;line-height:1.2;}
 .pl-fc span{font-size:10px;color:var(--dim);}
 .pl-fc1{top:6%;left:-3%}.pl-fc2{top:44%;right:-5%}.pl-fc3{bottom:7%;left:-1%}
 @media(max-width:820px){.pl-ex{margin-bottom:8px}.pl-fc1{top:auto;bottom:-4%;left:0;right:0;margin:0 auto;width:max-content;max-width:94%}.pl-fc2{top:50%;right:-2%}.pl-fc3{top:30%;bottom:auto;left:-2%}.pl-fc b{font-size:11.5px}}
-.pl-gift{display:flex;align-items:center;gap:16px;margin-top:46px;padding:18px 20px;border-radius:20px;border:1px solid rgba(95,211,106,.4);background:linear-gradient(120deg,rgba(47,125,246,.16),rgba(55,178,77,.16));backdrop-filter:blur(10px);transition:transform .25s,box-shadow .25s;}
+.pl-gift{display:flex;align-items:center;gap:16px;margin-top:46px;padding:18px 20px;border-radius:20px;border:1px solid rgba(95,211,106,.4);background:linear-gradient(120deg,rgba(23,138,86,.16),rgba(55,178,77,.16));backdrop-filter:blur(10px);transition:transform .25s,box-shadow .25s;}
 .pl-gift:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.35);}
-.pl-gift-b{flex:0 0 64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#2f7df6,#2fb85a);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Sora',sans-serif;}
+.pl-gift-b{flex:0 0 64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#178A56,#2BC27D);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Sora',sans-serif;}
 .pl-gift-b span{font-size:8.5px;letter-spacing:1.2px;font-weight:800;opacity:.85}.pl-gift-b b{font-size:16px;font-weight:800;}
 .pl-gift-t{font-family:'Sora',sans-serif;font-weight:700;font-size:16px;line-height:1.3;}.pl-gift-s{font-size:12.5px;color:var(--dim);margin-top:4px;}
 .pl-gift svg{margin-left:auto;flex-shrink:0;}
@@ -5680,32 +5684,32 @@ html,body{margin:0;background:#050a18}
 .pl-mq:hover .pl-mq-row{animation-play-state:paused;}
 @keyframes plMq{to{transform:translateX(-50%)}}
 .pl-pill{display:inline-flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--line);border-radius:40px;padding:9px 18px 9px 10px;font-size:14px;font-weight:600;color:#dbe7ff;white-space:nowrap;backdrop-filter:blur(8px);}
-.pl-pill em{font-style:normal;font-family:'Sora',sans-serif;font-weight:800;font-size:12px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2f7df6,#2fb85a);color:#fff;}
+.pl-pill em{font-style:normal;font-family:'Sora',sans-serif;font-weight:800;font-size:12px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#178A56,#2BC27D);color:#fff;}
 /* sections */
 .pl-sec{position:relative;z-index:1;padding:54px 0 10px;}
 .pl-h2{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(24px,4.2vw,38px);letter-spacing:-.015em;margin-bottom:8px;}
-.pl-h2 span{background:linear-gradient(90deg,#4aa3ff,#5fd36a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.pl-h2 span{background:linear-gradient(90deg,#4BE0A0,#5fd36a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 .pl-tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin-top:26px;}
 .pl-card{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:20px;padding:20px 20px 20px;backdrop-filter:blur(10px);overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;}
-.pl-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 0% 0%,rgba(74,163,255,.22),transparent 55%);opacity:0;transition:opacity .35s;}
-.pl-card:hover{transform:translateY(-5px);border-color:rgba(74,163,255,.5);box-shadow:0 18px 40px rgba(0,0,0,.35),0 0 30px rgba(74,163,255,.12);}
+.pl-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 0% 0%,rgba(75,224,160,.22),transparent 55%);opacity:0;transition:opacity .35s;}
+.pl-card:hover{transform:translateY(-5px);border-color:rgba(75,224,160,.5);box-shadow:0 18px 40px rgba(0,0,0,.35),0 0 30px rgba(75,224,160,.12);}
 .pl-card:hover::before{opacity:1;}
-.pl-num{font-family:'Sora',sans-serif;font-weight:800;font-size:34px;line-height:1;background:linear-gradient(135deg,#4aa3ff,#5fd36a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;position:relative;}
+.pl-num{font-family:'Sora',sans-serif;font-weight:800;font-size:34px;line-height:1;background:linear-gradient(135deg,#4BE0A0,#5fd36a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;position:relative;}
 .pl-card h3{font-family:'Sora',sans-serif;font-size:16.5px;font-weight:700;line-height:1.3;margin-bottom:6px;position:relative;}
 .pl-card p{font-size:13.5px;color:var(--dim);line-height:1.55;position:relative;}
 .pl-for{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:24px;}
 .pl-fcard{display:flex;align-items:center;gap:14px;background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:18px 18px;backdrop-filter:blur(10px);transition:transform .3s,border-color .3s;}
 .pl-fcard:hover{transform:translateY(-3px);border-color:rgba(95,211,106,.5);}
-.pl-chk{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(47,125,246,.25),rgba(55,178,77,.3));border:1px solid rgba(95,211,106,.4);}
+.pl-chk{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(23,138,86,.25),rgba(55,178,77,.3));border:1px solid rgba(95,211,106,.4);}
 .pl-chk path{stroke-dasharray:24;stroke-dashoffset:24;} .pl-in .pl-chk path{animation:plDraw .7s .35s forwards;}
 @keyframes plDraw{to{stroke-dashoffset:0}}
 .pl-fcard span{font-size:15.5px;font-weight:700;line-height:1.35;}
-.pl-final{position:relative;z-index:1;margin:56px 0 90px;border-radius:28px;padding:2px;background:linear-gradient(120deg,#4aa3ff,#5fd36a,#5b3df0,#4aa3ff);background-size:300% 300%;animation:plGrad 8s ease infinite;}
+.pl-final{position:relative;z-index:1;margin:56px 0 90px;border-radius:28px;padding:2px;background:linear-gradient(120deg,#4BE0A0,#5fd36a,#E2B65C,#4BE0A0);background-size:300% 300%;animation:plGrad 8s ease infinite;}
 @keyframes plGrad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.pl-final-in{border-radius:26px;background:linear-gradient(160deg,#0a1330,#070d22);padding:44px 24px;text-align:center;}
+.pl-final-in{border-radius:26px;background:linear-gradient(160deg,#08170F,#071610);padding:44px 24px;text-align:center;}
 .pl-final-in p.k{font-size:14px;color:var(--dim);margin-top:16px;}
 .pl-final-in p.s{font-size:12.5px;color:var(--faint);margin-top:10px;}
-.pl-bar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(5,10,24,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s ease;display:none;}
+.pl-bar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(6,20,15,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s ease;display:none;}
 .pl-bar.on{transform:translateY(0);} .pl-bar .pl-btn{width:100%;padding:15px 20px;font-size:16px;animation:none;}
 /* reveal */
 .pl-rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1);}
@@ -5812,7 +5816,7 @@ function FreeLanding(){
     if(heroRef.current) a.observe(heroRef.current); if(finalRef.current) b.observe(finalRef.current);
     return function(){ a.disconnect(); b.disconnect(); };
   },[]);
-  const lock=<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9fb0d0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>;
+  const lock=<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A7C3B4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>;
   return(
     <div className="pl">
       <style>{PL_CSS}</style>
@@ -5911,7 +5915,7 @@ function TgRedirect(){
     <div className="pl" style={{display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center",padding:24}}>
       <style>{PL_CSS+`
         @keyframes plBar{from{width:0}to{width:100%}}
-        .pl-rd-ring{position:absolute;inset:-14px;border-radius:50%;background:conic-gradient(from 0deg,#4aa3ff,#5fd36a,#5b3df0,#4aa3ff);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));animation:plSpin2 1.6s linear infinite;}
+        .pl-rd-ring{position:absolute;inset:-14px;border-radius:50%;background:conic-gradient(from 0deg,#4BE0A0,#5fd36a,#E2B65C,#4BE0A0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));animation:plSpin2 1.6s linear infinite;}
         @keyframes plSpin2{to{transform:rotate(360deg)}}`}</style>
       <div className="pl-bg"><div className="pl-grid"/><div className="pl-orb pl-o1"/><div className="pl-orb pl-o2"/></div>
       <div style={{position:"relative",zIndex:1,maxWidth:420}}>
@@ -5920,9 +5924,9 @@ function TgRedirect(){
         </div>
         <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(22px,5vw,30px)",lineHeight:1.2,marginBottom:12}}>Hozir sizni <span className="pl-shim">Darslarga</span> yo'naltiryapmiz…</h1>
         <div style={{height:5,borderRadius:5,background:"rgba(255,255,255,.1)",overflow:"hidden",margin:"22px auto 18px",maxWidth:300}}>
-          <div style={{height:"100%",borderRadius:5,background:"linear-gradient(90deg,#4aa3ff,#5fd36a)",animation:"plBar 1s linear forwards"}}/>
+          <div style={{height:"100%",borderRadius:5,background:"linear-gradient(90deg,#4BE0A0,#5fd36a)",animation:"plBar 1s linear forwards"}}/>
         </div>
-        <p style={{fontSize:14,color:"#9fb0d0",lineHeight:1.6}}>Bir soniya kuting. O'tmasa, <a href={LINK} style={{color:"#4aa3ff",fontWeight:700}}>shu yerni bosing</a>.</p>
+        <p style={{fontSize:14,color:"#A7C3B4",lineHeight:1.6}}>Bir soniya kuting. O'tmasa, <a href={LINK} style={{color:"#4BE0A0",fontWeight:700}}>shu yerni bosing</a>.</p>
       </div>
     </div>
   );
@@ -6053,12 +6057,12 @@ function WebinarThanks(){
       </div></div>
       <div className="pl-wrap" style={{minHeight:"72vh",display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center"}}>
         <div style={{maxWidth:520}}>
-          <div style={{width:84,height:84,borderRadius:"50%",margin:"0 auto 22px",display:"flex",alignItems:"center",justifyContent:"center",background:"linear-gradient(135deg,#2f7df6,#2fb85a)",boxShadow:"0 0 50px rgba(47,184,90,.45)"}}>
+          <div style={{width:84,height:84,borderRadius:"50%",margin:"0 auto 22px",display:"flex",alignItems:"center",justifyContent:"center",background:"linear-gradient(135deg,#178A56,#2BC27D)",boxShadow:"0 0 50px rgba(47,184,90,.45)"}}>
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
           </div>
           <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(28px,6vw,42px)",lineHeight:1.15,margin:"0 0 12px"}}>Rahmat! <span className="pl-shim">Joyingiz band qilindi</span></h1>
           <p className="pl-sub" style={{margin:"0 auto 8px"}}>5–6 noyabr kunlari vebinarda ko'rishamiz.</p>
-          <p style={{fontSize:14.5,color:"#9fb0d0",lineHeight:1.6,margin:"0 0 22px"}}>Vebinar haqidagi barcha ma'lumotlar Telegram guruhda. {left>0?("Siz "+left+" soniyada guruhga o'tasiz…"):"O'tmoqdasiz…"}</p>
+          <p style={{fontSize:14.5,color:"#A7C3B4",lineHeight:1.6,margin:"0 0 22px"}}>Vebinar haqidagi barcha ma'lumotlar Telegram guruhda. {left>0?("Siz "+left+" soniyada guruhga o'tasiz…"):"O'tmoqdasiz…"}</p>
           <a className="pl-btn" href={WB_LINK} style={{display:"inline-flex"}}><span>Telegram guruhga o'tish</span></a>
         </div>
       </div>
@@ -6085,7 +6089,7 @@ function InstallPage(){
     return function(){ window.removeEventListener("beforeinstallprompt",on); window.removeEventListener("appinstalled",ok); };
   },[]);
   function install(){ if(!dp) return; dp.prompt(); dp.userChoice.then(function(){ setDp(null); }); }
-  const Step=function(p){ return <div className="pl-fcard"><div className="pl-chk" style={{fontFamily:"'Sora',sans-serif",fontWeight:800,color:"#4aa3ff"}}>{p.n}</div><span>{p.children}</span></div>; };
+  const Step=function(p){ return <div className="pl-fcard"><div className="pl-chk" style={{fontFamily:"'Sora',sans-serif",fontWeight:800,color:"#4BE0A0"}}>{p.n}</div><span>{p.children}</span></div>; };
   return(
     <div className="pl">
       <style>{PL_CSS}</style>
@@ -6096,7 +6100,7 @@ function InstallPage(){
       </div></div>
       <div className="pl-wrap" style={{maxWidth:640,paddingTop:30,paddingBottom:60}}>
         <div style={{textAlign:"center"}}>
-          <img src="/icons/icon-512.png" alt="Savura Invest" width="112" height="112" style={{borderRadius:26,boxShadow:"0 18px 50px rgba(47,125,246,.35)"}}/>
+          <img src="/icons/icon-512.png" alt="Savura Invest" width="112" height="112" style={{borderRadius:26,boxShadow:"0 18px 50px rgba(23,138,86,.35)"}}/>
           <h1 style={{fontFamily:"'Sora',sans-serif",fontWeight:800,fontSize:"clamp(27px,6vw,40px)",lineHeight:1.15,margin:"18px 0 10px"}}>Savura Invest <span className="pl-shim">ilovasi</span></h1>
           <p className="pl-sub" style={{margin:"0 auto"}}>Saytning barcha imkoniyatlari telefoningizda, ilova sifatida. Do'kondan yuklash shart emas.</p>
         </div>
@@ -6117,7 +6121,7 @@ function InstallPage(){
           <h2 className="pl-h2" style={{fontSize:"clamp(20px,4.6vw,26px)"}}>Android <span>uchun</span></h2>
           {dp && <div style={{margin:"14px 0"}}><button className="pl-btn" onClick={install} style={{width:"100%"}}><span>Ilovani o'rnatish</span></button></div>}
           {APK_URL && <div style={{margin:"14px 0"}}><a className="pl-btn" href={APK_URL} style={{width:"100%",display:"flex"}}><span>APK yuklab olish</span></a></div>}
-          {APK_URL && <p style={{fontSize:13,color:"#9fb0d0",margin:"0 0 12px"}}>APK o'rnatilayotganda telefon so'rasa, <b>«Noma'lum manbalardan o'rnatish»</b> ga ruxsat bering.</p>}
+          {APK_URL && <p style={{fontSize:13,color:"#A7C3B4",margin:"0 0 12px"}}>APK o'rnatilayotganda telefon so'rasa, <b>«Noma'lum manbalardan o'rnatish»</b> ga ruxsat bering.</p>}
           <div className="pl-for" style={{gridTemplateColumns:"1fr"}}>
             <Step n="1">Havolani <b>Chrome</b> brauzerida oching (<b>savurainvest.com</b>).</Step>
             <Step n="2">Yuqori o'ngdagi <b>⋮</b> menyuni bosing.</Step>
@@ -6125,8 +6129,8 @@ function InstallPage(){
           </div>
         </div>}
 
-        <p style={{textAlign:"center",fontSize:13,color:"#9fb0d0",marginTop:30}}>Ilova avtomatik yangilanadi. Saytdagi hamma narsa shu yerda ishlaydi.</p>
-        <div style={{textAlign:"center",marginTop:14}}><a href="/" className="gq-link" style={{background:"none",color:"#4aa3ff",fontWeight:700,fontSize:14}}>Saytga qaytish</a></div>
+        <p style={{textAlign:"center",fontSize:13,color:"#A7C3B4",marginTop:30}}>Ilova avtomatik yangilanadi. Saytdagi hamma narsa shu yerda ishlaydi.</p>
+        <div style={{textAlign:"center",marginTop:14}}><a href="/" className="gq-link" style={{background:"none",color:"#4BE0A0",fontWeight:700,fontSize:14}}>Saytga qaytish</a></div>
       </div>
     </div>
   );
@@ -6138,32 +6142,32 @@ const GQ_CSS = `
 .gq-prot,.gq-prot *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .gq-shield{position:fixed;inset:0;z-index:9999;background:#000;color:#9aa4b8;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;font-family:'Sora',sans-serif;font-size:15px}
 @media print{.gq-prot{display:none!important}}
-.gq-tm{position:relative;height:6px;border-radius:6px;background:rgba(255,255,255,.1);margin:10px 0 4px}.gq-tm div{height:100%;border-radius:6px;background:#2fb85a;transition:width 1s linear}.gq-tm.low div{background:#ef4444}.gq-tm b{position:absolute;right:0;top:-22px;font-size:13px;font-family:'Sora',sans-serif;color:var(--dim)}
+.gq-tm{position:relative;height:6px;border-radius:6px;background:rgba(255,255,255,.1);margin:10px 0 4px}.gq-tm div{height:100%;border-radius:6px;background:#2BC27D;transition:width 1s linear}.gq-tm.low div{background:#ef4444}.gq-tm b{position:absolute;right:0;top:-22px;font-size:13px;font-family:'Sora',sans-serif;color:var(--dim)}
 .gq-img{flex:0 0 auto;width:170px;max-width:46vw;height:auto;border-radius:6px 12px 12px 6px;box-shadow:-5px 8px 0 -2px rgba(0,0,0,.3),0 22px 40px rgba(0,0,0,.55);-webkit-user-drag:none}
-.gq-cover{flex:0 0 118px;height:164px;border-radius:6px 14px 14px 6px;position:relative;background:linear-gradient(145deg,#1a3f9c,#17774a);box-shadow:-6px 8px 0 -2px rgba(0,0,0,.35),0 22px 40px rgba(0,0,0,.5),inset 6px 0 0 rgba(255,255,255,.18);padding:16px 12px;display:flex;flex-direction:column;justify-content:space-between;animation:plFloat 5.5s ease-in-out infinite;}
+.gq-cover{flex:0 0 118px;height:164px;border-radius:6px 14px 14px 6px;position:relative;background:linear-gradient(145deg,#127A4C,#17774a);box-shadow:-6px 8px 0 -2px rgba(0,0,0,.35),0 22px 40px rgba(0,0,0,.5),inset 6px 0 0 rgba(255,255,255,.18);padding:16px 12px;display:flex;flex-direction:column;justify-content:space-between;animation:plFloat 5.5s ease-in-out infinite;}
 .gq-cover b{font-family:'Sora',sans-serif;font-size:13px;line-height:1.25;font-weight:800;}
-.gq-cover span{font-size:9px;color:#cfe0ff;letter-spacing:.5px;}
+.gq-cover span{font-size:9px;color:#D3F2E2;letter-spacing:.5px;}
 .gq-rules{display:grid;gap:9px;font-size:14.5px;color:var(--dim);}
 .gq-rules div{display:flex;gap:10px;align-items:flex-start;}
-.gq-rules i{flex:0 0 22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#2f7df6,#2fb85a);color:#fff;font-style:normal;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;}
+.gq-rules i{flex:0 0 22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#178A56,#2BC27D);color:#fff;font-style:normal;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;}
 .gq-box{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:22px;padding:22px;backdrop-filter:blur(12px);}
 .gq-in{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;padding:15px 16px;color:var(--tx);font-size:16px;font-family:inherit;outline:none;margin:14px 0 14px;transition:border-color .2s,box-shadow .2s;}
-.gq-in:focus{border-color:#4aa3ff;box-shadow:0 0 0 4px rgba(74,163,255,.18);}
+.gq-in:focus{border-color:#4BE0A0;box-shadow:0 0 0 4px rgba(75,224,160,.18);}
 .gq-err{color:#ff8a8a;font-size:13px;margin:-6px 0 12px;}
 .gq-prog{height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin-bottom:8px;}
-.gq-prog>div{height:100%;border-radius:6px;background:linear-gradient(90deg,#4aa3ff,#5fd36a);transition:width .4s ease;}
+.gq-prog>div{height:100%;border-radius:6px;background:linear-gradient(90deg,#4BE0A0,#5fd36a);transition:width .4s ease;}
 .gq-meta{display:flex;justify-content:space-between;font-size:12.5px;color:var(--faint);margin-bottom:18px;}
 .gq-q{font-family:'Sora',sans-serif;font-weight:700;font-size:clamp(18px,3.4vw,23px);line-height:1.35;margin-bottom:18px;animation:plFade .35s both;}
 .gq-opt{display:block;width:100%;text-align:left;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--tx);font-size:15.5px;line-height:1.4;cursor:pointer;margin-bottom:10px;transition:transform .15s,border-color .2s,background .2s;animation:plFade .35s both;}
-.gq-opt:hover{border-color:rgba(74,163,255,.6);background:rgba(74,163,255,.1);transform:translateX(3px);}
+.gq-opt:hover{border-color:rgba(75,224,160,.6);background:rgba(75,224,160,.1);transform:translateX(3px);}
 .gq-opt.sel{border-color:#5fd36a;background:rgba(95,211,106,.16);}
-.gq-score{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(46px,12vw,76px);line-height:1;background:linear-gradient(90deg,#4aa3ff,#5fd36a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.gq-score{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(46px,12vw,76px);line-height:1;background:linear-gradient(90deg,#4BE0A0,#5fd36a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 .gq-wr{border-top:1px solid var(--line);padding:14px 0;font-size:14.5px;line-height:1.5;}
 .gq-wr b{display:block;margin-bottom:4px;} .gq-wr .ok{color:#5fd36a;} .gq-wr .ex{color:var(--dim);font-size:13.5px;margin-top:4px;}
-.gq-link{background:none;border:none;color:#4aa3ff;font-weight:700;cursor:pointer;font-size:14px;margin-top:14px;font-family:inherit;}
-.gq-lg{display:flex;gap:4px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:12px;padding:3px}.gq-lg button{background:none;border:none;color:var(--dim);font-weight:800;font-size:12px;padding:6px 9px;border-radius:9px;cursor:pointer;font-family:'Sora',sans-serif}.gq-lg button.on{background:linear-gradient(135deg,#2f7df6,#2fb85a);color:#fff}
+.gq-link{background:none;border:none;color:#4BE0A0;font-weight:700;cursor:pointer;font-size:14px;margin-top:14px;font-family:inherit;}
+.gq-lg{display:flex;gap:4px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:12px;padding:3px}.gq-lg button{background:none;border:none;color:var(--dim);font-weight:800;font-size:12px;padding:6px 9px;border-radius:9px;cursor:pointer;font-family:'Sora',sans-serif}.gq-lg button.on{background:linear-gradient(135deg,#178A56,#2BC27D);color:#fff}
 .pl[dir=rtl] .gq-opt{text-align:right}.pl[dir=rtl] .gq-opt:hover{transform:translateX(-3px)}.pl[dir=rtl] .gq-wr .ex{border:0}
-.gq-cnt{margin:14px 0 4px;font-size:14px;color:var(--dim)}.gq-cnt b{color:#fff;font-family:'Sora',sans-serif}.gq-cnt input{width:100%;accent-color:#2f7df6;margin:8px 0 2px}.gq-cnt div{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint)}
+.gq-cnt{margin:14px 0 4px;font-size:14px;color:var(--dim)}.gq-cnt b{color:#fff;font-family:'Sora',sans-serif}.gq-cnt input{width:100%;accent-color:#178A56;margin:8px 0 2px}.gq-cnt div{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint)}
 .gq-pop{animation:gqPop .7s cubic-bezier(.2,1.4,.3,1) both;} @keyframes gqPop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
 @media(max-width:560px){.gq-book{flex-direction:column;text-align:center}.gq-rules{text-align:left}}
 `;
@@ -6325,7 +6329,7 @@ function GiftQuiz(){
             {err && <div className="gq-err">{err}</div>}
             <button className="pl-btn" style={{width:"100%"}} onClick={start} disabled={busy}><span>{busy?T.loading:T.start}</span></button>
           </div>
-          <div style={{textAlign:"center",marginTop:18}}><a href="/bepuldars1" style={{color:"#4aa3ff",fontWeight:700,fontSize:14}}>{T.see}</a></div>
+          <div style={{textAlign:"center",marginTop:18}}><a href="/bepuldars1" style={{color:"#4BE0A0",fontWeight:700,fontSize:14}}>{T.see}</a></div>
         </div>}
         {step==="quiz" && q && <div className="gq-box" key={q.id}>
           <div className="gq-prog"><div style={{width:((idx)/qs.length*100)+"%"}}/></div>
@@ -6378,7 +6382,7 @@ function InstallStrip(){
   });
   if(!show) return null;
   return(
-    <div style={{display:"flex",alignItems:"center",gap:9,padding:"8px 10px 8px 12px",background:"linear-gradient(90deg,#2f7df6,#2fb85a)",color:"#fff",fontSize:13.5,fontWeight:700,position:"fixed",left:12,bottom:14,zIndex:900,borderRadius:999,boxShadow:"0 10px 30px rgba(0,0,0,.4)",maxWidth:"calc(100vw - 92px)"}}>
+    <div style={{display:"flex",alignItems:"center",gap:9,padding:"8px 10px 8px 12px",background:"linear-gradient(90deg,#178A56,#2BC27D)",color:"#fff",fontSize:13.5,fontWeight:700,position:"fixed",left:12,bottom:14,zIndex:900,borderRadius:999,boxShadow:"0 10px 30px rgba(0,0,0,.4)",maxWidth:"calc(100vw - 92px)"}}>
       <img src="/icons/icon-192.png" alt="" width="22" height="22" style={{borderRadius:6}}/>
       <a href="/ilova" style={{color:"#fff",textDecoration:"underline",textUnderlineOffset:3}}>Ilovani o'rnatish</a>
       <button aria-label="Yopish" onClick={function(){ setShow(false); try{ localStorage.setItem("savura_inst_x","1"); }catch(e){} }} style={{background:"rgba(255,255,255,.2)",border:0,color:"#fff",borderRadius:"50%",width:22,height:22,cursor:"pointer",fontSize:13,lineHeight:1}}>×</button>
@@ -6408,11 +6412,11 @@ function MainApp(){
     if(keyin&&/^\/terminal/.test(keyin)){ window.location.href=keyin; return; }
     setPage("home"); } },[auth.user]);
   return(
-    <div data-theme={theme} style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'Manrope',system-ui,sans-serif",transition:"background .25s,color .25s"}}>
+    <div data-theme={theme} style={{minHeight:"100vh",background:C.bg,backgroundImage:"linear-gradient(var(--panjara) 1px,transparent 1px),linear-gradient(90deg,var(--panjara) 1px,transparent 1px)",backgroundSize:"56px 56px",color:C.text,fontFamily:"'Manrope',system-ui,sans-serif",transition:"background-color .25s,color .25s"}}>
       <InstallStrip/>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
-        *{box-sizing:border-box;margin:0;padding:0;} ::selection{background:#2f7df6;color:#fff;} a{text-decoration:none;} button{font-family:inherit;}
+        *{box-sizing:border-box;margin:0;padding:0;} ::selection{background:#178A56;color:#fff;} a{text-decoration:none;} button{font-family:inherit;}
         @keyframes spin{to{transform:rotate(360deg);}}\n        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
         @media(max-width:480px){.nav-social{display:none!important;}.mkt-long{display:none!important;}}
         @keyframes mktScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -6424,23 +6428,23 @@ function MainApp(){
         .stk-track{animation:stkScroll 55s linear infinite;will-change:transform;}
         .stk-viewport:hover .stk-track{animation-play-state:paused;}
         .stk-track button{transition:transform .2s,border-color .2s;}
-        .stk-track button:hover{transform:translateY(-2px);border-color:rgba(74,163,255,0.5)!important;}
+        .stk-track button:hover{transform:translateY(-2px);border-color:rgba(75,224,160,0.5)!important;}
         @keyframes hsSpin{to{transform:rotate(360deg)}}
         .hs-spin{animation:hsSpin 40s linear infinite;}
         .halal-card:hover{transform:translateY(-3px);}
         .halal-card:hover .halal-seal{transform:rotate(-6deg) scale(1.04);}
         .halal-seal{transition:transform .4s ease;}
         .hero-btn{transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;}
-        .hero-btn:hover{transform:translateY(-2px);filter:brightness(1.07);box-shadow:0 12px 32px rgba(47,125,246,0.35)!important;}
+        .hero-btn:hover{transform:translateY(-2px);filter:brightness(1.07);box-shadow:0 12px 32px rgba(23,138,86,0.35)!important;}
         @media (prefers-reduced-motion: reduce){.hs-spin{animation:none;}}
         .yt-play{transition:transform .2s;} button:hover > .yt-play{transform:translate(-50%,-50%) scale(1.08)!important;}
         @media (prefers-reduced-motion: reduce){.mkt-track{animation-duration:200s;}}
-        ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--scrollTrack);} ::-webkit-scrollbar-thumb{background:#2f7df6;border-radius:2px;}
+        ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--scrollTrack);} ::-webkit-scrollbar-thumb{background:#178A56;border-radius:2px;}
       `}</style>
       <MarketTicker lang={lang}/>
       <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang} auth={auth} theme={theme} toggleTheme={toggleTheme}/>
       <div style={{height:34}}/>
-      {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><TerminalPromo lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/><ApplyForm lang={lang} source="home"/><HalalBanner setPage={setPage} lang={lang}/></>}
+      {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><TerminalPromo lang={lang} tun={theme!=="light"}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/><ApplyForm lang={lang} source="home"/><HalalBanner setPage={setPage} lang={lang}/></>}
       {page==="halal"&&<HalalPage lang={lang} setPage={setPage}/>}
       {page==="lessons"&&<LessonsPage lang={lang} setPage={setPage}/>}
       {page==="auth"&&<AuthScreen lang={lang} onClose={()=>setPage("home")}/>}
@@ -6491,7 +6495,7 @@ function TerminalRoute(){
     return data;
   },[]);
   return(
-    <React.Suspense fallback={<div style={{minHeight:"100vh",background:"#060a14"}}/>}>
+    <React.Suspense fallback={<div style={{minHeight:"100vh",background:"#06140F"}}/>}>
       <Terminal kirish={rx||{holat:"yuk"}} token={auth.session?.access_token||""} ulash={auth.user&&sb?ulash:null}/>
     </React.Suspense>
   );

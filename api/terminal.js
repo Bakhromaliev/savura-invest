@@ -226,16 +226,56 @@ async function market() {
   });
 }
 
+// ── Savura kompasi: 8 yo'nalish, har biri 0–10 ────────────────────────────
+// Faqat ochiq raqamlardan hisoblanadi (SEC hisobotlari + bot yuborgan ko'rsatkichlar).
+// Halollik bu yerda baholanmaydi - u alohida muhr bo'lib ko'rsatiladi.
+const lin = (x, a, b) => (x == null || !isFinite(x) ? null : Math.max(0, Math.min(10, (x - a) / (b - a) * 10)));
+const ort = arr => { const v = arr.filter(x => x != null && isFinite(x)); return v.length ? v.reduce((p, q) => p + q, 0) / v.length : null; };
+const cagr = (a, b, n) => (a > 0 && b > 0 && n > 0 ? Math.pow(b / a, 1 / n) - 1 : null);
+function kompas(k, sec, sektor) {
+  const d = k?.data || {}, y = (sec?.yillar || []).filter(r => r.daromad != null);
+  const so = y.at(-1) || {}, y5 = y.length >= 2 ? y[Math.max(0, y.length - 6)] : null, n5 = y5 ? so.yil - y5.yil : 0;
+  const q = (v) => (v == null || !isFinite(v) ? null : v);
+  const qarzFcf = so.qarz != null && so.fcf > 0 ? so.qarz / so.fcf : (so.qarz === 0 ? 0 : null);
+  const revCagr = y5 ? cagr(y5.daromad, so.daromad, n5) : null;
+  const fcfCagr = y5 && y5.fcf > 0 && so.fcf > 0 ? cagr(y5.fcf, so.fcf, n5) : null;
+  const yalpiQ = y.filter(r => r.yalpi != null && r.daromad > 0).map(r => r.yalpi / r.daromad);
+  const yalpiOrt = ort(yalpiQ), yalpiTeb = yalpiQ.length > 2 ? Math.sqrt(ort(yalpiQ.map(x => (x - yalpiOrt) ** 2))) : null;
+  const foydali = y.length ? y.filter(r => r.sof > 0).length / y.length : null;
+  const dps = y.filter(r => r.dps != null && r.dps > 0);
+  const dpsOsish = dps.length > 2 ? dps.slice(1).filter((r, i) => r.dps >= dps[i].dps).length / (dps.length - 1) : null;
+  const epsKut = d.pe > 0 && d.pe_kelajak > 0 ? d.pe / d.pe_kelajak - 1 : null;
+  const fcfYield = (d.fcf ?? so.fcf) != null && d.kapitalizatsiya > 0 ? (d.fcf ?? so.fcf) / d.kapitalizatsiya : null;
+  const fcfMarja = so.fcf != null && so.daromad > 0 ? so.fcf / so.daromad : null;
+  const nis = (v, s) => (v > 0 && s > 0 ? v / s : null);
+  const peN = nis(d.pe, sektor?.pe), psN = nis(d.ps, sektor?.ps), evN = nis(d.ev_ebitda, sektor?.ev_ebitda);
+  const B = [
+    ["barqarorlik", ort([lin(d.de, 2.5, 0), lin(qarzFcf, 6, 0)]), { de: d.de, qarzFcf }],
+    ["rentabellik", ort([lin(d.marja, 0, 0.3), lin(d.yalpi, 0.15, 0.75), lin(d.roa, 0, 0.15)]), { marja: d.marja, yalpi: d.yalpi, roa: d.roa }],
+    ["samaradorlik", ort([lin(d.roe, 0, 0.35), lin(fcfMarja, 0, 0.3)]), { roe: d.roe, fcfMarja }],
+    ["osish", ort([lin(revCagr, -0.05, 0.2), lin(fcfCagr, -0.05, 0.2), lin(d.osish, -0.05, 0.25)]), { revCagr, fcfCagr, osish: d.osish }],
+    ["istiqbol", ort([lin(epsKut, -0.1, 0.3), d.peg > 0 ? lin(d.peg, 3, 0.8) : null]), { epsKut, peg: d.peg }],
+    ["baholash", ort([peN != null ? lin(peN, 2, 0.6) : null, psN != null ? lin(psN, 2, 0.6) : null, evN != null ? lin(evN, 2, 0.6) : null, lin(fcfYield, 0, 0.08)]), { pe: d.pe, sektorPe: sektor?.pe, fcfYield }],
+    ["dividend", d.dividend > 0 || dps.length ? ort([lin(d.dividend, 0, 0.04), dpsOsish != null ? dpsOsish * 10 : null]) : 0, { dividend: d.dividend, dpsOsish }],
+    ["ustunlik", ort([lin(yalpiOrt, 0.2, 0.7), yalpiTeb != null ? lin(yalpiTeb, 0.08, 0.01) : null, foydali != null ? foydali * 10 : null, d.kapitalizatsiya > 0 ? lin(Math.log10(d.kapitalizatsiya), 9, 12) : null]),
+      { yalpiOrt, yalpiTeb, foydali }],
+  ];
+  const yon = B.map(([id, ball, dal]) => ({ id, ball: ball == null ? null : Math.round(ball * 10) / 10,
+    dalil: Object.fromEntries(Object.entries(dal).map(([kk, v]) => [kk, q(v)])) }));
+  const umumiy = ort(yon.map(x => x.ball));
+  return { umumiy: umumiy == null ? null : Math.round(umumiy * 10) / 10, yon };
+}
+
 async function company(sym) {
   const [ch, sec, fh, list] = await Promise.all([
     yChart(sym, "1y").catch(() => null), secHisobot(sym).catch(e => ({ xato: String(e.message || e) })),
     finnhub(sym).catch(() => ({})), royxat().catch(() => [])]);
   const k = list.find(x => x.ticker === sym) || null;
   if (!ch && !k && (!sec || sec.xato)) return { topilmadi: true };
-  const sektorlar = k ? list.filter(x => x.sektor === k.sektor && x.data) : [];
+  const sektorlar = k ? list.filter(x => x.sektor === k.sektor && x.data && x.ticker !== sym) : [];
   const med = key => { const v = sektorlar.map(x => num(x.data[key])).filter(x => x != null && x > 0).sort((a, b) => a - b); return v.length ? v[Math.floor(v.length / 2)] : null; };
   const sektor = k ? { pe: med("pe"), ps: med("ps"), ev_ebitda: med("ev_ebitda"), yalpi: med("yalpi"), roe: med("roe"), soni: sektorlar.length } : null;
-  return { sym, narx: ch, sec, finnhub: fh, kompaniya: k, sektor, vaqt: Date.now() };
+  return { sym, narx: ch, sec, finnhub: fh, kompaniya: k, sektor, kompas: kompas(k, sec && !sec.xato ? sec : null, sektor), vaqt: Date.now() };
 }
 
 const TIL = { uz: "o'zbek (lotin)", ru: "rus", en: "ingliz", tr: "turk", ar: "arab" };

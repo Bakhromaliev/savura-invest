@@ -3,8 +3,17 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { TILLAR, t as tr } from "./til.js";
 
-const R = { bg: "#060a14", bg2: "#070d1c", card: "#0b1628", line: "#142140", line2: "#1c2c4c", text: "#edf2ff", dim: "#b9c6e2", faint: "#8ea0c4",
-  blue: "#2f7df6", blueLt: "#4aa3ff", green: "#52d869", greenBg: "#0f2a1c", greenLine: "#1f5a33", red: "#ff6b6f", amber: "#f0a92b" };
+// Savura yagona palitrasi: tun - to'q yashil, kun - iliq oq (sayt bilan bir xil)
+const TUN = { bg: "#06140F", bg2: "#081A13", card: "#0C1F18", line: "#1C3A2D", line2: "#2A4D3E", text: "#E8F1EA", dim: "#C2D6CA", faint: "#8FB09F",
+  blue: "#178A56", blueLt: "#4BE0A0", green: "#4BE0A0", greenBg: "#0F2E21", greenLine: "#22553F", red: "#F2766A", amber: "#E2B65C",
+  sel: "#10291F", hover: "#0F2419", input: "#071610", grid: "#10261D", zero: "#2A4D3E", redLine: "#5a2a2a", amberLine: "#5c4a22", up: "#2BC27D", down: "#E5534B",
+  backdrop: "#020a07cc", rang: ["#4BE0A0", "#E2B65C", "#7CB8FF", "#E58BC8"] };
+const KUN = { bg: "#F4F6EF", bg2: "#FFFFFF", card: "#FFFFFF", line: "#DCE4D6", line2: "#C3D0BE", text: "#0E2118", dim: "#2F4A3C", faint: "#557062",
+  blue: "#127A4C", blueLt: "#0E6B41", green: "#0E7C4A", greenBg: "#E2F3E8", greenLine: "#B5DDC4", red: "#C4382E", amber: "#9A6B12",
+  sel: "#E2F3E8", hover: "#EEF3EA", input: "#FFFFFF", grid: "#E8EEE3", zero: "#C3D0BE", redLine: "#EBC2BD", amberLine: "#E3D2AE", up: "#159A5C", down: "#C4382E",
+  backdrop: "#0e211899", rang: ["#127A4C", "#9A6B12", "#2F6FB8", "#A2457E"] };
+const R = { ...TUN };
+function temaOl() { try { return localStorage.getItem("savura_theme") === "light" ? "light" : "dark"; } catch (e) { return "dark"; } }
 
 // ── yordamchilar ──────────────────────────────────────────────────────────
 const n = v => (typeof v === "number" && isFinite(v) ? v : null);
@@ -47,7 +56,8 @@ function useApi(url) {
 }
 
 // ── umumiy UI ─────────────────────────────────────────────────────────────
-const card = { background: R.card, border: `1px solid ${R.line}`, borderRadius: 18, padding: 18 };
+// getter: kun/tun almashganda yangi rang olinadi (...card yoyilganda)
+const card = { get background() { return R.card; }, get border() { return `1px solid ${R.line}`; }, borderRadius: 18, padding: 18 };
 const h2 = { margin: 0, fontFamily: "Sora, sans-serif", fontSize: 17, fontWeight: 700 };
 function Chip({ on, onClick, children }) {
   return <button onClick={onClick} aria-pressed={on} className="tr-chip" style={{ minHeight: 34, padding: "0 12px", borderRadius: 9, fontSize: 13, fontWeight: 700,
@@ -62,7 +72,7 @@ function Xato({ L, qayta, matn }) {
 function HolatBelgi({ L, holat, kichik }) {
   const h = holat || "nomalum", ok = h === "halol", yomon = h === "halol_emas";
   return <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: kichik ? 11 : 13, fontWeight: 800, padding: kichik ? "1px 7px" : "5px 10px", borderRadius: 999,
-    color: ok ? R.green : yomon ? R.red : R.amber, background: ok ? R.greenBg : "transparent", border: `1px solid ${ok ? R.greenLine : yomon ? "#5a2a31" : "#5c4a22"}` }}>{tr(L, "holat")[h] || h}</span>;
+    color: ok ? R.green : yomon ? R.red : R.amber, background: ok ? R.greenBg : "transparent", border: `1px solid ${ok ? R.greenLine : yomon ? R.redLine : R.amberLine}` }}>{tr(L, "holat")[h] || h}</span>;
 }
 
 // ── Kirish holati (3 kunlik sinov) ────────────────────────────────────────
@@ -93,7 +103,12 @@ function Bozor({ L }) {
   const sektorlar = [...new Set(xr.map(x => x.sektor).filter(Boolean))];
   const kor = xr.filter(x => !sek || x.sektor === sek);
   const maxCap = Math.max(1, ...kor.map(x => x.cap || 0));
-  const fon = c => { const a = Math.min(1, Math.abs(c || 0) / 3); return c >= 0 ? `rgb(${26 + 5 * a | 0},${37 + 85 * a | 0},${64 - 6 * a | 0})` : `rgb(${26 + 137 * a | 0},${37 + 5 * a | 0},${64 - 18 * a | 0})`; };
+  // Xarita rangi: neytraldan yashil/qizilga (kun va tunda alohida asos)
+  const kun = R.bg === KUN.bg;
+  const aralash = (a, b, t) => `rgb(${a.map((x, i) => Math.round(x + (b[i] - x) * t)).join(",")})`;
+  const fon = c => { const a = Math.min(1, Math.abs(c || 0) / 3); const asos = kun ? [225, 232, 220] : [20, 44, 34];
+    return aralash(asos, c >= 0 ? (kun ? [21, 154, 92] : [31, 158, 100]) : (kun ? [196, 56, 46] : [190, 66, 58]), 0.25 + 0.75 * a); };
+  const yozuv = c => (kun && Math.abs(c || 0) < 1.6 ? R.text : "#fff");
   const tartib = [...xr].sort((a, b) => b.oz - a.oz);
   return <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
     <section style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
@@ -114,7 +129,7 @@ function Bozor({ L }) {
       <div className="tr-xarita">
         {kor.map((x, i) => { const w = Math.max(1, Math.min(4, Math.round(Math.sqrt(x.cap / maxCap) * 4))); const h = i < 3 ? 2 : 1;
           return <a key={x.t} href={"/terminal/" + x.t} onClick={e => { e.preventDefault(); ot("/terminal/" + x.t); }} title={x.nom}
-            style={{ gridColumn: `span ${w}`, gridRow: `span ${h}`, background: fon(x.oz), borderRadius: 8, color: "#fff", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, minWidth: 0 }}>
+            style={{ gridColumn: `span ${w}`, gridRow: `span ${h}`, background: fon(x.oz), borderRadius: 8, color: yozuv(x.oz), display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, minWidth: 0 }}>
             <b style={{ fontFamily: "Sora, sans-serif", fontSize: 14 }}>{x.t}</b><span style={{ fontSize: 12, fontWeight: 600 }}>{ozg(x.oz)}</span></a>; })}
       </div>
       <span style={{ fontSize: 12, color: R.faint }}>{tr(L, "xaritaIzoh")}</span>
@@ -149,14 +164,14 @@ function NarxGrafik({ nuqtalar }) {
     lwcYukla().then(LC => {
       if (!tirik || !ref.current) return;
       ch = LC.createChart(ref.current, { height: 300, layout: { background: { color: "transparent" }, textColor: R.faint, fontFamily: "Manrope, sans-serif" },
-        grid: { vertLines: { color: "#101b33" }, horzLines: { color: "#101b33" } }, rightPriceScale: { borderColor: R.line }, timeScale: { borderColor: R.line }, crosshair: { mode: 0 } });
-      const s = ch.addCandlestickSeries({ upColor: "#37b24d", downColor: "#e5484d", borderVisible: false, wickUpColor: "#37b24d", wickDownColor: "#e5484d" });
+        grid: { vertLines: { color: R.grid }, horzLines: { color: R.grid } }, rightPriceScale: { borderColor: R.line }, timeScale: { borderColor: R.line }, crosshair: { mode: 0 } });
+      const s = ch.addCandlestickSeries({ upColor: R.up, downColor: R.down, borderVisible: false, wickUpColor: R.up, wickDownColor: R.down });
       s.setData(nuqtalar.filter(p => p.o != null).map(p => ({ time: p.t, open: p.o, high: p.h, low: p.l, close: p.c })));
       ch.timeScale().fitContent();
       ro = new ResizeObserver(() => ref.current && ch.applyOptions({ width: ref.current.clientWidth })); ro.observe(ref.current);
     }).catch(() => tirik && setSvg(true));
     return () => { tirik = false; ro && ro.disconnect(); ch && ch.remove(); };
-  }, [nuqtalar]);
+  }, [nuqtalar, R.bg]);
   if (svg) { const c = nuqtalar.map(p => p.c), mn = Math.min(...c), mx = Math.max(...c);
     const d = c.map((v, i) => (i ? "L" : "M") + (i * 600 / (c.length - 1)).toFixed(1) + " " + (290 - (v - mn) / (mx - mn || 1) * 280).toFixed(1)).join(" ");
     return <svg viewBox="0 0 600 300" width="100%" height="300" preserveAspectRatio="none" aria-hidden="true"><path d={d} fill="none" stroke={R.blueLt} strokeWidth="2" /></svg>; }
@@ -164,13 +179,13 @@ function NarxGrafik({ nuqtalar }) {
 }
 
 // ── Kompaniya ─────────────────────────────────────────────────────────────
-const TABLAR = [["umumiy", "DES"], ["moliya", "FA"], ["baholash", "RV"], ["halol", "HALOL"], ["egalar", "INS"], ["yangilik", "NEWS"], ["ai", "AI"]];
-const BUYRUQ = { DES: "umumiy", FA: "moliya", RV: "baholash", DCF: "baholash", HALOL: "halol", HALAL: "halol", INS: "egalar", OWN: "egalar", NEWS: "yangilik", AI: "ai" };
+const TABLAR = [["kompas", "SVR"], ["umumiy", "DES"], ["moliya", "FA"], ["baholash", "RV"], ["halol", "HALOL"], ["egalar", "INS"], ["yangilik", "NEWS"], ["ai", "AI"]];
+const BUYRUQ = { SVR: "kompas", KOMPAS: "kompas", DES: "umumiy", FA: "moliya", RV: "baholash", DCF: "baholash", HALOL: "halol", HALAL: "halol", INS: "egalar", OWN: "egalar", NEWS: "yangilik", AI: "ai" };
 
 function Kompaniya({ L, sym, tab0 }) {
   const { yuk, d, xato, qayta } = useApi("/api/terminal?a=company&sym=" + encodeURIComponent(sym));
-  const [tab, setTab] = useState(tab0 || "umumiy");
-  useEffect(() => { setTab(tab0 || "umumiy"); }, [sym, tab0]);
+  const [tab, setTab] = useState(tab0 || "kompas");
+  useEffect(() => { setTab(tab0 || "kompas"); }, [sym, tab0]);
   if (yuk && !d) return <Yuk L={L} />;
   if (xato) return <Xato L={L} qayta={qayta} />;
   if (!d || d.topilmadi) return <Xato L={L} matn={tr(L, "topilmadi")} />;
@@ -201,6 +216,7 @@ function Kompaniya({ L, sym, tab0 }) {
       {TABLAR.map(([id, kod]) => <button key={id} role="tab" aria-selected={tab === id} onClick={() => setTab(id)} className="tr-tab"
         style={{ borderBottom: `2px solid ${tab === id ? R.blue : "transparent"}`, color: tab === id ? R.text : R.faint }}>{tr(L, id)}<span style={{ fontSize: 10, opacity: .6, marginInlineStart: 5 }}>{kod}</span></button>)}
     </nav>
+    {tab === "kompas" && <Kompas L={L} k={d.kompas} />}
     {tab === "umumiy" && <Umumiy L={L} d={d} />}
     {tab === "moliya" && <Moliya L={L} sec={d.sec} />}
     {tab === "baholash" && <Baholash L={L} d={d} />}
@@ -208,6 +224,60 @@ function Kompaniya({ L, sym, tab0 }) {
     {tab === "egalar" && <Insayder L={L} arr={fh.insayder} />}
     {tab === "yangilik" && <Yangilik L={L} arr={fh.yangilik} />}
     {tab === "ai" && <AiXulosa L={L} sym={sym} />}
+  </div>;
+}
+
+// ── Savura kompasi ────────────────────────────────────────────────────────
+const FOIZLI = new Set(["marja", "yalpi", "roa", "roe", "fcfMarja", "revCagr", "fcfCagr", "osish", "epsKut", "fcfYield", "dividend", "dpsOsish", "yalpiOrt", "yalpiTeb", "foydali"]);
+function Kompas({ L, k }) {
+  const yon = k?.yon || [];
+  const [tan, setTan] = useState(() => { const i = yon.findIndex(x => x.ball != null); return i < 0 ? 0 : i; });
+  if (!yon.length || k.umumiy == null) return <Xato L={L} matn={tr(L, "malYetmas")} />;
+  const cx = 170, cy = 160, Rr = 112;
+  const pt = (i, r) => { const a = (-90 + i * 45) * Math.PI / 180; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; };
+  const P = (i, r) => pt(i, r).map(v => v.toFixed(1)).join(" ");
+  const panjara = [0.25, 0.5, 0.75, 1].map(f => yon.map((_, i) => (i ? "L" : "M") + P(i, Rr * f)).join(" ") + " Z").join(" ")
+    + " " + yon.map((_, i) => "M" + cx + " " + cy + " L" + P(i, Rr)).join(" ");
+  const nuq = yon.map((x, i) => pt(i, Rr * (x.ball || 0) / 10).map(v => v.toFixed(1)).join(",")).join(" ");
+  const rangi = v => (v == null ? R.faint : v >= 7 ? R.up : v >= 5 ? R.amber : R.red);
+  const sel = yon[tan], d = pt(tan, Rr * (sel.ball || 0) / 10);
+  const qiymat = (kk, v) => (v == null ? "—" : FOIZLI.has(kk) ? foiz(v, 1) : fx(v, kk === "qarzFcf" ? 1 : 2));
+  return <div style={{ display: "flex", flexWrap: "wrap", gap: 18 }}>
+    <section style={{ ...card, flex: "1.3 1 540px", minWidth: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
+        <h2 style={h2}>{tr(L, "kompas")}</h2>
+        <span style={{ color: R.faint, fontSize: 14 }}>{tr(L, "umumiyBaho")} <b style={{ fontFamily: "Sora, sans-serif", fontSize: 28, color: R.text }}>{fx(k.umumiy, 1)}</b> / 10</span>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center" }}>
+        <svg viewBox="-70 0 480 320" width="420" height="280" role="img" aria-label={tr(L, "kompas")} style={{ maxWidth: "100%", flex: "0 1 auto" }}>
+          <path d={panjara} fill="none" stroke={R.line} />
+          <polygon points={nuq} fill={R.up + "33"} stroke={R.up} strokeWidth="2.2" strokeLinejoin="round" />
+          <circle cx={d[0]} cy={d[1]} r="6" fill={R.up} stroke={R.card} strokeWidth="3" />
+          {yon.map((x, i) => { const p = pt(i, Rr + 24), dx = p[0] - cx;
+            return <text key={x.id} x={p[0]} y={p[1] + 4} textAnchor={Math.abs(dx) < 8 ? "middle" : dx > 0 ? "start" : "end"} fontSize="12" fontWeight={i === tan ? 800 : 600} fill={i === tan ? R.text : R.faint}
+              style={{ direction: "ltr", unicodeBidi: "plaintext" }}>{tr(L, "k_" + x.id)}</text>; })}
+        </svg>
+        <div role="group" aria-label={tr(L, "kompas")} style={{ flex: "1 1 220px", minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
+          {yon.map((x, i) => <button key={x.id} onClick={() => setTan(i)} aria-pressed={i === tan} className="tr-kat"
+            style={{ background: i === tan ? R.greenBg : "transparent", borderColor: i === tan ? R.greenLine : "transparent", fontWeight: i === tan ? 800 : 600 }}>
+            <span style={{ flex: 1, textAlign: "start" }}>{tr(L, "k_" + x.id)}</span>
+            <span style={{ width: 72, height: 6, borderRadius: 3, background: R.line, overflow: "hidden" }}><span style={{ display: "block", height: 6, width: (x.ball || 0) * 10 + "%", background: rangi(x.ball) }} /></span>
+            <b style={{ width: 30, textAlign: "end" }}>{x.ball == null ? "—" : fx(x.ball, 1)}</b></button>)}
+        </div>
+      </div>
+      <span style={{ fontSize: 12, color: R.faint }}>{tr(L, "kompasIzoh")}</span>
+    </section>
+    <section style={{ ...card, flex: "1 1 320px", minWidth: 0, display: "flex", flexDirection: "column", gap: 12, alignSelf: "flex-start" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+        <h2 style={h2}>{tr(L, "k_" + sel.id)}</h2>
+        <b style={{ fontFamily: "Sora, sans-serif", fontSize: 24, color: rangi(sel.ball) }}>{sel.ball == null ? "—" : fx(sel.ball, 1)}</b>
+      </div>
+      <p style={{ margin: 0, color: R.dim, lineHeight: 1.6, fontSize: 14.5 }}>{tr(L, "i_" + sel.id)}</p>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {Object.entries(sel.dalil || {}).map(([kk, v]) => <div key={kk} className="tr-qator" style={{ justifyContent: "space-between" }}>
+          <span style={{ color: R.dim }}>{tr(L, "d_" + kk)}</span><b>{qiymat(kk, v)}</b></div>)}
+      </div>
+    </section>
   </div>;
 }
 
@@ -247,7 +317,7 @@ function Moliya({ L, sec }) {
       {y.map(r => { const v = r[k]; const h = n(v) == null ? 2 : Math.max(3, Math.abs(v) / mx * 140);
         return <div key={r.yil} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 6, minWidth: 0 }}>
           <span style={{ fontSize: 11, color: R.dim }}>{mlrd(v)}</span>
-          <div style={{ width: "100%", height: h, borderRadius: "6px 6px 2px 2px", background: n(v) != null && v < 0 ? R.red : k === "daromad" ? R.blue : k === "sof" ? "#37b24d" : R.blueLt }} />
+          <div style={{ width: "100%", height: h, borderRadius: "6px 6px 2px 2px", background: n(v) != null && v < 0 ? R.red : k === "daromad" ? R.blue : k === "sof" ? R.up : R.amber }} />
           <span style={{ fontSize: 11, color: R.faint }}>{r.yil}</span></div>; })}
     </div>
     <div style={{ overflowX: "auto" }}>
@@ -306,7 +376,7 @@ function Halol({ L, h }) {
       return <div key={kk} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, gap: 8 }}><span>{tr(L, kk)}</span><span><b>{v == null ? "—" : foiz(v, 1)}</b> <span style={{ color: R.faint }}>{tr(L, "chegara")} {foiz(lim, 0)}</span></span></div>
         <div style={{ position: "relative", height: 10, borderRadius: 5, background: R.line }}>
-          {v != null && <div style={{ position: "absolute", insetBlock: 0, insetInlineStart: 0, width: Math.min(100, v / mx * 100) + "%", borderRadius: 5, background: v <= lim ? "#37b24d" : R.red }} />}
+          {v != null && <div style={{ position: "absolute", insetBlock: 0, insetInlineStart: 0, width: Math.min(100, v / mx * 100) + "%", borderRadius: 5, background: v <= lim ? R.up : R.red }} />}
           <div style={{ position: "absolute", top: -4, bottom: -4, width: 2, background: R.text, insetInlineStart: (lim / mx * 100) + "%" }} />
         </div></div>; })}
     <span style={{ fontSize: 12, color: R.faint }}>{tr(L, "halolManba")}</span>
@@ -403,7 +473,6 @@ function Skaner({ L }) {
 }
 
 // ── Solishtirish ──────────────────────────────────────────────────────────
-const RANGLAR = ["#4aa3ff", "#52d869", "#f0a92b", "#c58bff"];
 function useKompaniyalar(syms) {
   const [m, setM] = useState({});
   useEffect(() => { syms.forEach(s => { if (m[s] || KESH["c:" + s]) { if (!m[s]) setM(p => ({ ...p, [s]: KESH["c:" + s] })); return; }
@@ -417,7 +486,7 @@ function Solishtirish({ L, boshlang }) {
   const qosh = () => { const s = inp.trim().toUpperCase().replace(/[^A-Z.\-]/g, ""); if (s && !syms.includes(s) && syms.length < 4) setSyms([...syms, s]); setInp(""); };
   const tayyor = syms.map(s => m[s]).filter(x => x && !x.xato && !x.topilmadi);
   // 1 yillik natija, foizda
-  const chiz = syms.map((s, i) => { const p = m[s]?.narx?.nuqtalar || []; if (p.length < 2) return null; const b = p[0].c; return { s, c: RANGLAR[i], v: p.map(x => (x.c / b - 1) * 100) }; }).filter(Boolean);
+  const chiz = syms.map((s, i) => { const p = m[s]?.narx?.nuqtalar || []; if (p.length < 2) return null; const b = p[0].c; return { s, c: R.rang[i], v: p.map(x => (x.c / b - 1) * 100) }; }).filter(Boolean);
   const all = chiz.flatMap(x => x.v), mn = Math.min(0, ...all), mx = Math.max(1, ...all);
   const Y = v => 210 - (v - mn) / (mx - mn || 1) * 200;
   const MET = [["pe", x => x.kompaniya?.data?.pe, -1, v => fx(v, 1)], ["ps", x => x.kompaniya?.data?.ps, -1, v => fx(v, 1)], ["ev", x => x.kompaniya?.data?.ev_ebitda, -1, v => fx(v, 1)],
@@ -427,7 +496,7 @@ function Solishtirish({ L, boshlang }) {
   return <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
     <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
       {syms.map((s, i) => <span key={s} style={{ display: "inline-flex", alignItems: "center", gap: 8, minHeight: 38, padding: "0 6px 0 12px", borderRadius: 10, border: `1px solid ${R.line2}`, fontWeight: 700 }}>
-        <span style={{ width: 9, height: 9, borderRadius: 5, background: RANGLAR[i] }} />{s}
+        <span style={{ width: 9, height: 9, borderRadius: 5, background: R.rang[i] }} />{s}
         <button aria-label={tr(L, "olib") + " " + s} onClick={() => syms.length > 1 && setSyms(syms.filter(x => x !== s))} className="tr-x">×</button></span>)}
       {syms.length < 4 && <form onSubmit={e => { e.preventDefault(); qosh(); }} style={{ display: "flex", gap: 6 }}>
         <input value={inp} onChange={e => setInp(e.target.value)} placeholder={tr(L, "solQosh")} aria-label={tr(L, "solQosh")} className="tr-input" style={{ width: 140 }} />
@@ -437,13 +506,13 @@ function Solishtirish({ L, boshlang }) {
     <section style={{ ...card, display: "flex", flexDirection: "column", gap: 10 }}>
       <h2 style={h2}>{tr(L, "natija1y")}</h2>
       {chiz.length ? <svg viewBox="0 0 800 220" width="100%" height="240" preserveAspectRatio="none" role="img" aria-label={tr(L, "natija1y")}>
-        <line x1="0" x2="800" y1={Y(0)} y2={Y(0)} stroke="#2a3d63" strokeDasharray="4 6" />
+        <line x1="0" x2="800" y1={Y(0)} y2={Y(0)} stroke={R.zero} strokeDasharray="4 6" />
         {chiz.map(x => <path key={x.s} d={x.v.map((v, k) => (k ? "L" : "M") + (k * 800 / (x.v.length - 1)).toFixed(1) + " " + Y(v).toFixed(1)).join(" ")} fill="none" stroke={x.c} strokeWidth="2.2" />)}
       </svg> : <Yuk L={L} />}
     </section>
     <section style={{ ...card, overflowX: "auto" }}>
       <table className="tr-jadval" style={{ minWidth: 560 }}>
-        <thead><tr><th scope="col" style={{ textAlign: "start" }}>{tr(L, "korsatkich")}</th>{syms.map((s, i) => <th key={s} scope="col" style={{ color: RANGLAR[i], fontFamily: "Sora, sans-serif" }}>{s}</th>)}</tr></thead>
+        <thead><tr><th scope="col" style={{ textAlign: "start" }}>{tr(L, "korsatkich")}</th>{syms.map((s, i) => <th key={s} scope="col" style={{ color: R.rang[i], fontFamily: "Sora, sans-serif" }}>{s}</th>)}</tr></thead>
         <tbody>{MET.map(([k, ol, yon, fmt]) => { const v = syms.map(s => (m[s] && !m[s].xato ? n(ol(m[s])) : null)); const ok = v.filter(x => x != null && (yon > 0 || x > 0));
           const eng = ok.length > 1 ? (yon > 0 ? Math.max(...ok) : Math.min(...ok)) : null;
           return <tr key={k}><th scope="row" style={{ textAlign: "start", color: R.dim }}>{tr(L, k)}</th>
@@ -465,7 +534,7 @@ function UlashOyna({ L, ulash, yop }) {
     catch (er) { setXabar({ ok: false, m: tr(L, "xato") }); }
     setBand(false); };
   return <div role="dialog" aria-modal="true" aria-labelledby="ulash-sar" onClick={e => { if (e.target === e.currentTarget) yop(); }}
-    style={{ position: "fixed", inset: 0, background: "#020510cc", zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+    style={{ position: "fixed", inset: 0, background: R.backdrop, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
     <form onSubmit={yubor} style={{ ...card, width: "100%", maxWidth: 420, display: "flex", flexDirection: "column", gap: 14, padding: 24 }}>
       <h2 id="ulash-sar" style={{ ...h2, fontSize: 20 }}>{tr(L, "ulashSar")}</h2>
       <p style={{ margin: 0, color: R.dim, lineHeight: 1.6, fontSize: 14 }}>{tr(L, "ulashMat")}</p>
@@ -513,6 +582,10 @@ function buyruq(s) {
 
 export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash = null }) {
   TOKEN = token || "";
+  const [tema, setTema] = useState(temaOl);
+  Object.assign(R, tema === "light" ? KUN : TUN);
+  useEffect(() => { try { localStorage.setItem("savura_theme", tema); } catch (e) {} document.body.style.background = R.bg;
+    const mt = document.querySelector('meta[name="theme-color"]'); if (mt) mt.setAttribute("content", R.bg); }, [tema]);
   const [ulashOchiq, setUlashOchiq] = useState(() => { try { return new URLSearchParams(window.location.search).get("ulash") === "1"; } catch (e) { return false; } });
   const ulashOch = ulash ? () => setUlashOchiq(true) : null;
   const [p, setP] = useState(yol());
@@ -527,7 +600,7 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
   useEffect(() => { document.title = (y.sym ? y.sym + " — " : "") + "Savura Terminal"; }, [p]);
   const nav = [["bozor", "/terminal"], ["skaner", "/terminal/skaner"], ["solish", "/terminal/solishtir"]];
   const nav2 = [["portfel", "/terminal/portfel"], ["kuzatuv", "/terminal/kuzatuv"], ["savdo", "/terminal/savdo"]];
-  return <div dir={L === "ar" ? "rtl" : "ltr"} className="tr-ildiz" style={{ minHeight: "100vh", background: R.bg, color: R.text, fontFamily: "Manrope, system-ui, sans-serif", fontVariantNumeric: "tabular-nums" }}>
+  return <div dir={L === "ar" ? "rtl" : "ltr"} className="tr-ildiz" style={{ minHeight: "100vh", background: R.bg, backgroundImage: `linear-gradient(${R.grid}66 1px, transparent 1px), linear-gradient(90deg, ${R.grid}66 1px, transparent 1px)`, backgroundSize: "56px 56px", color: R.text, fontFamily: "Manrope, system-ui, sans-serif", fontVariantNumeric: "tabular-nums" }}>
     <style>{`
       @import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
       body{margin:0;background:${R.bg}} .tr-ildiz a{text-decoration:none}
@@ -537,13 +610,14 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
       .tr-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:12px;background:${R.blue};color:#fff;font-weight:700;font-size:14px;border:0;cursor:pointer;text-decoration:none}
       .tr-btn2{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border-radius:11px;background:transparent;color:${R.text};font-weight:700;font-size:14px;border:1px solid ${R.line2};cursor:pointer;text-decoration:none}
       .tr-btn:hover{filter:brightness(1.08)} .tr-btn2:hover{border-color:${R.blueLt}}
-      .tr-chip{cursor:pointer;font-family:inherit} .tr-tab{min-height:44px;padding:0 14px;background:transparent;border:0;font:inherit;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:-1px;white-space:nowrap}
+      .tr-chip{cursor:pointer;font-family:inherit}
+      .tr-kat{display:flex;align-items:center;gap:10px;min-height:40px;padding:0 12px;border-radius:11px;border:1px solid transparent;color:${R.text};font:inherit;font-size:14px;cursor:pointer} .tr-tab{min-height:44px;padding:0 14px;background:transparent;border:0;font:inherit;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:-1px;white-space:nowrap}
       .tr-qator{display:flex;align-items:center;gap:12px;padding:9px 4px;border-bottom:1px solid ${R.line};font-size:14px;color:${R.text};text-decoration:none}
-      .tr-qator:hover{background:#0e1c36}
+      .tr-qator:hover{background:${R.hover}}
       .tr-jadval{width:100%;border-collapse:collapse;font-size:13.5px} .tr-jadval th,.tr-jadval td{padding:9px 8px;text-align:end;border-top:1px solid ${R.line}} .tr-jadval thead th{color:${R.faint};font-weight:600;border-top:0}
       .tr-sort{background:transparent;border:0;font:inherit;font-weight:700;cursor:pointer;padding:4px 0;min-height:32px}
-      .tr-input{height:40px;border-radius:10px;border:1px solid ${R.line2};background:#060d1d;color:${R.text};padding:0 10px;font:inherit;font-size:14px}
-      .tr-check{display:flex;align-items:center;gap:10px;font-size:14px;min-height:36px;cursor:pointer} .tr-check input{width:18px;height:18px;accent-color:#37b24d}
+      .tr-input{height:40px;border-radius:10px;border:1px solid ${R.line2};background:${R.input};color:${R.text};padding:0 10px;font:inherit;font-size:14px}
+      .tr-check{display:flex;align-items:center;gap:10px;font-size:14px;min-height:36px;cursor:pointer} .tr-check input{width:18px;height:18px;accent-color:${R.up}}
       input[type=range]{accent-color:${R.blue};width:100%}
       .tr-x{width:28px;height:28px;border-radius:7px;border:0;background:transparent;color:${R.faint};font-size:18px;cursor:pointer}
       .tr-xarita{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:58px;gap:4px;grid-auto-flow:dense}
@@ -555,7 +629,7 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
     `}</style>
     <header style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 14, padding: "12px 20px", borderBottom: `1px solid ${R.line}`, background: R.bg2, position: "sticky", top: 0, zIndex: 20 }}>
       <a href="/terminal" onClick={e => { e.preventDefault(); ot("/terminal"); }} style={{ display: "flex", alignItems: "center", gap: 10, color: R.text, textDecoration: "none" }}>
-        <span style={{ width: 32, height: 32, borderRadius: 9, background: "linear-gradient(135deg,#2f7df6,#37b24d)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Sora, sans-serif", fontWeight: 800 }}>S</span>
+        <svg width="32" height="32" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill={R.blue} /><path d="M11 25.5c2.5 3 6 4.2 9.6 3.6 4.4-.8 7.4-4.7 6.3-8.4-.8-2.6-3.2-3.6-6.4-4.2-3.5-.7-5.4-1.7-5.1-3.6.3-2.1 3.2-3.1 6-2.3 1.6.4 2.9 1.3 3.8 2.4" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" /></svg>
         <span style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 17 }}>Savura Terminal</span></a>
       <form role="search" onSubmit={e => { e.preventDefault(); const u = buyruq(q); if (u) { ot(u); setQ(""); inp.current?.blur(); } }}
         style={{ flex: "1 1 320px", display: "flex", alignItems: "center", gap: 10, height: 42, borderRadius: 12, background: R.card, border: `1px solid ${R.line2}`, padding: "0 12px" }}>
@@ -568,7 +642,13 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
         {TILLAR.map(([k, nm]) => <button key={k} onClick={() => setL(k)} aria-pressed={L === k} lang={k}
           style={{ minWidth: 38, minHeight: 32, borderRadius: 7, border: 0, fontSize: 13, fontWeight: 700, cursor: "pointer", background: L === k ? R.line2 : "transparent", color: L === k ? R.text : R.faint }}>{nm}</button>)}
       </div>
-      {kirish.holat === "sinov" && <span style={{ fontSize: 12, fontWeight: 700, color: R.amber, border: "1px solid #5c4a22", borderRadius: 999, padding: "5px 10px" }}>{tr(L, "sinov", { n: kirish.qoldi })}</span>}
+      <button onClick={() => setTema(tema === "light" ? "dark" : "light")} aria-label={tr(L, "tema")} title={tr(L, "tema")}
+        style={{ width: 40, height: 40, borderRadius: 11, border: `1px solid ${R.line2}`, background: R.card, color: R.text, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {tema === "light"
+          ? <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" /></svg>
+          : <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5" /><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" /></svg>}
+      </button>
+      {kirish.holat === "sinov" && <span style={{ fontSize: 12, fontWeight: 700, color: R.amber, border: `1px solid ${R.amberLine}`, borderRadius: 999, padding: "5px 10px" }}>{tr(L, "sinov", { n: kirish.qoldi })}</span>}
       {kirish.bot && kirish.tarif && kirish.tarif !== "bepul" && <span style={{ fontSize: 12, fontWeight: 700, color: R.green, border: `1px solid ${R.greenLine}`, borderRadius: 999, padding: "5px 10px" }}>{tr(L, "botBor", { t: String(kirish.tarif).toUpperCase() })}</span>}
       {ulash && !kirish.bot && kirish.holat !== "yuk" && <button className="tr-btn2" onClick={ulashOch}>{tr(L, "ulash")}</button>}
       {kirish.holat === "mehmon" && <a href="/?p=auth&keyin=/terminal" onClick={() => { try { sessionStorage.setItem("savura_keyin", window.location.pathname); } catch (e) {} }} className="tr-btn2">{tr(L, "kirish")}</a>}
@@ -577,11 +657,11 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
       <nav aria-label="Terminal" className="tr-nav">
         {nav.map(([k, u]) => { const on = y.sahifa === k || (k === "bozor" && y.sahifa === "kompaniya" && false);
           return <a key={k} href={u} aria-current={on ? "page" : undefined} onClick={e => { e.preventDefault(); ot(u); }}
-            style={{ padding: "10px 12px", borderRadius: 10, fontSize: 14, fontWeight: on ? 800 : 600, textDecoration: "none", background: on ? "#0f1d38" : "transparent", color: on ? R.blueLt : R.dim }}>{tr(L, k)}</a>; })}
+            style={{ padding: "10px 12px", borderRadius: 10, fontSize: 14, fontWeight: on ? 800 : 600, textDecoration: "none", background: on ? R.sel : "transparent", color: on ? R.blueLt : R.dim }}>{tr(L, k)}</a>; })}
         <span className="tr-nav-ajr" />
         {nav2.map(([k, u]) => { const on = y.sahifa === k;
           return <a key={k} href={u} aria-current={on ? "page" : undefined} onClick={e => { e.preventDefault(); ot(u); }}
-            style={{ padding: "10px 12px", borderRadius: 10, fontSize: 14, fontWeight: on ? 800 : 600, textDecoration: "none", background: on ? "#0f1d38" : "transparent", color: on ? R.blueLt : R.dim }}>{tr(L, k)}</a>; })}
+            style={{ padding: "10px 12px", borderRadius: 10, fontSize: 14, fontWeight: on ? 800 : 600, textDecoration: "none", background: on ? R.sel : "transparent", color: on ? R.blueLt : R.dim }}>{tr(L, k)}</a>; })}
         <span className="tr-nav-ajr" />
         <a href="/" style={{ padding: "10px 12px", borderRadius: 10, fontSize: 14, color: R.dim, textDecoration: "none" }}>{tr(L, "bosh")}</a>
         <a href="https://t.me/savurabot" target="_blank" rel="noopener" style={{ padding: "10px 12px", borderRadius: 10, fontSize: 14, color: R.dim, textDecoration: "none" }}>@savurabot</a>
