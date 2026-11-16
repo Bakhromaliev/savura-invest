@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PracticePage from "./practice/Practice.jsx";
 import TerminalPromo from "./terminal/TerminalPromo.jsx";
 const Terminal = React.lazy(() => import("./terminal/Terminal.jsx"));
+const AdminYagona = React.lazy(() => import("./admin/Admin.jsx"));
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SUPABASE — autentifikatsiya va o'quvchilar ruxsati
@@ -6408,8 +6409,8 @@ function MainApp(){
   useEffect(()=>{ if(auth.user && page==="auth"){
     // Terminaldan kirishga kelgan bo'lsa, o'sha sahifaga qaytaramiz
     let keyin=null; try{ keyin=sessionStorage.getItem("savura_keyin"); sessionStorage.removeItem("savura_keyin"); }catch(e){}
-    if(!keyin){ try{ const k=new URLSearchParams(window.location.search).get("keyin"); if(k&&/^\/terminal/.test(k)) keyin=k; }catch(e){} }
-    if(keyin&&/^\/terminal/.test(keyin)){ window.location.href=keyin; return; }
+    if(!keyin){ try{ const k=new URLSearchParams(window.location.search).get("keyin"); if(k&&/^\/(terminal|admin)/.test(k)) keyin=k; }catch(e){} }
+    if(keyin&&/^\/(terminal|admin)/.test(keyin)){ window.location.href=keyin; return; }
     setPage("home"); } },[auth.user]);
   return(
     <div data-theme={theme} style={{minHeight:"100vh",background:C.bg,backgroundImage:"linear-gradient(var(--panjara) 1px,transparent 1px),linear-gradient(90deg,var(--panjara) 1px,transparent 1px)",backgroundSize:"56px 56px",color:C.text,fontFamily:"'Manrope',system-ui,sans-serif",transition:"background-color .25s,color .25s"}}>
@@ -6501,8 +6502,31 @@ function TerminalRoute(){
   );
 }
 
+// savurainvest.com/admin — bot va sayt uchun yagona panel (faqat is_admin)
+function AdminRoute(){
+  const auth=useAuth();
+  const fon={minHeight:"100vh",background:"#06140F",color:"#E8F1EA",fontFamily:"Manrope, system-ui, sans-serif",display:"flex",alignItems:"center",justifyContent:"center",padding:24,boxSizing:"border-box",textAlign:"center"};
+  if(auth.loading||(auth.user&&!auth.profile)) return <div style={fon}>Yuklanmoqda…</div>;
+  if(!auth.user||!sb){
+    return <div style={fon}><div style={{display:"flex",flexDirection:"column",gap:14,alignItems:"center",maxWidth:420}}>
+      <h1 style={{margin:0,fontFamily:"Sora, sans-serif",fontSize:24}}>Boshqaruv paneli</h1>
+      <p style={{margin:0,color:"#C2D6CA",lineHeight:1.6}}>Admin hisobingiz bilan kiring.</p>
+      <a href="/?p=auth&keyin=/admin" onClick={()=>{ try{ sessionStorage.setItem("savura_keyin","/admin"); }catch(e){} }} style={{display:"inline-flex",alignItems:"center",minHeight:46,padding:"0 22px",borderRadius:12,background:"#178A56",color:"#fff",fontWeight:700,textDecoration:"none"}}>Kirish</a>
+    </div></div>;
+  }
+  if(!auth.profile?.is_admin) return <div style={fon}><div style={{display:"flex",flexDirection:"column",gap:12,alignItems:"center"}}>
+    <h1 style={{margin:0,fontFamily:"Sora, sans-serif",fontSize:22}}>Bu sahifa faqat admin uchun</h1>
+    <a href="/" style={{color:"#4BE0A0",fontWeight:700}}>Bosh sahifaga qaytish</a></div></div>;
+  return(
+    <React.Suspense fallback={<div style={fon}>Yuklanmoqda…</div>}>
+      <AdminYagona sb={sb} ism={auth.profile?.full_name||auth.user?.email||""}/>
+    </React.Suspense>
+  );
+}
+
 export default function App(){
   const p=pathPage();
+  if(p==="/admin"||p==="/admin/") return <AdminRoute/>;
   if(p==="/terminal"||p.indexOf("/terminal/")===0) return <TerminalRoute/>;
   if(p==="/bepuldars1"||p==="/bepuldars2") return <FreeLanding/>;
   if(p==="/sovga") return <GiftQuiz/>;
