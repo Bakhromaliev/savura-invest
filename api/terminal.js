@@ -95,6 +95,11 @@ async function ySpark(syms) {
       }
     } catch (e) { /* bitta qism ishlamasa qolganlari ko'rsatiladi */ }
   }
+  // Zaxira: spark javob bermasa, har bir aksiya uchun 5 kunlik grafikdan (eng yiriklari)
+  const yoq = syms.filter(s => !out[s]).slice(0, 40);
+  if (yoq.length > syms.length / 2) {
+    await Promise.all(yoq.map(async s => { try { const c = await yChart(s, "5d"); if (c.narx && c.oldingi) out[s] = { narx: c.narx, oldingi: c.oldingi }; } catch (e) {} }));
+  }
   return out;
 }
 
