@@ -749,10 +749,16 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
       @keyframes trs{to{transform:rotate(360deg)}}
       a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid ${R.blueLt};outline-offset:2px}
       @media (prefers-reduced-motion: reduce){.tr-spin{animation-duration:3s}}
+      .tr-uy{transition:border-color .15s,background .15s}.tr-uy:hover{border-color:${R.blueLt}}
+      @media (max-width: 560px){.tr-uy{padding:0 11px!important}.tr-uy-y{display:none}}
     `}</style>
     <header style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 14, padding: "12px 20px", borderBottom: `1px solid ${R.line}`, background: R.bg2, position: "sticky", top: 0, zIndex: 20 }}>
+      <a href="/" className="tr-uy" aria-label={tr(L, "bosh")} title={tr(L, "bosh")}
+        style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 40, padding: "0 14px", borderRadius: 11, border: `1px solid ${R.line2}`, background: R.card, color: R.text, textDecoration: "none", fontSize: 14, fontWeight: 700 }}>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5" /><path d="M5 9.5V21h5v-6h4v6h5V9.5" /></svg>
+        <span className="tr-uy-y">{tr(L, "bosh")}</span></a>
       <a href="/terminal" onClick={e => { e.preventDefault(); ot("/terminal"); }} style={{ display: "flex", alignItems: "center", gap: 10, color: R.text, textDecoration: "none" }}>
-        <svg width="32" height="32" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill={R.blue} /><path d="M11 25.5c2.5 3 6 4.2 9.6 3.6 4.4-.8 7.4-4.7 6.3-8.4-.8-2.6-3.2-3.6-6.4-4.2-3.5-.7-5.4-1.7-5.1-3.6.3-2.1 3.2-3.1 6-2.3 1.6.4 2.9 1.3 3.8 2.4" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" /></svg>
+        <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="tlB" x1="20" y1="15" x2="85" y2="60" gradientUnits="userSpaceOnUse"><stop stopColor="#127A4C" /><stop offset="1" stopColor="#2BC27D" /></linearGradient><linearGradient id="tlG" x1="30" y1="55" x2="80" y2="92" gradientUnits="userSpaceOnUse"><stop stopColor="#5FE3A8" /><stop offset="1" stopColor="#1E9E66" /></linearGradient></defs><path d="M70 16 C40 16 24 30 24 47 C24 60 35 66 47 60 C36 62 33 52 41 45 C49 38 64 40 70 30 C73 24 73 18 70 16 Z" fill="url(#tlB)" /><path d="M30 84 C60 84 76 70 76 53 C76 40 65 34 53 40 C64 38 67 48 59 55 C51 62 36 60 30 70 C27 76 27 82 30 84 Z" fill="url(#tlG)" /><path d="M40 62 L62 47 L57 44 L66 40 L67 51 L62 49 L43 66 Z" fill="#E2B65C" /></svg>
         <span style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 17 }}>Savura Terminal</span></a>
       <form role="search" onSubmit={e => { e.preventDefault(); const u = buyruq(q); if (u) { ot(u); setQ(""); inp.current?.blur(); } }}
         style={{ flex: "1 1 320px", display: "flex", alignItems: "center", gap: 10, height: 42, borderRadius: 12, background: R.card, border: `1px solid ${R.line2}`, padding: "0 12px" }}>
