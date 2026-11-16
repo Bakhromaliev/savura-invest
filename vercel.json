@@ -2,7 +2,15 @@
   "functions": {
     "api/stock.js": {
       "maxDuration": 60
+    },
+    "api/terminal.js": {
+      "maxDuration": 60
     }
   },
-  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
 }

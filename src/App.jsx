@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PracticePage from "./practice/Practice.jsx";
+import TerminalPromo from "./terminal/TerminalPromo.jsx";
+const Terminal = React.lazy(() => import("./terminal/Terminal.jsx"));
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SUPABASE — autentifikatsiya va o'quvchilar ruxsati
@@ -6385,7 +6387,7 @@ function InstallStrip(){
 }
 
 function MainApp(){
-  const [page,setPageRaw]=useState("home");
+  const [page,setPageRaw]=useState(function(){ try{ return new URLSearchParams(window.location.search).get("p")==="auth"?"auth":"home"; }catch(e){ return "home"; } });
   const setPage=React.useCallback((p)=>{ try{window.history.pushState({pg:p},"");}catch(e){} setPageRaw(p); },[]);
   React.useEffect(()=>{
     try{window.history.replaceState({pg:page},"");}catch(e){}
@@ -6399,7 +6401,12 @@ function MainApp(){
   const auth=useAuth();
   const aState=accessState(auth.profile);
   // Login bo'lgach auth sahifasidan home ga qaytar
-  useEffect(()=>{ if(auth.user && page==="auth") setPage("home"); },[auth.user]);
+  useEffect(()=>{ if(auth.user && page==="auth"){
+    // Terminaldan kirishga kelgan bo'lsa, o'sha sahifaga qaytaramiz
+    let keyin=null; try{ keyin=sessionStorage.getItem("savura_keyin"); sessionStorage.removeItem("savura_keyin"); }catch(e){}
+    if(!keyin){ try{ const k=new URLSearchParams(window.location.search).get("keyin"); if(k&&/^\/terminal/.test(k)) keyin=k; }catch(e){} }
+    if(keyin&&/^\/terminal/.test(keyin)){ window.location.href=keyin; return; }
+    setPage("home"); } },[auth.user]);
   return(
     <div data-theme={theme} style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'Manrope',system-ui,sans-serif",transition:"background .25s,color .25s"}}>
       <InstallStrip/>
@@ -6433,7 +6440,7 @@ function MainApp(){
       <MarketTicker lang={lang}/>
       <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang} auth={auth} theme={theme} toggleTheme={toggleTheme}/>
       <div style={{height:34}}/>
-      {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/><ApplyForm lang={lang} source="home"/><HalalBanner setPage={setPage} lang={lang}/></>}
+      {page==="home"&&<><HeroSection setPage={setPage} lang={lang}/><TerminalPromo lang={lang}/><FinanceIllustration/><FeaturesSection setPage={setPage} lang={lang}/><ApplyForm lang={lang} source="home"/><HalalBanner setPage={setPage} lang={lang}/></>}
       {page==="halal"&&<HalalPage lang={lang} setPage={setPage}/>}
       {page==="lessons"&&<LessonsPage lang={lang} setPage={setPage}/>}
       {page==="auth"&&<AuthScreen lang={lang} onClose={()=>setPage("home")}/>}
@@ -6454,8 +6461,31 @@ function MainApp(){
   );
 }
 
+// Savura Terminal: kirish holati. Admin bergan ruxsat (o'quvchilar) doim ochiq,
+// yangi ro'yxatdan o'tganlarga 3 kun bepul sinov.
+const SINOV_KUN=3;
+function terminalKirish(auth){
+  if(!auth.user) return {holat:"mehmon"};
+  const st=accessState(auth.profile);
+  if(st==="ok") return {holat:"ok"};
+  const bosh=new Date(auth.user.created_at||auth.profile?.created_at||Date.now()).getTime();
+  const qoldi=Math.ceil((bosh+SINOV_KUN*864e5-Date.now())/864e5);
+  if(qoldi>0) return {holat:"sinov",qoldi};
+  return {holat:"tugadi"};
+}
+function TerminalRoute(){
+  const auth=useAuth();
+  const kirish=auth.loading?{holat:"ok"}:terminalKirish(auth);
+  return(
+    <React.Suspense fallback={<div style={{minHeight:"100vh",background:"#060a14"}}/>}>
+      <Terminal kirish={auth.loading&&auth.user?{holat:"ok"}:kirish}/>
+    </React.Suspense>
+  );
+}
+
 export default function App(){
   const p=pathPage();
+  if(p==="/terminal"||p.indexOf("/terminal/")===0) return <TerminalRoute/>;
   if(p==="/bepuldars1"||p==="/bepuldars2") return <FreeLanding/>;
   if(p==="/sovga") return <GiftQuiz/>;
   if(p==="/ilova") return <InstallPage/>;
