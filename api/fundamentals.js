@@ -7,7 +7,7 @@ const num = v => { const x = typeof v === "number" ? v : parseFloat(v); return i
 const r2 = v => (v == null ? null : +(+v).toFixed(2));
 const first = (m, keys) => { for (const k of keys) { const x = num(m[k]); if (x != null) return x; } return null; };
 
-const DEFENSIVE = /health|pharma|biotech|medical|utilit|food|beverage|tobacco|household|consumer staples|retail.*(food|grocery)|energy|oil|gas|telecom/i;
+const DEFENSIVE = /health|pharma|biotech|medical|utilit|food|beverage|tobacco|household|consumer staples|consumer defensive|retail.*(food|grocery)|energy|oil|gas|telecom/i;
 
 async function yahooReturn(sym) {
   const u = s => `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(s)}?interval=1mo&range=5y`;
@@ -136,12 +136,13 @@ export default async function handler(req, res) {
         beta: r2(first(m, ["beta"])), marketCap: capM != null ? Math.round(capM) : null,
         profitableTTM: netM != null ? netM > 0 : null,
         operatingCashFlowPositive: opM != null ? opM > 0 : null,
-        isDefensiveSector: ai ? ai.defensive : isDefensive, isIndustryLeader: ai ? ai.leader : isLeader,
-        freeFromLegalIssues: ai ? ai.legalClean : true, outperformedSP500_5y: beat != null ? beat : (ai && ai.beat != null ? ai.beat : false),
+        // Soha va 5 yillik natija aniq manbadan (soha nomi, Yahoo narxlari) — AI bularni hal qilmaydi
+        isDefensiveSector: isDefensive, isIndustryLeader: ai ? ai.leader : isLeader,
+        freeFromLegalIssues: ai ? ai.legalClean : true, outperformedSP500_5y: beat === true,
       },
-      // Yahoo (5 yillik narx) aniq hisob; qolganini Gemini baholaydi. ai=true bo'lsa UI "AI baholadi" deydi
+      // Faqat "yetakchi" va "yuridik muammo" savollarini Gemini baholaydi; UI ularni "tekshiring" deb ko'rsatadi
       ai: !!ai, aiNote: ai ? ai.note : "",
-      estimated: ["isDefensiveSector", "isIndustryLeader", "freeFromLegalIssues", "outperformedSP500_5y"],
+      estimated: ["isIndustryLeader", "freeFromLegalIssues"].concat(beat == null ? ["outperformedSP500_5y"] : []),
     };
     const _aiInfo = ai ? (ai.search ? "gemini+search" : "gemini") : "none";
     // ── FMP (ixtiyoriy, FMP_KEY bo'lsa): aniqroq ma'lumot, Finnhub ustiga yoziladi ──
@@ -172,7 +173,7 @@ export default async function handler(req, res) {
         if (num(km.marketCap ?? pf.marketCap) != null) out.risk.marketCap = Math.round((km.marketCap ?? pf.marketCap) / 1e6);
         if (F.netMargin != null) out.risk.profitableTTM = F.netMargin > 0;
         if (F.operatingMargin != null) out.risk.operatingCashFlowPositive = F.operatingMargin > 0;
-        if (pf.sector) { out.sector = pf.sector; out.industry = pf.industry || pf.sector; if (!out.ai) out.risk.isDefensiveSector = DEFENSIVE.test((pf.sector || "") + " " + (pf.industry || "")); }
+        if (pf.sector) { out.sector = pf.sector; out.industry = pf.industry || pf.sector; out.risk.isDefensiveSector = DEFENSIVE.test((pf.sector || "") + " " + (pf.industry || "")); }
         if (Object.keys(rt).length) out.source = "fmp+finnhub";
       } catch (e) {}
     }
