@@ -346,6 +346,17 @@ export default async function handler(req, res) {
   const a = String(req.query.a || "");
   const sym = String(req.query.sym || "").trim().toUpperCase().replace(/[^A-Z.\-]/g, "").slice(0, 10);
   try {
+    if (a === "sogliq") {   // holat: kalitlar bormi va AI ishlayaptimi (kalit qiymati qaytmaydi)
+      const ai = await kesh("sogliq:ai", 6 * SOAT, async () => {
+        const KEY = process.env.ANTHROPIC_API_KEY; if (!KEY) return "kalit yo'q";
+        const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST",
+          headers: { "Content-Type": "application/json", "x-api-key": KEY, "anthropic-version": "2023-06-01" },
+          body: JSON.stringify({ model: "claude-haiku-5-5", max_tokens: 5, messages: [{ role: "user", content: "Reply: ok" }] }) });
+        return r.ok ? "ok" : "xato " + r.status;
+      }).catch(e => "xato " + String(e.message || e).slice(0, 60));
+      res.setHeader("Cache-Control", "no-store");
+      return res.status(200).json({ ai, finnhub: !!process.env.FINNHUB_KEY, supabase: !!SB_KEY, vaqt: Date.now() });
+    }
     if (a === "market") { res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=600"); return res.status(200).json(await market()); }
     if (a === "kalendar") { res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate=7200"); return res.status(200).json(await kalendar()); }
     if (a === "list" || a === "company" || a === "ai") {
