@@ -329,18 +329,18 @@ async function ai(sym, lang) {
     const prompt = `Sen Savura Invest tahlilchisisan. ${sym} (${c.sec?.nom || c.kompaniya?.nom || ""}) kompaniyasi uchun ${TIL[lang] || TIL.uz} tilida qisqa tahlil yoz.
 Ma'lumot (SEC, yillik, $): ${y}. Ko'rsatkichlar: P/E ${d.pe}, P/S ${d.ps}, EV/EBITDA ${d.ev_ebitda}, ROE ${d.roe}, yalpi marja ${d.yalpi}, qarz/kapital ${d.de}. Sektor medianasi: P/E ${c.sektor?.pe}, P/S ${c.sektor?.ps}.
 Faqat JSON qaytar: {"kuchli":["...","...","..."],"risk":["...","...","..."],"xulosa":"2 jumla"}. Shariat hukmi berma, sotib ol/sot deb tavsiya berma, faqat berilgan raqamlarga tayan.`;
-    // Javob "{" bilan boshlanadi (prefill) - shuning uchun doim JSON keladi
     const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST",
       headers: { "Content-Type": "application/json", "x-api-key": KEY, "anthropic-version": "2023-06-01" },
       body: JSON.stringify({ model: "claude-haiku-5-5", max_tokens: 1200,
-        messages: [{ role: "user", content: prompt }, { role: "assistant", content: "{" }] }) });
+        system: "Reply with a single JSON object only. No markdown, no code fences, no text before or after it.",
+        messages: [{ role: "user", content: prompt }] }) });
     if (!r.ok) {
       const m = await r.text().catch(() => "");
       let msg = ""; try { msg = JSON.parse(m).error?.message || ""; } catch (e) {}
       console.error("AI xato", r.status, m.slice(0, 300));
       throw new Error(`AI ${r.status}${msg ? ": " + msg.slice(0, 120) : ""}`);
     }
-    const j = await r.json(); const t = "{" + (j.content || []).map(x => x.text || "").join("");
+    const j = await r.json(); const t = (j.content || []).map(x => x.text || "").join("").replace(/```(?:json)?/gi, "");
     const a = t.indexOf("{"), b = t.lastIndexOf("}");
     let o;
     try { o = JSON.parse(t.slice(a, b + 1)); } catch (e) { console.error("AI JSON", t.slice(0, 300)); throw new Error("AI javobi o'qilmadi"); }
