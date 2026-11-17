@@ -83,9 +83,9 @@ function sbNarx() {
 // ── Yahoo narxlari ────────────────────────────────────────────────────────
 async function yChart(sym, range = "1y", interval = "1d") {
   return kesh(`ch:${sym}:${range}:${interval}`, (range === "5d" || range === "1mo") ? 10 * MIN : 60 * MIN, async () => {
-    let j;
-    try { j = await jget(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=${interval}&range=${range}`, YH); }
-    catch (e) { j = await jget(`https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=${interval}&range=${range}`, YH); }
+    // Ikkala Yahoo serveri parallel, 5 soniya: qaysi biri tez javob bersa (oldin ketma-ket 9+9 soniya edi)
+    const yol = h => `https://${h}.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=${interval}&range=${range}`;
+    const j = await Promise.any([jget(yol("query1"), YH, 5000), jget(yol("query2"), YH, 5000)]);
     const r = j?.chart?.result?.[0]; if (!r) throw new Error("chart bo'sh");
     const q = r.indicators?.quote?.[0] || {};
     const t = r.timestamp || [];
@@ -290,11 +290,15 @@ function kompas(k, sec, sektor) {
 }
 
 async function company(sym) {
-  let [ch, sec, fh, list] = await Promise.all([
-    yChart(sym, "1y").catch(() => null), secHisobot(sym).catch(e => ({ xato: String(e.message || e) })),
-    finnhub(sym).catch(() => ({})), royxat().catch(() => [])]);
+  // Bot yuborgan narx (Supabase) darrov olinadi; Yahoo grafigi 5.5 soniyadan oshsa kutilmaydi
+  const kech = ms => new Promise(f => setTimeout(() => f(null), ms));
+  let [ch, sec, fh, list, sb] = await Promise.all([
+    Promise.race([yChart(sym, "1y").catch(() => null), kech(5500)]),
+    Promise.race([secHisobot(sym).catch(e => ({ xato: String(e.message || e) })), kech(12000).then(() => ({ xato: "SEC kechikdi" }))]),
+    Promise.race([finnhub(sym).catch(() => ({})), kech(7000).then(() => ({}))]),
+    royxat().catch(() => []), sbNarx().catch(() => ({}))]);
   const k = list.find(x => x.ticker === sym) || null;
-  if (!ch) { const z = (await sbNarx().catch(() => ({})))[sym]; if (z) ch = { narx: z.narx, oldingi: z.oldingi, vaqt: z.vaqt ? Date.parse(z.vaqt) / 1000 : null, nom: "", nuqtalar: [] }; }
+  if (!ch) { const z = sb[sym]; if (z) ch = { narx: z.narx, oldingi: z.oldingi, vaqt: z.vaqt ? Date.parse(z.vaqt) / 1000 : null, nom: "", nuqtalar: (z.iz || []).map((c, i, a) => ({ t: Math.floor(Date.now() / 1000) - (a.length - 1 - i) * 86400, c })) }; }
   if (!ch && !k && (!sec || sec.xato)) return { topilmadi: true };
   const sektorlar = k ? list.filter(x => x.sektor === k.sektor && x.data && x.ticker !== sym) : [];
   const med = key => { const v = sektorlar.map(x => num(x.data[key])).filter(x => x != null && x > 0).sort((a, b) => a - b); return v.length ? v[Math.floor(v.length / 2)] : null; };

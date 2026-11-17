@@ -269,8 +269,14 @@ function NarxGrafik({ nuqtalar }) {
       if (!tirik || !ref.current) return;
       ch = LC.createChart(ref.current, { height: 300, layout: { background: { color: "transparent" }, textColor: R.faint, fontFamily: "Manrope, sans-serif" },
         grid: { vertLines: { color: R.grid }, horzLines: { color: R.grid } }, rightPriceScale: { borderColor: R.line }, timeScale: { borderColor: R.line }, crosshair: { mode: 0 } });
-      const s = ch.addCandlestickSeries({ upColor: R.up, downColor: R.down, borderVisible: false, wickUpColor: R.up, wickDownColor: R.down });
-      s.setData(nuqtalar.filter(p => p.o != null).map(p => ({ time: p.t, open: p.o, high: p.h, low: p.l, close: p.c })));
+      const sham = nuqtalar.filter(p => p.o != null);
+      if (sham.length > 1) {
+        const s = ch.addCandlestickSeries({ upColor: R.up, downColor: R.down, borderVisible: false, wickUpColor: R.up, wickDownColor: R.down });
+        s.setData(sham.map(p => ({ time: p.t, open: p.o, high: p.h, low: p.l, close: p.c })));
+      } else {   // zaxira: faqat yopilish narxlari (bot yuborgan oylik iz) - chiziq
+        const s = ch.addAreaSeries({ lineColor: R.up, topColor: R.up + "33", bottomColor: R.up + "00", lineWidth: 2 });
+        s.setData(nuqtalar.map(p => ({ time: p.t, value: p.c })));
+      }
       ch.timeScale().fitContent();
       ro = new ResizeObserver(() => ref.current && ch.applyOptions({ width: ref.current.clientWidth })); ro.observe(ref.current);
     }).catch(() => tirik && setSvg(true));
