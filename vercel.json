@@ -2,9 +2,28 @@
   "functions": {
     "api/terminal.js": {
       "maxDuration": 60
+    },
+    "api/aksiya.js": {
+      "maxDuration": 20
     }
   },
   "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/aksiya?sitemap=1"
+    },
+    {
+      "source": "/aksiyalar",
+      "destination": "/api/aksiya?royxat=1"
+    },
+    {
+      "source": "/savura-50",
+      "destination": "/api/aksiya?s50=1"
+    },
+    {
+      "source": "/aksiya/:t",
+      "destination": "/api/aksiya?t=:t"
+    },
     {
       "source": "/((?!api/).*)",
       "destination": "/index.html"

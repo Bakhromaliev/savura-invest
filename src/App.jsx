@@ -2350,6 +2350,9 @@ function Footer({setPage,lang}){
           {[[fn.home,"home"],[fn.tool,"tool"],[fn.course,"course"],[fn.journal||"Kundalik","journal"],[fn.demo||"Demo","demo"],[fn.about,"about"]].map(function(it){return(
             <button key={it[1]} onClick={()=>setPage(it[1])} style={{background:"none",border:"none",cursor:"pointer",color:C.faint,fontSize:12.5,fontFamily:"'Manrope',sans-serif"}}>{it[0]}</button>
           );})}
+          {[["Aksiyalar","/aksiyalar"],["Savura 50","/savura-50"],["Liga","/liga"]].map(function(it){return(
+            <a key={it[1]} href={it[1]} style={{color:C.faint,fontSize:12.5,fontFamily:"'Manrope',sans-serif",textDecoration:"none"}}>{it[0]}</a>
+          );})}
         </div>
         <div style={{display:"flex",gap:12,alignItems:"center"}}>
           <a href="https://t.me/savura_invest" target="_blank" rel="noreferrer" style={{display:"inline-flex",alignItems:"center",gap:7,color:C.dim,textDecoration:"none",fontSize:13,padding:"7px 12px",border:`1px solid ${C.border}`,borderRadius:8,transition:"all .2s"}} onMouseEnter={e=>{e.currentTarget.style.borderColor=C.blueLt;e.currentTarget.style.color=C.blueLt;}} onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.color=C.dim;}}><TgIcon s={15}/> @savura_invest</a>
