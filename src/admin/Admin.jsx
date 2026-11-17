@@ -275,6 +275,10 @@ function Bosh({ d, ot }) {
           <div style={{ height: 8, borderRadius: 4, background: P.line }}><div style={{ width: `${Math.round(v / dmx * 100)}%`, minWidth: v ? 6 : 0, height: 8, borderRadius: 4, background: k === "usta" ? P.gold : P.green }} /></div></div>; })}
         <div style={{ borderTop: `1px solid ${P.line}`, paddingTop: 10, fontSize: 14, display: "flex", justifyContent: "space-between" }}>
           <span style={{ fontWeight: 700 }}>Do'st taklifi</span><span style={{ color: P.dim }}>{od.referal_faol || 0} faol / {od.referal_jami || 0} · 30 kunda {od.referal_30 || 0}</span></div>
+        <div style={{ fontSize: 14, display: "flex", justifyContent: "space-between" }}>
+          <span style={{ fontWeight: 700 }}>Savura Ligasi</span><span style={{ color: P.dim }}>{od.liga || 0} ishtirokchi · <a href="/liga" target="_blank" rel="noopener" style={{ color: P.mint }}>reyting</a></span></div>
+        <div style={{ fontSize: 14, display: "flex", justifyContent: "space-between" }}>
+          <span style={{ fontWeight: 700 }}>Haqiqiy portfel</span><span style={{ color: P.dim }}>{od.real_portfel || 0} foydalanuvchi</span></div>
       </div>
     </section>
     <section style={{ display: "flex", flexWrap: "wrap", gap: 14 }}>

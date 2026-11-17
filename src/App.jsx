@@ -6524,6 +6524,52 @@ function AdminRoute(){
   );
 }
 
+
+// savurainvest.com/liga — Savura Ligasi ochiq reytingi (bot sinxronlaydi, faqat qisqa ismlar)
+const LIGA_DAR={boshlovchi:"Boshlovchi",intizomli:"Intizomli",savura:"Savura treyderi",usta:"Usta"};
+function LigaPage(){
+  const [oy,setOy]=useState(null); const [rows,setRows]=useState(null);
+  useEffect(()=>{ document.title="Savura Ligasi — oylik halol treyding musobaqasi";
+    if(!sb){ setRows([]); return; }
+    sb.from("liga_oy").select("*").order("oy",{ascending:false}).limit(1).then(({data})=>{
+      const o=data&&data[0]; setOy(o||null);
+      if(!o){ setRows([]); return; }
+      sb.from("liga_reyting").select("*").eq("oy",o.oy).order("orin").limit(100).then(({data:r})=>setRows(r||[]));
+    });
+  },[]);
+  const C={bg:"#06140F",card:"#0C1F18",card2:"#10281F",line:"#1C3A2D",text:"#E8F1EA",dim:"#9DBBAB",mint:"#4BE0A0",green:"#178A56",gold:"#E2B65C",red:"#F2766A"};
+  const now=new Date(); const qoldi=Math.max(0,Math.ceil((new Date(now.getFullYear(),now.getMonth()+1,1)-now)/864e5));
+  const med={1:"🥇",2:"🥈",3:"🥉"};
+  const k={background:C.card,border:`1px solid ${C.line}`,borderRadius:18,padding:20};
+  const oyNom=o=>{ if(!o) return ""; const [y,m]=o.split("-"); return ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"][+m-1]+" "+y; };
+  return <div style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"Manrope, system-ui, sans-serif"}}>
+    <div style={{maxWidth:880,margin:"0 auto",padding:"28px 16px 60px",display:"flex",flexDirection:"column",gap:18}}>
+      <a href="/" style={{color:C.dim,textDecoration:"none",fontSize:14,fontWeight:700}}>← Savura Invest</a>
+      <header style={{display:"flex",flexDirection:"column",gap:10}}>
+        <h1 style={{margin:0,fontFamily:"Sora, sans-serif",fontSize:"clamp(30px,6vw,46px)",lineHeight:1.05}}>Savura Ligasi</h1>
+        <p style={{margin:0,color:C.dim,fontSize:17,lineHeight:1.6,maxWidth:620}}>Har oy hamma bir xil $10 000 demo hisobdan boshlaydi. Faqat qoidaga rioya qilgan treyder yutadi: stop majburiy, bitta savdoda risk 2% dan oshmaydi, faqat Halal Terminal «mos» deb belgilagan aksiyalar.</p>
+        <div style={{display:"flex",flexWrap:"wrap",gap:8,marginTop:4}}>
+          {[oy?oyNom(oy.oy)+(oy.yakuniy?" · yakunlangan":" · "+qoldi+" kun qoldi"):"Yangi oy", (oy?oy.jami:0)+" ishtirokchi","Kirish bepul"].map(x=><span key={x} style={{fontSize:13,padding:"6px 12px",borderRadius:20,border:`1px solid ${C.line}`,color:C.dim}}>{x}</span>)}
+        </div>
+      </header>
+      <section style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:12}}>
+        <div style={k}><b style={{fontSize:15}}>Ball qanday hisoblanadi</b><p style={{margin:"8px 0 0",color:C.dim,fontSize:14,lineHeight:1.6}}>Daromad% × intizom koeffitsiyenti − eng katta pasayish%. Qoidani buzishga har urinish intizomdan 5 ball oladi.</p></div>
+        <div style={k}><b style={{fontSize:15}}>Sovrinlar</b><p style={{margin:"8px 0 0",color:C.dim,fontSize:14,lineHeight:1.6}}>🥇 3 oy Pro · 🥈🥉 1 oy Pro · Top 10 — 2 hafta Pro. Sovringa kamida 3 ta yopilgan savdo kerak.</p></div>
+      </section>
+      <section style={{...k,padding:"8px 20px"}} aria-label="Reyting">
+        {rows===null && <p style={{color:C.dim}}>Yuklanmoqda…</p>}
+        {rows && !rows.length && <p style={{color:C.dim,fontSize:15}}>Bu oy reytingi bozor ochilgach paydo bo'ladi. Birinchilardan bo'ling.</p>}
+        {rows && rows.map(r=><div key={r.orin} style={{display:"flex",alignItems:"center",gap:14,padding:"12px 0",borderBottom:`1px solid ${C.line}`}}>
+          <span style={{width:34,fontWeight:800,color:C.dim,fontSize:r.orin<=3?20:15}}>{med[r.orin]||r.orin}</span>
+          <span style={{flex:1,minWidth:0}}><b style={{fontSize:15}}>{r.ism}</b><br/><span style={{color:C.dim,fontSize:13}}>{LIGA_DAR[r.daraja]||""} · {r.savdo} savdo · intizom {r.intizom}/100</span></span>
+          <span style={{textAlign:"right"}}><b style={{fontFamily:"Sora, sans-serif",fontSize:17}}>{Number(r.ball).toFixed(2)}</b><br/><span style={{fontSize:13,color:Number(r.daromad)>=0?C.mint:C.red}}>{Number(r.daromad)>=0?"+":""}{Number(r.daromad).toFixed(2)}%</span></span>
+        </div>)}
+      </section>
+      <a href="https://t.me/savurabot?start=liga" style={{alignSelf:"flex-start",display:"inline-flex",alignItems:"center",minHeight:50,padding:"0 26px",borderRadius:14,background:C.green,color:"#fff",fontWeight:700,textDecoration:"none",fontSize:16}}>Botda ligaga qo'shilish</a>
+      <p style={{margin:0,color:C.dim,fontSize:13,lineHeight:1.6}}>Liga faqat demo hisoblarda o'tadi, haqiqiy pul ishlatilmaydi. Halollik holati Halal Terminal ma'lumotidan olinadi.</p>
+    </div>
+  </div>;
+}
 export default function App(){
   const p=pathPage();
   if(p==="/admin"||p==="/admin/") return <AdminRoute/>;
@@ -6531,6 +6577,7 @@ export default function App(){
   if(p==="/bepuldars1"||p==="/bepuldars2") return <FreeLanding/>;
   if(p==="/sovga") return <GiftQuiz/>;
   if(p==="/ilova") return <InstallPage/>;
+  if(p==="/liga"||p==="/liga/") return <LigaPage/>;
   if(p==="/webinar") return <Webinar/>;
   if(p==="/webinar-rahmat") return <WebinarThanks/>;
   if(p==="/redirecttotelegram"||p==="/redirecttotelegram2") return <TgRedirect/>;
