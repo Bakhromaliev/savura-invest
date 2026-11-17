@@ -219,6 +219,9 @@ function Bosh({ d, ot }) {
   const tarifSon = ["pro", "start", "shogird", "sayt"].map(t => [t, faol.filter(o => o.tarif === t).length]);
   const tmx = Math.max(1, ...tarifSon.map(x => x[1]));
   const ai = s.ai || {};
+  const od = s.odat || {};
+  const DAR = [["boshlovchi", "Boshlovchi"], ["intizomli", "Intizomli"], ["savura", "Savura treyderi"], ["usta", "Usta"]];
+  const dmx = Math.max(1, ...DAR.map(([k]) => (od.darajalar || {})[k] || 0));
   const KPI = ({ nom, q, izoh, rang }) => <div style={{ ...karta(), display: "flex", flexDirection: "column", gap: 8 }}>
     <span style={{ fontSize: 13, fontWeight: 700, color: P.dim }}>{nom}</span>
     <b style={{ fontFamily: "Sora, sans-serif", fontSize: 32, lineHeight: 1 }}>{q}</b>
@@ -253,6 +256,25 @@ function Bosh({ d, ot }) {
         {tarifSon.map(([t, n]) => <div key={t} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14 }}><span style={{ fontWeight: 700 }}>{TARIF_NOM[t]}</span><span style={{ color: P.dim }}>{n}</span></div>
           <div style={{ height: 8, borderRadius: 4, background: P.line }}><div style={{ width: `${Math.round(n / tmx * 100)}%`, minWidth: n ? 6 : 0, height: 8, borderRadius: 4, background: t === "shogird" || t === "sayt" ? P.gold : t === "pro" ? P.green : P.mint }} /></div></div>)}
+      </div>
+    </section>
+    <section style={{ display: "flex", flexWrap: "wrap", gap: 14 }}>
+      <div style={{ ...karta(), flex: "2 1 520px", minWidth: 0, display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, alignItems: "baseline" }}><h2 style={h2}>Odat va faollik</h2><span style={{ color: P.faint, fontSize: 13 }}>bot va ilova, ish kunlari</span></div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 10 }}>
+          {[["Bugun faol", od.dau], ["7 kunda", od.wau], ["30 kunda", od.mau], ["Seriya 3+ kun", od.seriya_3plus], ["Eng uzun seriya", od.eng_uzun]].map(([n, v]) =>
+            <div key={n} style={{ background: P.card2, borderRadius: 12, padding: "12px 14px", display: "flex", flexDirection: "column", gap: 4 }}>
+              <span style={{ fontSize: 12, color: P.dim }}>{n}</span><b style={{ fontFamily: "Sora, sans-serif", fontSize: 24 }}>{v ?? "—"}</b></div>)}
+        </div>
+        <span style={{ fontSize: 13, color: P.dim }}>WAU / MAU: {od.mau ? Math.round(od.wau / od.mau * 100) + "%" : "—"} — foydalanuvchilar botga qanchalik muntazam qaytishi</span>
+      </div>
+      <div style={{ ...karta(), flex: "1 1 300px", minWidth: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+        <h2 style={h2}>Darajalar</h2>
+        {DAR.map(([k, n]) => { const v = (od.darajalar || {})[k] || 0; return <div key={k} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14 }}><span style={{ fontWeight: 700 }}>{n}</span><span style={{ color: P.dim }}>{v}</span></div>
+          <div style={{ height: 8, borderRadius: 4, background: P.line }}><div style={{ width: `${Math.round(v / dmx * 100)}%`, minWidth: v ? 6 : 0, height: 8, borderRadius: 4, background: k === "usta" ? P.gold : P.green }} /></div></div>; })}
+        <div style={{ borderTop: `1px solid ${P.line}`, paddingTop: 10, fontSize: 14, display: "flex", justifyContent: "space-between" }}>
+          <span style={{ fontWeight: 700 }}>Do'st taklifi</span><span style={{ color: P.dim }}>{od.referal_faol || 0} faol / {od.referal_jami || 0} · 30 kunda {od.referal_30 || 0}</span></div>
       </div>
     </section>
     <section style={{ display: "flex", flexWrap: "wrap", gap: 14 }}>
