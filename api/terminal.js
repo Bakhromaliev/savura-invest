@@ -328,22 +328,29 @@ async function ai(sym, lang) {
     const d = c.kompaniya?.data || {};
     const prompt = `Sen Savura Invest tahlilchisisan. ${sym} (${c.sec?.nom || c.kompaniya?.nom || ""}) kompaniyasi uchun ${TIL[lang] || TIL.uz} tilida qisqa tahlil yoz.
 Ma'lumot (SEC, yillik, $): ${y}. Ko'rsatkichlar: P/E ${d.pe}, P/S ${d.ps}, EV/EBITDA ${d.ev_ebitda}, ROE ${d.roe}, yalpi marja ${d.yalpi}, qarz/kapital ${d.de}. Sektor medianasi: P/E ${c.sektor?.pe}, P/S ${c.sektor?.ps}.
-Faqat JSON qaytar: {"kuchli":["...","...","..."],"risk":["...","...","..."],"xulosa":"2 jumla"}. Shariat hukmi berma, sotib ol/sot deb tavsiya berma, faqat berilgan raqamlarga tayan.`;
+Natijani xulosa_yoz vositasi orqali ber: 3 ta kuchli tomon, 3 ta risk, 2 jumlali xulosa. Shariat hukmi berma, sotib ol/sot deb tavsiya berma, faqat berilgan raqamlarga tayan.`;
+    // Vosita (tool) majburiy: javob doim tuzilgan JSON bo'lib keladi
+    const vosita = { name: "xulosa_yoz", description: "Kompaniya tahlili natijasi",
+      input_schema: { type: "object", properties: {
+        kuchli: { type: "array", items: { type: "string" }, maxItems: 4 },
+        risk: { type: "array", items: { type: "string" }, maxItems: 4 },
+        xulosa: { type: "string" } }, required: ["kuchli", "risk", "xulosa"] } };
     const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST",
       headers: { "Content-Type": "application/json", "x-api-key": KEY, "anthropic-version": "2023-06-01" },
-      body: JSON.stringify({ model: "claude-haiku-5-5", max_tokens: 1200,
-        system: "Reply with a single JSON object only. No markdown, no code fences, no text before or after it.",
-        messages: [{ role: "user", content: prompt }] }) });
+      body: JSON.stringify({ model: "claude-haiku-5-5", max_tokens: 1500, tools: [vosita],
+        tool_choice: { type: "tool", name: "xulosa_yoz" }, messages: [{ role: "user", content: prompt }] }) });
     if (!r.ok) {
       const m = await r.text().catch(() => "");
       let msg = ""; try { msg = JSON.parse(m).error?.message || ""; } catch (e) {}
       console.error("AI xato", r.status, m.slice(0, 300));
       throw new Error(`AI ${r.status}${msg ? ": " + msg.slice(0, 120) : ""}`);
     }
-    const j = await r.json(); const t = (j.content || []).map(x => x.text || "").join("").replace(/```(?:json)?/gi, "");
-    const a = t.indexOf("{"), b = t.lastIndexOf("}");
-    let o;
-    try { o = JSON.parse(t.slice(a, b + 1)); } catch (e) { console.error("AI JSON", t.slice(0, 300)); throw new Error("AI javobi o'qilmadi"); }
+    const j = await r.json();
+    let o = (j.content || []).find(x => x.type === "tool_use")?.input;
+    if (!o) {   // zaxira: matndan JSON
+      const t = (j.content || []).map(x => x.text || "").join("").replace(/```(?:json)?/gi, "");
+      try { o = JSON.parse(t.slice(t.indexOf("{"), t.lastIndexOf("}") + 1)); } catch (e) { console.error("AI JSON", j.stop_reason, t.slice(0, 300)); throw new Error("AI javobi o'qilmadi (" + (j.stop_reason || "?") + ")"); }
+    }
     return { kuchli: (o.kuchli || []).slice(0, 4), risk: (o.risk || []).slice(0, 4), xulosa: o.xulosa || "", sana: kun };
   });
 }
