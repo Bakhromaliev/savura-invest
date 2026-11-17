@@ -692,6 +692,44 @@ async function chatSorov(sb, turi, matn, rasm) {
   }
   return { ok: false, xato: "vaqt" };
 }
+
+// ── Push-bildirishnomalar (PWA): narx ogohlantirishi, signallar, ochilish rejasi ──
+const PUSH_T = { uz: { yoq: "Bildirishnomalarni yoqish", on: "Bildirishnomalar yoqilgan — o'chirish", rad: "Bildirishnomalar brauzerda bloklangan", xato: "Yoqib bo'lmadi. Keyinroq urinib ko'ring." },
+  en: { yoq: "Turn on notifications", on: "Notifications on — turn off", rad: "Notifications are blocked in the browser", xato: "Couldn't turn on. Try again later." },
+  ru: { yoq: "Включить уведомления", on: "Уведомления включены — выключить", rad: "Уведомления заблокированы в браузере", xato: "Не удалось включить. Попробуйте позже." } };
+function b64ToU8(s) { const p = "=".repeat((4 - s.length % 4) % 4); const b = atob((s + p).replace(/-/g, "+").replace(/_/g, "/")); return Uint8Array.from(b, c => c.charCodeAt(0)); }
+function PushTugma({ sb, L }) {
+  const ok = typeof window !== "undefined" && "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+  const T = PUSH_T[L] || PUSH_T.uz;
+  const [h, setH] = useState("tekshir");
+  useEffect(() => { if (!ok) return;
+    navigator.serviceWorker.ready.then(r => r.pushManager.getSubscription()).then(x => setH(x ? "on" : (Notification.permission === "denied" ? "rad" : "off"))).catch(() => setH("off")); }, []);
+  if (!ok || !sb || h === "tekshir") return null;
+  const yoq = async () => {
+    try {
+      const { data } = await sb.from("ochiq_sozlama").select("qiymat").eq("kalit", "vapid_public").maybeSingle();
+      if (!data || !data.qiymat) throw new Error("kalit");
+      const ruxsat = await Notification.requestPermission();
+      if (ruxsat !== "granted") { setH("rad"); return; }
+      const reg = await navigator.serviceWorker.ready;
+      const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64ToU8(data.qiymat) });
+      const j = sub.toJSON();
+      const { error } = await sb.from("push_obuna").upsert({ endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth, ua: navigator.userAgent.slice(0, 120) }, { onConflict: "endpoint" });
+      if (error) throw error;
+      setH("on");
+    } catch (e) { alert(T.xato); }
+  };
+  const ochir = async () => {
+    try { const reg = await navigator.serviceWorker.ready; const x = await reg.pushManager.getSubscription();
+      if (x) { await sb.from("push_obuna").delete().eq("endpoint", x.endpoint); await x.unsubscribe(); } } catch (e) {}
+    setH("off");
+  };
+  const on = h === "on", title = on ? T.on : h === "rad" ? T.rad : T.yoq;
+  return <button onClick={on ? ochir : h === "rad" ? () => alert(T.rad) : yoq} aria-label={title} title={title}
+    style={{ width: 40, height: 40, borderRadius: 11, border: `1px solid ${on ? R.greenLine : R.line2}`, background: R.card, color: on ? R.green : R.text, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <svg width="17" height="17" viewBox="0 0 24 24" fill={on ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" /><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" fill="none" />{h === "rad" && <path d="M3 3l18 18" />}</svg>
+  </button>;
+}
 function SaytChat({ L, sb, kirish, ulashOch }) {
   const [xab, setXab] = useState(null);
   const [matn, setMatn] = useState("");
@@ -865,6 +903,7 @@ export default function Terminal({ kirish = { holat: "ok" }, token = "", ulash =
         {TILLAR.map(([k, nm]) => <button key={k} onClick={() => setL(k)} aria-pressed={L === k} lang={k}
           style={{ minWidth: 38, minHeight: 32, borderRadius: 7, border: 0, fontSize: 13, fontWeight: 700, cursor: "pointer", background: L === k ? R.line2 : "transparent", color: L === k ? R.text : R.faint }}>{nm}</button>)}
       </div>
+      {kirish.bot && sb && <PushTugma sb={sb} L={L} />}
       <button onClick={() => setTema(tema === "light" ? "dark" : "light")} aria-label={tr(L, "tema")} title={tr(L, "tema")}
         style={{ width: 40, height: 40, borderRadius: 11, border: `1px solid ${R.line2}`, background: R.card, color: R.text, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
         {tema === "light"
